@@ -1,0 +1,326 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
+		75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABBB1D181A6B0001CD57 /* AppDelegate.m */; };
+		75BFABBF1D181A6B0001CD57 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABBE1D181A6B0001CD57 /* ViewController.m */; };
+		75BFABC21D181A6B0001CD57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC01D181A6B0001CD57 /* Main.storyboard */; };
+		75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */; };
+		75BFABC71D181A6B0001CD57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC61D181A6B0001CD57 /* Assets.xcassets */; };
+		75BFABCA1D181A6B0001CD57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC81D181A6B0001CD57 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		75BFABB41D181A6B0001CD57 /* CodeSprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeSprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		75BFABB81D181A6B0001CD57 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		75BFABBA1D181A6B0001CD57 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		75BFABBB1D181A6B0001CD57 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		75BFABBD1D181A6B0001CD57 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		75BFABBE1D181A6B0001CD57 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		75BFABC11D181A6B0001CD57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		75BFABC41D181A6B0001CD57 /* CodeSprint.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CodeSprint.xcdatamodel; sourceTree = "<group>"; };
+		75BFABC61D181A6B0001CD57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		75BFABC91D181A6B0001CD57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		75BFABCB1D181A6B0001CD57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		75BFABB11D181A6B0001CD57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		75BFABAB1D181A6B0001CD57 = {
+			isa = PBXGroup;
+			children = (
+				75BFABB61D181A6B0001CD57 /* CodeSprint */,
+				75BFABB51D181A6B0001CD57 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		75BFABB51D181A6B0001CD57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75BFABB41D181A6B0001CD57 /* CodeSprint.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		75BFABB61D181A6B0001CD57 /* CodeSprint */ = {
+			isa = PBXGroup;
+			children = (
+				75BFABBA1D181A6B0001CD57 /* AppDelegate.h */,
+				75BFABBB1D181A6B0001CD57 /* AppDelegate.m */,
+				75BFABBD1D181A6B0001CD57 /* ViewController.h */,
+				75BFABBE1D181A6B0001CD57 /* ViewController.m */,
+				75BFABC01D181A6B0001CD57 /* Main.storyboard */,
+				75BFABC61D181A6B0001CD57 /* Assets.xcassets */,
+				75BFABC81D181A6B0001CD57 /* LaunchScreen.storyboard */,
+				75BFABCB1D181A6B0001CD57 /* Info.plist */,
+				75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */,
+				75BFABB71D181A6B0001CD57 /* Supporting Files */,
+			);
+			path = CodeSprint;
+			sourceTree = "<group>";
+		};
+		75BFABB71D181A6B0001CD57 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				75BFABB81D181A6B0001CD57 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		75BFABB31D181A6B0001CD57 /* CodeSprint */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75BFABCE1D181A6B0001CD57 /* Build configuration list for PBXNativeTarget "CodeSprint" */;
+			buildPhases = (
+				75BFABB01D181A6B0001CD57 /* Sources */,
+				75BFABB11D181A6B0001CD57 /* Frameworks */,
+				75BFABB21D181A6B0001CD57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CodeSprint;
+			productName = CodeSprint;
+			productReference = 75BFABB41D181A6B0001CD57 /* CodeSprint.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		75BFABAC1D181A6B0001CD57 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Vincent Chau";
+				TargetAttributes = {
+					75BFABB31D181A6B0001CD57 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 75BFABAF1D181A6B0001CD57 /* Build configuration list for PBXProject "CodeSprint" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 75BFABAB1D181A6B0001CD57;
+			productRefGroup = 75BFABB51D181A6B0001CD57 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				75BFABB31D181A6B0001CD57 /* CodeSprint */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		75BFABB21D181A6B0001CD57 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75BFABCA1D181A6B0001CD57 /* LaunchScreen.storyboard in Resources */,
+				75BFABC71D181A6B0001CD57 /* Assets.xcassets in Resources */,
+				75BFABC21D181A6B0001CD57 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		75BFABB01D181A6B0001CD57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75BFABBF1D181A6B0001CD57 /* ViewController.m in Sources */,
+				75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */,
+				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
+				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		75BFABC01D181A6B0001CD57 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				75BFABC11D181A6B0001CD57 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		75BFABC81D181A6B0001CD57 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				75BFABC91D181A6B0001CD57 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		75BFABCC1D181A6B0001CD57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		75BFABCD1D181A6B0001CD57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		75BFABCF1D181A6B0001CD57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CodeSprint/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Vincent-Chau.CodeSprint";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		75BFABD01D181A6B0001CD57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CodeSprint/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Vincent-Chau.CodeSprint";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		75BFABAF1D181A6B0001CD57 /* Build configuration list for PBXProject "CodeSprint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75BFABCC1D181A6B0001CD57 /* Debug */,
+				75BFABCD1D181A6B0001CD57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75BFABCE1D181A6B0001CD57 /* Build configuration list for PBXNativeTarget "CodeSprint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75BFABCF1D181A6B0001CD57 /* Debug */,
+				75BFABD01D181A6B0001CD57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				75BFABC41D181A6B0001CD57 /* CodeSprint.xcdatamodel */,
+			);
+			currentVersion = 75BFABC41D181A6B0001CD57 /* CodeSprint.xcdatamodel */;
+			path = CodeSprint.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 75BFABAC1D181A6B0001CD57 /* Project object */;
+}
