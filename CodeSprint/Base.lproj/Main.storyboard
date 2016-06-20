@@ -1,26 +1,91 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c8c-C6-c6D">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Navigation Controller-->
+        <scene sceneID="5vE-1U-05I">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c8c-C6-c6D" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ghk-j8-t3w">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5VI-Eb-9S0" kind="relationship" relationship="rootViewController" id="zV6-kj-Ofx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oqD-TD-grm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="245" y="-390"/>
+        </scene>
+        <!--Test-->
+        <scene sceneID="zad-1Y-J24">
+            <objects>
+                <viewController id="5VI-Eb-9S0" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="pRa-tx-ibY"/>
+                        <viewControllerLayoutGuide type="bottom" id="31S-ge-XNq"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="Sy9-nV-5iP">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgX-8w-mfe">
+                                <rect key="frame" x="249" y="338" width="103" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="SWU-CX-mkn"/>
+                                </constraints>
+                                <state key="normal" title="GitHub Login"/>
+                                <connections>
+                                    <action selector="githubLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="4wF-Dt-3Di"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Md-5U2">
+                                <rect key="frame" x="234" y="300" width="132" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="132" id="eek-0U-hit"/>
+                                </constraints>
+                                <state key="normal" title="Facebook Login"/>
+                                <connections>
+                                    <action selector="facebookLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="0pt-Kb-6EG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RN-ML-Wvd">
+                                <rect key="frame" x="246" y="384" width="109" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="109" id="gsa-fJ-Pcr"/>
+                                </constraints>
+                                <state key="normal" title="Email Login"/>
+                                <connections>
+                                    <action selector="emailLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="SiF-Be-8bl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1RN-ML-Wvd" firstAttribute="top" secondItem="AgX-8w-mfe" secondAttribute="bottom" constant="16" id="JGI-gl-EhL"/>
+                            <constraint firstItem="pQb-Md-5U2" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="XOm-75-daD"/>
+                            <constraint firstItem="AgX-8w-mfe" firstAttribute="centerX" secondItem="1RN-ML-Wvd" secondAttribute="centerX" id="dMU-iZ-m9o"/>
+                            <constraint firstItem="AgX-8w-mfe" firstAttribute="top" secondItem="pQb-Md-5U2" secondAttribute="bottom" constant="8" symbolic="YES" id="lzz-TC-WV0"/>
+                            <constraint firstItem="pQb-Md-5U2" firstAttribute="centerX" secondItem="AgX-8w-mfe" secondAttribute="centerX" id="mKo-kD-Mv3"/>
+                            <constraint firstItem="31S-ge-XNq" firstAttribute="top" secondItem="1RN-ML-Wvd" secondAttribute="bottom" constant="186" id="u3q-u5-zl9"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Test" id="9DU-vL-osb"/>
+                    <connections>
+                        <outlet property="emailLoginButton" destination="1RN-ML-Wvd" id="F7o-JM-f9U"/>
+                        <outlet property="facebookLoginButton" destination="pQb-Md-5U2" id="iak-xf-Xqu"/>
+                        <outlet property="githubLoginButton" destination="AgX-8w-mfe" id="cLi-07-fSO"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OZF-S0-ja0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="940" y="-390"/>
         </scene>
     </scenes>
 </document>
