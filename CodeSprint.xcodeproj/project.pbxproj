@@ -60,14 +60,10 @@
 		75BFABB61D181A6B0001CD57 /* CodeSprint */ = {
 			isa = PBXGroup;
 			children = (
-				75BFABBA1D181A6B0001CD57 /* AppDelegate.h */,
-				75BFABBB1D181A6B0001CD57 /* AppDelegate.m */,
+				75BFABD11D181B570001CD57 /* App Global */,
 				75BFABBD1D181A6B0001CD57 /* ViewController.h */,
 				75BFABBE1D181A6B0001CD57 /* ViewController.m */,
-				75BFABC01D181A6B0001CD57 /* Main.storyboard */,
 				75BFABC61D181A6B0001CD57 /* Assets.xcassets */,
-				75BFABC81D181A6B0001CD57 /* LaunchScreen.storyboard */,
-				75BFABCB1D181A6B0001CD57 /* Info.plist */,
 				75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */,
 				75BFABB71D181A6B0001CD57 /* Supporting Files */,
 			);
@@ -80,6 +76,18 @@
 				75BFABB81D181A6B0001CD57 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75BFABD11D181B570001CD57 /* App Global */ = {
+			isa = PBXGroup;
+			children = (
+				75BFABBA1D181A6B0001CD57 /* AppDelegate.h */,
+				75BFABBB1D181A6B0001CD57 /* AppDelegate.m */,
+				75BFABC01D181A6B0001CD57 /* Main.storyboard */,
+				75BFABC81D181A6B0001CD57 /* LaunchScreen.storyboard */,
+				75BFABCB1D181A6B0001CD57 /* Info.plist */,
+			);
+			name = "App Global";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
