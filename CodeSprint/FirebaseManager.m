@@ -13,4 +13,13 @@
 
 @implementation FirebaseManager
 
++ (FirebaseManager*)sharedInstance{
+    static FirebaseManager *_sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[FirebaseManager alloc] init];
+    });
+    return _sharedInstance;
+}
 @end

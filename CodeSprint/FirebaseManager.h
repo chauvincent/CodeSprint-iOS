@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FirebaseManager : NSObject
+@interface FirebaseManager : NSObject{
+     FirebaseManager* sharedInstance;
+}
 
 @end
