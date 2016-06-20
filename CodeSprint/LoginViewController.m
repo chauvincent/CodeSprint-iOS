@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+@import Firebase;
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
@@ -21,11 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.center = self.view.center;
-    [self.view addSubview:loginButton];
-    
-    // Do any additional setup after loading the view.
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,13 +40,46 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark - Setup
+
 #pragma mark - IBActions
 - (IBAction)facebookLoginButtonPressed:(id)sender {
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login  logInWithReadPermissions:@[@"public_profile"]
+                  fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                      if (error){
+                          NSLog(@"error in login");
+                      }else if(result.isCancelled){
+                          NSLog(@"canceld");
+                      }else{
+                          NSLog(@"logged in");
+                          FIRAuthCredential *credential = [FIRFacebookAuthProvider
+                                                           credentialWithAccessToken:[FBSDKAccessToken currentAccessToken]
+                                                           .tokenString];
+                          [[FIRAuth auth] signInWithCredential:credential
+                                                    completion:^(FIRUser *user, NSError *error) {
+                                                        [self updateUserInformation];
+                                                    }];
+                      }
+                  }];
 }
 - (IBAction)githubLoginButtonPressed:(id)sender {
 }
 - (IBAction)emailLoginButtonPressed:(id)sender {
 }
 
+#pragma mark - Helper Methods
+-(void)updateUserInformation{
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                           parameters:@{@"fields" : @"name,age_range,first_name,locale,gender,last_name"}]
+         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             if (!error) {
+                 NSDictionary *jsonData = (NSDictionary *)result;
+                 
+             }
+         }];
+    }
+}
 
 @end

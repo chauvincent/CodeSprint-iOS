@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A755D1D183E9300923F61 /* FirebaseManager.m */; };
 		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
 		75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABBB1D181A6B0001CD57 /* AppDelegate.m */; };
 		75BFABC21D181A6B0001CD57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC01D181A6B0001CD57 /* Main.storyboard */; };
@@ -23,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		3211F551BD5D394DF9192056 /* Pods-CodeSprint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeSprint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeSprint/Pods-CodeSprint.debug.xcconfig"; sourceTree = "<group>"; };
+		751A755C1D183E9300923F61 /* FirebaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseManager.h; sourceTree = "<group>"; };
+		751A755D1D183E9300923F61 /* FirebaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseManager.m; sourceTree = "<group>"; };
 		75BFABB41D181A6B0001CD57 /* CodeSprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeSprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75BFABB81D181A6B0001CD57 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75BFABBA1D181A6B0001CD57 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,6 +60,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		751A755B1D183E4E00923F61 /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+				751A755C1D183E9300923F61 /* FirebaseManager.h */,
+				751A755D1D183E9300923F61 /* FirebaseManager.m */,
+			);
+			name = DataService;
+			sourceTree = "<group>";
+		};
 		75BFABAB1D181A6B0001CD57 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				75BFABD11D181B570001CD57 /* App Global */,
+				75C14F161D18214800CAE375 /* Controllers */,
+				751A755B1D183E4E00923F61 /* DataService */,
 				75BFABC61D181A6B0001CD57 /* Assets.xcassets */,
 				75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */,
 				75BFABB71D181A6B0001CD57 /* Supporting Files */,
@@ -103,7 +117,6 @@
 				75BFABC01D181A6B0001CD57 /* Main.storyboard */,
 				75BFABC81D181A6B0001CD57 /* LaunchScreen.storyboard */,
 				75BFABCB1D181A6B0001CD57 /* Info.plist */,
-				75C14F161D18214800CAE375 /* Controllers */,
 			);
 			name = "App Global";
 			sourceTree = "<group>";
@@ -261,6 +274,7 @@
 			files = (
 				75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */,
 				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
+				751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */,
 				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,
 			);
