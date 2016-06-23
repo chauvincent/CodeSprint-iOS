@@ -5,7 +5,7 @@
 //  Created by Vincent Chau on 6/20/16.
 //  Copyright © 2016 Vincent Chau. All rights reserved.
 //
-
+#import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "FirebaseManager.h"
 #import <AFNetworking.h>
@@ -49,6 +49,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     if (currentUser) {
         [self didSignInWith:currentUser];
+        NSLog(@"already signed in");
     }
 
 }
@@ -102,8 +103,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 #pragma mark - UIWebViewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+
     NSString *currentURL = [request.URL absoluteString];
-   // NSLog(@"CURRENT URL: %@", currentURL);
     if ([currentURL containsString:@"code="]) {
         NSRange indexOfCode = [currentURL rangeOfString:@"code="];
         responseCode = [currentURL substringFromIndex:indexOfCode.location + 5];
@@ -141,9 +142,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
         [[FIRAuth auth] signInWithCredential:credentials
                                   completion:^(FIRUser *user, NSError *error) {
-                                      NSLog(@"SUCCESS !!!\n %@", user);
+                                      NSLog(@"SUCCESS !!! \n %@", user);
                                   }];
-        
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         NSLog(@"Something went wrong: %@", error);

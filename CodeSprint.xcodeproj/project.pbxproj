@@ -26,6 +26,8 @@
 		3211F551BD5D394DF9192056 /* Pods-CodeSprint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeSprint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeSprint/Pods-CodeSprint.debug.xcconfig"; sourceTree = "<group>"; };
 		751A755C1D183E9300923F61 /* FirebaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseManager.h; sourceTree = "<group>"; };
 		751A755D1D183E9300923F61 /* FirebaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseManager.m; sourceTree = "<group>"; };
+		754FF8831D1B9254004ABD43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Base; path = Base.lproj/IntroductionViewController.h; sourceTree = "<group>"; };
+		754FF8851D1B9254004ABD43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Base; path = Base.lproj/IntroductionViewController.m; sourceTree = "<group>"; };
 		75BFABB41D181A6B0001CD57 /* CodeSprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeSprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75BFABB81D181A6B0001CD57 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75BFABBA1D181A6B0001CD57 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -140,6 +142,8 @@
 		75C14F161D18214800CAE375 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				754FF8821D1B9254004ABD43 /* IntroductionViewController.h */,
+				754FF8841D1B9254004ABD43 /* IntroductionViewController.m */,
 				75C14F131D18213600CAE375 /* LoginViewController.h */,
 				75C14F141D18213600CAE375 /* LoginViewController.m */,
 			);
@@ -299,6 +303,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		754FF8821D1B9254004ABD43 /* IntroductionViewController.h */ = {
+			isa = PBXVariantGroup;
+			children = (
+				754FF8831D1B9254004ABD43 /* Base */,
+			);
+			name = IntroductionViewController.h;
+			sourceTree = "<group>";
+		};
+		754FF8841D1B9254004ABD43 /* IntroductionViewController.m */ = {
+			isa = PBXVariantGroup;
+			children = (
+				754FF8851D1B9254004ABD43 /* Base */,
+			);
+			name = IntroductionViewController.m;
+			sourceTree = "<group>";
+		};
 		75BFABC01D181A6B0001CD57 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
