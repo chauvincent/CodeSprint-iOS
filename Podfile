@@ -6,5 +6,6 @@
 target 'CodeSprint' do
 pod 'Firebase'
 pod 'Firebase/Auth'
+pod 'AFNetworking', '~> 2.5'
 end
 

@@ -12,4 +12,8 @@
      FirebaseManager* sharedInstance;
 }
 
+@property (nonatomic, assign) BOOL signedIn;
+@property (nonatomic, retain) NSString *usersName;
+@property (nonatomic, retain) NSURL *photoUrl;
+
 @end

@@ -69,6 +69,20 @@
 			name = DataService;
 			sourceTree = "<group>";
 		};
+		751A755F1D18A7DD00923F61 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		751A75601D18A80600923F61 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		75BFABAB1D181A6B0001CD57 = {
 			isa = PBXGroup;
 			children = (
@@ -91,8 +105,10 @@
 			isa = PBXGroup;
 			children = (
 				75BFABD11D181B570001CD57 /* App Global */,
-				75C14F161D18214800CAE375 /* Controllers */,
 				751A755B1D183E4E00923F61 /* DataService */,
+				751A755F1D18A7DD00923F61 /* Model */,
+				751A75601D18A80600923F61 /* View */,
+				75C14F161D18214800CAE375 /* Controllers */,
 				75BFABC61D181A6B0001CD57 /* Assets.xcassets */,
 				75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */,
 				75BFABB71D181A6B0001CD57 /* Supporting Files */,
