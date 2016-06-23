@@ -12,7 +12,10 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 @import Firebase;
-@interface LoginViewController () <UIWebViewDelegate>
+@interface LoginViewController () <UIWebViewDelegate>{
+    NSString *responseCode;
+    NSString *accessToken;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
@@ -26,6 +29,7 @@
 #pragma mark - Keys
 NSString *clientID = @"9bc3a5d15c66cd7c2168";
 NSString *secretKey = @"f2ab75208ce318c15376ed9adee7db2c3b867a76";
+NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
 #pragma mark - Lazy Initializers
 -(UIWebView *)gitHubWebView{
@@ -81,49 +85,51 @@ NSString *secretKey = @"f2ab75208ce318c15376ed9adee7db2c3b867a76";
                                                            .tokenString];
                           [[FIRAuth auth] signInWithCredential:credential
                                                     completion:^(FIRUser *user, NSError *error) {
-                                                        [self updateUserInformation];
+                                                        [self didSignInWith:user];
                                                     }];
                       }
                   }];
 }
 - (IBAction)githubLoginButtonPressed:(id)sender {
+    NSString *gitHubSignIn = [NSString stringWithFormat:@"https://github.com/login/oauth/authorize/?client_id=%@", clientID];
+    [self.gitHubWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:gitHubSignIn]]];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.gitHubWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
+    }];
+    
 }
 - (IBAction)emailLoginButtonPressed:(id)sender {
 }
+#pragma mark - UIWebViewDelegate
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *currentURL = [request.URL absoluteString];
+   // NSLog(@"CURRENT URL: %@", currentURL);
+    if ([currentURL containsString:@"code="]) {
+        NSRange indexOfCode = [currentURL rangeOfString:@"code="];
+        responseCode = [currentURL substringFromIndex:indexOfCode.location + 5];
+        
+        // Dismiss view
+        [UIView animateWithDuration:0.5 animations:^{
+            self.gitHubWebView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+        } completion:^(BOOL finished) {
+            [self.gitHubWebView removeFromSuperview];
+        }];
+     
+        
+    }
+    return YES;
+}
+
 
 #pragma mark - Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
     
 }
 -(void)updateUserInformation{
-//    if ([FBSDKAccessToken currentAccessToken]) {
-//        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
-//                                           parameters:@{@"fields" : @"name,age_range,first_name,locale,gender,last_name"}]
-//         startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-//             if (!error) {
-//                 NSDictionary *jsonData = (NSDictionary *)result;
-//                 FIRUser *user = [FIRAuth auth].currentUser;
-//                 
-//                 if (user != nil) {
-//                     NSString *name = user.displayName;
-//                     NSString *email = user.email;
-//                     NSURL *photoUrl = user.photoURL;
-//                     NSString *uid = user.uid;  // The user's ID, unique to the Firebase
-//                     // project. Do NOT use this value to
-//                     // authenticate with your backend server, if
-//                     // you have one. Use
-//                     // getTokenWithCompletion:completion: instead.
-//                     NSLog(@"NAME IS : %@", name);
-//                     NSLog(@"Email IS : %@", email);
-//                     NSLog(@"PhotoURL : %@", photoUrl);
-//                     NSLog(@"UID : %@", uid);
-//                 } else {
-//                     // No user is signed in.
-//                 }
-//                 
-//             }
-//         }];
-//    }
+
+}
+-(void)getAccessToken{
+    
 }
 
 @end
