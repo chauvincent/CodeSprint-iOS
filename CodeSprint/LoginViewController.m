@@ -5,12 +5,12 @@
 //  Created by Vincent Chau on 6/20/16.
 //  Copyright © 2016 Vincent Chau. All rights reserved.
 //
-#import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "FirebaseManager.h"
 #import <AFNetworking.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 @import Firebase;
 @interface LoginViewController () <UIWebViewDelegate>{
     NSString *responseCode;
@@ -19,7 +19,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
-@property (weak, nonatomic) IBOutlet UIButton *emailLoginButton;
 @property (strong, nonatomic) UIWebView *gitHubWebView;
 
 @end
@@ -56,7 +55,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
@@ -82,8 +80,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
                       }else{
                           NSLog(@"logged in");
                           FIRAuthCredential *credential = [FIRFacebookAuthProvider
-                                                           credentialWithAccessToken:[FBSDKAccessToken currentAccessToken]
-                                                           .tokenString];
+                                                           credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
                           [[FIRAuth auth] signInWithCredential:credential
                                                     completion:^(FIRUser *user, NSError *error) {
                                                         [self didSignInWith:user];
@@ -98,8 +95,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         self.gitHubWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
     }];
     
-}
-- (IBAction)emailLoginButtonPressed:(id)sender {
 }
 #pragma mark - UIWebViewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
@@ -142,7 +137,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
         [[FIRAuth auth] signInWithCredential:credentials
                                   completion:^(FIRUser *user, NSError *error) {
-                                      NSLog(@"SUCCESS !!! \n %@", user);
+                                      NSLog(@"SUCCESS !!! \n %@", user.displayName);
                                   }];
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {

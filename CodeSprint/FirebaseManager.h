@@ -12,6 +12,7 @@
      FirebaseManager* sharedInstance;
 }
 
+#pragma mark - App State Properties
 @property (nonatomic, assign) BOOL signedIn;
 @property (nonatomic, retain) NSString *usersName;
 @property (nonatomic, retain) NSURL *photoUrl;
