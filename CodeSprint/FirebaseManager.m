@@ -9,7 +9,7 @@
 #import "FirebaseManager.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-@import Firebase;
+
 
 @implementation FirebaseManager
 
@@ -22,4 +22,17 @@
     });
     return _sharedInstance;
 }
+- (FIRDatabaseReference*)ref{
+    if (!ref) {
+        ref = [[FIRDatabase database] reference];
+    }
+    return ref;
+}
+
+#pragma mark - Getter
++ (FIRDatabaseReference *)mainRef {
+    return [FirebaseManager sharedInstance].ref;
+}
+
+
 @end

@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@import Firebase;
 
 @interface FirebaseManager : NSObject{
      FirebaseManager* sharedInstance;
+     FIRDatabaseReference *ref;
 }
 
 #pragma mark - App State Properties

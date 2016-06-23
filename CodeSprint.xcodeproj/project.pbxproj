@@ -148,10 +148,10 @@
 			children = (
 				754FF8861D1BA143004ABD43 /* HomeViewController.h */,
 				754FF8871D1BA143004ABD43 /* HomeViewController.m */,
-				75C14F131D18213600CAE375 /* LoginViewController.h */,
-				75C14F141D18213600CAE375 /* LoginViewController.m */,
 				754FF8891D1BA183004ABD43 /* IntroductionViewController.h */,
 				754FF88A1D1BA183004ABD43 /* IntroductionViewController.m */,
+				75C14F131D18213600CAE375 /* LoginViewController.h */,
+				75C14F141D18213600CAE375 /* LoginViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
