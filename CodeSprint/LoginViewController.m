@@ -107,29 +107,38 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     if ([currentURL containsString:@"code="]) {
         NSRange indexOfCode = [currentURL rangeOfString:@"code="];
         responseCode = [currentURL substringFromIndex:indexOfCode.location + 5];
-        
-        // Dismiss view
         [UIView animateWithDuration:0.5 animations:^{
             self.gitHubWebView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
         } completion:^(BOOL finished) {
             [self.gitHubWebView removeFromSuperview];
         }];
-     
-        
+        [self getAccessToken];
     }
     return YES;
 }
 
 
-#pragma mark - Helper Methods
+#pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
     
 }
 -(void)updateUserInformation{
 
 }
+
+#pragma mark - GitHub Signin Helpers
 -(void)getAccessToken{
-    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSDictionary *requiredParameters = @{@"client_id":clientID,
+                                         @"client_secret":secretKey,
+                                         @"code":responseCode};
+    [manager POST:@"https://github.com/login/oauth/access_token" parameters:requiredParameters success:^(AFHTTPRequestOperation * operation, id responseObject) {
+        NSLog(@"Response is : %@", responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        NSLog(@"Something went wrong: %@", error);
+    }];
 }
 
 @end
