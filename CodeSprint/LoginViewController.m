@@ -129,15 +129,21 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - GitHub Signin Helpers
 -(void)getAccessToken{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
     NSDictionary *requiredParameters = @{@"client_id":clientID,
                                          @"client_secret":secretKey,
                                          @"code":responseCode};
+    
     [manager POST:@"https://github.com/login/oauth/access_token" parameters:requiredParameters success:^(AFHTTPRequestOperation * operation, id responseObject) {
-
-        NSLog(@"response : %@", responseObject);
-  
-       
+        accessToken = [responseObject valueForKey:@"access_token"];
+        FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
+        [[FIRAuth auth] signInWithCredential:credentials
+                                  completion:^(FIRUser *user, NSError *error) {
+                                      NSLog(@"SUCCESS !!!\n %@", user);
+                                  }];
+        
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         NSLog(@"Something went wrong: %@", error);
