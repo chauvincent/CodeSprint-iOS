@@ -141,7 +141,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
         [[FIRAuth auth] signInWithCredential:credentials
                                   completion:^(FIRUser *user, NSError *error) {
-                                      NSLog(@"SUCCESS !!! \n %@", user.displayName);
+                                      [self didSignInWith:user];
                                   }];
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {

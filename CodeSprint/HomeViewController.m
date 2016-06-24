@@ -44,6 +44,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].photoUrl];
     [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
         self.profilePictureImageView.image = image;
+        self.profileBackgroundImageView.image = image;
     } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
         NSLog(@"error in downloading image");
     }];

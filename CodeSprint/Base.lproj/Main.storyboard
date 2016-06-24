@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -118,14 +117,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jes-nv-JsK">
-                                <rect key="frame" x="0.0" y="64" width="600" height="154"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="154" id="xDA-ZE-bjh"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jes-nv-JsK" customClass="BlurredImageView">
+                                <rect key="frame" x="0.0" y="64" width="600" height="123"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q2x-Ga-6Mn">
-                                <rect key="frame" x="0.0" y="226" width="600" height="374"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q2x-Ga-6Mn">
+                                <rect key="frame" x="0.0" y="235" width="600" height="365"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="groupCellID" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupCellID" id="oCm-9D-sMd">
@@ -138,26 +134,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x90-Nh-kmN">
-                                <rect key="frame" x="240" y="92" width="120" height="97"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="LCi-tq-Crd"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x90-Nh-kmN" customClass="CircleImageView">
+                                <rect key="frame" x="250" y="76" width="100" height="100"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtM-Xg-grI">
+                                <rect key="frame" x="507" y="197" width="73" height="30"/>
+                                <state key="normal" title="Settings"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yn6-h4-1lF">
+                                <rect key="frame" x="176" y="196" width="46" height="30"/>
+                                <state key="normal" title="Create"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRJ-71-bvx">
+                                <rect key="frame" x="370" y="196" width="78" height="30"/>
+                                <state key="normal" title="Edit Profile"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HW3-8e-tqw">
+                                <rect key="frame" x="42" y="195" width="46" height="32"/>
+                                <state key="normal" title="Chat"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="3vK-9H-nKY" firstAttribute="top" secondItem="Q2x-Ga-6Mn" secondAttribute="bottom" id="6fc-Mk-Kc3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Q2x-Ga-6Mn" secondAttribute="trailing" constant="-20" id="7Pw-Gt-pEb"/>
-                            <constraint firstItem="Jes-nv-JsK" firstAttribute="leading" secondItem="vU1-sk-kz1" secondAttribute="leadingMargin" constant="-20" id="E7n-FU-K2t"/>
-                            <constraint firstItem="Jes-nv-JsK" firstAttribute="top" secondItem="AFu-HU-vl0" secondAttribute="bottom" id="EUw-gm-Qb3"/>
-                            <constraint firstItem="Q2x-Ga-6Mn" firstAttribute="leading" secondItem="vU1-sk-kz1" secondAttribute="leadingMargin" constant="-20" id="Fiw-Il-boY"/>
-                            <constraint firstItem="x90-Nh-kmN" firstAttribute="centerX" secondItem="Jes-nv-JsK" secondAttribute="centerX" id="GeE-72-bG6"/>
-                            <constraint firstItem="Q2x-Ga-6Mn" firstAttribute="top" secondItem="Jes-nv-JsK" secondAttribute="bottom" constant="8" id="QIV-Qk-4SD"/>
-                            <constraint firstItem="x90-Nh-kmN" firstAttribute="centerY" secondItem="Jes-nv-JsK" secondAttribute="centerY" id="YZs-Up-EUn"/>
-                            <constraint firstItem="x90-Nh-kmN" firstAttribute="top" secondItem="AFu-HU-vl0" secondAttribute="bottom" constant="28" id="edN-nn-3rV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Jes-nv-JsK" secondAttribute="trailing" constant="-20" id="q0e-CM-8Ij"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="groupsTableView" destination="Q2x-Ga-6Mn" id="jPl-pN-WMw"/>
