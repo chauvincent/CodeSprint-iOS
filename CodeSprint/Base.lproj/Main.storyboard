@@ -163,8 +163,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backgroundView" destination="hGT-Sa-IDS" id="wpI-YX-fYo"/>
-                        <outlet property="groupsTableView" destination="Q2x-Ga-6Mn" id="jPl-pN-WMw"/>
+                        <outlet property="menuTableView" destination="Q2x-Ga-6Mn" id="8eU-Up-loE"/>
                         <outlet property="profilePictureImageView" destination="x90-Nh-kmN" id="ac3-CI-ctY"/>
                     </connections>
                 </viewController>

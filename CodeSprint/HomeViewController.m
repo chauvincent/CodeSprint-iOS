@@ -12,7 +12,8 @@
 #import "FirebaseManager.h"
 @interface HomeViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
-@property (weak, nonatomic) IBOutlet UITableView *groupsTableView;
+@property (weak, nonatomic) IBOutlet UITableView *menuTableView;
+
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 @end
@@ -48,8 +49,6 @@
     } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
         NSLog(@"error in downloading image");
     }];
-    
-
 }
 
 @end
