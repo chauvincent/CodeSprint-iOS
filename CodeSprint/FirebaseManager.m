@@ -22,6 +22,7 @@
     });
     return _sharedInstance;
 }
+#pragma mark - References Lazy Initializers
 - (FIRDatabaseReference*)ref{
     if (!ref) {
         ref = [[FIRDatabase database] reference];
@@ -29,9 +30,10 @@
     return ref;
 }
 
-#pragma mark - Getter
+#pragma mark - Reference Getters
 + (FIRDatabaseReference *)mainRef {
     return [FirebaseManager sharedInstance].ref;
+
 }
 
 

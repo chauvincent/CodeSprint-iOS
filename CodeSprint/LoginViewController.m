@@ -57,15 +57,12 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [super didReceiveMemoryWarning];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
 }
-*/
 #pragma mark - Setup
 
 #pragma mark - IBActions
@@ -116,6 +113,13 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
+    [FirebaseManager sharedInstance].usersName = user.displayName.length > 0 ? user.displayName : user.email;
+    [FirebaseManager sharedInstance].photoUrl = user.photoURL;
+    [FirebaseManager sharedInstance].signedIn = YES;
+
+    NSLog(@"%@", user.photoURL);
+
+    [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
     
 }
 -(void)updateUserInformation{

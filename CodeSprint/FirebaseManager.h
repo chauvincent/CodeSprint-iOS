@@ -10,10 +10,10 @@
 @import Firebase;
 
 @interface FirebaseManager : NSObject{
-     FirebaseManager* sharedInstance;
+
      FIRDatabaseReference *ref;
 }
-
++ (FirebaseManager *) sharedInstance;
 #pragma mark - App State Properties
 @property (nonatomic, assign) BOOL signedIn;
 @property (nonatomic, retain) NSString *usersName;
