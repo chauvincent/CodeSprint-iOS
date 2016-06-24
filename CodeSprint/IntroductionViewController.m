@@ -7,7 +7,7 @@
 //
 
 #import "IntroductionViewController.h"
-
+#include "Constants.h"
 @interface IntroductionViewController ()
 
 @end
@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = LIGHT_BLUE;
     // Do any additional setup after loading the view.
 }
 

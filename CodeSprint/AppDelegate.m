@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Constants.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @import Firebase;
@@ -16,10 +17,17 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [FIRApp configure];
+    
+//    [[UINavigationBar appearance] setBackgroundColor:DARK_BLUE];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]}];
+//    [[UINavigationBar appearance] setTintColor:DARK_BLUE];
 
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+    [[UINavigationBar appearance] setBarTintColor:DARK_BLUE];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    
+    [FIRApp configure];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     return YES;
