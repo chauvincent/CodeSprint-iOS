@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = LIGHT_BLUE;
+    //self.view.backgroundColor = LIGHT_BLUE;
     // Do any additional setup after loading the view.
 }
 

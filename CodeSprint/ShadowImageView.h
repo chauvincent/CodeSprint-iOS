@@ -1,13 +1,13 @@
 //
-//  BlurredImageView.h
+//  ShadowImageView.h
 //  CodeSprint
 //
-//  Created by Vincent Chau on 6/23/16.
+//  Created by Vincent Chau on 6/24/16.
 //  Copyright © 2016 Vincent Chau. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface BlurredImageView : UIImageView
+@interface ShadowImageView : UIImageView
 
 @end

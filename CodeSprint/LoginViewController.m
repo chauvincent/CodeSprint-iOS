@@ -10,7 +10,7 @@
 #import <AFNetworking.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
+#include "Constants.h"
 @import Firebase;
 @interface LoginViewController () <UIWebViewDelegate>{
     NSString *responseCode;
@@ -44,7 +44,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //self.view.backgroundColor = GREY_COLOR;
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     if (currentUser) {
         [self didSignInWith:currentUser];

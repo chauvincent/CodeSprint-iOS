@@ -56,7 +56,7 @@
             </objects>
             <point key="canvasLocation" x="567" y="-394"/>
         </scene>
-        <!--Login-->
+        <!--Login View Controller-->
         <scene sceneID="zad-1Y-J24">
             <objects>
                 <viewController id="5VI-Eb-9S0" customClass="LoginViewController" sceneMemberID="viewController">
@@ -68,34 +68,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgX-8w-mfe">
-                                <rect key="frame" x="234" y="338" width="132" height="30"/>
-                                <state key="normal" title="GitHub Login"/>
-                                <connections>
-                                    <action selector="githubLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="4wF-Dt-3Di"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Md-5U2">
-                                <rect key="frame" x="234" y="300" width="132" height="30"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Md-5U2">
+                                <rect key="frame" x="177" y="412" width="247" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="132" id="mka-0z-KTk"/>
+                                    <constraint firstAttribute="height" constant="33" id="mav-hP-BsD"/>
+                                    <constraint firstAttribute="width" constant="247" id="wb4-ao-vOT"/>
                                 </constraints>
-                                <state key="normal" title="Facebook Login"/>
+                                <state key="normal" image="facebookSignIn"/>
                                 <connections>
                                     <action selector="facebookLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="0pt-Kb-6EG"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo2" translatesAutoresizingMaskIntoConstraints="NO" id="rrL-j4-cl1" customClass="ShadowImageView">
+                                <rect key="frame" x="196" y="93" width="208" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="208" id="dDu-Fd-xPK"/>
+                                    <constraint firstAttribute="height" constant="180" id="zeq-xo-t87"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgX-8w-mfe">
+                                <rect key="frame" x="177" y="453" width="247" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="ISf-sA-8tq"/>
+                                </constraints>
+                                <state key="normal" image="githubSignIn"/>
+                                <connections>
+                                    <action selector="githubLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="4wF-Dt-3Di"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pQb-Md-5U2" firstAttribute="leading" secondItem="AgX-8w-mfe" secondAttribute="leading" id="0D5-lB-yjx"/>
-                            <constraint firstItem="31S-ge-XNq" firstAttribute="top" secondItem="AgX-8w-mfe" secondAttribute="bottom" constant="232" id="PrS-rh-aCg"/>
-                            <constraint firstItem="AgX-8w-mfe" firstAttribute="top" secondItem="pQb-Md-5U2" secondAttribute="bottom" constant="8" symbolic="YES" id="Ydk-fR-2aF"/>
-                            <constraint firstItem="pQb-Md-5U2" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="kqZ-j5-3ch"/>
-                            <constraint firstItem="pQb-Md-5U2" firstAttribute="trailing" secondItem="AgX-8w-mfe" secondAttribute="trailing" id="xSz-3Z-1v8"/>
+                            <constraint firstItem="rrL-j4-cl1" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="2It-LJ-Ftk"/>
+                            <constraint firstItem="31S-ge-XNq" firstAttribute="top" secondItem="AgX-8w-mfe" secondAttribute="bottom" constant="114" id="HQH-vT-nc1"/>
+                            <constraint firstItem="rrL-j4-cl1" firstAttribute="top" secondItem="pRa-tx-ibY" secondAttribute="bottom" constant="29" id="XDc-Nj-znQ"/>
+                            <constraint firstItem="rrL-j4-cl1" firstAttribute="centerX" secondItem="pQb-Md-5U2" secondAttribute="centerX" id="hDF-AR-gYE"/>
+                            <constraint firstItem="pQb-Md-5U2" firstAttribute="trailing" secondItem="AgX-8w-mfe" secondAttribute="trailing" id="jZU-Zb-idz"/>
+                            <constraint firstItem="AgX-8w-mfe" firstAttribute="top" secondItem="pQb-Md-5U2" secondAttribute="bottom" constant="8" symbolic="YES" id="jbs-HD-Jv2"/>
+                            <constraint firstItem="pQb-Md-5U2" firstAttribute="leading" secondItem="AgX-8w-mfe" secondAttribute="leading" id="xLf-yL-met"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Login" id="9DU-vL-osb"/>
+                    <navigationItem key="navigationItem" id="9DU-vL-osb"/>
                     <connections>
                         <outlet property="facebookLoginButton" destination="pQb-Md-5U2" id="iak-xf-Xqu"/>
                         <outlet property="githubLoginButton" destination="AgX-8w-mfe" id="cLi-07-fSO"/>
@@ -106,10 +119,10 @@
             </objects>
             <point key="canvasLocation" x="1289" y="-394"/>
         </scene>
-        <!--HomeViewController-->
+        <!--Home View Controller-->
         <scene sceneID="Mky-iG-rNY">
             <objects>
-                <viewController title="HomeViewController" id="P09-PX-h5N" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController id="P09-PX-h5N" customClass="HomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AFu-HU-vl0"/>
                         <viewControllerLayoutGuide type="bottom" id="3vK-9H-nKY"/>
@@ -126,7 +139,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="groupCellID" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupCellID" id="oCm-9D-sMd">
-                                                <rect key="frame" x="0.0" y="28" width="497" height="44"/>
+                                                <rect key="frame" x="0.0" y="92" width="497" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oCm-9D-sMd" id="3ia-QQ-uXd">
                                                     <rect key="frame" x="0.0" y="0.0" width="497" height="44"/>
@@ -172,4 +185,9 @@
             <point key="canvasLocation" x="1289" y="-1095"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="facebookSignIn" width="360" height="46"/>
+        <image name="githubSignIn" width="336" height="44"/>
+        <image name="logo2" width="466" height="435"/>
+    </resources>
 </document>
