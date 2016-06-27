@@ -30,6 +30,7 @@
     return position;
 }
 
+// Global
 CGFloat *constantsArray;
 
 -(id)initWithConstraints:(NSArray*)constraints {
@@ -38,11 +39,9 @@ CGFloat *constantsArray;
         int i = 0;
         constantsArray = (CGFloat*)malloc(constraints.count * sizeof(CGFloat));
         for ( NSLayoutConstraint* con in constraints  ){
-          //  [self.allConstants addObject:(con.constant];
             constantsArray[i] = con.constant;
-            NSLog(@"%lf", constantsArray[i]);
             i++;
-            con.constant = [AnimationGenerator offScreenRight].x;
+            con.constant = [AnimationGenerator offScreenLeft].x;
            
         }
         self.allConstraints = constraints;
@@ -50,30 +49,22 @@ CGFloat *constantsArray;
     }
     return self;
 }
--(void)animateScreen{
-    
-    for(int i = 0; i < self.allConstraints.count; i++){
-        //POPSpringAnimation *anim = [POPSpringAnimation animation];
-        //anim.property = [POPAnimatableProperty propertyWithName:kPOPLayoutConstraintConstant];
-//        POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
-//      
-//        anim.toValue = self.allConstants[i];
-//        anim.springBounciness = 12.0f;
-//        anim.springSpeed = 12.0f;
-//        //NSLayoutConstraint *con = self.allConstraints[i];
-//        [self.allConstraints[i] pop_addAnimation:anim forKey:@"moveOnScreen"];
-        
-        POPSpringAnimation *layoutAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
-        layoutAnimation.springSpeed = 20.0f;
-        layoutAnimation.springBounciness = 15.0f;
-      //  layoutAnimation.toValue = _allConstants[i];
-        layoutAnimation.toValue = @(constantsArray[i]);
-    //    NSLog(@"%@", layoutAnimation.toValue);
-        [self.allConstraints[i] pop_addAnimation:layoutAnimation forKey:@"detailsContainerWidthAnimate"];
-    }
-    
 
+-(void)animateScreenWithDelay:(double)delay{
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, ((int64_t)(double)delay) * (double)NSEC_PER_SEC);
+    dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+        for(int i = 0; i < self.allConstraints.count; i++){
+            POPSpringAnimation *layoutAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
+            layoutAnimation.springSpeed = 20.0f;
+            layoutAnimation.springBounciness = 15.0f;
+            layoutAnimation.toValue = @(constantsArray[i]);
+            [self.allConstraints[i] pop_addAnimation:layoutAnimation forKey:@"detailsContainerWidthAnimate"];
+        }
+    });
+    
 }
+
+
 
 
 

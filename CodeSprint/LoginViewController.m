@@ -63,16 +63,11 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         NSLog(@"already signed in");
     }
     
-//   self.generator = [[AnimationGenerator alloc] initWithConstraints:@[_logoCenterXConstraint,_labelCenterCConstraint,_facebookCenterXConstraint,_githubCenterXConstraint]];
-
-    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint]];//, self.githubCenterConstraint, self.fbCenterConstraint]];
-//    AnimationGenerator *generator = [[AnimationGenerator alloc] initWithConstraints:@[_labelCenterCConstraint,_facebookCenterXConstraint,_githubCenterXConstraint]];
-//    [generator animateScreen];
-
+    // Animate views
+    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
-    [self.generator animateScreen];
-    
+    [self.generator animateScreenWithDelay:0.5];
 }
 
 - (void)didReceiveMemoryWarning {
