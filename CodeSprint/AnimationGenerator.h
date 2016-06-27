@@ -16,7 +16,7 @@
 + (CGPoint) offScreenCenter;
 
 @property (strong, nonatomic) NSArray *allConstraints;
-@property (strong, nonatomic) NSMutableArray *allConstants;
+//@property (strong, nonatomic) NSMutableArray<CGFloat> *allConstants;
 
 
 -(void)animateScreen;

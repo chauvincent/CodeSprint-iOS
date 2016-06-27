@@ -12,6 +12,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #include "Constants.h"
 #include "AnimationGenerator.h"
+//#include "CodeSprint-Bridging-Header.h"
+
 @import Firebase;
 @interface LoginViewController () <UIWebViewDelegate>{
     NSString *responseCode;
@@ -23,10 +25,10 @@
 @property (strong, nonatomic) UIWebView *gitHubWebView;
 
 // Constraints
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoCenterXConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterCConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *facebookCenterXConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *githubCenterXConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *githubCenterConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fbCenterConstraint;
 
 @property (strong, nonatomic) AnimationGenerator *generator;
 @end
@@ -57,13 +59,16 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     if (currentUser) {
-        [self didSignInWith:currentUser];
+      //  [self didSignInWith:currentUser];
         NSLog(@"already signed in");
     }
     
 //   self.generator = [[AnimationGenerator alloc] initWithConstraints:@[_logoCenterXConstraint,_labelCenterCConstraint,_facebookCenterXConstraint,_githubCenterXConstraint]];
-   self.generator = [[AnimationGenerator alloc] initWithConstraints:@[_labelCenterCConstraint,_facebookCenterXConstraint,_githubCenterXConstraint]];
-    
+
+    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint]];//, self.githubCenterConstraint, self.fbCenterConstraint]];
+//    AnimationGenerator *generator = [[AnimationGenerator alloc] initWithConstraints:@[_labelCenterCConstraint,_facebookCenterXConstraint,_githubCenterXConstraint]];
+//    [generator animateScreen];
+
 }
 -(void)viewDidAppear:(BOOL)animated {
     [self.generator animateScreen];

@@ -30,32 +30,49 @@
     return position;
 }
 
+CGFloat *constantsArray;
 
 -(id)initWithConstraints:(NSArray*)constraints {
     self = [super init];
     if (self) {
+        int i = 0;
+        constantsArray = (CGFloat*)malloc(constraints.count * sizeof(CGFloat));
         for ( NSLayoutConstraint* con in constraints  ){
-            [_allConstants addObject:[NSNumber numberWithFloat:con.constant]];
+          //  [self.allConstants addObject:(con.constant];
+            constantsArray[i] = con.constant;
+            NSLog(@"%lf", constantsArray[i]);
+            i++;
             con.constant = [AnimationGenerator offScreenRight].x;
+           
         }
-        _allConstraints = constraints;
+        self.allConstraints = constraints;
         
     }
     return self;
 }
 -(void)animateScreen{
+    
     for(int i = 0; i < self.allConstraints.count; i++){
         //POPSpringAnimation *anim = [POPSpringAnimation animation];
         //anim.property = [POPAnimatableProperty propertyWithName:kPOPLayoutConstraintConstant];
-        POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
-        anim.toValue = self.allConstants[i];
-        NSLog(@"%@", anim.toValue);
-        anim.springBounciness = 12;
-        anim.springSpeed = 12;
+//        POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
+//      
+//        anim.toValue = self.allConstants[i];
+//        anim.springBounciness = 12.0f;
+//        anim.springSpeed = 12.0f;
+//        //NSLayoutConstraint *con = self.allConstraints[i];
+//        [self.allConstraints[i] pop_addAnimation:anim forKey:@"moveOnScreen"];
         
-        NSLayoutConstraint *con = self.allConstraints[i];
-        [con pop_addAnimation:anim forKey:@"moveOnScreen"];
+        POPSpringAnimation *layoutAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayoutConstraintConstant];
+        layoutAnimation.springSpeed = 20.0f;
+        layoutAnimation.springBounciness = 15.0f;
+      //  layoutAnimation.toValue = _allConstants[i];
+        layoutAnimation.toValue = @(constantsArray[i]);
+    //    NSLog(@"%@", layoutAnimation.toValue);
+        [self.allConstraints[i] pop_addAnimation:layoutAnimation forKey:@"detailsContainerWidthAnimate"];
     }
+    
+
 }
 
 
