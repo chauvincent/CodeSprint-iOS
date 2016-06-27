@@ -71,47 +71,71 @@
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Md-5U2">
                                 <rect key="frame" x="177" y="412" width="247" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="mav-hP-BsD"/>
-                                    <constraint firstAttribute="width" constant="247" id="wb4-ao-vOT"/>
+                                    <constraint firstAttribute="width" constant="247" id="UmK-7y-eJF"/>
+                                    <constraint firstAttribute="height" constant="33" id="vvi-54-yRx"/>
                                 </constraints>
                                 <state key="normal" image="facebookSignIn"/>
                                 <connections>
                                     <action selector="facebookLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="0pt-Kb-6EG"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo2" translatesAutoresizingMaskIntoConstraints="NO" id="rrL-j4-cl1" customClass="ShadowImageView">
-                                <rect key="frame" x="196" y="93" width="208" height="180"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="208" id="dDu-Fd-xPK"/>
-                                    <constraint firstAttribute="height" constant="180" id="zeq-xo-t87"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgX-8w-mfe">
                                 <rect key="frame" x="177" y="453" width="247" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="ISf-sA-8tq"/>
+                                    <constraint firstAttribute="height" constant="33" id="mx3-DF-JL8"/>
+                                    <constraint firstAttribute="width" constant="247" id="uL0-dL-fxo"/>
                                 </constraints>
                                 <state key="normal" image="githubSignIn"/>
                                 <connections>
                                     <action selector="githubLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="4wF-Dt-3Di"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdH-Su-2iu">
+                                <rect key="frame" x="187" y="281" width="226" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="226" id="72w-I9-x3J"/>
+                                    <constraint firstAttribute="height" constant="67" id="QCN-Wz-rqS"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="CodeSprint">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.53333333333333333" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="40" name="HelveticaNeue-Thin"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo2" translatesAutoresizingMaskIntoConstraints="NO" id="rrL-j4-cl1" customClass="ShadowImageView">
+                                <rect key="frame" x="196" y="93" width="208" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="4pn-LC-2zg"/>
+                                    <constraint firstAttribute="width" constant="208" id="F1l-up-eDt"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rrL-j4-cl1" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="2It-LJ-Ftk"/>
-                            <constraint firstItem="31S-ge-XNq" firstAttribute="top" secondItem="AgX-8w-mfe" secondAttribute="bottom" constant="114" id="HQH-vT-nc1"/>
-                            <constraint firstItem="rrL-j4-cl1" firstAttribute="top" secondItem="pRa-tx-ibY" secondAttribute="bottom" constant="29" id="XDc-Nj-znQ"/>
-                            <constraint firstItem="rrL-j4-cl1" firstAttribute="centerX" secondItem="pQb-Md-5U2" secondAttribute="centerX" id="hDF-AR-gYE"/>
-                            <constraint firstItem="pQb-Md-5U2" firstAttribute="trailing" secondItem="AgX-8w-mfe" secondAttribute="trailing" id="jZU-Zb-idz"/>
-                            <constraint firstItem="AgX-8w-mfe" firstAttribute="top" secondItem="pQb-Md-5U2" secondAttribute="bottom" constant="8" symbolic="YES" id="jbs-HD-Jv2"/>
-                            <constraint firstItem="pQb-Md-5U2" firstAttribute="leading" secondItem="AgX-8w-mfe" secondAttribute="leading" id="xLf-yL-met"/>
+                            <constraint firstItem="pQb-Md-5U2" firstAttribute="top" secondItem="JdH-Su-2iu" secondAttribute="bottom" constant="64" id="3dy-3G-wHr"/>
+                            <constraint firstItem="rrL-j4-cl1" firstAttribute="top" secondItem="pRa-tx-ibY" secondAttribute="bottom" constant="29" id="9xK-a2-NJg"/>
+                            <constraint firstItem="JdH-Su-2iu" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="E2Y-pn-QqR"/>
+                            <constraint firstItem="JdH-Su-2iu" firstAttribute="top" secondItem="rrL-j4-cl1" secondAttribute="bottom" constant="8" id="OiL-IV-vbk"/>
+                            <constraint firstItem="rrL-j4-cl1" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="RD7-cp-9Bd"/>
+                            <constraint firstItem="31S-ge-XNq" firstAttribute="top" secondItem="AgX-8w-mfe" secondAttribute="bottom" constant="114" id="bl0-om-U9i"/>
+                            <constraint firstItem="AgX-8w-mfe" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="hyq-Ce-1Jx"/>
+                            <constraint firstItem="pQb-Md-5U2" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="jeg-5p-oCG"/>
+                            <constraint firstItem="AgX-8w-mfe" firstAttribute="top" secondItem="pQb-Md-5U2" secondAttribute="bottom" constant="8" id="l97-pt-Ydd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9DU-vL-osb"/>
                     <connections>
+                        <outlet property="facebookCenterXConstraint" destination="jeg-5p-oCG" id="QWX-vj-aL2"/>
                         <outlet property="facebookLoginButton" destination="pQb-Md-5U2" id="iak-xf-Xqu"/>
+                        <outlet property="githubCenterXConstraint" destination="hyq-Ce-1Jx" id="A4n-YT-DG2"/>
                         <outlet property="githubLoginButton" destination="AgX-8w-mfe" id="cLi-07-fSO"/>
+                        <outlet property="labelCenterCConstraint" destination="E2Y-pn-QqR" id="yuF-of-AVa"/>
+                        <outlet property="logoCenterXConstraint" destination="RD7-cp-9Bd" id="9Hi-Hd-hun"/>
                         <segue destination="P09-PX-h5N" kind="show" identifier="LoginToHomeSegue" id="c2P-CE-zAa"/>
                     </connections>
                 </viewController>
@@ -142,7 +166,7 @@
                                                 <rect key="frame" x="0.0" y="92" width="497" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oCm-9D-sMd" id="3ia-QQ-uXd">
-                                                    <rect key="frame" x="0.0" y="0.0" width="497" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="497" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>

@@ -11,6 +11,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #include "Constants.h"
+#include "AnimationGenerator.h"
 @import Firebase;
 @interface LoginViewController () <UIWebViewDelegate>{
     NSString *responseCode;
@@ -21,9 +22,18 @@
 @property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
 @property (strong, nonatomic) UIWebView *gitHubWebView;
 
+// Constraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoCenterXConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterCConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *facebookCenterXConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *githubCenterXConstraint;
+
+@property (strong, nonatomic) AnimationGenerator *generator;
 @end
 
 @implementation LoginViewController
+
+
 
 #pragma mark - Keys
 NSString *clientID = @"9bc3a5d15c66cd7c2168";
@@ -41,16 +51,23 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     return _gitHubWebView;
 }
 
-
+#pragma mark - UIViewController Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.view.backgroundColor = GREY_COLOR;
+    
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     if (currentUser) {
         [self didSignInWith:currentUser];
         NSLog(@"already signed in");
     }
-
+    
+//   self.generator = [[AnimationGenerator alloc] initWithConstraints:@[_logoCenterXConstraint,_labelCenterCConstraint,_facebookCenterXConstraint,_githubCenterXConstraint]];
+   self.generator = [[AnimationGenerator alloc] initWithConstraints:@[_labelCenterCConstraint,_facebookCenterXConstraint,_githubCenterXConstraint]];
+    
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [self.generator animateScreen];
+    
 }
 
 - (void)didReceiveMemoryWarning {
