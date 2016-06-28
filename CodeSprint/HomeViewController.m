@@ -11,9 +11,9 @@
 #import <UIImageView+AFNetworking.h>
 #import "FirebaseManager.h"
 @interface HomeViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
-
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 @end

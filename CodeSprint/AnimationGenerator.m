@@ -41,11 +41,9 @@ CGFloat *constantsArray;
         for ( NSLayoutConstraint* con in constraints  ){
             constantsArray[i] = con.constant;
             i++;
-            con.constant = [AnimationGenerator offScreenLeft].x;
-           
+            con.constant = [AnimationGenerator offScreenRight].x;
         }
         self.allConstraints = constraints;
-        
     }
     return self;
 }
@@ -61,7 +59,6 @@ CGFloat *constantsArray;
             [self.allConstraints[i] pop_addAnimation:layoutAnimation forKey:@"detailsContainerWidthAnimate"];
         }
     });
-    
 }
 
 

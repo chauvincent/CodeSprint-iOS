@@ -12,7 +12,6 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #include "Constants.h"
 #include "AnimationGenerator.h"
-//#include "CodeSprint-Bridging-Header.h"
 
 @import Firebase;
 @interface LoginViewController () <UIWebViewDelegate>{
@@ -26,10 +25,8 @@
 
 // Constraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterConstraint;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *githubCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fbCenterConstraint;
-
 @property (strong, nonatomic) AnimationGenerator *generator;
 @end
 
@@ -46,9 +43,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 -(UIWebView *)gitHubWebView{
     if (!_gitHubWebView) {
         _gitHubWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height) ];
-        [self.view addSubview:self.gitHubWebView];
-        [self.view bringSubviewToFront:self.gitHubWebView];
-        self.gitHubWebView.delegate = self;
     }
     return _gitHubWebView;
 }
@@ -62,12 +56,12 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
       //  [self didSignInWith:currentUser];
         NSLog(@"already signed in");
     }
-    
+
     // Animate views
     self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
-    [self.generator animateScreenWithDelay:0.5];
+    [self.generator animateScreenWithDelay:0.8];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,9 +99,22 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 - (IBAction)githubLoginButtonPressed:(id)sender {
     NSString *gitHubSignIn = [NSString stringWithFormat:@"https://github.com/login/oauth/authorize/?client_id=%@", clientID];
     [self.gitHubWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:gitHubSignIn]]];
+    [self.view addSubview:self.gitHubWebView];
+    [self.view bringSubviewToFront:self.gitHubWebView];
+    self.gitHubWebView.delegate = self;
+    //self.gitHubWebView.tag = 1111;
     [UIView animateWithDuration:0.5 animations:^{
         self.gitHubWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
     }];
+    
+    CGFloat height = [[UIScreen mainScreen] bounds].size.height - self.view.frame.size.height;
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeButton.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
+    closeButton.tag = 1111;
+    closeButton.backgroundColor = [UIColor clearColor];
+    [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setTitle:@"" forState:UIControlStateNormal];
+    [self.view addSubview:closeButton];
     
 }
 #pragma mark - UIWebViewDelegate
@@ -119,15 +126,25 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         responseCode = [currentURL substringFromIndex:indexOfCode.location + 5];
         [UIView animateWithDuration:0.5 animations:^{
             self.gitHubWebView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+            
         } completion:^(BOOL finished) {
             [self.gitHubWebView removeFromSuperview];
         }];
         [self getAccessToken];
     }
+    //[self dismissViewControllerAnimated:YES completion:nil];
     return YES;
 }
 
-
+- (IBAction)closeButtonPressed:(id)sender {
+    for (UIView *view in [self.view subviews]) {
+        // Remove close button
+        if (view.tag == 1111) {
+            [view removeFromSuperview];
+            [self.gitHubWebView removeFromSuperview];
+        }
+    }
+}
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
     [FirebaseManager sharedInstance].usersName = user.displayName.length > 0 ? user.displayName : user.email;
