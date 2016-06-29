@@ -26,6 +26,7 @@
     [self setupViews];
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
+
     // Do any additional setup after loading the view.
 }
 
@@ -65,6 +66,9 @@
     return 78.0f;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 

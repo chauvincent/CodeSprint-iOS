@@ -26,7 +26,8 @@
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
     [[UINavigationBar appearance] setBarTintColor:DARK_BLUE];
     [[UINavigationBar appearance] setTranslucent:NO];
-    
+    //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+
     [FIRApp configure];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
