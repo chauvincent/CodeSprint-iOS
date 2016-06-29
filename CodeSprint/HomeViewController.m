@@ -10,11 +10,12 @@
 #import <AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
 #import "FirebaseManager.h"
-@interface HomeViewController ()
+#import "SettingsTableViewCell.h"
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
-@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+
 
 @end
 
@@ -23,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupViews];
+    self.menuTableView.dataSource = self;
+    self.menuTableView.delegate = self;
     // Do any additional setup after loading the view.
 }
 
@@ -49,6 +52,20 @@
     } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
         NSLog(@"error in downloading image");
     }];
+}
+
+#pragma mark - UITableViewDelegate
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SettingsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell" forIndexPath:indexPath];
+    
+    return cell;
+    
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 78.0f;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
 }
 
 @end

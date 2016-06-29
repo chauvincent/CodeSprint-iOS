@@ -13,6 +13,7 @@
 		754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8901D1D04F2004ABD43 /* CircleImageView.m */; };
 		754FF8941D1D281A004ABD43 /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8931D1D281A004ABD43 /* ShadowView.m */; };
 		754FF8971D1D2CD2004ABD43 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8961D1D2CD2004ABD43 /* Constants.m */; };
+		755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76241D23E0E600B211CF /* SettingsTableViewCell.m */; };
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
@@ -43,6 +44,8 @@
 		754FF8931D1D281A004ABD43 /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowView.m; sourceTree = "<group>"; };
 		754FF8951D1D2CD2004ABD43 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		754FF8961D1D2CD2004ABD43 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		755B76231D23E0E600B211CF /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCell.h; sourceTree = "<group>"; };
+		755B76241D23E0E600B211CF /* SettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewCell.m; sourceTree = "<group>"; };
 		759918961D1D981F00E38268 /* ShadowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowImageView.h; sourceTree = "<group>"; };
 		759918971D1D981F00E38268 /* ShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowImageView.m; sourceTree = "<group>"; };
 		7599189A1D1E2AF600E38268 /* AnimationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationGenerator.h; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 				754FF8931D1D281A004ABD43 /* ShadowView.m */,
 				759918961D1D981F00E38268 /* ShadowImageView.h */,
 				759918971D1D981F00E38268 /* ShadowImageView.m */,
+				755B76231D23E0E600B211CF /* SettingsTableViewCell.h */,
+				755B76241D23E0E600B211CF /* SettingsTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
 				751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */,
 				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
+				755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */,
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,
 				754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */,
 				754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */,

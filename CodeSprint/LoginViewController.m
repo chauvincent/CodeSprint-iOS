@@ -14,11 +14,15 @@
 #include "AnimationGenerator.h"
 
 @import Firebase;
+
 @interface LoginViewController () <UIWebViewDelegate>{
     NSString *responseCode;
     NSString *accessToken;
 }
 
+@property (strong, nonatomic) AnimationGenerator *generator;
+
+// Buttons and Views
 @property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
 @property (strong, nonatomic) UIWebView *gitHubWebView;
@@ -27,12 +31,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *githubCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fbCenterConstraint;
-@property (strong, nonatomic) AnimationGenerator *generator;
+
 @end
 
 @implementation LoginViewController
-
-
 
 #pragma mark - Keys
 NSString *clientID = @"9bc3a5d15c66cd7c2168";
@@ -47,7 +49,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     return _gitHubWebView;
 }
 
-#pragma mark - UIViewController Lifecycle
+#pragma mark - Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -102,7 +104,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [self.view addSubview:self.gitHubWebView];
     [self.view bringSubviewToFront:self.gitHubWebView];
     self.gitHubWebView.delegate = self;
-    //self.gitHubWebView.tag = 1111;
     [UIView animateWithDuration:0.5 animations:^{
         self.gitHubWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
     }];
@@ -131,8 +132,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
             [self.gitHubWebView removeFromSuperview];
         }];
         [self getAccessToken];
+        NSLog(@"did sign in");
     }
-    //[self dismissViewControllerAnimated:YES completion:nil];
     return YES;
 }
 
@@ -150,11 +151,9 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [FirebaseManager sharedInstance].usersName = user.displayName.length > 0 ? user.displayName : user.email;
     [FirebaseManager sharedInstance].photoUrl = user.photoURL;
     [FirebaseManager sharedInstance].signedIn = YES;
-
     NSLog(@"%@", user.photoURL);
 
     [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
-    
 }
 -(void)updateUserInformation{
 
