@@ -14,6 +14,8 @@
 		754FF8941D1D281A004ABD43 /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8931D1D281A004ABD43 /* ShadowView.m */; };
 		754FF8971D1D2CD2004ABD43 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8961D1D2CD2004ABD43 /* Constants.m */; };
 		755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76241D23E0E600B211CF /* SettingsTableViewCell.m */; };
+		755B76281D24158700B211CF /* Sprint.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76271D24158700B211CF /* Sprint.m */; };
+		755B762B1D2415CE00B211CF /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B762A1D2415CE00B211CF /* Team.m */; };
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
@@ -46,6 +48,10 @@
 		754FF8961D1D2CD2004ABD43 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		755B76231D23E0E600B211CF /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCell.h; sourceTree = "<group>"; };
 		755B76241D23E0E600B211CF /* SettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewCell.m; sourceTree = "<group>"; };
+		755B76261D24158700B211CF /* Sprint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprint.h; sourceTree = "<group>"; };
+		755B76271D24158700B211CF /* Sprint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprint.m; sourceTree = "<group>"; };
+		755B76291D2415CE00B211CF /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
+		755B762A1D2415CE00B211CF /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
 		759918961D1D981F00E38268 /* ShadowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowImageView.h; sourceTree = "<group>"; };
 		759918971D1D981F00E38268 /* ShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowImageView.m; sourceTree = "<group>"; };
 		7599189A1D1E2AF600E38268 /* AnimationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationGenerator.h; sourceTree = "<group>"; };
@@ -96,6 +102,10 @@
 		751A755F1D18A7DD00923F61 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				755B76261D24158700B211CF /* Sprint.h */,
+				755B76271D24158700B211CF /* Sprint.m */,
+				755B76291D2415CE00B211CF /* Team.h */,
+				755B762A1D2415CE00B211CF /* Team.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -146,11 +156,11 @@
 			isa = PBXGroup;
 			children = (
 				75BFABD11D181B570001CD57 /* App Global */,
+				759918991D1E2AD100E38268 /* Utilities */,
 				751A755B1D183E4E00923F61 /* DataService */,
 				751A755F1D18A7DD00923F61 /* Model */,
 				751A75601D18A80600923F61 /* View */,
 				75C14F161D18214800CAE375 /* Controllers */,
-				759918991D1E2AD100E38268 /* Utilities */,
 				75BFABC61D181A6B0001CD57 /* Assets.xcassets */,
 				75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */,
 				75BFABB71D181A6B0001CD57 /* Supporting Files */,
@@ -346,9 +356,11 @@
 				754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */,
 				754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */,
 				754FF8941D1D281A004ABD43 /* ShadowView.m in Sources */,
+				755B762B1D2415CE00B211CF /* Team.m in Sources */,
 				759918981D1D981F00E38268 /* ShadowImageView.m in Sources */,
 				7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */,
 				754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */,
+				755B76281D24158700B211CF /* Sprint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -66,7 +66,7 @@
     return 78.0f;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return 3;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
