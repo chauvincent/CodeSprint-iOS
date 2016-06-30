@@ -63,24 +63,20 @@
         return nil;
     }
     
-    // Create a new view controller and pass suitable data.
     PageContentViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageContentViewController"];
     pageContentViewController.imageFile = self.pageImages[index];
-    //pageContentViewController.txtTitle = self.arrPageTitles[index];
     pageContentViewController.index = index;
     
     return pageContentViewController;
 }
 
 #pragma mark - Page View Datasource Methods
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
-    NSUInteger index = ((PageContentViewController*) viewController).index;
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
     
+    NSUInteger index = ((PageContentViewController*) viewController).index;
     if ((index == 0) || (index == NSNotFound)){
         return nil;
     }
-    
     index--;
     return [self viewControllerAtIndex:index];
 }
@@ -97,7 +93,6 @@
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController{
     return [self.pageImages count];
 }
-
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController{
     return 0;
 }

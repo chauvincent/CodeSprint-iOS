@@ -12,21 +12,16 @@
 
 @end
 
-
-
 @implementation PageContentViewController
 
-@synthesize imageFile,index, contentImageView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.contentImageView.image = [UIImage imageNamed:self.imageFile];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*

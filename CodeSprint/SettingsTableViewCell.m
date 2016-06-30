@@ -13,14 +13,14 @@
 @implementation SettingsTableViewCell
 
 -(void)awakeFromNib {
-
     
 }
 
-
 -(void)configureCellForIndexPath:(NSIndexPath*)index{
+    
     UIImage *optionImage;
     NSString *optionName, *description;
+    
     switch (index.row) {
         case 0:
             optionImage = [UIImage imageNamed:@"sprint_btn"];
@@ -47,8 +47,6 @@
     self.optionNameLabel.text = optionName;
     self.descriptionLabel.text = description;
     self.descriptionLabel.textColor = [UIColor grayColor];
-    
-    
 }
 
 

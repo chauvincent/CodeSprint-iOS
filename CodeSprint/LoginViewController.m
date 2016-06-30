@@ -27,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
 @property (strong, nonatomic) UIWebView *gitHubWebView;
 
-// Constraints
+// Animated Constraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *githubCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fbCenterConstraint;
