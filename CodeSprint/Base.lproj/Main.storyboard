@@ -43,6 +43,14 @@
             </objects>
             <point key="canvasLocation" x="2061" y="389"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="zDm-2H-PMA">
+            <objects>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="POI-r8-iCh" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sop-2B-E9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="469" y="-1088"/>
+        </scene>
         <!--Introduction View Controller-->
         <scene sceneID="3EE-QS-EMG">
             <objects>
@@ -54,7 +62,23 @@
                     <view key="view" contentMode="scaleToFill" id="fq7-pm-rq7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-jm-uz2">
+                                <rect key="frame" x="277" y="562" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="Qjc-yF-zP2"/>
+                                </constraints>
+                                <state key="normal" title="Skip"/>
+                                <connections>
+                                    <segue destination="5VI-Eb-9S0" kind="show" id="oFC-hd-b3v"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="acR-kf-JD9" firstAttribute="top" secondItem="QR8-jm-uz2" secondAttribute="bottom" constant="8" symbolic="YES" id="G4q-G6-tO6"/>
+                            <constraint firstItem="QR8-jm-uz2" firstAttribute="centerX" secondItem="fq7-pm-rq7" secondAttribute="centerX" id="cTZ-CB-Z7i"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wZH-oS-khd"/>
                 </viewController>
@@ -339,10 +363,10 @@
             </objects>
             <point key="canvasLocation" x="3053" y="408"/>
         </scene>
-        <!--View Controller-->
+        <!--Page Content View Controller-->
         <scene sceneID="rT0-Ll-5rP">
             <objects>
-                <viewController id="7yP-FD-BzX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageContentViewController" id="7yP-FD-BzX" customClass="PageContentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Sq-Oa-mmc"/>
                         <viewControllerLayoutGuide type="bottom" id="ApW-Am-iLT"/>
@@ -350,12 +374,26 @@
                     <view key="view" contentMode="scaleToFill" id="3j1-bb-7sG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RBs-OO-2vd">
+                                <rect key="frame" x="47" y="62" width="506" height="475"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RBs-OO-2vd" firstAttribute="centerX" secondItem="3j1-bb-7sG" secondAttribute="centerX" id="Epm-0c-KMS"/>
+                            <constraint firstItem="RBs-OO-2vd" firstAttribute="leading" secondItem="3j1-bb-7sG" secondAttribute="leadingMargin" constant="27" id="HGi-7N-b0B"/>
+                            <constraint firstItem="RBs-OO-2vd" firstAttribute="top" secondItem="1Sq-Oa-mmc" secondAttribute="bottom" constant="42" id="bSj-El-mNp"/>
+                            <constraint firstItem="RBs-OO-2vd" firstAttribute="centerY" secondItem="3j1-bb-7sG" secondAttribute="centerY" id="kDf-Rr-4Zh"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="contentImageView" destination="RBs-OO-2vd" id="jZr-sm-jGf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Gw-q6-UT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2081" y="-1231"/>
+            <point key="canvasLocation" x="1155" y="-1088"/>
         </scene>
     </scenes>
     <resources>

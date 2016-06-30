@@ -27,6 +27,14 @@
     [[UINavigationBar appearance] setBarTintColor:DARK_BLUE];
     [[UINavigationBar appearance] setTranslucent:NO];
     //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    
+    
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+    pageControl.backgroundColor = [UIColor whiteColor];
+    
 
     [FIRApp configure];
     [[FBSDKApplicationDelegate sharedInstance] application:application
