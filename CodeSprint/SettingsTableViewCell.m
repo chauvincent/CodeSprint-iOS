@@ -11,10 +11,11 @@
 #include "Constants.h"
 
 @implementation SettingsTableViewCell
-//
-//-(void)awakeFromNib {
-//
-//}
+
+-(void)awakeFromNib {
+
+    
+}
 
 
 -(void)configureCellForIndexPath:(NSIndexPath*)index{
@@ -42,12 +43,10 @@
             description = @"Adjust your account settings";
             break;
     }
-        self.optionIconImageView.image = optionImage;
-        self.optionNameLabel.text = optionName;
-        self.descriptionLabel.text = description;
-        self.descriptionLabel.textColor = [UIColor grayColor];
-    
-    
+    self.optionIconImageView.image = optionImage;
+    self.optionNameLabel.text = optionName;
+    self.descriptionLabel.text = description;
+    self.descriptionLabel.textColor = [UIColor grayColor];
     
     
 }

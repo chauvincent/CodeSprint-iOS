@@ -56,6 +56,11 @@ CGFloat *constantsArray;
             layoutAnimation.springSpeed = 20.0f;
             layoutAnimation.springBounciness = 15.0f;
             layoutAnimation.toValue = @(constantsArray[i]);
+            if(i > 0){
+                layoutAnimation.dynamicsFriction += 50 + (CGFloat)i;
+            }
+            
+            
             [self.allConstraints[i] pop_addAnimation:layoutAnimation forKey:@"detailsContainerWidthAnimate"];
         }
     });

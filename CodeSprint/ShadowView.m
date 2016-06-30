@@ -7,9 +7,8 @@
 //
 
 #import "ShadowView.h"
-
+#import "Constants.h"
 @implementation ShadowView
-#define SHADOW_COLOR 157.0/266.0
 
 -(void)awakeFromNib{
     self.layer.cornerRadius = 2.0;
