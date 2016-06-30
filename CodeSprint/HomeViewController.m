@@ -12,6 +12,7 @@
 #import "FirebaseManager.h"
 #import "SettingsTableViewCell.h"
 #import "Constants.h"
+
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;

@@ -8,16 +8,22 @@
 
 #import "IntroductionViewController.h"
 #include "Constants.h"
+
+#include "AnimationGenerator.h"
+
 @interface IntroductionViewController ()
+
 
 @end
 
+
+
 @implementation IntroductionViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.view.backgroundColor = LIGHT_BLUE;
-    // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning {

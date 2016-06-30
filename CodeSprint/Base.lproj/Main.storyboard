@@ -54,23 +54,7 @@
                     <view key="view" contentMode="scaleToFill" id="fq7-pm-rq7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToK-Mb-Dta">
-                                <rect key="frame" x="20" y="550" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hds-Je-lFy">
-                                <rect key="frame" x="534" y="550" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="ToK-Mb-Dta" secondAttribute="bottom" constant="20" symbolic="YES" id="9B8-7u-K8B"/>
-                            <constraint firstItem="ToK-Mb-Dta" firstAttribute="leading" secondItem="fq7-pm-rq7" secondAttribute="leadingMargin" id="LeW-97-YpX"/>
-                            <constraint firstItem="Hds-Je-lFy" firstAttribute="trailing" secondItem="fq7-pm-rq7" secondAttribute="trailingMargin" id="gGB-oP-2dD"/>
-                            <constraint firstItem="ToK-Mb-Dta" firstAttribute="baseline" secondItem="Hds-Je-lFy" secondAttribute="baseline" id="pgb-RR-cpQ"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wZH-oS-khd"/>
                 </viewController>

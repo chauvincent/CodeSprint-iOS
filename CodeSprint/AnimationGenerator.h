@@ -11,9 +11,9 @@
 
 
 @interface AnimationGenerator : NSObject
-+ (CGPoint) offScreenRight;
-+ (CGPoint) offScreenLeft;
-+ (CGPoint) offScreenCenter;
+- (CGPoint) offScreenRight;
+- (CGPoint) offScreenLeft;
+- (CGPoint) offScreenCenter;
 
 @property (strong, nonatomic) NSArray *allConstraints;
 

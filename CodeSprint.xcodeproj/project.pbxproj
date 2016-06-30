@@ -16,8 +16,6 @@
 		755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76241D23E0E600B211CF /* SettingsTableViewCell.m */; };
 		755B76281D24158700B211CF /* Sprint.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76271D24158700B211CF /* Sprint.m */; };
 		755B762B1D2415CE00B211CF /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B762A1D2415CE00B211CF /* Team.m */; };
-		758454EA1D251AF5001C36EF /* IntroCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 758454E91D251AF5001C36EF /* IntroCard.m */; };
-		758454EC1D251B0E001C36EF /* IntroCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 758454EB1D251B0E001C36EF /* IntroCard.xib */; };
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
@@ -54,9 +52,6 @@
 		755B76271D24158700B211CF /* Sprint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprint.m; sourceTree = "<group>"; };
 		755B76291D2415CE00B211CF /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
 		755B762A1D2415CE00B211CF /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
-		758454E81D251AF5001C36EF /* IntroCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroCard.h; sourceTree = "<group>"; };
-		758454E91D251AF5001C36EF /* IntroCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroCard.m; sourceTree = "<group>"; };
-		758454EB1D251B0E001C36EF /* IntroCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroCard.xib; sourceTree = "<group>"; };
 		759918961D1D981F00E38268 /* ShadowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowImageView.h; sourceTree = "<group>"; };
 		759918971D1D981F00E38268 /* ShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowImageView.m; sourceTree = "<group>"; };
 		7599189A1D1E2AF600E38268 /* AnimationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationGenerator.h; sourceTree = "<group>"; };
@@ -126,9 +121,6 @@
 				759918971D1D981F00E38268 /* ShadowImageView.m */,
 				755B76231D23E0E600B211CF /* SettingsTableViewCell.h */,
 				755B76241D23E0E600B211CF /* SettingsTableViewCell.m */,
-				758454E81D251AF5001C36EF /* IntroCard.h */,
-				758454E91D251AF5001C36EF /* IntroCard.m */,
-				758454EB1D251B0E001C36EF /* IntroCard.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -294,7 +286,6 @@
 			files = (
 				75BFABCA1D181A6B0001CD57 /* LaunchScreen.storyboard in Resources */,
 				75BFABD31D181C500001CD57 /* GoogleService-Info.plist in Resources */,
-				758454EC1D251B0E001C36EF /* IntroCard.xib in Resources */,
 				75BFABC71D181A6B0001CD57 /* Assets.xcassets in Resources */,
 				75BFABC21D181A6B0001CD57 /* Main.storyboard in Resources */,
 			);
@@ -367,7 +358,6 @@
 				754FF8941D1D281A004ABD43 /* ShadowView.m in Sources */,
 				755B762B1D2415CE00B211CF /* Team.m in Sources */,
 				759918981D1D981F00E38268 /* ShadowImageView.m in Sources */,
-				758454EA1D251AF5001C36EF /* IntroCard.m in Sources */,
 				7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */,
 				754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */,
 				755B76281D24158700B211CF /* Sprint.m in Sources */,

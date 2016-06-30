@@ -11,19 +11,19 @@
 
 @implementation AnimationGenerator
 
-+ (CGPoint) offScreenRight{
+- (CGPoint) offScreenRight{
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat midY = CGRectGetMidY([UIScreen mainScreen].bounds );
     CGPoint position = CGPointMake(width, midY);
     return position;
 }
-+ (CGPoint) offScreenLeft{
+- (CGPoint) offScreenLeft{
     CGFloat width = -[UIScreen mainScreen].bounds.size.width;
     CGFloat midY = CGRectGetMidY([UIScreen mainScreen].bounds );
     CGPoint position = CGPointMake(width, midY);
     return position;
 }
-+ (CGPoint) offScreenCenter{
+- (CGPoint) offScreenCenter{
     CGFloat midX = CGRectGetMidX([UIScreen mainScreen].bounds);
     CGFloat midY = CGRectGetMidY([UIScreen mainScreen].bounds );
     CGPoint position = CGPointMake(midX, midY);
@@ -41,7 +41,7 @@ CGFloat *constantsArray;
         for ( NSLayoutConstraint* con in constraints  ){
             constantsArray[i] = con.constant;
             i++;
-            con.constant = [AnimationGenerator offScreenRight].x;
+            con.constant = self.offScreenRight.x;
         }
         self.allConstraints = constraints;
     }
