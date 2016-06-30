@@ -59,14 +59,15 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SettingsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell" forIndexPath:indexPath];
     
-    return cell;
+    [cell configureCellForIndexPath:indexPath];
     
+    return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 78.0f;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 4;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

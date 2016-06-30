@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#include "CircleImageView.h"
 
 @interface SettingsTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *optionNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *optionIconImageView;
+@property (weak, nonatomic) IBOutlet CircleImageView *optionIconImageView;
+@property NSInteger cellIndex;
+
+-(void)configureCellForIndexPath:(NSIndexPath*)index;
 
 @end
