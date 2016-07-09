@@ -29,7 +29,6 @@
     [self setupViews];
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,7 +65,14 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    switch (indexPath.row) {
+        case 0:
+            [self performSegueWithIdentifier:@"HomeToSprintSegue" sender:nil];
+            break;
+            
+        default:
+            break;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 78.0f;

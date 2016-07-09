@@ -20,13 +20,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //    [[UINavigationBar appearance] setBackgroundColor:DARK_BLUE];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : DARK_BLUE, NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]}];
 //    [[UINavigationBar appearance] setTintColor:DARK_BLUE];
 
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
-    [[UINavigationBar appearance] setBarTintColor:DARK_BLUE];
+   // [[UINavigationBar appearance] setBarTintColor:DARK_BLUE];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    
     [[UINavigationBar appearance] setTranslucent:NO];
-    //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+   // [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     
     

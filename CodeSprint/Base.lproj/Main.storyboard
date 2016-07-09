@@ -120,7 +120,7 @@
                                     <action selector="githubLoginButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="4wF-Dt-3Di"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JdH-Su-2iu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="JdH-Su-2iu">
                                 <rect key="frame" x="187" y="281" width="226" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="JdH-Su-2iu" secondAttribute="height" multiplier="226:67" id="5al-Iy-qzT"/>
@@ -237,7 +237,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="560" height="78"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oCm-9D-sMd" id="3ia-QQ-uXd">
-                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="77.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="78"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vcT-nQ-VBz" customClass="CircleImageView">
@@ -303,16 +303,17 @@
                         <outlet property="homeStackView" destination="81s-hS-sdH" id="c53-UM-3cv"/>
                         <outlet property="menuTableView" destination="Q2x-Ga-6Mn" id="8eU-Up-loE"/>
                         <outlet property="profilePictureImageView" destination="x90-Nh-kmN" id="ac3-CI-ctY"/>
+                        <segue destination="7nh-g9-1wz" kind="show" identifier="HomeToSprintSegue" id="Bk9-K7-NOA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGR-31-AUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2061" y="-394"/>
+            <point key="canvasLocation" x="2113" y="-534"/>
         </scene>
-        <!--View Controller-->
+        <!--Sprint Menu View Controller-->
         <scene sceneID="9Rl-0R-XMK">
             <objects>
-                <viewController id="7nh-g9-1wz" sceneMemberID="viewController">
+                <viewController id="7nh-g9-1wz" customClass="SprintMenuViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xZD-SE-HRF"/>
                         <viewControllerLayoutGuide type="bottom" id="tmI-n8-GEk"/>
@@ -320,12 +321,38 @@
                     <view key="view" contentMode="scaleToFill" id="hV1-9w-oxI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="r9M-Zz-iMv">
+                                <rect key="frame" x="50" y="84" width="500" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ce7-95-JPp">
+                                        <rect key="frame" x="0.0" y="0.0" width="235" height="150"/>
+                                        <state key="normal" title="Button" backgroundImage="card1"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqw-bJ-BzC">
+                                        <rect key="frame" x="265" y="0.0" width="235" height="150"/>
+                                        <state key="normal" title="Button" backgroundImage="card1"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="31C-jX-ld5"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="C3B-Nl-PfZ"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="r9M-Zz-iMv" firstAttribute="leading" secondItem="hV1-9w-oxI" secondAttribute="leadingMargin" constant="30" id="33G-Dm-u4F"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r9M-Zz-iMv" secondAttribute="trailing" constant="30" id="EV0-vW-tgc"/>
+                            <constraint firstItem="r9M-Zz-iMv" firstAttribute="centerX" relation="lessThanOrEqual" secondItem="hV1-9w-oxI" secondAttribute="centerX" id="LkN-1w-g5f"/>
+                            <constraint firstItem="tmI-n8-GEk" firstAttribute="top" secondItem="r9M-Zz-iMv" secondAttribute="bottom" constant="366" id="ag6-AC-gU2"/>
+                            <constraint firstItem="r9M-Zz-iMv" firstAttribute="top" secondItem="xZD-SE-HRF" secondAttribute="bottom" constant="20" id="ob6-DT-P4I"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPw-BD-im6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3031" y="-1224"/>
+            <point key="canvasLocation" x="2909" y="-1078"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="zg7-8V-hny">
@@ -397,6 +424,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="card1" width="300" height="400"/>
         <image name="facebookSignIn" width="360" height="46"/>
         <image name="githubSignIn" width="336" height="44"/>
         <image name="logo2" width="466" height="435"/>

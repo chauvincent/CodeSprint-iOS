@@ -46,6 +46,7 @@
 }
 
 -(void)setupView{
+    self.navigationItem.title = @"CodeSprint";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
     
     NSArray *viewControllers = @[startingViewController];

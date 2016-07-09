@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A755D1D183E9300923F61 /* FirebaseManager.m */; };
+		752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752C07631D30797C00E8712D /* SprintMenuViewController.m */; };
 		754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8871D1BA143004ABD43 /* HomeViewController.m */; };
 		754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF88A1D1BA183004ABD43 /* IntroductionViewController.m */; };
 		754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8901D1D04F2004ABD43 /* CircleImageView.m */; };
@@ -37,6 +38,8 @@
 		3211F551BD5D394DF9192056 /* Pods-CodeSprint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeSprint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeSprint/Pods-CodeSprint.debug.xcconfig"; sourceTree = "<group>"; };
 		751A755C1D183E9300923F61 /* FirebaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseManager.h; sourceTree = "<group>"; };
 		751A755D1D183E9300923F61 /* FirebaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseManager.m; sourceTree = "<group>"; };
+		752C07621D30797C00E8712D /* SprintMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintMenuViewController.h; sourceTree = "<group>"; };
+		752C07631D30797C00E8712D /* SprintMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprintMenuViewController.m; sourceTree = "<group>"; };
 		754FF8861D1BA143004ABD43 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		754FF8871D1BA143004ABD43 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		754FF8891D1BA183004ABD43 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				75C14F141D18213600CAE375 /* LoginViewController.m */,
 				758454ED1D255506001C36EF /* PageContentViewController.h */,
 				758454EE1D255506001C36EF /* PageContentViewController.m */,
+				752C07621D30797C00E8712D /* SprintMenuViewController.h */,
+				752C07631D30797C00E8712D /* SprintMenuViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				759918981D1D981F00E38268 /* ShadowImageView.m in Sources */,
 				7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */,
 				758454EF1D255506001C36EF /* PageContentViewController.m in Sources */,
+				752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */,
 				754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */,
 				755B76281D24158700B211CF /* Sprint.m in Sources */,
 			);
