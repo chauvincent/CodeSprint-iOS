@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -322,31 +324,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="r9M-Zz-iMv">
-                                <rect key="frame" x="50" y="84" width="500" height="150"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ce7-95-JPp">
-                                        <rect key="frame" x="0.0" y="0.0" width="235" height="150"/>
-                                        <state key="normal" title="Button" backgroundImage="card1"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqw-bJ-BzC">
-                                        <rect key="frame" x="265" y="0.0" width="235" height="150"/>
-                                        <state key="normal" title="Button" backgroundImage="card1"/>
-                                    </button>
-                                </subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U8s-Z6-bCX">
+                                <rect key="frame" x="20" y="236" width="560" height="344"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing Teams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcN-Ek-lKE">
+                                <rect key="frame" x="20" y="207" width="143" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="31C-jX-ld5"/>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="C3B-Nl-PfZ"/>
+                                    <constraint firstAttribute="width" constant="143" id="PMH-OR-rvd"/>
                                 </constraints>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUC-xN-9pg" customClass="CircleBorderedButton">
+                                <rect key="frame" x="250" y="78" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Oxv-d4-6a2"/>
+                                </constraints>
+                                <state key="normal" title="Button" backgroundImage="card1"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAE-xk-Xzd" customClass="CircleBorderedButton">
+                                <rect key="frame" x="150" y="98" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="nLI-rs-4MA"/>
+                                    <constraint firstAttribute="height" constant="80" id="vQt-4l-aDZ"/>
+                                </constraints>
+                                <state key="normal" title="Button" backgroundImage="card1"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JM4-cd-FZH" customClass="CircleBorderedButton">
+                                <rect key="frame" x="370" y="98" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Opi-bK-ijK"/>
+                                </constraints>
+                                <state key="normal" title="Button" backgroundImage="card1"/>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="r9M-Zz-iMv" firstAttribute="leading" secondItem="hV1-9w-oxI" secondAttribute="leadingMargin" constant="30" id="33G-Dm-u4F"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="r9M-Zz-iMv" secondAttribute="trailing" constant="30" id="EV0-vW-tgc"/>
-                            <constraint firstItem="r9M-Zz-iMv" firstAttribute="centerX" relation="lessThanOrEqual" secondItem="hV1-9w-oxI" secondAttribute="centerX" id="LkN-1w-g5f"/>
-                            <constraint firstItem="tmI-n8-GEk" firstAttribute="top" secondItem="r9M-Zz-iMv" secondAttribute="bottom" constant="366" id="ag6-AC-gU2"/>
-                            <constraint firstItem="r9M-Zz-iMv" firstAttribute="top" secondItem="xZD-SE-HRF" secondAttribute="bottom" constant="20" id="ob6-DT-P4I"/>
+                            <constraint firstItem="ZAE-xk-Xzd" firstAttribute="top" secondItem="xZD-SE-HRF" secondAttribute="bottom" constant="34" id="DwI-c8-ULZ"/>
+                            <constraint firstItem="lUC-xN-9pg" firstAttribute="centerX" secondItem="U8s-Z6-bCX" secondAttribute="centerX" id="H2B-js-8Ep"/>
+                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="top" secondItem="ZAE-xk-Xzd" secondAttribute="bottom" constant="29" id="HRu-Re-eTW"/>
+                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="U8s-Z6-bCX" secondAttribute="leading" id="HwN-9F-Wgt"/>
+                            <constraint firstItem="JM4-cd-FZH" firstAttribute="leading" secondItem="lUC-xN-9pg" secondAttribute="trailing" constant="20" id="Jo6-DT-BHO"/>
+                            <constraint firstAttribute="bottom" secondItem="U8s-Z6-bCX" secondAttribute="bottom" constant="20" symbolic="YES" id="NeO-7q-OJO"/>
+                            <constraint firstItem="lUC-xN-9pg" firstAttribute="leading" secondItem="ZAE-xk-Xzd" secondAttribute="trailing" constant="20" id="Ol7-bw-Yq2"/>
+                            <constraint firstItem="ZAE-xk-Xzd" firstAttribute="bottom" secondItem="lUC-xN-9pg" secondAttribute="bottom" id="Ycz-j7-Gyj"/>
+                            <constraint firstItem="lUC-xN-9pg" firstAttribute="top" secondItem="xZD-SE-HRF" secondAttribute="bottom" constant="14" id="YnL-ta-lgE"/>
+                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="hV1-9w-oxI" secondAttribute="leadingMargin" id="a8q-tT-cv1"/>
+                            <constraint firstItem="U8s-Z6-bCX" firstAttribute="trailing" secondItem="hV1-9w-oxI" secondAttribute="trailingMargin" id="dGy-3I-GwI"/>
+                            <constraint firstItem="ZAE-xk-Xzd" firstAttribute="baseline" secondItem="JM4-cd-FZH" secondAttribute="firstBaseline" id="gqg-Jy-W4O"/>
+                            <constraint firstItem="JM4-cd-FZH" firstAttribute="baseline" secondItem="ZAE-xk-Xzd" secondAttribute="firstBaseline" id="l2d-T8-k8Q"/>
+                            <constraint firstItem="ZAE-xk-Xzd" firstAttribute="top" secondItem="JM4-cd-FZH" secondAttribute="top" id="n0X-2S-Gkl"/>
+                            <constraint firstItem="U8s-Z6-bCX" firstAttribute="top" secondItem="DcN-Ek-lKE" secondAttribute="bottom" constant="8" symbolic="YES" id="qFL-4I-fm9"/>
                         </constraints>
                     </view>
                 </viewController>
