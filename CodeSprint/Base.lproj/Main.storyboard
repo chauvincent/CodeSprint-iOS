@@ -337,27 +337,26 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUC-xN-9pg" customClass="CircleBorderedButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUC-xN-9pg" customClass="CircleBorderedButton">
                                 <rect key="frame" x="250" y="78" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Oxv-d4-6a2"/>
                                 </constraints>
-                                <state key="normal" title="Button" backgroundImage="card1"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAE-xk-Xzd" customClass="CircleBorderedButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAE-xk-Xzd" customClass="CircleBorderedButton">
                                 <rect key="frame" x="150" y="98" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="nLI-rs-4MA"/>
                                     <constraint firstAttribute="height" constant="80" id="vQt-4l-aDZ"/>
                                 </constraints>
-                                <state key="normal" title="Button" backgroundImage="card1"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JM4-cd-FZH" customClass="CircleBorderedButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JM4-cd-FZH" customClass="CircleBorderedButton">
                                 <rect key="frame" x="370" y="98" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Opi-bK-ijK"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="UDT-2X-Yie"/>
+                                    <constraint firstAttribute="height" constant="80" id="X7Q-Mx-eIF"/>
                                 </constraints>
-                                <state key="normal" title="Button" backgroundImage="card1"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -379,6 +378,11 @@
                             <constraint firstItem="U8s-Z6-bCX" firstAttribute="top" secondItem="DcN-Ek-lKE" secondAttribute="bottom" constant="8" symbolic="YES" id="qFL-4I-fm9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="createGroupButton" destination="lUC-xN-9pg" id="XHN-Et-aqS"/>
+                        <outlet property="findGroupButton" destination="JM4-cd-FZH" id="all-LZ-e3Z"/>
+                        <outlet property="removeButton" destination="ZAE-xk-Xzd" id="jGR-mQ-085"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPw-BD-im6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -400,7 +404,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CrG-AW-KFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2951" y="-222"/>
+            <point key="canvasLocation" x="3665" y="-1078"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="U9A-qH-c7E">
@@ -454,7 +458,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="card1" width="300" height="400"/>
         <image name="facebookSignIn" width="360" height="46"/>
         <image name="githubSignIn" width="336" height="44"/>
         <image name="logo2" width="466" height="435"/>
