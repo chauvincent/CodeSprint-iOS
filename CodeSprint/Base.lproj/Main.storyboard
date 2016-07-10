@@ -344,14 +344,14 @@
                                 </constraints>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAE-xk-Xzd" customClass="CircleBorderedButton">
-                                <rect key="frame" x="150" y="98" width="80" height="80"/>
+                                <rect key="frame" x="160" y="98" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="nLI-rs-4MA"/>
                                     <constraint firstAttribute="height" constant="80" id="vQt-4l-aDZ"/>
                                 </constraints>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JM4-cd-FZH" customClass="CircleBorderedButton">
-                                <rect key="frame" x="370" y="98" width="80" height="80"/>
+                                <rect key="frame" x="360" y="98" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Opi-bK-ijK"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="UDT-2X-Yie"/>
@@ -365,9 +365,9 @@
                             <constraint firstItem="lUC-xN-9pg" firstAttribute="centerX" secondItem="U8s-Z6-bCX" secondAttribute="centerX" id="H2B-js-8Ep"/>
                             <constraint firstItem="DcN-Ek-lKE" firstAttribute="top" secondItem="ZAE-xk-Xzd" secondAttribute="bottom" constant="29" id="HRu-Re-eTW"/>
                             <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="U8s-Z6-bCX" secondAttribute="leading" id="HwN-9F-Wgt"/>
-                            <constraint firstItem="JM4-cd-FZH" firstAttribute="leading" secondItem="lUC-xN-9pg" secondAttribute="trailing" constant="20" id="Jo6-DT-BHO"/>
+                            <constraint firstItem="JM4-cd-FZH" firstAttribute="leading" secondItem="lUC-xN-9pg" secondAttribute="trailing" constant="10" id="Jo6-DT-BHO"/>
                             <constraint firstAttribute="bottom" secondItem="U8s-Z6-bCX" secondAttribute="bottom" constant="20" symbolic="YES" id="NeO-7q-OJO"/>
-                            <constraint firstItem="lUC-xN-9pg" firstAttribute="leading" secondItem="ZAE-xk-Xzd" secondAttribute="trailing" constant="20" id="Ol7-bw-Yq2"/>
+                            <constraint firstItem="lUC-xN-9pg" firstAttribute="leading" secondItem="ZAE-xk-Xzd" secondAttribute="trailing" constant="10" id="Ol7-bw-Yq2"/>
                             <constraint firstItem="ZAE-xk-Xzd" firstAttribute="bottom" secondItem="lUC-xN-9pg" secondAttribute="bottom" id="Ycz-j7-Gyj"/>
                             <constraint firstItem="lUC-xN-9pg" firstAttribute="top" secondItem="xZD-SE-HRF" secondAttribute="bottom" constant="14" id="YnL-ta-lgE"/>
                             <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="hV1-9w-oxI" secondAttribute="leadingMargin" id="a8q-tT-cv1"/>

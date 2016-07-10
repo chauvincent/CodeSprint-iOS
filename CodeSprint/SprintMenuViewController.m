@@ -38,23 +38,9 @@
 -(void)setupView{
 
     [self.createGroupButton setBackgroundImage:[UIImage imageNamed:@"create-button2"] forState:UIControlStateNormal];
-    //self.createGroupButton.imageView.image = [UIImage imageNamed:@"create-button"];
-    self.createGroupButton.contentMode = UIViewContentModeScaleToFill;
-    self.createGroupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    self.createGroupButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
-    
     [self.findGroupButton setBackgroundImage:[UIImage imageNamed:@"find-button"] forState:UIControlStateNormal];
-    //self.createGroupButton.imageView.image = [UIImage imageNamed:@"create-button"];
-    self.findGroupButton.contentMode = UIViewContentModeScaleToFill;
-    self.findGroupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    self.findGroupButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
-    
-    [self.findGroupButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];
-    //self.createGroupButton.imageView.image = [UIImage imageNamed:@"create-button"];
-    self.findGroupButton.contentMode = UIViewContentModeScaleToFill;
-    self.findGroupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    self.findGroupButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
-    
+    [self.removeButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];
+
 }
 
 @end
