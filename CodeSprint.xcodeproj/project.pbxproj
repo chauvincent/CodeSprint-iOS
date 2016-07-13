@@ -10,6 +10,7 @@
 		751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A755D1D183E9300923F61 /* FirebaseManager.m */; };
 		752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752C07631D30797C00E8712D /* SprintMenuViewController.m */; };
 		752C07671D30F52B00E8712D /* CircleBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 752C07661D30F52B00E8712D /* CircleBorderedButton.m */; };
+		752C076A1D35B60100E8712D /* CreateTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752C07691D35B60100E8712D /* CreateTeamViewController.m */; };
 		754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8871D1BA143004ABD43 /* HomeViewController.m */; };
 		754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF88A1D1BA183004ABD43 /* IntroductionViewController.m */; };
 		754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8901D1D04F2004ABD43 /* CircleImageView.m */; };
@@ -43,6 +44,8 @@
 		752C07631D30797C00E8712D /* SprintMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprintMenuViewController.m; sourceTree = "<group>"; };
 		752C07651D30F52B00E8712D /* CircleBorderedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleBorderedButton.h; sourceTree = "<group>"; };
 		752C07661D30F52B00E8712D /* CircleBorderedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleBorderedButton.m; sourceTree = "<group>"; };
+		752C07681D35B60100E8712D /* CreateTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTeamViewController.h; sourceTree = "<group>"; };
+		752C07691D35B60100E8712D /* CreateTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTeamViewController.m; sourceTree = "<group>"; };
 		754FF8861D1BA143004ABD43 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		754FF8871D1BA143004ABD43 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		754FF8891D1BA183004ABD43 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				758454EE1D255506001C36EF /* PageContentViewController.m */,
 				752C07621D30797C00E8712D /* SprintMenuViewController.h */,
 				752C07631D30797C00E8712D /* SprintMenuViewController.m */,
+				752C07681D35B60100E8712D /* CreateTeamViewController.h */,
+				752C07691D35B60100E8712D /* CreateTeamViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */,
 				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
 				751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */,
+				752C076A1D35B60100E8712D /* CreateTeamViewController.m in Sources */,
 				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
 				755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */,
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,

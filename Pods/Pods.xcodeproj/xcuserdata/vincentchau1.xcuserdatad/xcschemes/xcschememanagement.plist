@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RWBlurPopover.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,7 +27,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>17817E00B91EFE1855C667231DE2C6B8</key>
+		<key>20A61E664B1C37363BC97A563FB9EFF8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -32,7 +37,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55449BF0F1E0F7F447E740F46B53CFE5</key>
+		<key>41C267FF3EB789DCD93755FBFFC1827D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>44E4971A3A6ED0C47A3D1426ED8D48B4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

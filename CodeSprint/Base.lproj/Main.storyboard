@@ -327,6 +327,16 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U8s-Z6-bCX">
                                 <rect key="frame" x="20" y="236" width="560" height="344"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wHE-V8-XQ9">
+                                        <rect key="frame" x="0.0" y="92" width="560" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wHE-V8-XQ9" id="Y16-JT-hge">
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing Teams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcN-Ek-lKE">
                                 <rect key="frame" x="20" y="207" width="143" height="21"/>
@@ -342,6 +352,9 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Oxv-d4-6a2"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="createButtonPressed:" destination="7nh-g9-1wz" eventType="touchUpInside" id="2Cj-Cu-pbj"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAE-xk-Xzd" customClass="CircleBorderedButton">
                                 <rect key="frame" x="160" y="98" width="80" height="80"/>
@@ -349,6 +362,9 @@
                                     <constraint firstAttribute="width" constant="80" id="nLI-rs-4MA"/>
                                     <constraint firstAttribute="height" constant="80" id="vQt-4l-aDZ"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="editButtonPressed:" destination="7nh-g9-1wz" eventType="touchUpInside" id="4Tt-TV-BdU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JM4-cd-FZH" customClass="CircleBorderedButton">
                                 <rect key="frame" x="360" y="98" width="80" height="80"/>
@@ -357,6 +373,9 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="UDT-2X-Yie"/>
                                     <constraint firstAttribute="height" constant="80" id="X7Q-Mx-eIF"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="searchButtonPressed:" destination="7nh-g9-1wz" eventType="touchUpInside" id="0sp-wh-m3t"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -386,25 +405,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPw-BD-im6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2909" y="-1078"/>
+            <point key="canvasLocation" x="2941" y="-1078"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="zg7-8V-hny">
+        <!--Create Team View Controller-->
+        <scene sceneID="zRk-Jm-T6S">
             <objects>
-                <viewController id="315-sJ-Ei4" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateTeamViewController" id="eqb-40-Whz" customClass="CreateTeamViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UQn-2m-5xE"/>
-                        <viewControllerLayoutGuide type="bottom" id="hwe-VF-3sN"/>
+                        <viewControllerLayoutGuide type="top" id="p8x-NE-PLK"/>
+                        <viewControllerLayoutGuide type="bottom" id="hhp-7n-8HU"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cf4-Vm-l9f">
+                    <view key="view" contentMode="scaleToFill" id="FvN-Pz-N4g">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CrG-AW-KFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xLV-00-Xs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3665" y="-1078"/>
+            <point key="canvasLocation" x="3911" y="-1203"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="U9A-qH-c7E">

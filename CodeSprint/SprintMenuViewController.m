@@ -7,8 +7,12 @@
 //
 
 #import "SprintMenuViewController.h"
+#import "CreateTeamViewController.h"
+#import <RWBlurPopover/RWBlurPopover.h>
 
 @interface SprintMenuViewController ()
+
+@property (nonatomic, weak) RWBlurPopover *createTeamPopover;
 
 @end
 
@@ -35,12 +39,33 @@
 }
 */
 
+#pragma mark - IBActions
+- (IBAction)createButtonPressed:(id)sender {
+    [self displayMenuCreate];
+}
+- (IBAction)searchButtonPressed:(id)sender {
+  
+}
+- (IBAction)editButtonPressed:(id)sender {
+ 
+}
+#pragma mark - View Setup
 -(void)setupView{
-
     [self.createGroupButton setBackgroundImage:[UIImage imageNamed:@"create-button2"] forState:UIControlStateNormal];
     [self.findGroupButton setBackgroundImage:[UIImage imageNamed:@"find-button"] forState:UIControlStateNormal];
     [self.removeButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];
-
 }
-
+-(void)displayMenuCreate{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    CreateTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CreateTeamViewController"];
+//    [RWBlurPopover showContentViewController:vc insideViewController:self];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+    popover.throwingGestureEnabled = YES;
+    
+    [popover showInViewController:self];
+    self.createTeamPopover = popover;
+    
+}
 @end

@@ -59,15 +59,9 @@ CGFloat *constantsArray;
             if(i > 0){
                 layoutAnimation.dynamicsFriction += 50 + (CGFloat)i;
             }
-            
-            
             [self.allConstraints[i] pop_addAnimation:layoutAnimation forKey:@"detailsContainerWidthAnimate"];
-        }
+        } 
     });
 }
-
-
-
-
 
 @end
