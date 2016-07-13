@@ -418,8 +418,54 @@
                     <view key="view" contentMode="scaleToFill" id="FvN-Pz-N4g">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VVp-a6-4Jk">
+                                <rect key="frame" x="50" y="50" width="500" height="95"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter a unique team name. This name will be used by others to join your team." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="F94-PF-dij">
+                                        <rect key="frame" x="10" y="0.0" width="482" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FTF-ca-LW1">
+                                        <rect key="frame" x="190" y="25" width="122" height="70"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: Team-ECS160" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FSd-Bf-weB">
+                                                <rect key="frame" x="0.0" y="0.0" width="122" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZpE-N0-bRd">
+                                                <rect key="frame" x="8" y="40" width="105" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JwW-Uw-2Hm">
+                                                        <rect key="frame" x="0.0" y="0.0" width="36" height="30"/>
+                                                        <state key="normal" title="Clear"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pyr-Bl-f32">
+                                                        <rect key="frame" x="56" y="0.0" width="49" height="30"/>
+                                                        <state key="normal" title="Submit"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VVp-a6-4Jk" firstAttribute="leading" secondItem="FvN-Pz-N4g" secondAttribute="leadingMargin" constant="30" id="9ca-sT-Voz"/>
+                            <constraint firstItem="VVp-a6-4Jk" firstAttribute="top" secondItem="p8x-NE-PLK" secondAttribute="bottom" constant="30" id="XTc-6P-L8d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VVp-a6-4Jk" secondAttribute="trailing" constant="30" id="t5b-FI-KT4"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="clearButton" destination="JwW-Uw-2Hm" id="I57-h1-V7g"/>
+                        <outlet property="submitButton" destination="pyr-Bl-f32" id="HT8-CA-7GN"/>
+                        <outlet property="teamTextField" destination="FSd-Bf-weB" id="2xx-xc-Uz3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xLV-00-Xs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
