@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ImageStyleButton.h"
 @interface CreateTeamViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet ImageStyleButton *createButton;
+@property (weak, nonatomic) IBOutlet ImageStyleButton *clearButton;
 
 @end

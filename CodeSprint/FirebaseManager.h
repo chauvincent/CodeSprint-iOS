@@ -20,4 +20,7 @@
 @property (nonatomic, retain) NSString *usersName;
 @property (nonatomic, retain) NSURL *photoUrl;
 
+#pragma mark - Insert/Delete Functions
+-(BOOL)isNewTeam:(NSString *)teamName;
+
 @end

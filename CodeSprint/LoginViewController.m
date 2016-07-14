@@ -151,7 +151,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [FirebaseManager sharedInstance].usersName = user.displayName.length > 0 ? user.displayName : user.email;
     [FirebaseManager sharedInstance].photoUrl = user.photoURL;
     [FirebaseManager sharedInstance].signedIn = YES;
-    NSLog(@"%@", user.photoURL);
+    NSLog(@"%@", user.displayName);
 
     [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
 }

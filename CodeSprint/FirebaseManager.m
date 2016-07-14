@@ -35,5 +35,12 @@
     return [FirebaseManager sharedInstance].ref;
 }
 
+#pragma mark - Queries
+-(BOOL)isNewTeam:(NSString *)teamName{
+    
+    return false;
+}
+
+
 
 @end

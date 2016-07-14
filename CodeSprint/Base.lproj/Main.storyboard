@@ -454,6 +454,9 @@
                                                             <constraint firstAttribute="width" constant="25" id="evL-UL-dES"/>
                                                         </constraints>
                                                         <state key="normal" image="remove-button"/>
+                                                        <connections>
+                                                            <action selector="cancelButtonPressed:" destination="eqb-40-Whz" eventType="touchUpInside" id="War-9z-SL6"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pyr-Bl-f32" customClass="ImageStyleButton">
                                                         <rect key="frame" x="45" y="0.0" width="25" height="25"/>
@@ -462,6 +465,9 @@
                                                             <constraint firstAttribute="height" constant="25" id="iOo-cy-oaX"/>
                                                         </constraints>
                                                         <state key="normal" image="create-button2"/>
+                                                        <connections>
+                                                            <action selector="createButtonPressed:" destination="eqb-40-Whz" eventType="touchUpInside" id="ND7-hv-5vO"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -490,15 +496,20 @@
                             <constraint firstItem="VVp-a6-4Jk" firstAttribute="top" secondItem="p8x-NE-PLK" secondAttribute="bottom" constant="30" id="y5z-6M-bIO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="clearButton" destination="JwW-Uw-2Hm" id="5av-hs-0e0"/>
+                        <outlet property="createButton" destination="pyr-Bl-f32" id="rjL-Wk-elk"/>
+                        <outlet property="teamTextField" destination="FSd-Bf-weB" id="mfb-oZ-70f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xLV-00-Xs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3911" y="-1203"/>
         </scene>
-        <!--View Controller-->
+        <!--Search Team View Controller-->
         <scene sceneID="U9A-qH-c7E">
             <objects>
-                <viewController id="jcN-Qy-xqp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchTeamViewController" id="jcN-Qy-xqp" customClass="SearchTeamViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rWY-da-7J9"/>
                         <viewControllerLayoutGuide type="bottom" id="GC2-vv-6Rf"/>
@@ -506,12 +517,65 @@
                     <view key="view" contentMode="scaleToFill" id="BX4-Eq-cMV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hWl-aQ-WpK">
+                                <rect key="frame" x="50" y="50" width="500" height="120"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="482" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-w8-r7Y">
+                                        <rect key="frame" x="10" y="0.0" width="480" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="9fS-Jj-HTB"/>
+                                            <constraint firstAttribute="width" constant="480" id="edr-wb-AK1"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="eon-8J-MMM"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="480" id="wvh-Fx-qjM"/>
+                                        </constraints>
+                                        <string key="text">If your team has already created a group, please enter your unique team name. If it has not been created, go back and create a new group.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Ql-Uh-lDt">
+                                        <rect key="frame" x="189" y="55" width="122" height="65"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: Team-ECS160" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kkP-03-4Bb" customClass="CustomTextField">
+                                                <rect key="frame" x="0.0" y="0.0" width="122" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="L7V-RV-1rW"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Qmo-UH-OIT"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="W2d-DX-Edk"/>
+                                                    <constraint firstAttribute="width" constant="122" id="ZF1-ra-F2L"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYI-k6-5jS" customClass="ImageStyleButton">
+                                                <rect key="frame" x="49" y="40" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="VTf-UA-cDd"/>
+                                                    <constraint firstAttribute="width" constant="25" id="nix-1C-lAF"/>
+                                                </constraints>
+                                                <state key="normal" image="find-button"/>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="65" id="u03-W9-4lR"/>
+                                            <constraint firstAttribute="width" constant="122" id="u1R-zA-Jq3"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hWl-aQ-WpK" firstAttribute="top" secondItem="rWY-da-7J9" secondAttribute="bottom" constant="30" id="C5x-24-V4q"/>
+                            <constraint firstItem="hWl-aQ-WpK" firstAttribute="leading" secondItem="BX4-Eq-cMV" secondAttribute="leadingMargin" constant="30" id="wUq-qJ-tgO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hWl-aQ-WpK" secondAttribute="trailing" constant="30" id="ycN-3b-zKj"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUr-MM-xVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3053" y="408"/>
+            <point key="canvasLocation" x="3911" y="-496"/>
         </scene>
         <!--Page Content View Controller-->
         <scene sceneID="rT0-Ll-5rP">
@@ -549,6 +613,7 @@
     <resources>
         <image name="create-button2" width="300" height="300"/>
         <image name="facebookSignIn" width="360" height="46"/>
+        <image name="find-button" width="300" height="300"/>
         <image name="githubSignIn" width="336" height="44"/>
         <image name="logo2" width="466" height="435"/>
         <image name="remove-button" width="300" height="300"/>

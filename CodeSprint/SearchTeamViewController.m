@@ -1,23 +1,21 @@
 //
-//  CreateTeamViewController.m
+//  SearchTeamViewController.m
 //  CodeSprint
 //
-//  Created by Vincent Chau on 7/12/16.
+//  Created by Vincent Chau on 7/14/16.
 //  Copyright © 2016 Vincent Chau. All rights reserved.
 //
 
-#import "CreateTeamViewController.h"
+#import "SearchTeamViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "ImageStyleButton.h"
 #import "FirebaseManager.h"
 
-@interface CreateTeamViewController ()
-
-@property (weak, nonatomic) IBOutlet UITextField *teamTextField;
+@interface SearchTeamViewController ()
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 @end
 
-@implementation CreateTeamViewController
+@implementation SearchTeamViewController
 
 -(CGSize)preferredContentSize{
     return CGSizeMake(280.0f, 320.0f);
@@ -25,12 +23,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 /*
 #pragma mark - Navigation
 
@@ -40,21 +40,19 @@
     // Pass the selected object to the new view controller.
 }
 */
-#pragma mark - Setups
-
 -(void)setupButtons{
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;
     [self.view addGestureRecognizer:tap];
-
+    
     UIImage* closeImage = [UIImage imageNamed:@"Close-Button"];
     CGRect frameimg = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
     UIButton *button = [[UIButton alloc] initWithFrame:frameimg];
     [button setBackgroundImage:closeImage forState:UIControlStateNormal];
     [button addTarget:self action:@selector(dismiss)
-         forControlEvents:UIControlEventTouchUpInside];
+     forControlEvents:UIControlEventTouchUpInside];
     [button setShowsTouchWhenHighlighted:YES];
     
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
@@ -63,15 +61,4 @@
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-#pragma mark - IBActions
-- (IBAction)createButtonPressed:(id)sender {
-    NSLog(@"Create Button Pressed");
-    
-}
-
-- (IBAction)cancelButtonPressed:(id)sender {
-}
-
-
 @end

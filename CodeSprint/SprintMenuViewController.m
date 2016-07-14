@@ -8,6 +8,7 @@
 
 #import "SprintMenuViewController.h"
 #import "CreateTeamViewController.h"
+#import "SearchTeamViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 
 @interface SprintMenuViewController ()
@@ -44,7 +45,7 @@
     [self displayMenuCreateWithIdentifier:@"CreateTeamViewController"];
 }
 - (IBAction)searchButtonPressed:(id)sender {
-  
+    [self displayMenuCreateWithIdentifier:@"SearchTeamViewController"];
 }
 - (IBAction)editButtonPressed:(id)sender {
  
