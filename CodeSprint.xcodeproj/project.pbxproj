@@ -20,6 +20,8 @@
 		755B76281D24158700B211CF /* Sprint.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76271D24158700B211CF /* Sprint.m */; };
 		755B762B1D2415CE00B211CF /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B762A1D2415CE00B211CF /* Team.m */; };
 		758454EF1D255506001C36EF /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758454EE1D255506001C36EF /* PageContentViewController.m */; };
+		7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF011D37063A00F6E1E9 /* CustomTextField.m */; };
+		7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */; };
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
@@ -64,6 +66,10 @@
 		755B762A1D2415CE00B211CF /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
 		758454ED1D255506001C36EF /* PageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageContentViewController.h; sourceTree = "<group>"; };
 		758454EE1D255506001C36EF /* PageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageContentViewController.m; sourceTree = "<group>"; };
+		7588AF001D37063A00F6E1E9 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
+		7588AF011D37063A00F6E1E9 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
+		7588AF031D37066B00F6E1E9 /* ImageStyleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStyleButton.h; sourceTree = "<group>"; };
+		7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStyleButton.m; sourceTree = "<group>"; };
 		759918961D1D981F00E38268 /* ShadowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowImageView.h; sourceTree = "<group>"; };
 		759918971D1D981F00E38268 /* ShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowImageView.m; sourceTree = "<group>"; };
 		7599189A1D1E2AF600E38268 /* AnimationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationGenerator.h; sourceTree = "<group>"; };
@@ -135,6 +141,10 @@
 				755B76241D23E0E600B211CF /* SettingsTableViewCell.m */,
 				752C07651D30F52B00E8712D /* CircleBorderedButton.h */,
 				752C07661D30F52B00E8712D /* CircleBorderedButton.m */,
+				7588AF001D37063A00F6E1E9 /* CustomTextField.h */,
+				7588AF011D37063A00F6E1E9 /* CustomTextField.m */,
+				7588AF031D37066B00F6E1E9 /* ImageStyleButton.h */,
+				7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -374,6 +384,7 @@
 				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
 				755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */,
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,
+				7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */,
 				754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */,
 				754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */,
 				754FF8941D1D281A004ABD43 /* ShadowView.m in Sources */,
@@ -383,6 +394,7 @@
 				7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */,
 				758454EF1D255506001C36EF /* PageContentViewController.m in Sources */,
 				752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */,
+				7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */,
 				754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */,
 				755B76281D24158700B211CF /* Sprint.m in Sources */,
 			);
