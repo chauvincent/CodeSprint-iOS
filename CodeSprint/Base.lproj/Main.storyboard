@@ -555,6 +555,9 @@
                                                     <constraint firstAttribute="width" constant="25" id="nix-1C-lAF"/>
                                                 </constraints>
                                                 <state key="normal" image="find-button"/>
+                                                <connections>
+                                                    <action selector="searchButtonPressed:" destination="jcN-Qy-xqp" eventType="touchUpInside" id="mVF-s7-Bdp"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -572,6 +575,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="hWl-aQ-WpK" secondAttribute="trailing" constant="30" id="ycN-3b-zKj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="inputNameTextField" destination="kkP-03-4Bb" id="c9g-fW-aGe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUr-MM-xVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

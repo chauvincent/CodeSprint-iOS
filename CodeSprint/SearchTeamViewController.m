@@ -10,8 +10,10 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "ImageStyleButton.h"
 #import "FirebaseManager.h"
+#import "CustomTextField.h"
 
 @interface SearchTeamViewController ()
+@property (weak, nonatomic) IBOutlet CustomTextField *inputNameTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 @end
 
@@ -60,5 +62,7 @@
 }
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)searchButtonPressed:(id)sender {
 }
 @end
