@@ -11,12 +11,10 @@
 
 @interface Team : NSObject
 
-@property (strong, nonatomic) NSString *teamUID;
+//@property (strong, nonatomic) NSString *teamUID;
 @property (strong, nonatomic) NSMutableArray *membersUID;
 @property (strong, nonatomic) NSString *nickname;
 @property (strong, nonatomic) Sprint *sprintDetails;
-
-
 
 -(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name;
 

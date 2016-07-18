@@ -10,12 +10,17 @@
 
 @implementation Team
 
-
-
 -(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name{
     if (self = [super init]){
         // _ =
-        // init properties here
+//        // init properties here
+//        @property (strong, nonatomic) NSString *teamUID;
+//        @property (strong, nonatomic) NSMutableArray *membersUID;
+//        @property (strong, nonatomic) NSString *nickname;
+//        @property (strong, nonatomic) Sprint *sprintDetails;
+        _membersUID = @[userID].mutableCopy;
+        _nickname = name;
+        //_sprintDetails =
     }
     return self;
 }

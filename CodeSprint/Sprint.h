@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Task.h"
 @interface Sprint : NSObject
+
+
+-(instancetype)initWithTask:(Task*)task;
+
 
 @end

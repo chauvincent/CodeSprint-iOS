@@ -10,4 +10,12 @@
 
 @implementation Sprint
 
+
+-(instancetype)initWithTask:(Task *)task{
+    if (self = [super init]) {
+        
+    }
+    return self;
+}
+
 @end

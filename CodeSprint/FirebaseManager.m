@@ -22,6 +22,7 @@
     });
     return _sharedInstance;
 }
+
 #pragma mark - References Lazy Initializers
 - (FIRDatabaseReference*)ref{
     if (!ref) {
@@ -51,8 +52,9 @@
 }
 #pragma mark - Insertion
 -(void)createTeamWith:(Team *)teamInformation{
-//    FIRDatabaseReference *team = [[self teamRefs] child:[NSString stringWithFormat:"%@", ]];
+    //FIRDatabaseReference *team = [[self teamRef] child:[NSString stringWithFormat:"fd" ]];
     
+    //[[FirebaseManager sharedInstance] teamRefs] child:<#(nonnull NSString *)#>;
     
 }
 
