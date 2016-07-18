@@ -83,11 +83,11 @@
     }
     NSLog(@"successful input");
     
-    BOOL isValid = [[FirebaseManager sharedInstance] isNewTeam:inputText];
+    BOOL isValid = [FirebaseManager isNewTeam:inputText];
     
     if (isValid) {
         Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
-        [[FirebaseManager sharedInstance] createTeamWith:newTeam];
+        [FirebaseManager createTeamWith:newTeam];
     }
 
 }
