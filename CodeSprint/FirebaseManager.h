@@ -23,13 +23,14 @@
 @property (nonatomic, assign) BOOL signedIn;
 @property (nonatomic, retain) NSString *usersName;
 @property (nonatomic, retain) NSURL *photoUrl;
+@property (nonatomic, retain) NSString *uid;
 
 #pragma mark - Query Functions
--(BOOL)isNewTeam:(NSString *)teamName;
++ (BOOL)isNewTeam:(NSString *)teamName;
 
 
 #pragma mark - Insertion/Deletetion Functions
--(void)createTeamWith:(Team *)teamInformation;
++ (void)createTeamWith:(Team *)teamInformation;
 
 
 @end

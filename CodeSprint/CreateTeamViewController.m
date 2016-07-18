@@ -10,6 +10,9 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "ImageStyleButton.h"
 #import "FirebaseManager.h"
+#import "Team.h"
+
+#define MAX_INPUT_LENGTH 12
 
 @interface CreateTeamViewController () <UITextFieldDelegate>
 
@@ -24,8 +27,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _teamTextField.delegate = self;
     
+    _teamTextField.delegate = self;
     [self setupButtons];
 }
 
@@ -33,17 +36,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - Setups
-
 -(void)setupButtons{
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
@@ -72,8 +66,7 @@
     NSString *inputText = self.teamTextField.text;
     
     if ([inputText isEqualToString:@""]) {
-        [self showAlertWithTitle:@"Error: No Input"
-                      andMessage:@"Please enter a teamname to create."
+        [self showAlertWithTitle:@"Error: No Input" andMessage:@"Please enter a teamname to create."
                  andDismissNamed:@"Dismiss"];
         return;
     }
@@ -84,12 +77,19 @@
     NSRange range = [self.teamTextField.text rangeOfCharacterFromSet:charSet];
         
     if (range.location != NSNotFound) {
-        [self showAlertWithTitle:@"Invalid Characters"
-                      andMessage:@"Please enter a name containing only: [A-Z], [a-z], [0-9], -, _"
+        [self showAlertWithTitle:@"Invalid Characters" andMessage:@"Please enter a name containing only: [A-Z], [a-z], [0-9], -, _"
                  andDismissNamed:@"Dismiss"];
         return;
     }
     NSLog(@"successful input");
+    
+    BOOL isValid = [[FirebaseManager sharedInstance] isNewTeam:inputText];
+    
+    if (isValid) {
+        Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
+        [[FirebaseManager sharedInstance] createTeamWith:newTeam];
+    }
+
 }
 - (IBAction)cancelButtonPressed:(id)sender {
 
@@ -100,7 +100,7 @@
         return NO;
     }
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    return newLength <= 12;
+    return newLength <= MAX_INPUT_LENGTH;
 }
 
 #pragma mark - Helper methods

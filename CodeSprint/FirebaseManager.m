@@ -46,16 +46,13 @@
 }
 
 #pragma mark - Queries
--(BOOL)isNewTeam:(NSString *)teamName{
++ (BOOL)isNewTeam:(NSString *)teamName{
     
     return false;
 }
 #pragma mark - Insertion
--(void)createTeamWith:(Team *)teamInformation{
-    //FIRDatabaseReference *team = [[self teamRef] child:[NSString stringWithFormat:"fd" ]];
-    
-    //[[FirebaseManager sharedInstance] teamRefs] child:<#(nonnull NSString *)#>;
-    
++ (void)createTeamWith:(Team *)teamInformation{
+     
 }
 
 
