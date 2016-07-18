@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Team.h"
+#import "Sprint.h"
+
 @import Firebase;
 
 @interface FirebaseManager : NSObject{
-
-     FIRDatabaseReference *ref;
+    FIRDatabaseReference *ref;
+    FIRDatabaseReference *teamsRef;
+    
 }
 + (FirebaseManager *) sharedInstance;
 
@@ -20,7 +24,12 @@
 @property (nonatomic, retain) NSString *usersName;
 @property (nonatomic, retain) NSURL *photoUrl;
 
-#pragma mark - Insert/Delete Functions
+#pragma mark - Query Functions
 -(BOOL)isNewTeam:(NSString *)teamName;
+
+
+#pragma mark - Insertion/Deletetion Functions
+-(void)createTeamWith:(Team *)teamInformation;
+
 
 @end

@@ -29,10 +29,19 @@
     }
     return ref;
 }
+- (FIRDatabaseReference*)teamRefs{
+    if (!teamsRef) {
+        teamsRef = [self.ref child:@"teams"];
+    }
+    return teamsRef;
+}
 
 #pragma mark - Reference Getters
 + (FIRDatabaseReference *)mainRef {
     return [FirebaseManager sharedInstance].ref;
+}
++ (FIRDatabaseReference *)teamRef {
+    return [FirebaseManager sharedInstance].teamRefs;
 }
 
 #pragma mark - Queries
@@ -40,6 +49,14 @@
     
     return false;
 }
+#pragma mark - Insertion
+-(void)createTeamWith:(Team *)teamInformation{
+//    FIRDatabaseReference *team = [[self teamRefs] child:[NSString stringWithFormat:"%@", ]];
+    
+    
+}
+
+
 
 
 

@@ -10,4 +10,14 @@
 
 @implementation Team
 
+
+
+-(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name{
+    if (self = [super init]){
+        // _ =
+        // init properties here
+    }
+    return self;
+}
+
 @end
