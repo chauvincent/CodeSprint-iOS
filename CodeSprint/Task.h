@@ -10,10 +10,12 @@
 
 @interface Task : NSObject
 
+// Class Properties
 @property (strong, nonatomic) NSString *taskDescription;
 @property (strong, nonatomic) NSDate *dueDate;
 @property (assign, nonatomic) BOOL isComplete;
 
+// Initializers
 -(instancetype)initTaskWith:(NSString*)task withDeadline:(NSDate*)date andCompleted:(BOOL)complete;
 
 

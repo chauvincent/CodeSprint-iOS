@@ -13,9 +13,11 @@
 
 -(instancetype)initWithTask:(Task *)task{
     if (self = [super init]) {
-        
+        _tasksArray = @[task].mutableCopy;
     }
     return self;
 }
+
+
 
 @end

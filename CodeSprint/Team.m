@@ -10,19 +10,24 @@
 
 @implementation Team
 
+#pragma mark - Lazy Initializers
+-(NSMutableArray *)allSprints{
+    if (!_allSprints) {
+        _allSprints = [[NSMutableArray alloc] init];
+    }
+    return _allSprints;
+}
+
 -(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name{
     if (self = [super init]){
-        // _ =
-//        // init properties here
-//        @property (strong, nonatomic) NSString *teamUID;
-//        @property (strong, nonatomic) NSMutableArray *membersUID;
-//        @property (strong, nonatomic) NSString *nickname;
-//        @property (strong, nonatomic) Sprint *sprintDetails;
         _membersUID = @[userID].mutableCopy;
         _nickname = name;
-        //_sprintDetails =
     }
     return self;
+}
+
+-(void)addNewSprint:(Sprint*)sprint{
+    [self.allSprints addObject:sprint];
 }
 
 @end

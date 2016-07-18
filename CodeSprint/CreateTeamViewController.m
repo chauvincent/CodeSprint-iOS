@@ -11,7 +11,7 @@
 #import "ImageStyleButton.h"
 #import "FirebaseManager.h"
 
-@interface CreateTeamViewController ()
+@interface CreateTeamViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *teamTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
@@ -24,6 +24,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _teamTextField.delegate = self;
+    
     [self setupButtons];
 }
 
@@ -66,12 +68,47 @@
 
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
-    NSLog(@"Create Button Pressed");
     
+    NSString *inputText = self.teamTextField.text;
+    
+    if ([inputText isEqualToString:@""]) {
+        [self showAlertWithTitle:@"Error: No Input"
+                      andMessage:@"Please enter a teamname to create."
+                 andDismissNamed:@"Dismiss"];
+        return;
+    }
+    NSCharacterSet *charSet = [NSCharacterSet
+                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"];
+    
+    charSet = [charSet invertedSet];
+    NSRange range = [self.teamTextField.text rangeOfCharacterFromSet:charSet];
+        
+    if (range.location != NSNotFound) {
+        [self showAlertWithTitle:@"Invalid Characters"
+                      andMessage:@"Please enter a name containing only: [A-Z], [a-z], [0-9], -, _"
+                 andDismissNamed:@"Dismiss"];
+        return;
+    }
+    NSLog(@"successful input");
 }
-
 - (IBAction)cancelButtonPressed:(id)sender {
+
+}
+#pragma mark - UITextFieldDelegate
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(range.length + range.location > textField.text.length){
+        return NO;
+    }
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 12;
 }
 
+#pragma mark - Helper methods
+-(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 @end

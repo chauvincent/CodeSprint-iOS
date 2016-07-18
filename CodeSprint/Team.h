@@ -8,14 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "Sprint.h"
+#import "Task.h"
 
 @interface Team : NSObject
 
-//@property (strong, nonatomic) NSString *teamUID;
-@property (strong, nonatomic) NSMutableArray *membersUID;
+// Class Properties
 @property (strong, nonatomic) NSString *nickname;
-@property (strong, nonatomic) Sprint *sprintDetails;
+@property (strong, nonatomic) NSMutableArray *membersUID;
+@property (strong, nonatomic) NSMutableArray *allSprints;
 
+// Initalize
 -(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name;
+
+// Update/Insert/Delete
+-(void)addNewSprint:(Sprint*)sprint;
 
 @end
