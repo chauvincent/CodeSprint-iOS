@@ -55,7 +55,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     if (currentUser) {
-      //  [self didSignInWith:currentUser];
+        [self didSignInWith:currentUser];
         NSLog(@"already signed in");
     }
 
@@ -148,6 +148,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
+    
     [FirebaseManager sharedInstance].usersName = user.displayName.length > 0 ? user.displayName : user.email;
     [FirebaseManager sharedInstance].photoUrl = user.photoURL;
     [FirebaseManager sharedInstance].signedIn = YES;

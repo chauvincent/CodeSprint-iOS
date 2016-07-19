@@ -19,9 +19,6 @@
 
 @implementation SearchTeamViewController
 
--(CGSize)preferredContentSize{
-    return CGSizeMake(280.0f, 320.0f);
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
@@ -29,6 +26,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - View Setup
+-(CGSize)preferredContentSize{
+    return CGSizeMake(280.0f, 320.0f);
 }
 -(void)setupButtons{
     
@@ -51,6 +53,8 @@
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - IBActions
 - (IBAction)searchButtonPressed:(id)sender {
 }
 @end

@@ -26,6 +26,7 @@
 		7588AF081D3845CB00F6E1E9 /* SearchTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF071D3845CB00F6E1E9 /* SearchTeamViewController.m */; };
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
+		759CA8361D3E2FE200A26EB9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 759CA8351D3E2FE200A26EB9 /* User.m */; };
 		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
 		75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABBB1D181A6B0001CD57 /* AppDelegate.m */; };
 		75BFABC21D181A6B0001CD57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC01D181A6B0001CD57 /* Main.storyboard */; };
@@ -80,6 +81,8 @@
 		759918971D1D981F00E38268 /* ShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowImageView.m; sourceTree = "<group>"; };
 		7599189A1D1E2AF600E38268 /* AnimationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationGenerator.h; sourceTree = "<group>"; };
 		7599189B1D1E2AF600E38268 /* AnimationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationGenerator.m; sourceTree = "<group>"; };
+		759CA8341D3E2FE200A26EB9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		759CA8351D3E2FE200A26EB9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		75BFABB41D181A6B0001CD57 /* CodeSprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeSprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75BFABB81D181A6B0001CD57 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75BFABBA1D181A6B0001CD57 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				755B762A1D2415CE00B211CF /* Team.m */,
 				75180A8E1D3C878B00B20A0A /* Task.h */,
 				75180A8F1D3C878B00B20A0A /* Task.m */,
+				759CA8341D3E2FE200A26EB9 /* User.h */,
+				759CA8351D3E2FE200A26EB9 /* User.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
 				755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */,
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,
+				759CA8361D3E2FE200A26EB9 /* User.m in Sources */,
 				7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */,
 				754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */,
 				754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */,

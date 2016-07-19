@@ -24,8 +24,8 @@
 @property (nonatomic, retain) NSURL *photoUrl;
 @property (nonatomic, retain) NSString *uid;
 
-#pragma mark - Query Functions
 
+#pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
 
 

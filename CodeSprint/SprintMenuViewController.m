@@ -14,7 +14,6 @@
 #import "FirebaseManager.h"
 @interface SprintMenuViewController () <CreateTeamViewControllerDelegate>
 
-
 @property (nonatomic, weak) RWBlurPopover *createTeamPopover;
 
 @end
@@ -69,11 +68,10 @@
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
     self.createTeamPopover = popover;
-    
 }
-#pragma mark - CreateTeamViewControllerDelegate
 
--(void)createNewTeam:(NSString*)inputText{
+#pragma mark - CreateTeamViewControllerDelegate
+-(void)createdNewTeam:(NSString*)inputText{
     Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
     [FirebaseManager createTeamWith:newTeam];
 }

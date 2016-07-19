@@ -24,12 +24,8 @@ BOOL didCreate = false;
 
 @implementation CreateTeamViewController
 
--(CGSize)preferredContentSize{
-    return CGSizeMake(280.0f, 320.0f);
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     _teamTextField.delegate = self;
     [self setupButtons];
 }
@@ -39,7 +35,10 @@ BOOL didCreate = false;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Setups
+#pragma mark - View Setup
+-(CGSize)preferredContentSize{
+    return CGSizeMake(280.0f, 320.0f);
+}
 -(void)setupButtons{
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
@@ -57,9 +56,6 @@ BOOL didCreate = false;
     
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
-}
-- (void)dismiss {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - IBActions
@@ -84,7 +80,7 @@ BOOL didCreate = false;
     }
     [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
         if (result) {
-            [self.delegate createNewTeam:inputText];
+            [self.delegate createdNewTeam:inputText];
             didCreate = true;
             [self dismiss];
         }else if (!result && !didCreate){
@@ -96,8 +92,9 @@ BOOL didCreate = false;
     }];
 }
 - (IBAction)cancelButtonPressed:(id)sender {
-
+    self.teamTextField.text = @"";
 }
+
 #pragma mark - UITextFieldDelegate
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if(range.length + range.location > textField.text.length){
@@ -114,5 +111,9 @@ BOOL didCreate = false;
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];
 }
+- (void)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

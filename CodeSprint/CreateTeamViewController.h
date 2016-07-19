@@ -11,7 +11,7 @@
 
 @protocol CreateTeamViewControllerDelegate <NSObject>
 
--(void)createNewTeam:(NSString*)inputText;
+-(void)createdNewTeam:(NSString*)inputText;
 
 @end
 
@@ -21,7 +21,6 @@
 
 @property (weak, nonatomic) IBOutlet ImageStyleButton *createButton;
 @property (weak, nonatomic) IBOutlet ImageStyleButton *clearButton;
-
 @property (weak, nonatomic) id<CreateTeamViewControllerDelegate> delegate;
 
 @end
