@@ -32,9 +32,17 @@
  
 }
 -(void)dismiss{
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                         
+                                                         NSError *signOutError;
+                                                         BOOL status = [[FIRAuth auth] signOut:&signOutError];
+                                                         if (!status) {
+                                                             NSLog(@"Error signing out: %@", signOutError);
+                                                             return;
+                                                         }
+                                                         [FirebaseManager logoutUser];
                                                          [self.navigationController popViewControllerAnimated:YES];
                                                      }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"

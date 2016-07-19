@@ -38,7 +38,14 @@
 }
 
 #pragma mark - User Management
++ (void)logoutUser{
 
+    [FirebaseManager sharedInstance].signedIn = false;
+    [FirebaseManager sharedInstance].usersName = nil;
+    [FirebaseManager sharedInstance].photoUrl = nil;
+    [FirebaseManager sharedInstance].uid = nil;
+    
+}
 
 
 #pragma mark - Reference Getters

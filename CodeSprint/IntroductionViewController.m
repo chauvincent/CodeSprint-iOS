@@ -46,7 +46,7 @@
 }
 
 -(void)setupView{
-    self.navigationItem.title = @"Intro";
+    self.navigationItem.title = @"Introduction";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
     
     NSArray *viewControllers = @[startingViewController];

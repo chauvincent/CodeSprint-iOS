@@ -52,7 +52,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.navigationController.navigationBar.topItem setTitle:@""];
+
     self.navigationItem.title = @"Login";
 
     FIRUser *currentUser = [FIRAuth auth].currentUser;
@@ -77,7 +77,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"LoginToHomeSegue"]) {
-        HomeViewController *vc = segue.destinationViewController;
 
     }
 }

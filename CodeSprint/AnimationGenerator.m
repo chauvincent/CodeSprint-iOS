@@ -32,6 +32,12 @@ CGFloat *constantsArray;
     CGPoint position = CGPointMake(midX, midY);
     return position;
 }
+- (CGPoint) offScreenBottom{
+    CGFloat midX = CGRectGetMidX([UIScreen mainScreen].bounds);
+    CGFloat midY = CGRectGetMidY([UIScreen mainScreen].bounds ) * 3.0f;
+    CGPoint position = CGPointMake(midX, midY);
+    return position;
+}
 
 -(id)initWithConstraints:(NSArray*)constraints {
     self = [super init];
