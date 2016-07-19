@@ -9,14 +9,16 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface AnimationGenerator : NSObject
+
+// Properties
+@property (strong, nonatomic) NSArray *allConstraints;
 - (CGPoint) offScreenRight;
 - (CGPoint) offScreenLeft;
 - (CGPoint) offScreenCenter;
 
-@property (strong, nonatomic) NSArray *allConstraints;
-
+// Functions
 -(id)initWithConstraints:(NSArray*)constraints;
 -(void)animateScreenWithDelay:(double)delay;
+
 @end

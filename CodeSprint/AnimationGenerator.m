@@ -11,6 +11,9 @@
 
 @implementation AnimationGenerator
 
+// Global
+CGFloat *constantsArray;
+
 - (CGPoint) offScreenRight{
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat midY = CGRectGetMidY([UIScreen mainScreen].bounds );
@@ -29,9 +32,6 @@
     CGPoint position = CGPointMake(midX, midY);
     return position;
 }
-
-// Global
-CGFloat *constantsArray;
 
 -(id)initWithConstraints:(NSArray*)constraints {
     self = [super init];

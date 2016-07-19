@@ -15,7 +15,6 @@
 @interface FirebaseManager : NSObject{
     FIRDatabaseReference *ref;
     FIRDatabaseReference *teamsRef;
-    
 }
 + (FirebaseManager *) sharedInstance;
 
@@ -26,7 +25,8 @@
 @property (nonatomic, retain) NSString *uid;
 
 #pragma mark - Query Functions
-+ (BOOL)isNewTeam:(NSString *)teamName;
+
++ (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
 
 
 #pragma mark - Insertion/Deletetion Functions

@@ -81,14 +81,21 @@
                  andDismissNamed:@"Dismiss"];
         return;
     }
-    NSLog(@"successful input");
+
+    __block BOOL isNew;
+   [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
+       NSLog(@"completion result: %d", result);
+       if (result) {
+           NSLog(@"is a new team, now create");
+           //        Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
+           //        [FirebaseManager createTeamWith:newTeam];
+       }else{
+           NSLog(@"Name taken");
+           [self showAlertWithTitle:@"Error" andMessage:@"This unique team identifier is taken. Please try another identifier." andDismissNamed:@"Ok"];
+       }
+    }];
     
-    BOOL isValid = [FirebaseManager isNewTeam:inputText];
-    
-    if (isValid) {
-        Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
-        [FirebaseManager createTeamWith:newTeam];
-    }
+
 
 }
 - (IBAction)cancelButtonPressed:(id)sender {

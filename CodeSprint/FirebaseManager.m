@@ -46,10 +46,25 @@
 }
 
 #pragma mark - Queries
-+ (BOOL)isNewTeam:(NSString *)teamName{
++ (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
+    __block NSDictionary *response = [[NSDictionary alloc] init];
+    [[[[FirebaseManager sharedInstance] teamRefs] child:teamName] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        response = (NSDictionary*)snapshot.value;
+        NSLog(@"%@", snapshot.value);
+        if ([response isEqual:[NSNull null]]) {
+            block(true);
+        }else{
+            block(false);
+        }
+        
+    }];
     
-    return false;
+   
+    
 }
+
+
+
 #pragma mark - Insertion
 + (void)createTeamWith:(Team *)teamInformation{
     
