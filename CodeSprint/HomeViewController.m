@@ -32,7 +32,20 @@
  
 }
 -(void)dismiss{
-     [self.navigationController popViewControllerAnimated:YES];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         [self.navigationController popViewControllerAnimated:YES];
+                                                     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout"
+                                                                   message:@"Are you sure you want to logout?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
