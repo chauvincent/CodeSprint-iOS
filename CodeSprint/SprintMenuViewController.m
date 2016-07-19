@@ -10,8 +10,10 @@
 #import "CreateTeamViewController.h"
 #import "SearchTeamViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
+#import "Team.h"
+#import "FirebaseManager.h"
+@interface SprintMenuViewController () <CreateTeamViewControllerDelegate>
 
-@interface SprintMenuViewController ()
 
 @property (nonatomic, weak) RWBlurPopover *createTeamPopover;
 
@@ -61,11 +63,18 @@
 -(void)displayMenuCreateWithIdentifier:(NSString*)controllerName{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CreateTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:controllerName];
+    vc.delegate = self;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
     self.createTeamPopover = popover;
     
+}
+#pragma mark - CreateTeamViewControllerDelegate
+
+-(void)createNewTeam:(NSString*)inputText{
+    Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
+    [FirebaseManager createTeamWith:newTeam];
 }
 @end

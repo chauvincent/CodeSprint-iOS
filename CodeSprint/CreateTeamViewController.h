@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "ImageStyleButton.h"
+
+@protocol CreateTeamViewControllerDelegate <NSObject>
+
+-(void)createNewTeam:(NSString*)inputText;
+
+@end
+
+
+
 @interface CreateTeamViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet ImageStyleButton *createButton;
 @property (weak, nonatomic) IBOutlet ImageStyleButton *clearButton;
+
+@property (weak, nonatomic) id<CreateTeamViewControllerDelegate> delegate;
 
 @end

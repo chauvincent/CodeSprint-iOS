@@ -54,17 +54,12 @@
         block(isNew);
     }];
 }
-
 #pragma mark - Insertion
 + (void)createTeamWith:(Team *)teamInformation{
+    FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname];
     NSArray *members = [[NSArray alloc] initWithArray:teamInformation.membersUID];
-    [[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname]
-     setValuesForKeysWithDictionary:@{@"members" : members}];
-    
-    FIRDatabaseReference *sprintRef = [[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname] child:@"sprintDetails"];
-    [sprintRef setValuesForKeysWithDictionary:@{}];
-     
-    
+    NSDictionary *teamDetails = @{@"members" : members};
+    [teamRef updateChildValues:teamDetails];
 }
 //
 //@property (strong, nonatomic) NSString *nickname;

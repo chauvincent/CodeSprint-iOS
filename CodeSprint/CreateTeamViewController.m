@@ -14,10 +14,12 @@
 
 #define MAX_INPUT_LENGTH 12
 
+BOOL didCreate = false;
 @interface CreateTeamViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *teamTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
+
 @end
 
 @implementation CreateTeamViewController
@@ -27,7 +29,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     _teamTextField.delegate = self;
     [self setupButtons];
 }
@@ -62,7 +64,7 @@
 
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
-    
+    didCreate = false;
     NSString *inputText = self.teamTextField.text;
     
     if ([inputText isEqualToString:@""]) {
@@ -80,17 +82,18 @@
                  andDismissNamed:@"Dismiss"];
         return;
     }
-
-   [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
-       if (result) {
-            Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
-            [FirebaseManager createTeamWith:newTeam];
-            // Later delegate to tableview and reload data
-       }else{
-           [self showAlertWithTitle:@"Error" andMessage:@"This unique team identifier is taken. Please try another identifier." andDismissNamed:@"Ok"];
-       }
+    [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
+        if (result) {
+            [self.delegate createNewTeam:inputText];
+            didCreate = true;
+            [self dismiss];
+        }else if (!result && !didCreate){
+            [self showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier."
+                     andDismissNamed:@"Ok"];
+            didCreate = false;
+            return;
+        }
     }];
-    
 }
 - (IBAction)cancelButtonPressed:(id)sender {
 
