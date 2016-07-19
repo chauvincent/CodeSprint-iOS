@@ -72,7 +72,6 @@
     }
     NSCharacterSet *charSet = [NSCharacterSet
                                characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"];
-    
     charSet = [charSet invertedSet];
     NSRange range = [self.teamTextField.text rangeOfCharacterFromSet:charSet];
         
@@ -84,8 +83,9 @@
 
    [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
        if (result) {
-           //        Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
-           //        [FirebaseManager createTeamWith:newTeam];
+            Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
+            [FirebaseManager createTeamWith:newTeam];
+            // Later delegate to tableview and reload data
        }else{
            [self showAlertWithTitle:@"Error" andMessage:@"This unique team identifier is taken. Please try another identifier." andDismissNamed:@"Ok"];
        }

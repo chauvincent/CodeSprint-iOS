@@ -9,7 +9,7 @@
 #import "FirebaseManager.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
+#include "Constants.h"
 
 @implementation FirebaseManager
 
@@ -57,8 +57,19 @@
 
 #pragma mark - Insertion
 + (void)createTeamWith:(Team *)teamInformation{
+    NSArray *members = [[NSArray alloc] initWithArray:teamInformation.membersUID];
+    [[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname]
+     setValuesForKeysWithDictionary:@{@"members" : members}];
+    
+    FIRDatabaseReference *sprintRef = [[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname] child:@"sprintDetails"];
+    [sprintRef setValuesForKeysWithDictionary:@{}];
+     
     
 }
+//
+//@property (strong, nonatomic) NSString *nickname;
+//@property (strong, nonatomic) NSMutableArray *membersUID;
+//@property (strong, nonatomic) NSMutableArray *allSprints;
 
 
 
