@@ -15,6 +15,7 @@
         _uid = uid;
         _displayName = name;
         _groupsIDs = [[NSMutableArray alloc] init];
+        _chatroomIDs = [[NSMutableArray alloc] init];
     }
     return self;
 }

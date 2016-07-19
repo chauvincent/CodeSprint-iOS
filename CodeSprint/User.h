@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSMutableArray *groupsIDs;
+@property (strong, nonatomic) NSMutableArray *chatroomIDs;
 @property (strong, nonatomic) NSString *displayName;
 
 -(instancetype)initUserWithId:(NSString *)uid withDisplay:(NSString*)name;

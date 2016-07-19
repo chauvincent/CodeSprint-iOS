@@ -37,6 +37,10 @@
     return teamsRef;
 }
 
+#pragma mark - User Management
+
+
+
 #pragma mark - Reference Getters
 + (FIRDatabaseReference *)mainRef {
     return [FirebaseManager sharedInstance].ref;
