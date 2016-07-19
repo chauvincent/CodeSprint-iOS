@@ -12,7 +12,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #include "Constants.h"
 #include "AnimationGenerator.h"
-
+#import "HomeViewController.h"
 @import Firebase;
 
 @interface LoginViewController () <UIWebViewDelegate>{
@@ -52,7 +52,9 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    [self.navigationController.navigationBar.topItem setTitle:@""];
+    self.navigationItem.title = @"Login";
+
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     if (currentUser) {
         [self didSignInWith:currentUser];
@@ -74,7 +76,10 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"LoginToHomeSegue"]) {
+        HomeViewController *vc = segue.destinationViewController;
 
+    }
 }
 #pragma mark - Setup
 
@@ -133,6 +138,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         }];
         [self getAccessToken];
         NSLog(@"did sign in");
+
     }
     return YES;
 }
@@ -155,7 +161,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [FirebaseManager sharedInstance].uid = user.uid;
     NSLog(@"%@", user.displayName);
     NSLog(@"%@", user.uid);
-
+    NSLog(@"%@", user.photoURL);
+    NSLog(@"%@", user.email);
     [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
 }
 -(void)updateUserInformation{

@@ -54,6 +54,8 @@
 
 #pragma mark - View Setup
 -(void)setupView{
+    self.navigationItem.title = @"Teams";
+    
     [self.createGroupButton setBackgroundImage:[UIImage imageNamed:@"create-button2"] forState:UIControlStateNormal];
     [self.findGroupButton setBackgroundImage:[UIImage imageNamed:@"find-button"] forState:UIControlStateNormal];
     [self.removeButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];

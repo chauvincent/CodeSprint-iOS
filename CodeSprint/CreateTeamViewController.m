@@ -19,7 +19,7 @@ BOOL didCreate = false;
 
 @property (weak, nonatomic) IBOutlet UITextField *teamTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
-
+@property (assign) BOOL gitHubSignIn;
 @end
 
 @implementation CreateTeamViewController
@@ -56,6 +56,7 @@ BOOL didCreate = false;
     
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
+    self.navigationItem.title = @"Create";
 }
 
 #pragma mark - IBActions

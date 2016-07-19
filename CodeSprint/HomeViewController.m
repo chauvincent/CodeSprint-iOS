@@ -29,11 +29,16 @@
     [self setupViews];
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
+ 
+}
+-(void)dismiss{
+     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+    //}
 
 /*
 #pragma mark - Navigation
@@ -46,13 +51,26 @@
 */
 #pragma mark - Helper Methods
 -(void)setupViews{
-    NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].photoUrl];
-    [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-        self.profilePictureImageView.image = image;
+    // Navigation bar
+    self.navigationItem.title = @"CodeSprint";
+    self.navigationItem.hidesBackButton = YES;
 
-    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-        NSLog(@"error in downloading image");
-    }];
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    self.navigationItem.leftBarButtonItem = newBackButton;
+    
+    // Setup ImageView
+    NSURL *urlAddress = [FirebaseManager sharedInstance].photoUrl;
+    if ([urlAddress.absoluteString containsString:@"github"]) {
+        self.profilePictureImageView.image = [UIImage imageNamed:@"UserImage"];
+    }else{
+        NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].photoUrl];
+        [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+            self.profilePictureImageView.image = image;
+            
+        } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+            NSLog(@"error in downloading image");
+        }];
+    }
 }
 
 #pragma mark - UITableViewDelegate

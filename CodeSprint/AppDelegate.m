@@ -29,8 +29,9 @@
     
     [[UINavigationBar appearance] setTranslucent:NO];
    // [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
-    
+
+    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"back-icon"]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"back-icon"]];
     
     UIPageControl *pageControl = [UIPageControl appearance];
     pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
