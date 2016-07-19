@@ -50,20 +50,10 @@
     __block NSDictionary *response = [[NSDictionary alloc] init];
     [[[[FirebaseManager sharedInstance] teamRefs] child:teamName] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         response = (NSDictionary*)snapshot.value;
-        NSLog(@"%@", snapshot.value);
-        if ([response isEqual:[NSNull null]]) {
-            block(true);
-        }else{
-            block(false);
-        }
-        
+        BOOL isNew = ([response isEqual:[NSNull null]]) ? true : false;
+        block(isNew);
     }];
-    
-   
-    
 }
-
-
 
 #pragma mark - Insertion
 + (void)createTeamWith:(Team *)teamInformation{
