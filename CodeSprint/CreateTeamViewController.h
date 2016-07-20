@@ -17,8 +17,6 @@
 
 @end
 
-
-
 @interface CreateTeamViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet ImageStyleButton *createButton;

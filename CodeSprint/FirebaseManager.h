@@ -14,7 +14,8 @@
 
 @interface FirebaseManager : NSObject{
     FIRDatabaseReference *ref;
-    FIRDatabaseReference *teamsRef;
+    FIRDatabaseReference *teamsRefs;
+    FIRDatabaseReference *userRefs;
 }
 + (FirebaseManager *) sharedInstance;
 

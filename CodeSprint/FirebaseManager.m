@@ -31,10 +31,16 @@
     return ref;
 }
 - (FIRDatabaseReference*)teamRefs{
-    if (!teamsRef) {
-        teamsRef = [self.ref child:@"teams"];
+    if (!teamsRefs) {
+        teamsRefs = [self.ref child:@"teams"];
     }
-    return teamsRef;
+    return teamsRefs;
+}
+- (FIRDatabaseReference*)userRefs{
+    if (!userRefs) {
+        userRefs = [self.ref child:@"CSUsers"];
+    }
+    return userRefs;
 }
 
 #pragma mark - User Management
@@ -76,7 +82,9 @@
 + (FIRDatabaseReference *)teamRef {
     return [FirebaseManager sharedInstance].teamRefs;
 }
-
++ (FIRDatabaseReference *)userRef{
+    return [FirebaseManager sharedInstance].userRefs;
+}
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];

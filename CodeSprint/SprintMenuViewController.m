@@ -57,7 +57,6 @@
 -(void)setupView{
     self.navigationItem.title = @"Teams";
     self.navigationItem.hidesBackButton = YES;
-    
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
     

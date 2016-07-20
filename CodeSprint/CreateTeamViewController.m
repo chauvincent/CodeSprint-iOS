@@ -68,7 +68,6 @@
         NSLog(@"Bad input handled");
         return;
     }
- 
     [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
         if (result) {
             NSLog(@"creating");
@@ -100,6 +99,5 @@
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end
