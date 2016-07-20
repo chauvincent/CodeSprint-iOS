@@ -12,6 +12,7 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "Team.h"
 #import "FirebaseManager.h"
+
 @interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate>
 
 @property (nonatomic, weak) RWBlurPopover *createTeamPopover;
@@ -96,7 +97,7 @@
 -(BOOL)checkBadInput:(NSString*)inputText{
     
     if ([inputText isEqualToString:@""]) {
-        [self showAlertWithTitle:@"Error: No Input" andMessage:@"Please enter a teamname to create."
+        [self showAlertWithTitle:@"Error: No Input" andMessage:@"Please enter a teamname identifier."
                  andDismissNamed:@"Dismiss"];
         return false;
     }

@@ -48,7 +48,7 @@
     
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
-    self.navigationItem.title = @"Create";
+    self.navigationItem.title = @"Search";
 }
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];

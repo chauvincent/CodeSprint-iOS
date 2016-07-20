@@ -11,12 +11,12 @@
 @protocol SearchTeamViewControllerDelegate <NSObject>
 
 -(BOOL)checkBadInput:(NSString*)inputText;
-
+-(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss;
 
 @end
 
 @interface SearchTeamViewController : UIViewController
 
-@property(strong, nonatomic) id<SearchTeamViewControllerDelegate> delegate;
+@property(weak, nonatomic) id<SearchTeamViewControllerDelegate> delegate;
 
 @end
