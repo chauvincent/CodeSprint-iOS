@@ -20,10 +20,7 @@
 + (FirebaseManager *) sharedInstance;
 
 #pragma mark - App State Properties
-@property (nonatomic, assign) BOOL signedIn;
-@property (nonatomic, retain) NSString *usersName;
-@property (nonatomic, retain) NSURL *photoUrl;
-@property (nonatomic, retain) NSString *uid;
+@property (strong, nonatomic) User *currentUser;
 
 #pragma mark - User Management
 + (void)logoutUser;

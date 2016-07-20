@@ -154,15 +154,24 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
     
-    [FirebaseManager sharedInstance].usersName = user.displayName.length > 0 ? user.displayName : user.email;
-    [FirebaseManager sharedInstance].photoUrl = user.photoURL;
-    [FirebaseManager sharedInstance].signedIn = YES;
-    [FirebaseManager sharedInstance].uid = user.uid;
-    NSLog(@"%@", user.displayName);
-    NSLog(@"%@", user.uid);
-    NSLog(@"%@", user.photoURL);
-    NSLog(@"%@", user.email);
-   
+
+    // TODO:
+    // query firebase to see if user has a node with a display name
+    // if display name is nil, prompt user to add a display name(unique and once)
+    // update firebase node with display name and continue on
+    
+    // if did have a display name already, just retreive object and store into fbmanager
+    
+    NSString *displayName = user.displayName.length > 0 ? user.displayName : user.email;
+    User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
+    currentUser.photoURL = user.photoURL;
+    currentUser.didSetName = false;
+    [FirebaseManager sharedInstance].currentUser = currentUser;
+    
+    NSLog(@"%@", currentUser.displayName);
+    NSLog(@"%@", currentUser.uid);
+    NSLog(@"%@", currentUser.photoURL);
+    
     
     [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
 }

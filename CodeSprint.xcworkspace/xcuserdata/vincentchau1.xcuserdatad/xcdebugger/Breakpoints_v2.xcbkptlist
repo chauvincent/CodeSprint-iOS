@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CodeSprint/FirebaseManager.m"
-            timestampString = "490702851.949253"
+            timestampString = "490707000.667693"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "+isNewTeam:withCompletion:"
             landmarkType = "5">
          </BreakpointContent>

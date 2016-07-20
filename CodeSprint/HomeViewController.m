@@ -80,11 +80,11 @@
     self.navigationItem.leftBarButtonItem = newBackButton;
     
     // Setup ImageView
-    NSURL *urlAddress = [FirebaseManager sharedInstance].photoUrl;
+    NSURL *urlAddress = [FirebaseManager sharedInstance].currentUser.photoURL;
     if ([urlAddress.absoluteString containsString:@"github"]) {
         self.profilePictureImageView.image = [UIImage imageNamed:@"UserImage"];
     }else{
-        NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].photoUrl];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
         [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
             self.profilePictureImageView.image = image;
             

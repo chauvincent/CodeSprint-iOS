@@ -55,10 +55,8 @@
 
 #pragma mark - User Management
 + (void)logoutUser{
-    [FirebaseManager sharedInstance].signedIn = false;
-    [FirebaseManager sharedInstance].usersName = nil;
-    [FirebaseManager sharedInstance].photoUrl = nil;
-    [FirebaseManager sharedInstance].uid = nil;
+
+    [FirebaseManager sharedInstance].currentUser = nil;
 }
 + (void)updateUserInfo:(User*)currentUser{
     // Called when signed-in; refresh all info

@@ -91,11 +91,11 @@
 
 #pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate
 -(void)createdNewTeam:(NSString*)inputText{
-    Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
+    Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].currentUser.uid andTeam:inputText];
     [FirebaseManager createTeamWith:newTeam];
 }
 -(void)joinNewTeam:(NSString*)teamName{
-    [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].uid];
+    [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].currentUser.uid];
 }
 -(BOOL)checkBadInput:(NSString*)inputText{
     
