@@ -15,6 +15,7 @@
 
 @interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *teamsTableView;
 @property (nonatomic, weak) RWBlurPopover *createTeamPopover;
 
 @end

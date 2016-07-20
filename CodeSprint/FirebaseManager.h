@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Team.h"
 #import "Sprint.h"
-
+#import "User.h"
 @import Firebase;
 
 @interface FirebaseManager : NSObject{
@@ -27,7 +27,8 @@
 
 #pragma mark - User Management
 + (void)logoutUser;
-+ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid;
++ (void)updateUserInfo:(User*)currentUser;
++ (BOOL)lookUpUser:(User*)currentUser;
 
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
@@ -35,6 +36,6 @@
 
 #pragma mark - Insertion/Deletetion Functions
 + (void)createTeamWith:(Team *)teamInformation;
-
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid;
 
 @end

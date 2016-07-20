@@ -42,6 +42,16 @@
     }
     return userRefs;
 }
+#pragma mark - Reference Getters
++ (FIRDatabaseReference *)mainRef {
+    return [FirebaseManager sharedInstance].ref;
+}
++ (FIRDatabaseReference *)teamRef {
+    return [FirebaseManager sharedInstance].teamRefs;
+}
++ (FIRDatabaseReference *)userRef{
+    return [FirebaseManager sharedInstance].userRefs;
+}
 
 #pragma mark - User Management
 + (void)logoutUser{
@@ -49,6 +59,14 @@
     [FirebaseManager sharedInstance].usersName = nil;
     [FirebaseManager sharedInstance].photoUrl = nil;
     [FirebaseManager sharedInstance].uid = nil;
+}
++ (void)updateUserInfo:(User*)currentUser{
+    // Called when signed-in; refresh all info
+}
++ (BOOL)lookUpUser:(User*)currentUser{
+    
+    
+    return true; // return true if not new user
 }
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
     FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:@"members"] queryOrderedByChild:uid];
@@ -75,16 +93,6 @@
     }];
 }
 
-#pragma mark - Reference Getters
-+ (FIRDatabaseReference *)mainRef {
-    return [FirebaseManager sharedInstance].ref;
-}
-+ (FIRDatabaseReference *)teamRef {
-    return [FirebaseManager sharedInstance].teamRefs;
-}
-+ (FIRDatabaseReference *)userRef{
-    return [FirebaseManager sharedInstance].userRefs;
-}
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];

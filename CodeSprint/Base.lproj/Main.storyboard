@@ -383,6 +383,7 @@
                         <outlet property="createGroupButton" destination="lUC-xN-9pg" id="XHN-Et-aqS"/>
                         <outlet property="findGroupButton" destination="JM4-cd-FZH" id="all-LZ-e3Z"/>
                         <outlet property="removeButton" destination="ZAE-xk-Xzd" id="jGR-mQ-085"/>
+                        <outlet property="teamsTableView" destination="U8s-Z6-bCX" id="Fcy-Ez-lcW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPw-BD-im6" userLabel="First Responder" sceneMemberID="firstResponder"/>

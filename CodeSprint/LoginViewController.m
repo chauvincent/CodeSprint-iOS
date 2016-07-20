@@ -162,6 +162,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     NSLog(@"%@", user.uid);
     NSLog(@"%@", user.photoURL);
     NSLog(@"%@", user.email);
+   
+    
     [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
 }
 -(void)updateUserInformation{
