@@ -12,15 +12,20 @@
 #import "FirebaseManager.h"
 #import "CustomTextField.h"
 
+
 @interface SearchTeamViewController () <UITextFieldDelegate>
+
 @property (weak, nonatomic) IBOutlet CustomTextField *inputNameTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
+@property (weak, nonatomic) IBOutlet ImageStyleButton *searchTeamButton;
+@property (assign) BOOL didCall;
 @end
 
 @implementation SearchTeamViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _didCall = false;
     [self setupButtons];
 }
 - (void)didReceiveMemoryWarning {
@@ -55,12 +60,26 @@
 }
 #pragma mark - IBActions
 - (IBAction)searchButtonPressed:(id)sender {
+    _didCall = false;
     NSString *inputText = self.inputNameTextField.text;
+    
     BOOL badInput = ![self.delegate checkBadInput:inputText];
     if (badInput) {
         NSLog(@"Bad input handled");
         return;
     }
-    NSLog(@"successful input");
+    [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
+        if (result) {
+            [self.delegate showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier."
+                              andDismissNamed:@"Ok"];
+            _didCall = false;
+            return;
+        }else if (!result && !_didCall){
+            NSLog(@"join team");
+            _didCall = true;
+            [self.delegate joinNewTeam:inputText];
+            [self dismiss];
+        }
+    }];
 }
 @end

@@ -14,12 +14,11 @@
 
 #define MAX_INPUT_LENGTH 12
 
-BOOL didCreate = false;
 @interface CreateTeamViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *teamTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
-
+@property (assign) BOOL didCreate;
 @end
 
 @implementation CreateTeamViewController
@@ -61,7 +60,7 @@ BOOL didCreate = false;
 
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
-    didCreate = false;
+    _didCreate = false;
     NSString *inputText = self.teamTextField.text;
 
     BOOL badInput = ![self.delegate checkBadInput:inputText];
@@ -69,15 +68,17 @@ BOOL didCreate = false;
         NSLog(@"Bad input handled");
         return;
     }
+ 
     [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
         if (result) {
+            NSLog(@"creating");
             [self.delegate createdNewTeam:inputText];
-            didCreate = true;
+            _didCreate = true;
             [self dismiss];
-        }else if (!result && !didCreate){
+        }else if (!result && !_didCreate){
             [self.delegate showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier."
                      andDismissNamed:@"Ok"];
-            didCreate = false;
+            _didCreate = false;
             return;
         }
     }];

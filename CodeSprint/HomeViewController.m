@@ -72,7 +72,7 @@
 */
 #pragma mark - Helper Methods
 -(void)setupViews{
-    // Navigation bar
+    // Set up Navigation bar
     self.navigationItem.title = @"CodeSprint";
     self.navigationItem.hidesBackButton = YES;
 
@@ -97,10 +97,8 @@
 #pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SettingsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell" forIndexPath:indexPath];
-    
     [cell configureCellForIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

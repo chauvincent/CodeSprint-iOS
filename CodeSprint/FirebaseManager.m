@@ -39,14 +39,35 @@
 
 #pragma mark - User Management
 + (void)logoutUser{
-
     [FirebaseManager sharedInstance].signedIn = false;
     [FirebaseManager sharedInstance].usersName = nil;
     [FirebaseManager sharedInstance].photoUrl = nil;
     [FirebaseManager sharedInstance].uid = nil;
-    
 }
-
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
+    FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:@"members"] queryOrderedByChild:uid];
+    __block NSArray *newmembers = [[NSArray alloc] init];
+    __block BOOL alreadyJoined = false;
+    [membersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSLog(@"snapshot %@", snapshot.value);
+        for (FIRDataSnapshot *child in snapshot.children) {
+            if ([child.value isEqualToString:uid]) {
+                alreadyJoined = true;
+                return;
+            }
+        }
+        if(!alreadyJoined){
+            NSArray *response = (NSArray*)snapshot.value;
+            NSMutableArray *oldMembers = [response mutableCopy];
+            [oldMembers addObject:uid];
+            newmembers = [NSArray arrayWithArray:oldMembers];
+            FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamName];
+            NSDictionary *teamDetails = @{@"members" : newmembers};
+            [teamRef updateChildValues:teamDetails];
+            NSLog(@"DID ADD MEMBER");
+        }
+    }];
+}
 
 #pragma mark - Reference Getters
 + (FIRDatabaseReference *)mainRef {
@@ -72,13 +93,6 @@
     NSDictionary *teamDetails = @{@"members" : members};
     [teamRef updateChildValues:teamDetails];
 }
-//
-//@property (strong, nonatomic) NSString *nickname;
-//@property (strong, nonatomic) NSMutableArray *membersUID;
-//@property (strong, nonatomic) NSMutableArray *allSprints;
-
-
-
 
 
 @end

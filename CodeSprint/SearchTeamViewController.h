@@ -12,6 +12,7 @@
 
 -(BOOL)checkBadInput:(NSString*)inputText;
 -(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss;
+-(void)joinNewTeam:(NSString*)teamName;
 
 @end
 

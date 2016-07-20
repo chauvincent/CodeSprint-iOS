@@ -26,6 +26,7 @@
 
 #pragma mark - User Management
 + (void)logoutUser;
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid;
 
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;

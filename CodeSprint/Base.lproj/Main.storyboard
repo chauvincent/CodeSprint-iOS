@@ -558,6 +558,7 @@
                     </view>
                     <connections>
                         <outlet property="inputNameTextField" destination="kkP-03-4Bb" id="c9g-fW-aGe"/>
+                        <outlet property="searchTeamButton" destination="cYI-k6-5jS" id="8Ix-Zw-Wot"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUr-MM-xVK" userLabel="First Responder" sceneMemberID="firstResponder"/>

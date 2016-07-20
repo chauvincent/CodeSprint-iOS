@@ -50,7 +50,7 @@
     [self displayMenuSearchWithIdentifier:@"SearchTeamViewController"];
 }
 - (IBAction)editButtonPressed:(id)sender {
- 
+   
 }
 
 #pragma mark - View Setup
@@ -89,10 +89,13 @@
     self.createTeamPopover = popover;
 }
 
-#pragma mark - CreateTeamViewControllerDelegate
+#pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate
 -(void)createdNewTeam:(NSString*)inputText{
     Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
     [FirebaseManager createTeamWith:newTeam];
+}
+-(void)joinNewTeam:(NSString*)teamName{
+    [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].uid];
 }
 -(BOOL)checkBadInput:(NSString*)inputText{
     
