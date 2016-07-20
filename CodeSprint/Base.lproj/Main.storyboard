@@ -503,7 +503,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hWl-aQ-WpK">
                                 <rect key="frame" x="50" y="50" width="500" height="120"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="482" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-w8-r7Y">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If your team has already created a group, please enter your team's unique team name." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="482" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-w8-r7Y">
                                         <rect key="frame" x="10" y="0.0" width="480" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="9fS-Jj-HTB"/>
@@ -511,7 +511,6 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="eon-8J-MMM"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="480" id="wvh-Fx-qjM"/>
                                         </constraints>
-                                        <string key="text">If your team has already created a group, please enter your unique team name. If it has not been created, go back and create a new group.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>

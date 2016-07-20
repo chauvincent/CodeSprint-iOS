@@ -12,7 +12,7 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "Team.h"
 #import "FirebaseManager.h"
-@interface SprintMenuViewController () <CreateTeamViewControllerDelegate>
+@interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate>
 
 @property (nonatomic, weak) RWBlurPopover *createTeamPopover;
 
@@ -80,6 +80,7 @@
 -(void)displayMenuSearchWithIdentifier:(NSString*)controllerName{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SearchTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:controllerName];
+    vc.delegate = self;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
@@ -92,4 +93,31 @@
     Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].uid andTeam:inputText];
     [FirebaseManager createTeamWith:newTeam];
 }
+-(BOOL)checkBadInput:(NSString*)inputText{
+    
+    if ([inputText isEqualToString:@""]) {
+        [self showAlertWithTitle:@"Error: No Input" andMessage:@"Please enter a teamname to create."
+                 andDismissNamed:@"Dismiss"];
+        return false;
+    }
+    NSCharacterSet *charSet = [NSCharacterSet
+                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"];
+    charSet = [charSet invertedSet];
+    NSRange range = [inputText rangeOfCharacterFromSet:charSet];
+    
+    if (range.location != NSNotFound) {
+        [self showAlertWithTitle:@"Invalid Characters" andMessage:@"Please enter a name containing only: [A-Z], [a-z], [0-9], -, _"
+                 andDismissNamed:@"Dismiss"];
+        return false;
+    }
+    return true; // valid input
+}
+-(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
 @end

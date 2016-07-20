@@ -55,5 +55,12 @@
 }
 #pragma mark - IBActions
 - (IBAction)searchButtonPressed:(id)sender {
+    NSString *inputText = self.inputNameTextField.text;
+    BOOL badInput = ![self.delegate checkBadInput:inputText];
+    if (badInput) {
+        NSLog(@"Bad input handled");
+        return;
+    }
+    NSLog(@"successful input");
 }
 @end

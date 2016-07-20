@@ -19,7 +19,7 @@ BOOL didCreate = false;
 
 @property (weak, nonatomic) IBOutlet UITextField *teamTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
-@property (assign) BOOL gitHubSignIn;
+
 @end
 
 @implementation CreateTeamViewController
@@ -63,20 +63,10 @@ BOOL didCreate = false;
 - (IBAction)createButtonPressed:(id)sender {
     didCreate = false;
     NSString *inputText = self.teamTextField.text;
-    
-    if ([inputText isEqualToString:@""]) {
-        [self showAlertWithTitle:@"Error: No Input" andMessage:@"Please enter a teamname to create."
-                 andDismissNamed:@"Dismiss"];
-        return;
-    }
-    NSCharacterSet *charSet = [NSCharacterSet
-                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"];
-    charSet = [charSet invertedSet];
-    NSRange range = [self.teamTextField.text rangeOfCharacterFromSet:charSet];
-        
-    if (range.location != NSNotFound) {
-        [self showAlertWithTitle:@"Invalid Characters" andMessage:@"Please enter a name containing only: [A-Z], [a-z], [0-9], -, _"
-                 andDismissNamed:@"Dismiss"];
+
+    BOOL badInput = ![self.delegate checkBadInput:inputText];
+    if (badInput) {
+        NSLog(@"Bad input handled");
         return;
     }
     [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
@@ -85,7 +75,7 @@ BOOL didCreate = false;
             didCreate = true;
             [self dismiss];
         }else if (!result && !didCreate){
-            [self showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier."
+            [self.delegate showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier."
                      andDismissNamed:@"Ok"];
             didCreate = false;
             return;
@@ -106,12 +96,6 @@ BOOL didCreate = false;
 }
 
 #pragma mark - Helper methods
--(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:cancel];
-    [self presentViewController:alert animated:YES completion:nil];
-}
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

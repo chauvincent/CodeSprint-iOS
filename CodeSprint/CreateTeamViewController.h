@@ -12,6 +12,8 @@
 @protocol CreateTeamViewControllerDelegate <NSObject>
 
 -(void)createdNewTeam:(NSString*)inputText;
+-(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss;
+-(BOOL)checkBadInput:(NSString*)inputText;
 
 @end
 
