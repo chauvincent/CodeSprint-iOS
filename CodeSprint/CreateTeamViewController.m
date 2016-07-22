@@ -68,7 +68,9 @@
         NSLog(@"Bad input handled");
         return;
     }
+    NSLog(@"Createbutton pressed, entering isNewTeam");
     [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
+        NSLog(@"inside");
         if (result) {
             NSLog(@"creating");
             [self.delegate createdNewTeam:inputText];

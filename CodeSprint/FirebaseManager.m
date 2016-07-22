@@ -32,13 +32,13 @@
 }
 - (FIRDatabaseReference*)teamRefs{
     if (!teamsRefs) {
-        teamsRefs = [self.ref child:@"teams"];
+        teamsRefs = [[self ref] child:@"teams"];
     }
     return teamsRefs;
 }
 - (FIRDatabaseReference*)userRefs{
     if (!userRefs) {
-        userRefs = [self.ref child:@"CSUsers"];
+        userRefs = [[self ref] child:@"CSUser"];
     }
     return userRefs;
 }
@@ -55,16 +55,37 @@
 
 #pragma mark - User Management
 + (void)logoutUser{
-
     [FirebaseManager sharedInstance].currentUser = nil;
 }
 + (void)updateUserInfo:(User*)currentUser{
     // Called when signed-in; refresh all info
 }
-+ (BOOL)lookUpUser:(User*)currentUser{
++ (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
+    // Check too see if initilaized a displayname
+    [[[self userRef] child:currentUser.uid] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSLog(@"SNAPSHOT IS %@", (NSDictionary*)snapshot.value);
+        
+        if (snapshot.value == [NSNull null]) {
+            NSLog(@"NULLLLLLLLLL");
+        }
+        
+    }];
+//    FIRDatabaseQuery *userQuery = [[[FirebaseManager userRef] child:currentUser.uid] queryOrderedByChild:@"displayName"];
+//    [userQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        if (snapshot.value) {
+//            NSDictionary *response = (NSDictionary*)snapshot.value;
+//            
+//            if ([response objectForKey:@"displayName"]) {
+//                NSLog(@"name is %@", response[@"displayName"]);
+//                block(true);
+//            }else{
+//                NSLog(@"NOOOO DISPLAY NAME");
+//                block(false);
+//            }
+//        }
+//    }];
     
-    
-    return true; // return true if not new user
+    NSLog(@"Exiting");
 }
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
     FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:@"members"] queryOrderedByChild:uid];
@@ -95,6 +116,7 @@
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];
     [[[[FirebaseManager sharedInstance] teamRefs] child:teamName] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSLog(@"inside inner block call");
         response = (NSDictionary*)snapshot.value;
         BOOL isNew = ([response isEqual:[NSNull null]]) ? true : false;
         block(isNew);

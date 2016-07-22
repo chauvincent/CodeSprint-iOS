@@ -21,11 +21,12 @@
 
 #pragma mark - App State Properties
 @property (strong, nonatomic) User *currentUser;
+@property (assign) BOOL isNewUser;
 
 #pragma mark - User Management
 + (void)logoutUser;
 + (void)updateUserInfo:(User*)currentUser;
-+ (BOOL)lookUpUser:(User*)currentUser;
++ (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block;
 
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;

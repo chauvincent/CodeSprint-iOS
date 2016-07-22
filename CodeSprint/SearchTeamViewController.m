@@ -70,7 +70,7 @@
     }
     [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
         if (result) {
-            [self.delegate showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier."
+            [self.delegate showAlertWithTitle:@"Error" andMessage:@"This team identifier does not exist, Please double-check your team's unique identifier."
                               andDismissNamed:@"Ok"];
             _didCall = false;
             return;
