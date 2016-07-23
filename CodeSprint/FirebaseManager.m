@@ -146,8 +146,6 @@
     FIRDatabaseReference *userNodeRef = [[FirebaseManager userRef] child:currentUID];
     NSDictionary *updateInfo = @{kCSUserTeamKey : newTeams};
     [userNodeRef updateChildValues:updateInfo];
-    
-    NSLog(@"ONLY ONCE PLES");
 }
 
 
