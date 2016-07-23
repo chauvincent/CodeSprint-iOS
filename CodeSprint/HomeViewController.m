@@ -12,6 +12,8 @@
 #import "FirebaseManager.h"
 #import "SettingsTableViewCell.h"
 #import "Constants.h"
+#import "CreateDisplayNameViewController.h"
+#import <RWBlurPopover/RWBlurPopover.h>
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -30,9 +32,9 @@
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
     if([FirebaseManager sharedInstance].isNewUser){
-        NSLog(@"NEWWW BABY");
+        [self displaySetNameMenu];
     }else{
-        NSLog(@"NOT NEW");
+        NSLog(@"WAS SET ALREADY");
     }
        
     NSLog(@"at home did load");
@@ -77,7 +79,7 @@
     // Pass the selected object to the new view controller.
 }
 */
-#pragma mark - Helper Methods
+#pragma mark - View Setup Methods
 -(void)setupViews{
     // Set up Navigation bar
     self.navigationItem.title = @"CodeSprint";
@@ -100,6 +102,16 @@
         }];
     }
 }
+
+-(void)displaySetNameMenu{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    CreateDisplayNameViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CreateDisplayNameViewController"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+    popover.throwingGestureEnabled = NO;
+    [popover showInViewController:self];
+}
+
 
 #pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
