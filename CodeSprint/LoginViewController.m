@@ -168,10 +168,10 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [FirebaseManager lookUpUser:currentUser withCompletion:^(BOOL result) {
         if(result){
             NSLog(@"There is a displayname");
+            [FirebaseManager sharedInstance].isNewUser = !result;
         }else{
             NSLog(@"no displayName");
-         //   [FirebaseManager sharedInstance].isNewUser = !result;
-
+            [FirebaseManager sharedInstance].isNewUser = !result;
         }
 
         [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];

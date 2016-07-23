@@ -62,7 +62,7 @@
 }
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
     // Return false if no display name set or first time user
-    __block theResult = false;
+    __block BOOL theResult = false;
     [[[self userRef] child:currentUser.uid] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
        if (snapshot.value == [NSNull null]) { // if user node not created
            FIRDatabaseReference *userRef = [[self userRef] child:currentUser.uid];
