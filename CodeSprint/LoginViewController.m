@@ -158,6 +158,9 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     currentUser.photoURL = user.photoURL;
     currentUser.didSetName = false;
     
+    // temporrary
+    [FirebaseManager sharedInstance].currentUser = currentUser;
+    
     [FirebaseManager lookUpUser:currentUser withCompletion:^(BOOL result) {
         if(result){
             NSLog(@"There is a displayname");

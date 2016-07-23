@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol CreateDisplayViewControllerDelegate <NSObject>
+
+-(void)setDisplayName:(NSString*)userInput;
+
+@end
 
 @interface CreateDisplayNameViewController : UIViewController
+
+@property (weak, nonatomic) id<CreateDisplayViewControllerDelegate> delegate;
+
 
 @end

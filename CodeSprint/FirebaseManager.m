@@ -10,6 +10,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #include "Constants.h"
+#include "User.h"
 
 @implementation FirebaseManager
 
@@ -57,6 +58,14 @@
 + (void)logoutUser{
     [FirebaseManager sharedInstance].currentUser = nil;
 }
++ (void)setUpNewUser:(NSString*)displayName{
+    NSString *uid = [FirebaseManager sharedInstance].currentUser.uid;
+    FIRDatabaseReference *currentUserRef = [[FirebaseManager userRef] child:uid];
+    NSDictionary *newUserInfo = @{kCSUserDidSetDisplay : @1,
+                                  kCSUserDisplayKey : displayName};
+    [currentUserRef updateChildValues:newUserInfo];
+    NSLog(@"did set up new user");
+}
 + (void)updateUserInfo:(User*)currentUser{
     // Called when signed-in; refresh all info
 }
@@ -71,26 +80,23 @@
            NSLog(@"Did create a node for user");
            theResult = false;
        }else{
-            NSDictionary *userInfo = (NSDictionary*)snapshot.value;
+         //   NSDictionary *userInfo = (NSDictionary*)snapshot.value;
             FIRDatabaseQuery *userQuery = [[[FirebaseManager userRef] child:currentUser.uid] queryOrderedByChild:kCSUserDisplayKey];
             [userQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                     if (snapshot.value) {
-                            NSDictionary *response = (NSDictionary*)snapshot.value;
+                        NSDictionary *response = (NSDictionary*)snapshot.value;
                         if ([response objectForKey:kCSUserDisplayKey]) {
-                            NSLog(@"displayname is : %@, returnin ttrue", response[kCSUserDisplayKey]);
-                            //block(true); // There is an existing display name;
                             theResult = true;
                         }else{
                             theResult = false;
-                            //block(false); // No display name set
                         }
                 }
                 block(theResult);
             }];
         }
     }];
-    NSLog(@"Exiting");
 }
+
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
     FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:@"members"] queryOrderedByChild:uid];
     __block NSArray *newmembers = [[NSArray alloc] init];

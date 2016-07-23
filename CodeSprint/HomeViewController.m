@@ -15,7 +15,7 @@
 #import "CreateDisplayNameViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
@@ -26,17 +26,20 @@
 
 @implementation HomeViewController
 
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupViews];
+    NSLog(@"VIEW DID APPEAR");
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
     if([FirebaseManager sharedInstance].isNewUser){
         [self displaySetNameMenu];
     }else{
         NSLog(@"WAS SET ALREADY");
+        // FETCH OLD USER INFO HERE
     }
-       
+    // AFTER FETCH USER INFO
+    [self setupViews];
     NSLog(@"at home did load");
     
 }
@@ -52,7 +55,8 @@
                                                              return;
                                                          }
                                                          [FirebaseManager logoutUser];
-                                                         [self.navigationController popViewControllerAnimated:YES];
+                                                         //[self.navigationController popViewControllerAnimated:YES];
+                                                         [self.navigationController popToRootViewControllerAnimated:YES];
                                                      }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                            style:UIAlertActionStyleCancel
@@ -87,7 +91,7 @@
 
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
-    
+    // NOTE REPLACE WITH FETCHED CURRENT USER PHOTO
     // Setup ImageView
     NSURL *urlAddress = [FirebaseManager sharedInstance].currentUser.photoURL;
     if ([urlAddress.absoluteString containsString:@"github"]) {
@@ -106,11 +110,17 @@
 -(void)displaySetNameMenu{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CreateDisplayNameViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CreateDisplayNameViewController"];
+    vc.delegate = self;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = NO;
     popover.tapBlurToDismissEnabled = NO;
     [popover showInViewController:self];
+}
+#pragma mark - CreateDisplayNameViewControllerDelegate
+-(void)setDisplayName:(NSString*)userInput{
+    // Firebase manager
+    [FirebaseManager setUpNewUser:userInput];
 }
 
 
