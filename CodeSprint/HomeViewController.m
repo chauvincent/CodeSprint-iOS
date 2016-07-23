@@ -35,8 +35,8 @@
     if([FirebaseManager sharedInstance].isNewUser){
         [self displaySetNameMenu];
     }else{
-        NSLog(@"WAS SET ALREADY");
-        // FETCH OLD USER INFO HERE
+        NSLog(@"WAS SET ALREADY"); // RETURNING USER
+        [FirebaseManager updateUserInfo];
     }
     // AFTER FETCH USER INFO
     [self setupViews];
@@ -55,7 +55,6 @@
                                                              return;
                                                          }
                                                          [FirebaseManager logoutUser];
-                                                         //[self.navigationController popViewControllerAnimated:YES];
                                                          [self.navigationController popToRootViewControllerAnimated:YES];
                                                      }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
@@ -119,7 +118,6 @@
 }
 #pragma mark - CreateDisplayNameViewControllerDelegate
 -(void)setDisplayName:(NSString*)userInput{
-    // Firebase manager
     [FirebaseManager setUpNewUser:userInput];
 }
 

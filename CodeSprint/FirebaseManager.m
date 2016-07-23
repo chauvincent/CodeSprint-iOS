@@ -66,7 +66,7 @@
     [currentUserRef updateChildValues:newUserInfo];
     NSLog(@"did set up new user");
 }
-+ (void)updateUserInfo:(User*)currentUser{
++ (void)updateUserInfo{
     // Called when signed-in; refresh all info
 }
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
@@ -139,6 +139,15 @@
     NSArray *members = [[NSArray alloc] initWithArray:teamInformation.membersUID];
     NSDictionary *teamDetails = @{kMembersHead : members};
     [teamRef updateChildValues:teamDetails];
+    
+    // APPEND TO USER
+    NSArray *newTeams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
+    NSString *currentUID = [FirebaseManager sharedInstance].currentUser.uid;
+    FIRDatabaseReference *userNodeRef = [[FirebaseManager userRef] child:currentUID];
+    NSDictionary *updateInfo = @{kCSUserTeamKey : newTeams};
+    [userNodeRef updateChildValues:updateInfo];
+    
+    NSLog(@"ONLY ONCE PLES");
 }
 
 

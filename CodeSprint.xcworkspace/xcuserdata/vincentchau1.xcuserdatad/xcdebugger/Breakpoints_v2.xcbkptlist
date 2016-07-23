@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CodeSprint/HomeViewController.m"
-            timestampString = "490963669.15713"
+            timestampString = "490963855.196221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "-setupViews"
             landmarkType = "5">
          </BreakpointContent>

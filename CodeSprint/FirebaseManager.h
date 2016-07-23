@@ -25,7 +25,7 @@
 
 #pragma mark - User Management
 + (void)logoutUser;
-+ (void)updateUserInfo:(User*)currentUser;
++ (void)updateUserInfo;
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block;
 + (void)setUpNewUser:(NSString*)displayName;
 

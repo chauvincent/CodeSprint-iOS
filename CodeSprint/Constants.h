@@ -23,6 +23,7 @@ extern NSString *const kCSUserHead;
 extern NSString *const kCSUserDisplayKey;
 extern NSString *const kCSUserDidSetDisplay;
 extern NSString *const kCSUserPhotoURL;
+extern NSString *const kCSUserTeamKey;
 
 #pragma mark - Team Keys
 extern NSString *const kTeamsHead;
