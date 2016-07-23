@@ -13,6 +13,7 @@
 #include "Constants.h"
 #include "AnimationGenerator.h"
 #import "HomeViewController.h"
+
 @import Firebase;
 
 @interface LoginViewController () <UIWebViewDelegate>{
@@ -137,7 +138,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         }];
         [self getAccessToken];
         NSLog(@"did sign in");
-
     }
     return YES;
 }
@@ -153,28 +153,30 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
-    
-
-    // TODO:
-    // query firebase to see if user has a node with a display name
-    // if display name is nil, prompt user to add a display name(unique and once)
-    // update firebase node with display name and continue on
-    
-    // if did have a display name already, just retreive object and store into fbmanager
-    
+//TODO:
+//    query firebase to see if user has a node with a display name
+//        if display name is nil, prompt user to add a display name(unique and once)
+//            update firebase node with display name and continue on
+//            
+//            if did have a display name already, just retreive object and store into fbmanager
+//
     NSString *displayName = user.displayName.length > 0 ? user.displayName : user.email;
     User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
     currentUser.photoURL = user.photoURL;
     currentUser.didSetName = false;
-    [FirebaseManager sharedInstance].currentUser = currentUser;
     
     [FirebaseManager lookUpUser:currentUser withCompletion:^(BOOL result) {
-        NSLog(@"did return");
+        if(result){
+            NSLog(@"There is a displayname");
+        }else{
+            NSLog(@"no displayName");
+         //   [FirebaseManager sharedInstance].isNewUser = !result;
+
+        }
+
+        [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
     }];
     
-    NSLog(@"finished lookup");
-    
-    [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
 }
 -(void)updateUserInformation{
 

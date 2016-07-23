@@ -29,7 +29,14 @@
     [self setupViews];
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
- 
+//    if([FirebaseManager sharedInstance].isNewUser){
+//        NSLog(@"NEWWW BABY");
+//    }else{
+//        NSLog(@"NOT NEW");
+//    }
+//       
+    NSLog(@"at home did load");
+    
 }
 -(void)dismiss{
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"

@@ -32,13 +32,13 @@
 }
 - (FIRDatabaseReference*)teamRefs{
     if (!teamsRefs) {
-        teamsRefs = [[self ref] child:@"teams"];
+        teamsRefs = [[self ref] child:kTeamsHead];
     }
     return teamsRefs;
 }
 - (FIRDatabaseReference*)userRefs{
     if (!userRefs) {
-        userRefs = [[self ref] child:@"CSUser"];
+        userRefs = [[self ref] child:kCSUserHead];
     }
     return userRefs;
 }
@@ -61,30 +61,34 @@
     // Called when signed-in; refresh all info
 }
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
-    // Check too see if initilaized a displayname
+    // Return false if no display name set or first time user
+    __block theResult = false;
     [[[self userRef] child:currentUser.uid] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"SNAPSHOT IS %@", (NSDictionary*)snapshot.value);
-        
-        if (snapshot.value == [NSNull null]) {
-            NSLog(@"NULLLLLLLLLL");
+       if (snapshot.value == [NSNull null]) { // if user node not created
+           FIRDatabaseReference *userRef = [[self userRef] child:currentUser.uid];
+           NSDictionary *userDetails = @{kCSUserDidSetDisplay : @0};
+           [userRef updateChildValues:userDetails];
+           NSLog(@"Did create a node for user");
+           theResult = false;
+       }else{
+            NSDictionary *userInfo = (NSDictionary*)snapshot.value;
+            FIRDatabaseQuery *userQuery = [[[FirebaseManager userRef] child:currentUser.uid] queryOrderedByChild:kCSUserDisplayKey];
+            [userQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                    if (snapshot.value) {
+                            NSDictionary *response = (NSDictionary*)snapshot.value;
+                        if ([response objectForKey:kCSUserDisplayKey]) {
+                            NSLog(@"displayname is : %@, returnin ttrue", response[kCSUserDisplayKey]);
+                            //block(true); // There is an existing display name;
+                            theResult = true;
+                        }else{
+                            theResult = false;
+                            //block(false); // No display name set
+                        }
+                }
+                block(theResult);
+            }];
         }
-        
     }];
-//    FIRDatabaseQuery *userQuery = [[[FirebaseManager userRef] child:currentUser.uid] queryOrderedByChild:@"displayName"];
-//    [userQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        if (snapshot.value) {
-//            NSDictionary *response = (NSDictionary*)snapshot.value;
-//            
-//            if ([response objectForKey:@"displayName"]) {
-//                NSLog(@"name is %@", response[@"displayName"]);
-//                block(true);
-//            }else{
-//                NSLog(@"NOOOO DISPLAY NAME");
-//                block(false);
-//            }
-//        }
-//    }];
-    
     NSLog(@"Exiting");
 }
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
@@ -94,6 +98,7 @@
     [membersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSLog(@"snapshot %@", snapshot.value);
         for (FIRDataSnapshot *child in snapshot.children) {
+            // Already joined team
             if ([child.value isEqualToString:uid]) {
                 alreadyJoined = true;
                 return;
@@ -105,7 +110,7 @@
             [oldMembers addObject:uid];
             newmembers = [NSArray arrayWithArray:oldMembers];
             FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamName];
-            NSDictionary *teamDetails = @{@"members" : newmembers};
+            NSDictionary *teamDetails = @{kMembersHead : newmembers};
             [teamRef updateChildValues:teamDetails];
             NSLog(@"DID ADD MEMBER");
         }
@@ -126,7 +131,7 @@
 + (void)createTeamWith:(Team *)teamInformation{
     FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname];
     NSArray *members = [[NSArray alloc] initWithArray:teamInformation.membersUID];
-    NSDictionary *teamDetails = @{@"members" : members};
+    NSDictionary *teamDetails = @{kMembersHead : members};
     [teamRef updateChildValues:teamDetails];
 }
 
