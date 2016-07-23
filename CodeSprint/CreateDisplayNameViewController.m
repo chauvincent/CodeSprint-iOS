@@ -7,8 +7,12 @@
 //
 
 #import "CreateDisplayNameViewController.h"
+#import "ImageStyleButton.h"
+#import "CustomTextField.h"
 
 @interface CreateDisplayNameViewController ()
+@property (weak, nonatomic) IBOutlet ImageStyleButton *createDisplayNameButton;
+@property (weak, nonatomic) IBOutlet CustomTextField *displayNameTextField;
 
 @end
 
@@ -16,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupView];
     // Do any additional setup after loading the view.
 }
 
@@ -33,9 +38,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)createDisplayButtonPressed:(id)sender {
+}
 #pragma mark - View Setup
 -(CGSize)preferredContentSize{
     return CGSizeMake(280.0f, 320.0f);
+}
+-(void)setupView{
+    self.navigationItem.title = @"Set Display Name";
 }
 
 @end

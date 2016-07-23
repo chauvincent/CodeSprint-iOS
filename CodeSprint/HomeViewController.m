@@ -109,6 +109,7 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = NO;
+    popover.tapBlurToDismissEnabled = NO;
     [popover showInViewController:self];
 }
 
