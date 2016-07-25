@@ -11,6 +11,7 @@
 #import "ImageStyleButton.h"
 #import "FirebaseManager.h"
 #import "Team.h"
+#import "ErrorCheckUtil.h"
 
 #define MAX_INPUT_LENGTH 12
 
@@ -28,7 +29,9 @@
     _teamTextField.delegate = self;
     [self setupButtons];
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    NSLog(@"disspaear");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -60,29 +63,29 @@
 
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
+
     _didCreate = false;
     NSString *inputText = self.teamTextField.text;
-
-    BOOL badInput = ![self.delegate checkBadInput:inputText];
-    if (badInput) {
-        NSLog(@"Bad input handled");
-        return;
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    NSString *successTitle = @"Success";
+    UIAlertController *alert = [errorCheck checkBadInput:inputText withMessage:@"Please enter a unique team name" andDismiss:@"Dismiss" withSuccessMessage:@"You have joined a new team" title:successTitle];
+    if ([alert.title isEqualToString:successTitle]) {
+        [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
+            if (!result) {
+                UIViewController *doesNotExistAlert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier"
+                                                                     andDismissNamed:@"Ok"];
+                [self presentViewController:doesNotExistAlert animated:YES completion:nil];
+                _didCreate = false;
+                return;
+            }else if (result && !_didCreate){
+                _didCreate = true;
+                [self dismiss];
+                [self.delegate createdNewTeam:inputText];
+            }
+        }];
+    }else{
+        [self presentViewController:alert animated:YES completion:nil];
     }
-    NSLog(@"Createbutton pressed, entering isNewTeam");
-    [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
-        NSLog(@"inside");
-        if (result) {
-            NSLog(@"creating");
-            [self.delegate createdNewTeam:inputText];
-            _didCreate = true;
-            [self dismiss];
-        }else if (!result && !_didCreate){
-            [self.delegate showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier."
-                     andDismissNamed:@"Ok"];
-            _didCreate = false;
-            return;
-        }
-    }];
 }
 - (IBAction)cancelButtonPressed:(id)sender {
     self.teamTextField.text = @"";
@@ -99,7 +102,33 @@
 
 #pragma mark - Helper methods
 - (void)dismiss {
+    NSLog(@"DISMISS CALLEd");
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(BOOL)checkBadInput:(NSString*)inputText{
+
+    if ([inputText isEqualToString:@""]) {
+        [self showAlertWithTitle:@"Error: No Input" andMessage:@"Please enter a teamname identifier."
+                 andDismissNamed:@"Dismiss"];
+        return false;
+    }
+    NSCharacterSet *charSet = [NSCharacterSet
+                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"];
+    charSet = [charSet invertedSet];
+    NSRange range = [inputText rangeOfCharacterFromSet:charSet];
+
+    if (range.location != NSNotFound) {
+        [self showAlertWithTitle:@"Invalid Characters" andMessage:@"Please enter a name containing only: [A-Z], [a-z], [0-9], -, _"
+                 andDismissNamed:@"Dismiss"];
+        return false;
+    }
+    return true; // valid input
+}
+-(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

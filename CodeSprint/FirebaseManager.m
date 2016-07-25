@@ -72,24 +72,25 @@
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
     // Return false if no display name set or first time user
     __block BOOL theResult = false;
-    [[[self userRef] child:currentUser.uid] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-       if (snapshot.value == [NSNull null]) { // if user node not created
-           FIRDatabaseReference *userRef = [[self userRef] child:currentUser.uid];
-           NSDictionary *userDetails = @{kCSUserDidSetDisplay : @0};
-           [userRef updateChildValues:userDetails];
-           NSLog(@"Did create a node for user");
-           theResult = false;
-       }else{
-         //   NSDictionary *userInfo = (NSDictionary*)snapshot.value;
+    [[[self userRef] child:currentUser.uid] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        if (snapshot.value == [NSNull null]) { // if user node not created
+            FIRDatabaseReference *userRef = [[self userRef] child:currentUser.uid];
+            NSDictionary *userDetails = @{kCSUserDidSetDisplay : @0};
+            [userRef updateChildValues:userDetails];
+            NSLog(@"Did create a node for user");
+            theResult = false;
+            block(theResult);
+        }else{
+            //   NSDictionary *userInfo = (NSDictionary*)snapshot.value;
             FIRDatabaseQuery *userQuery = [[[FirebaseManager userRef] child:currentUser.uid] queryOrderedByChild:kCSUserDisplayKey];
             [userQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                    if (snapshot.value) {
-                        NSDictionary *response = (NSDictionary*)snapshot.value;
-                        if ([response objectForKey:kCSUserDisplayKey]) {
-                            theResult = true;
-                        }else{
-                            theResult = false;
-                        }
+                if (snapshot.value) {
+                    NSDictionary *response = (NSDictionary*)snapshot.value;
+                    if ([response objectForKey:kCSUserDisplayKey]) {
+                        theResult = true;
+                    }else{
+                        theResult = false;
+                    }
                 }
                 block(theResult);
             }];
@@ -126,7 +127,8 @@
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];
-    [[[[FirebaseManager sharedInstance] teamRefs] child:teamName] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+
+    [[[FirebaseManager teamRef] child:teamName] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSLog(@"inside inner block call");
         response = (NSDictionary*)snapshot.value;
         BOOL isNew = ([response isEqual:[NSNull null]]) ? true : false;
@@ -140,7 +142,6 @@
     NSDictionary *teamDetails = @{kMembersHead : members};
     [teamRef updateChildValues:teamDetails];
     
-    // APPEND TO USER
     NSArray *newTeams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
     NSString *currentUID = [FirebaseManager sharedInstance].currentUser.uid;
     FIRDatabaseReference *userNodeRef = [[FirebaseManager userRef] child:currentUID];

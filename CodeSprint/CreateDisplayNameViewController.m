@@ -13,7 +13,7 @@
 #import "ErrorCheckUtil.h"
 
 #define MAX_INPUT_LENGTH 12
-@interface CreateDisplayNameViewController ()
+@interface CreateDisplayNameViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet ImageStyleButton *createDisplayNameButton;
 @property (weak, nonatomic) IBOutlet CustomTextField *displayNameTextField;
 
@@ -31,23 +31,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - IBActions
 - (IBAction)createDisplayButtonPressed:(id)sender {
     NSLog(@"create button pressed");
     NSString *usernameInput = self.displayNameTextField.text;
-    NSString *successTitle = @"Success";
     
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
-    UIAlertController *alert = [errorCheck checkBadInput:usernameInput withMessage:@"Please enter a display name" andDismiss:@"Dismiss" withSuccessMessage:@"Your display name has been created." title:successTitle];
-    
-    if ([alert.title isEqualToString:successTitle]) { // good input
+    if ([usernameInput isEqualToString:@""]) {
+        UIAlertController *alert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Please enter a display name" andDismissNamed:@"Ok"];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    }else{
         [self.delegate setDisplayName:usernameInput];
         [self dismissViewControllerAnimated:YES completion:nil];
-    }else{
-        [self presentViewController:alert animated:YES completion:nil];
     }
-    
 }
 #pragma mark - View Setup
 -(CGSize)preferredContentSize{
