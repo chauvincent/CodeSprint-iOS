@@ -39,6 +39,7 @@
 		75C14F1A1D182B1400CAE375 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C14F181D182B1400CAE375 /* FBSDKLoginKit.framework */; };
 		75C14F1C1D182B1D00CAE375 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C14F1B1D182B1D00CAE375 /* FBSDKShareKit.framework */; };
 		75C896F21D43635C00B9062F /* CreateDisplayNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */; };
+		75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F41D45A41500B9062F /* ErrorCheckUtil.m */; };
 		A1137C1E6815F8B9B4AFFA5D /* libPods-CodeSprint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,8 @@
 		75C14F1B1D182B1D00CAE375 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		75C896F01D43635C00B9062F /* CreateDisplayNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateDisplayNameViewController.h; sourceTree = "<group>"; };
 		75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateDisplayNameViewController.m; sourceTree = "<group>"; };
+		75C896F31D45A41500B9062F /* ErrorCheckUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorCheckUtil.h; sourceTree = "<group>"; };
+		75C896F41D45A41500B9062F /* ErrorCheckUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorCheckUtil.m; sourceTree = "<group>"; };
 		A24BF0BC3A0D7F39014C4C32 /* Pods-CodeSprint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeSprint.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeSprint/Pods-CodeSprint.release.xcconfig"; sourceTree = "<group>"; };
 		C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CodeSprint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -170,6 +173,8 @@
 			children = (
 				7599189A1D1E2AF600E38268 /* AnimationGenerator.h */,
 				7599189B1D1E2AF600E38268 /* AnimationGenerator.m */,
+				75C896F31D45A41500B9062F /* ErrorCheckUtil.h */,
+				75C896F41D45A41500B9062F /* ErrorCheckUtil.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,
 				759CA8361D3E2FE200A26EB9 /* User.m in Sources */,
 				7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */,
+				75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */,
 				754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */,
 				754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */,
 				754FF8941D1D281A004ABD43 /* ShadowView.m in Sources */,

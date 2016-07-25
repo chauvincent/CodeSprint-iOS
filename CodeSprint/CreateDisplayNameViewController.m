@@ -10,7 +10,9 @@
 #import "ImageStyleButton.h"
 #import "CustomTextField.h"
 #import "FirebaseManager.h"
+#import "ErrorCheckUtil.h"
 
+#define MAX_INPUT_LENGTH 12
 @interface CreateDisplayNameViewController ()
 @property (weak, nonatomic) IBOutlet ImageStyleButton *createDisplayNameButton;
 @property (weak, nonatomic) IBOutlet CustomTextField *displayNameTextField;
@@ -34,13 +36,18 @@
 - (IBAction)createDisplayButtonPressed:(id)sender {
     NSLog(@"create button pressed");
     NSString *usernameInput = self.displayNameTextField.text;
-    BOOL valid = [self checkBadInput:usernameInput];
-    if (valid) {
-     
-        
+    NSString *successTitle = @"Success";
+    
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    UIAlertController *alert = [errorCheck checkBadInput:usernameInput withMessage:@"Please enter a display name" andDismiss:@"Dismiss" withSuccessMessage:@"Your display name has been created." title:successTitle];
+    
+    if ([alert.title isEqualToString:successTitle]) { // good input
         [self.delegate setDisplayName:usernameInput];
         [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [self presentViewController:alert animated:YES completion:nil];
     }
+    
 }
 #pragma mark - View Setup
 -(CGSize)preferredContentSize{
@@ -49,30 +56,13 @@
 -(void)setupView{
     self.navigationItem.title = @"Set Display Name";
 }
-#pragma mark - Helper
--(BOOL)checkBadInput:(NSString*)inputText{
-    
-    if ([inputText isEqualToString:@""]) {
-        [self showAlertWithTitle:@"Error: No Input" andMessage:@"Please enter a display name."
-                 andDismissNamed:@"Dismiss"];
-        return false;
+#pragma mark - UITextFieldDelegate
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(range.length + range.location > textField.text.length){
+        return NO;
     }
-    NSCharacterSet *charSet = [NSCharacterSet
-                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"];
-    charSet = [charSet invertedSet];
-    NSRange range = [inputText rangeOfCharacterFromSet:charSet];
-    
-    if (range.location != NSNotFound) {
-        [self showAlertWithTitle:@"Invalid Characters" andMessage:@"Please enter a name containing only: [A-Z], [a-z], [0-9], -, _"
-                 andDismissNamed:@"Dismiss"];
-        return false;
-    }
-    return true; // valid input
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= MAX_INPUT_LENGTH;
 }
--(void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:cancel];
-    [self presentViewController:alert animated:YES completion:nil];
-}
+
 @end

@@ -11,8 +11,9 @@
 #import "ImageStyleButton.h"
 #import "FirebaseManager.h"
 #import "CustomTextField.h"
+#import "ErrorCheckUtil.h"
 
-
+#define MAX_INPUT_LENGTH 12
 @interface SearchTeamViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet CustomTextField *inputNameTextField;
@@ -62,24 +63,36 @@
 - (IBAction)searchButtonPressed:(id)sender {
     _didCall = false;
     NSString *inputText = self.inputNameTextField.text;
-    
-    BOOL badInput = ![self.delegate checkBadInput:inputText];
-    if (badInput) {
-        NSLog(@"Bad input handled");
-        return;
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    NSString *successTitle = @"Success";
+    UIAlertController *alert = [errorCheck checkBadInput:inputText withMessage:@"Please enter a unique team name" andDismiss:@"Dismiss" withSuccessMessage:@"You have joined a new team" title:successTitle];
+    if ([alert.title isEqualToString:successTitle]) {
+        [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
+            if (result) {
+                NSLog(@"doesnt exist");
+                UIViewController *doesNotExistAlert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"This team identifier could not be found. Please double-check your team's unique identifier."
+                               andDismissNamed:@"Ok"];
+                     [self presentViewController:doesNotExistAlert animated:YES completion:nil];
+                _didCall = false;
+                return;
+            }else if (!result && !_didCall){
+                NSLog(@"join team");
+                _didCall = true;
+                [self.delegate joinNewTeam:inputText];
+                [self dismiss];
+            }
+        }];
+    }else{
+        [self presentViewController:alert animated:YES completion:nil];
     }
-    [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
-        if (result) {
-            [self.delegate showAlertWithTitle:@"Error" andMessage:@"This team identifier does not exist, Please double-check your team's unique identifier."
-                              andDismissNamed:@"Ok"];
-            _didCall = false;
-            return;
-        }else if (!result && !_didCall){
-            NSLog(@"join team");
-            _didCall = true;
-            [self.delegate joinNewTeam:inputText];
-            [self dismiss];
-        }
-    }];
 }
+#pragma mark - UITextFieldDelegate
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(range.length + range.location > textField.text.length){
+        return NO;
+    }
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= MAX_INPUT_LENGTH;
+}
+
 @end
