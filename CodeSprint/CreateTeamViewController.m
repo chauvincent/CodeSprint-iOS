@@ -29,9 +29,6 @@
     _teamTextField.delegate = self;
     [self setupButtons];
 }
--(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"disspaear");
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -102,7 +99,6 @@
 
 #pragma mark - Helper methods
 - (void)dismiss {
-    NSLog(@"DISMISS CALLEd");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

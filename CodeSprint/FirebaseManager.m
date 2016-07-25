@@ -99,7 +99,7 @@
 }
 
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
-    FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:@"members"] queryOrderedByChild:uid];
+    FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:kMembersHead] queryOrderedByChild:uid];
     __block NSArray *newmembers = [[NSArray alloc] init];
     __block BOOL alreadyJoined = false;
     [membersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -120,6 +120,24 @@
             NSDictionary *teamDetails = @{kMembersHead : newmembers};
             [teamRef updateChildValues:teamDetails];
             NSLog(@"DID ADD MEMBER");
+        
+            FIRDatabaseReference *userRef = [FirebaseManager userRef];
+            FIRDatabaseQuery *usersQuery = [[userRef child:uid] queryOrderedByChild:kCSUserTeamKey];
+            [usersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                NSDictionary *response = (NSDictionary*)snapshot.value;
+                NSArray *newTeams = @[];
+                if ([[response allKeys] containsObject:kCSUserTeamKey]) {
+                    NSMutableArray *oldTeams = [[response objectForKey:kCSUserTeamKey] mutableCopy];
+                    [oldTeams addObject:teamName];
+                    newTeams = [oldTeams mutableCopy];
+                }else{
+                    newTeams = [NSArray arrayWithArray:[NSMutableArray arrayWithObject:teamName]];
+                }
+                FIRDatabaseReference *newTeamsRef = [[userRef child:uid] child:kCSUserTeamKey];
+                [newTeamsRef setValue:newTeams];
+                NSLog(@"response is : %@", snapshot.value);
+            }];
+        
         }
     }];
 }
