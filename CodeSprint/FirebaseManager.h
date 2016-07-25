@@ -12,6 +12,7 @@
 #import "User.h"
 @import Firebase;
 
+#pragma mark - Database References
 @interface FirebaseManager : NSObject{
     FIRDatabaseReference *ref;
     FIRDatabaseReference *teamsRefs;
@@ -35,6 +36,6 @@
 
 #pragma mark - Insertion/Deletetion Functions
 + (void)createTeamWith:(Team *)teamInformation;
-+ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid;
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid; 
 
 @end
