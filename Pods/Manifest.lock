@@ -20,6 +20,18 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - FBSDKCoreKit (4.14.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.14.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.14.0):
+    - FBSDKCoreKit
   - Firebase (3.2.1):
     - Firebase/Core (= 3.2.1)
   - Firebase/Analytics (3.2.1):
@@ -57,6 +69,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
   - Firebase
   - Firebase/Auth
   - Firebase/Database
@@ -66,6 +81,10 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
+  FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
+  FBSDKShareKit: e8e5d4ccef69b41132fe33acda26db1e33143e33
   Firebase: 6c80ac28d59d06bfd9152a7b6ea17625ca93183d
   FirebaseAnalytics: 6f75b04e6bfb8e0b6e9ef298e04c24eea3b13863
   FirebaseAuth: 94b851fc345ce98036dfedfdc2eddeaef8fa3b4c
