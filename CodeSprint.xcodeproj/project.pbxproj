@@ -24,6 +24,8 @@
 		7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF011D37063A00F6E1E9 /* CustomTextField.m */; };
 		7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */; };
 		7588AF081D3845CB00F6E1E9 /* SearchTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF071D3845CB00F6E1E9 /* SearchTeamViewController.m */; };
+		759286861D46D3CB00D3B9B8 /* TeamsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759286851D46D3CB00D3B9B8 /* TeamsTableViewCell.m */; };
+		759286891D46DA6100D3B9B8 /* TeamHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 759286881D46DA6100D3B9B8 /* TeamHomeViewController.m */; };
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		759CA8361D3E2FE200A26EB9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 759CA8351D3E2FE200A26EB9 /* User.m */; };
@@ -79,6 +81,10 @@
 		7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStyleButton.m; sourceTree = "<group>"; };
 		7588AF061D3845CB00F6E1E9 /* SearchTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTeamViewController.h; sourceTree = "<group>"; };
 		7588AF071D3845CB00F6E1E9 /* SearchTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTeamViewController.m; sourceTree = "<group>"; };
+		759286841D46D3CB00D3B9B8 /* TeamsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsTableViewCell.h; sourceTree = "<group>"; };
+		759286851D46D3CB00D3B9B8 /* TeamsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsTableViewCell.m; sourceTree = "<group>"; };
+		759286871D46DA6100D3B9B8 /* TeamHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamHomeViewController.h; sourceTree = "<group>"; };
+		759286881D46DA6100D3B9B8 /* TeamHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHomeViewController.m; sourceTree = "<group>"; };
 		759918961D1D981F00E38268 /* ShadowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowImageView.h; sourceTree = "<group>"; };
 		759918971D1D981F00E38268 /* ShadowImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowImageView.m; sourceTree = "<group>"; };
 		7599189A1D1E2AF600E38268 /* AnimationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationGenerator.h; sourceTree = "<group>"; };
@@ -164,6 +170,8 @@
 				7588AF011D37063A00F6E1E9 /* CustomTextField.m */,
 				7588AF031D37066B00F6E1E9 /* ImageStyleButton.h */,
 				7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */,
+				759286841D46D3CB00D3B9B8 /* TeamsTableViewCell.h */,
+				759286851D46D3CB00D3B9B8 /* TeamsTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -255,6 +263,8 @@
 				7588AF071D3845CB00F6E1E9 /* SearchTeamViewController.m */,
 				75C896F01D43635C00B9062F /* CreateDisplayNameViewController.h */,
 				75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */,
+				759286871D46DA6100D3B9B8 /* TeamHomeViewController.h */,
+				759286881D46DA6100D3B9B8 /* TeamHomeViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -402,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				759286861D46D3CB00D3B9B8 /* TeamsTableViewCell.m in Sources */,
 				754FF8971D1D2CD2004ABD43 /* Constants.m in Sources */,
 				75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */,
 				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
@@ -411,6 +422,7 @@
 				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
 				755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */,
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,
+				759286891D46DA6100D3B9B8 /* TeamHomeViewController.m in Sources */,
 				759CA8361D3E2FE200A26EB9 /* User.m in Sources */,
 				7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */,
 				75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */,

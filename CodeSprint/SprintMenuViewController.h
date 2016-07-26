@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CircleBorderedButton.h"
 @interface SprintMenuViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet CircleBorderedButton *createGroupButton;
 @property (weak, nonatomic) IBOutlet CircleBorderedButton *findGroupButton;
 @property (weak, nonatomic) IBOutlet CircleBorderedButton *removeButton;

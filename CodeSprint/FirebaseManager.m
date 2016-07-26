@@ -97,47 +97,6 @@
     }];
 }
 
-+ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
-    FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:kMembersHead] queryOrderedByChild:uid];
-    __block NSArray *newmembers = [[NSArray alloc] init];
-    __block BOOL alreadyJoined = false;
-    [membersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        for (FIRDataSnapshot *child in snapshot.children) {
-            if ([child.value isEqualToString:uid]) {
-                alreadyJoined = true;
-                return;
-            }
-        }
-        if(!alreadyJoined){
-            NSArray *response = (NSArray*)snapshot.value;
-            NSMutableArray *oldMembers = [response mutableCopy];
-            [oldMembers addObject:uid];
-            newmembers = [NSArray arrayWithArray:oldMembers];
-            FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamName];
-            NSDictionary *teamDetails = @{kMembersHead : newmembers};
-            [teamRef updateChildValues:teamDetails];
-
-            FIRDatabaseReference *userRef = [FirebaseManager userRef];
-            FIRDatabaseQuery *usersQuery = [[userRef child:uid] queryOrderedByChild:kCSUserTeamKey];
-            [usersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                NSDictionary *response = (NSDictionary*)snapshot.value;
-                NSArray *newTeams = @[];
-                if ([[response allKeys] containsObject:kCSUserTeamKey]) {
-                    // Has previous teams
-                    NSMutableArray *oldTeams = [[response objectForKey:kCSUserTeamKey] mutableCopy];
-                    [oldTeams addObject:teamName];
-                    newTeams = [oldTeams mutableCopy];
-                }else{
-                    // No previous teams
-                    newTeams = [NSArray arrayWithArray:[NSMutableArray arrayWithObject:teamName]];
-                }
-                FIRDatabaseReference *newTeamsRef = [[userRef child:uid] child:kCSUserTeamKey];
-                [newTeamsRef setValue:newTeams];
-            }];
-        }
-    }];
-}
-
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];
@@ -159,6 +118,48 @@
     NSDictionary *updateInfo = @{kCSUserTeamKey : newTeams};
     [userNodeRef updateChildValues:updateInfo];
 }
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
+    FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:kMembersHead] queryOrderedByChild:uid];
+    __block NSArray *newmembers = [[NSArray alloc] init];
+    __block BOOL alreadyJoined = false;
+    [membersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        for (FIRDataSnapshot *child in snapshot.children) {
+            if ([child.value isEqualToString:uid]) {
+                alreadyJoined = true;
+                return;
+            }
+        }
+        if(!alreadyJoined){
+            NSArray *response = (NSArray*)snapshot.value;
+            NSMutableArray *oldMembers = [response mutableCopy];
+            [oldMembers addObject:uid];
+            newmembers = [NSArray arrayWithArray:oldMembers];
+            FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamName];
+            NSDictionary *teamDetails = @{kMembersHead : newmembers};
+            [teamRef updateChildValues:teamDetails];
+            
+            FIRDatabaseReference *userRef = [FirebaseManager userRef];
+            FIRDatabaseQuery *usersQuery = [[userRef child:uid] queryOrderedByChild:kCSUserTeamKey];
+            [usersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                NSDictionary *response = (NSDictionary*)snapshot.value;
+                NSArray *newTeams = @[];
+                if ([[response allKeys] containsObject:kCSUserTeamKey]) {
+                    // Has previous teams
+                    NSMutableArray *oldTeams = [[response objectForKey:kCSUserTeamKey] mutableCopy];
+                    [oldTeams addObject:teamName];
+                    newTeams = [oldTeams mutableCopy];
+                }else{
+                    // No previous teams
+                    newTeams = [NSArray arrayWithArray:[NSMutableArray arrayWithObject:teamName]];
+                }
+                FIRDatabaseReference *newTeamsRef = [[userRef child:uid] child:kCSUserTeamKey];
+                [newTeamsRef setValue:newTeams];
+            }];
+        }
+    }];
+}
+
+#pragma mark - Sprint Management
 
 
 @end

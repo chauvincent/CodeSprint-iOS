@@ -1,0 +1,1 @@
+../../../IGIdenticon/IGIdenticon/IGImageProducing.h

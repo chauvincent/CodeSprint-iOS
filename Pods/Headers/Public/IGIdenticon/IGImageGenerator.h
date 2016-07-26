@@ -1,0 +1,1 @@
+../../../IGIdenticon/IGIdenticon/IGImageGenerator.h

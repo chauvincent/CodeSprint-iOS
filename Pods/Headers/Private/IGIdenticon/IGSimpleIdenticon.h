@@ -1,0 +1,1 @@
+../../../IGIdenticon/IGIdenticon/IGSimpleIdenticon.h

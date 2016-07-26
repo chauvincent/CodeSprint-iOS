@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IGIdenticon.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-CodeSprint.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,7 +32,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>20A61E664B1C37363BC97A563FB9EFF8</key>
+		<key>04128DE62A3B295AF1C8C26093D2472A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3ADBACC7D3AC91CCA35C45554B185668</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -37,12 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>41C267FF3EB789DCD93755FBFFC1827D</key>
+		<key>9D9890EFA45B936306CD4D7AD939AF37</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>44E4971A3A6ED0C47A3D1426ED8D48B4</key>
+		<key>ACE518E3112658BF5296768E0E1D999A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

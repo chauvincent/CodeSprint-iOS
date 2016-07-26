@@ -96,8 +96,6 @@
     [FirebaseManager createTeamWith:newTeam];
     NSLog(@"CREATE NEW TEAM CALLED");
     // APPEND TEAM TO CREATOR (CURRENT USER)
-    
-    
 }
 -(void)joinNewTeam:(NSString*)teamName{
     [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].currentUser.uid];

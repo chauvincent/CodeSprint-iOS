@@ -292,7 +292,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGR-31-AUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2113" y="-534"/>
+            <point key="canvasLocation" x="2113" y="-394"/>
         </scene>
         <!--Sprint Menu View Controller-->
         <scene sceneID="9Rl-0R-XMK">
@@ -320,13 +320,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing Teams" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcN-Ek-lKE">
-                                <rect key="frame" x="20" y="207" width="143" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="143" id="PMH-OR-rvd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing Teams" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcN-Ek-lKE">
+                                <rect key="frame" x="20" y="207" width="560" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUC-xN-9pg" customClass="CircleBorderedButton">
@@ -362,21 +359,22 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="trailing" secondItem="U8s-Z6-bCX" secondAttribute="trailing" id="6E0-3M-6gb"/>
+                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="U8s-Z6-bCX" secondAttribute="leading" id="BqW-Qd-68Q"/>
                             <constraint firstItem="ZAE-xk-Xzd" firstAttribute="top" secondItem="xZD-SE-HRF" secondAttribute="bottom" constant="34" id="DwI-c8-ULZ"/>
                             <constraint firstItem="lUC-xN-9pg" firstAttribute="centerX" secondItem="U8s-Z6-bCX" secondAttribute="centerX" id="H2B-js-8Ep"/>
-                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="top" secondItem="ZAE-xk-Xzd" secondAttribute="bottom" constant="29" id="HRu-Re-eTW"/>
-                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="U8s-Z6-bCX" secondAttribute="leading" id="HwN-9F-Wgt"/>
                             <constraint firstItem="JM4-cd-FZH" firstAttribute="leading" secondItem="lUC-xN-9pg" secondAttribute="trailing" constant="10" id="Jo6-DT-BHO"/>
                             <constraint firstAttribute="bottom" secondItem="U8s-Z6-bCX" secondAttribute="bottom" constant="20" symbolic="YES" id="NeO-7q-OJO"/>
                             <constraint firstItem="lUC-xN-9pg" firstAttribute="leading" secondItem="ZAE-xk-Xzd" secondAttribute="trailing" constant="10" id="Ol7-bw-Yq2"/>
+                            <constraint firstItem="U8s-Z6-bCX" firstAttribute="top" secondItem="DcN-Ek-lKE" secondAttribute="bottom" constant="8" symbolic="YES" id="PUN-yg-DuT"/>
                             <constraint firstItem="ZAE-xk-Xzd" firstAttribute="bottom" secondItem="lUC-xN-9pg" secondAttribute="bottom" id="Ycz-j7-Gyj"/>
                             <constraint firstItem="lUC-xN-9pg" firstAttribute="top" secondItem="xZD-SE-HRF" secondAttribute="bottom" constant="14" id="YnL-ta-lgE"/>
-                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="hV1-9w-oxI" secondAttribute="leadingMargin" id="a8q-tT-cv1"/>
                             <constraint firstItem="U8s-Z6-bCX" firstAttribute="trailing" secondItem="hV1-9w-oxI" secondAttribute="trailingMargin" id="dGy-3I-GwI"/>
+                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="leading" secondItem="hV1-9w-oxI" secondAttribute="leadingMargin" id="fjU-Pt-hY8"/>
                             <constraint firstItem="ZAE-xk-Xzd" firstAttribute="baseline" secondItem="JM4-cd-FZH" secondAttribute="firstBaseline" id="gqg-Jy-W4O"/>
                             <constraint firstItem="JM4-cd-FZH" firstAttribute="baseline" secondItem="ZAE-xk-Xzd" secondAttribute="firstBaseline" id="l2d-T8-k8Q"/>
                             <constraint firstItem="ZAE-xk-Xzd" firstAttribute="top" secondItem="JM4-cd-FZH" secondAttribute="top" id="n0X-2S-Gkl"/>
-                            <constraint firstItem="U8s-Z6-bCX" firstAttribute="top" secondItem="DcN-Ek-lKE" secondAttribute="bottom" constant="8" symbolic="YES" id="qFL-4I-fm9"/>
+                            <constraint firstItem="DcN-Ek-lKE" firstAttribute="top" secondItem="JM4-cd-FZH" secondAttribute="bottom" constant="29" id="v6p-nw-c9Q"/>
                         </constraints>
                     </view>
                     <connections>
@@ -388,7 +386,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPw-BD-im6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2941" y="-1078"/>
+            <point key="canvasLocation" x="2873" y="-394"/>
         </scene>
         <!--Create Team View Controller-->
         <scene sceneID="zRk-Jm-T6S">
@@ -487,7 +485,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xLV-00-Xs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2915" y="-1903"/>
+            <point key="canvasLocation" x="2891" y="-1881"/>
+        </scene>
+        <!--Team Home View Controller-->
+        <scene sceneID="bfa-HO-XTI">
+            <objects>
+                <viewController id="MRR-MG-fYS" customClass="TeamHomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GKh-kw-XfB"/>
+                        <viewControllerLayoutGuide type="bottom" id="9pi-qZ-tkz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="n0u-V2-UdS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fUA-MG-uf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3787" y="-896"/>
         </scene>
         <!--Create Display Name View Controller-->
         <scene sceneID="PK5-Kx-WrX">
@@ -643,7 +659,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KUr-MM-xVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2239" y="-1903"/>
+            <point key="canvasLocation" x="2177" y="-1881"/>
         </scene>
         <!--Page Content View Controller-->
         <scene sceneID="rT0-Ll-5rP">

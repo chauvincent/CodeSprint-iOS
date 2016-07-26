@@ -13,6 +13,7 @@
 #import "ErrorCheckUtil.h"
 
 #define MAX_INPUT_LENGTH 12
+
 @interface CreateDisplayNameViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet ImageStyleButton *createDisplayNameButton;
 @property (weak, nonatomic) IBOutlet CustomTextField *displayNameTextField;
@@ -33,7 +34,6 @@
 }
 #pragma mark - IBActions
 - (IBAction)createDisplayButtonPressed:(id)sender {
-    NSLog(@"create button pressed");
     NSString *usernameInput = self.displayNameTextField.text;
     
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];

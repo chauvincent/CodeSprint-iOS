@@ -19,7 +19,6 @@
 - (CGPoint) offScreenBottom;
 // Functions
 -(id)initWithConstraints:(NSArray*)constraints;
--(id)initWithConstraintsFromBottom:(NSArray *)constraints;
 -(void)animateScreenWithDelay:(double)delay;
 
 @end

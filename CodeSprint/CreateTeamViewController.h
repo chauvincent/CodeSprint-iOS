@@ -13,7 +13,6 @@
 
 -(void)createdNewTeam:(NSString*)inputText;
 
-
 @end
 
 @interface CreateTeamViewController : UIViewController
