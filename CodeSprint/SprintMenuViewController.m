@@ -12,8 +12,9 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "Team.h"
 #import "FirebaseManager.h"
+#import "TeamsTableViewCell.h"
 
-@interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate>
+@interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *teamsTableView;
 @property (nonatomic, weak) RWBlurPopover *createTeamPopover;
@@ -25,14 +26,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
-    // Do any additional setup after loading the view.
+    [FirebaseManager observeNewTeams];
+    self.teamsTableView.delegate = self;
+    self.teamsTableView.dataSource = self;
+    
+    
+//    if ([FirebaseManager sharedInstance].currentUser.groupsIDs != NULL) {
+//        NSLog(@"VIEW DID LOAD, CURRENT TEAMS  = %@", [FirebaseManager sharedInstance].currentUser.groupsIDs);
+//    }
+//    // Do any additional setup after loading the view.
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 /*
 #pragma mark - Navigation
 
@@ -42,6 +49,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
@@ -101,5 +109,24 @@
     [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].currentUser.uid];
 }
 
+#pragma mark - UITableViewDelegate
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.teamNameLabel.text = @"NEW LAbEL";
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 78.0f;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 @end

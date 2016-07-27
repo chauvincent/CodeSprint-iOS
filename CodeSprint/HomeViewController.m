@@ -37,6 +37,7 @@
     }else{
         NSLog(@"WAS SET ALREADY"); // RETURNING USER
         [FirebaseManager updateUserInfo];
+        [FirebaseManager retreiveUsersTeams];
     }
     // AFTER FETCH USER INFO
     [self setupViews];

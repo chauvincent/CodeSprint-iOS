@@ -96,7 +96,30 @@
         }
     }];
 }
-
++ (void)retreiveUsersTeams{
+    FIRDatabaseReference *userRef = [FirebaseManager userRef];
+    FIRDatabaseQuery *usersQuery = [[userRef child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
+    [usersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        if ([[response allKeys] containsObject:kCSUserTeamKey]) {
+            [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
+        }else{
+            
+        }
+    }];
+     
+}
++ (void)observeNewTeams{
+    FIRDatabaseReference *userRef = [FirebaseManager userRef];
+    FIRDatabaseQuery *usersQuery = [[userRef child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
+    [usersQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSLog(@"OBSERVER %@", snapshot.value);
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        if ([[response allKeys] containsObject:kCSUserTeamKey]) {
+            [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
+        }
+    }];
+}
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];
