@@ -38,8 +38,10 @@
 @implementation LoginViewController
 
 #pragma mark - Keys
-NSString *clientID = @"9bc3a5d15c66cd7c2168";
-NSString *secretKey = @"f2ab75208ce318c15376ed9adee7db2c3b867a76";
+NSString *clientID = @"6e0aa67e5343ab805db3";
+// @"9bc3a5d15c66cd7c2168";
+NSString *secretKey = @"6b10752499730a821c848fa3b9fad2c917e19320";
+//@"f2ab75208ce318c15376ed9adee7db2c3b867a76";
 NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
 #pragma mark - Lazy Initializers
@@ -154,13 +156,15 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
     NSString *displayName = user.displayName.length > 0 ? user.displayName : user.email;
+    NSLog(@"DISPLAY NAME : %@", displayName);
+    NSLog(@"CURRENT USER UID %@", user.uid);
     User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
     currentUser.photoURL = user.photoURL;
     currentUser.didSetName = false;
     
     // temporrary
     [FirebaseManager sharedInstance].currentUser = currentUser;
-    
+    NSLog(@"LOOKUP CALLED");
     [FirebaseManager lookUpUser:currentUser withCompletion:^(BOOL result) {
         if(result){
             NSLog(@"There is a displayname");
@@ -169,6 +173,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
             NSLog(@"no displayName");
             [FirebaseManager sharedInstance].isNewUser = !result;
         }
+        NSLog(@"LOOK UP FINISED");
         [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
     }];
     
@@ -192,7 +197,9 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
         [[FIRAuth auth] signInWithCredential:credentials
                                   completion:^(FIRUser *user, NSError *error) {
+                                           NSLog(@"GIT SIGN IN USER ID: %@", user.uid );
                                       [self didSignInWith:user];
+                                      
                                   }];
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {

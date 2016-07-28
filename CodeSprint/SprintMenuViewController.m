@@ -40,6 +40,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    NSLog(@"DISSPAEARING");
+}
 /*
 #pragma mark - Navigation
 
@@ -66,6 +69,8 @@
 -(void)setupView{
     self.navigationItem.title = @"Teams";
     self.navigationItem.hidesBackButton = YES;
+    self.teamsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
     
@@ -103,10 +108,11 @@
     [[FirebaseManager sharedInstance].currentUser.groupsIDs addObject:inputText];
     [FirebaseManager createTeamWith:newTeam];
     NSLog(@"CREATE NEW TEAM CALLED");
-    // APPEND TEAM TO CREATOR (CURRENT USER)
+    [self.teamsTableView reloadData];
 }
 -(void)joinNewTeam:(NSString*)teamName{
     [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].currentUser.uid];
+    [self.teamsTableView reloadData];
 }
 
 #pragma mark - UITableViewDelegate
@@ -114,7 +120,7 @@
 
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.teamNameLabel.text = @"NEW LAbEL";
+    cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.row];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

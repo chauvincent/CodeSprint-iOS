@@ -117,6 +117,8 @@
         NSDictionary *response = (NSDictionary*)snapshot.value;
         if ([[response allKeys] containsObject:kCSUserTeamKey]) {
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
+        }else{
+            [FirebaseManager sharedInstance].currentUser.groupsIDs = [[NSMutableArray alloc] init];
         }
     }];
 }
