@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CodeSprint/LoginViewController.m"
-            timestampString = "490945905.242243"
+            timestampString = "491400454.592965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "-githubLoginButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>

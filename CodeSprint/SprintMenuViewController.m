@@ -40,6 +40,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    NSLog(@"DISSPAEARING");
+}
 /*
 #pragma mark - Navigation
 
