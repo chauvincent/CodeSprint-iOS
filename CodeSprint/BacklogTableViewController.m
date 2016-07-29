@@ -81,7 +81,7 @@
         //                _control.showsCount = NO;
         //                _control.autoAdjustSelectionIndicatorWidth = NO;
         //                _control.selectionIndicatorHeight = 4.0;
-        //                _control.adjustsFontSizeToFitWidth = YES;
+                        _control.adjustsFontSizeToFitWidth = YES;
         
         [_control addTarget:self action:@selector(didChangeSegment:) forControlEvents:UIControlEventValueChanged];
     }

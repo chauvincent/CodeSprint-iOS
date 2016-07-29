@@ -33,8 +33,8 @@
     [FirebaseManager observeNewTeams];
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
-   // self.view.backgroundColor = GREY_COLOR;
-   // self.teamsTableView.backgroundColor = GREY_COLOR;
+    self.view.backgroundColor = GREY_COLOR;
+    self.teamsTableView.backgroundColor = GREY_COLOR;
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
     [self.teamsTableView reloadData];
 //    if ([FirebaseManager sharedInstance].currentUser.groupsIDs != NULL) {
