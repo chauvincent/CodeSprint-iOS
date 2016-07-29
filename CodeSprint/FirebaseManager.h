@@ -14,9 +14,10 @@
 
 #pragma mark - Database References
 @interface FirebaseManager : NSObject{
-    FIRDatabaseReference *ref;
+    FIRDatabaseReference *refs;
     FIRDatabaseReference *teamsRefs;
     FIRDatabaseReference *userRefs;
+    FIRDatabaseReference *scrumRefs;
 }
 + (FirebaseManager *) sharedInstance;
 

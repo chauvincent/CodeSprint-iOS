@@ -29,6 +29,9 @@
     _didCall = false;
     [self setupButtons];
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [self.delegate didJoinTeam];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

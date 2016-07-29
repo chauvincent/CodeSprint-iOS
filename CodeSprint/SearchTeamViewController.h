@@ -11,7 +11,8 @@
 @protocol SearchTeamViewControllerDelegate <NSObject>
 
 -(void)joinNewTeam:(NSString*)teamName;
-
+@optional
+-(void)didJoinTeam;
 @end
 
 @interface SearchTeamViewController : UIViewController
