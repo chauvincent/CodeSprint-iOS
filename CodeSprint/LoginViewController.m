@@ -40,7 +40,7 @@
 #pragma mark - Keys
 NSString *clientID = @"6e0aa67e5343ab805db3";
 // @"9bc3a5d15c66cd7c2168";
-NSString *secretKey = @"6b10752499730a821c848fa3b9fad2c917e19320";
+NSString *secretKey = @"bd24040ac627f399bc5bde4e7d6267289e10ddab";
 //@"f2ab75208ce318c15376ed9adee7db2c3b867a76";
 NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
