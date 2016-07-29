@@ -33,12 +33,15 @@
     [FirebaseManager observeNewTeams];
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
-    
+    self.view.backgroundColor = GREY_COLOR;
+    self.teamsTableView.backgroundColor = GREY_COLOR;
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
+    [self.teamsTableView reloadData];
 //    if ([FirebaseManager sharedInstance].currentUser.groupsIDs != NULL) {
 //        NSLog(@"VIEW DID LOAD, CURRENT TEAMS  = %@", [FirebaseManager sharedInstance].currentUser.groupsIDs);
 //    }
 //    // Do any additional setup after loading the view.
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -124,10 +127,17 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];
+    
+    if ([[FirebaseManager sharedInstance].currentUser.groupsIDs count] == 0) {
+        cell.teamNameLabel.text = @"No teams to display.";
+        CGSize imageViewSize = cell.identiconImageView.frame.size;
+        cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
+        //cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        return cell;
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.row];
     CGSize imageViewSize = cell.identiconImageView.frame.size;
-    NSInteger myInteger = indexPath.row;
     cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
     return cell;
 }
@@ -138,7 +148,12 @@
     return 78.0f;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+    NSUInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+    if (count == 0) {
+        return 1;
+    }else{
+        return count;
+    }
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

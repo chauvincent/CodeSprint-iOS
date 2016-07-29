@@ -29,6 +29,7 @@
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		759CA8361D3E2FE200A26EB9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 759CA8351D3E2FE200A26EB9 /* User.m */; };
+		75B375AB1D4AEBD7008F73F6 /* CustomUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B375AA1D4AEBD7008F73F6 /* CustomUILabel.m */; };
 		75BFABB91D181A6B0001CD57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABB81D181A6B0001CD57 /* main.m */; };
 		75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABBB1D181A6B0001CD57 /* AppDelegate.m */; };
 		75BFABC21D181A6B0001CD57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC01D181A6B0001CD57 /* Main.storyboard */; };
@@ -88,6 +89,8 @@
 		7599189B1D1E2AF600E38268 /* AnimationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationGenerator.m; sourceTree = "<group>"; };
 		759CA8341D3E2FE200A26EB9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		759CA8351D3E2FE200A26EB9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		75B375A91D4AEBD7008F73F6 /* CustomUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUILabel.h; sourceTree = "<group>"; };
+		75B375AA1D4AEBD7008F73F6 /* CustomUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUILabel.m; sourceTree = "<group>"; };
 		75BFABB41D181A6B0001CD57 /* CodeSprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeSprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75BFABB81D181A6B0001CD57 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75BFABBA1D181A6B0001CD57 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 				7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */,
 				759286841D46D3CB00D3B9B8 /* TeamsTableViewCell.h */,
 				759286851D46D3CB00D3B9B8 /* TeamsTableViewCell.m */,
+				75B375A91D4AEBD7008F73F6 /* CustomUILabel.h */,
+				75B375AA1D4AEBD7008F73F6 /* CustomUILabel.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				75180A901D3C878B00B20A0A /* Task.m in Sources */,
 				7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */,
 				758454EF1D255506001C36EF /* PageContentViewController.m in Sources */,
+				75B375AB1D4AEBD7008F73F6 /* CustomUILabel.m in Sources */,
 				7588AF081D3845CB00F6E1E9 /* SearchTeamViewController.m in Sources */,
 				752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */,
 				7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */,

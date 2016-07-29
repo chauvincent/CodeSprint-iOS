@@ -7,12 +7,14 @@
 //
 
 #import "TeamsTableViewCell.h"
-
+#import "Constants.h"
 @implementation TeamsTableViewCell
 
 - (void)awakeFromNib {
-
-    // Initialization code
+    [self.layer setCornerRadius:10.0f];
+    [self.layer setMasksToBounds:YES];
+    [self.layer setBorderWidth:0.4f];
+    self.layer.borderColor = [UIColor colorWithRed:SHADOW_COLOR green:SHADOW_COLOR blue:SHADOW_COLOR alpha:1.0].CGColor;
 }
 
 @end
