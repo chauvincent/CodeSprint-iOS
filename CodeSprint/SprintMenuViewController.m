@@ -13,11 +13,15 @@
 #import "Team.h"
 #import "FirebaseManager.h"
 #import "TeamsTableViewCell.h"
+#import "IGIdenticon.h"
+#import "Constants.h"
 
 @interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
+
 @property (weak, nonatomic) IBOutlet UITableView *teamsTableView;
-@property (nonatomic, weak) RWBlurPopover *createTeamPopover;
+@property (weak, nonatomic) RWBlurPopover *createTeamPopover;
+@property (strong, nonatomic) IGImageGenerator *simpleIdenticonsGenerator;
 
 @end
 
@@ -30,7 +34,7 @@
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
     
-    
+    self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
 //    if ([FirebaseManager sharedInstance].currentUser.groupsIDs != NULL) {
 //        NSLog(@"VIEW DID LOAD, CURRENT TEAMS  = %@", [FirebaseManager sharedInstance].currentUser.groupsIDs);
 //    }
@@ -42,6 +46,7 @@
 }
 -(void)viewDidDisappear:(BOOL)animated{
     NSLog(@"DISSPAEARING");
+    
 }
 /*
 #pragma mark - Navigation
@@ -121,6 +126,9 @@
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.row];
+    CGSize imageViewSize = cell.identiconImageView.frame.size;
+    NSInteger myInteger = indexPath.row;
+    cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
