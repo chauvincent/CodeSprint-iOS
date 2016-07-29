@@ -39,9 +39,7 @@
 
 #pragma mark - Keys
 NSString *clientID = @"6e0aa67e5343ab805db3";
-// @"9bc3a5d15c66cd7c2168";
 NSString *secretKey = @"bd24040ac627f399bc5bde4e7d6267289e10ddab";
-//@"f2ab75208ce318c15376ed9adee7db2c3b867a76";
 NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
 #pragma mark - Lazy Initializers
@@ -139,6 +137,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
             [self.gitHubWebView removeFromSuperview];
         }];
         [self getAccessToken];
+        NSLog(@"access token %@", accessToken);
         NSLog(@"did sign in");
     }
     return YES;
@@ -155,7 +154,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
-    NSString *displayName = user.displayName.length > 0 ? user.displayName : user.email;
+    NSString *displayName = user.displayName.length > 0 ? user.displayName : @"DEFAULT";
     NSLog(@"DISPLAY NAME : %@", displayName);
     NSLog(@"CURRENT USER UID %@", user.uid);
     User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
@@ -190,14 +189,17 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     
     NSDictionary *requiredParameters = @{@"client_id":clientID,
                                          @"client_secret":secretKey,
-                                         @"code":responseCode};
+                                         @"code":responseCode
+                                         };
     
     [manager POST:@"https://github.com/login/oauth/access_token" parameters:requiredParameters success:^(AFHTTPRequestOperation * operation, id responseObject) {
+        NSLog(@"RESPONSE OBJ: %@", responseObject);
         accessToken = [responseObject valueForKey:@"access_token"];
         FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
         [[FIRAuth auth] signInWithCredential:credentials
                                   completion:^(FIRUser *user, NSError *error) {
                                            NSLog(@"GIT SIGN IN USER ID: %@", user.uid );
+                                      NSLog(@"ERROR: %@", error.description);
                                       [self didSignInWith:user];
                                       
                                   }];
