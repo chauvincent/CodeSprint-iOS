@@ -11,7 +11,7 @@
 @implementation CustomUILabel
 
 -(void)awakeFromNib{
-    [self.layer setCornerRadius:10.0f];
+    [self.layer setCornerRadius:8.0f];
     [self.layer setMasksToBounds:YES];
     [self.layer setBorderWidth:0.3f];
     self.layer.borderColor = [UIColor colorWithRed:SHADOW_COLOR green:SHADOW_COLOR blue:SHADOW_COLOR alpha:1.0].CGColor;
