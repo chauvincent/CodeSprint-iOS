@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"VIEW DID APPEAR");
+    
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
     if([FirebaseManager sharedInstance].isNewUser){
@@ -87,6 +88,8 @@
 -(void)setupViews{
     // Set up Navigation bar
     self.navigationItem.title = @"CodeSprint";
+    //self.view.backgroundColor = GREY_COLOR;
+    //self.menuTableView.backgroundColor = GREY_COLOR;
     self.navigationItem.hidesBackButton = YES;
 
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
@@ -131,7 +134,7 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.row) {
+    switch (indexPath.section) {
         case 0:
             [self performSegueWithIdentifier:@"HomeToSprintSegue" sender:nil];
             break;
@@ -144,10 +147,21 @@
     return 78.0f;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
-}
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 5.0f;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *v = [UIView new];
+    [v setBackgroundColor:[UIColor clearColor]];
+    return v;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 4;
 }
 
 @end

@@ -202,7 +202,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q2x-Ga-6Mn">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q2x-Ga-6Mn">
                                 <rect key="frame" x="20" y="210" width="560" height="382"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -414,11 +414,40 @@
                         <outlet property="findGroupButton" destination="JM4-cd-FZH" id="all-LZ-e3Z"/>
                         <outlet property="removeButton" destination="ZAE-xk-Xzd" id="jGR-mQ-085"/>
                         <outlet property="teamsTableView" destination="U8s-Z6-bCX" id="Fcy-Ez-lcW"/>
+                        <segue destination="hg4-NJ-X9c" kind="show" identifier="SprintMenuToTeamSegue" id="Iz0-cp-1Uu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPw-BD-im6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2873" y="-394"/>
+            <point key="canvasLocation" x="3053" y="-394"/>
+        </scene>
+        <!--Backlog Table View Controller-->
+        <scene sceneID="fad-e7-4zm">
+            <objects>
+                <tableViewController id="hg4-NJ-X9c" customClass="BacklogTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="k6a-EI-2FG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="tq4-NO-Mmc">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tq4-NO-Mmc" id="2SW-Si-rVF">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hg4-NJ-X9c" id="aLf-jb-1f6"/>
+                            <outlet property="delegate" destination="hg4-NJ-X9c" id="30p-L1-zLu"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P3C-Vr-B73" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3768" y="-404"/>
         </scene>
         <!--Create Team View Controller-->
         <scene sceneID="zRk-Jm-T6S">
@@ -518,24 +547,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xLV-00-Xs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2891" y="-1881"/>
-        </scene>
-        <!--Team Home View Controller-->
-        <scene sceneID="bfa-HO-XTI">
-            <objects>
-                <viewController id="MRR-MG-fYS" customClass="TeamHomeViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GKh-kw-XfB"/>
-                        <viewControllerLayoutGuide type="bottom" id="9pi-qZ-tkz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="n0u-V2-UdS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fUA-MG-uf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3787" y="-896"/>
         </scene>
         <!--Create Display Name View Controller-->
         <scene sceneID="PK5-Kx-WrX">

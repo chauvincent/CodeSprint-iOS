@@ -33,8 +33,8 @@
     [FirebaseManager observeNewTeams];
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
-    self.view.backgroundColor = GREY_COLOR;
-    self.teamsTableView.backgroundColor = GREY_COLOR;
+   // self.view.backgroundColor = GREY_COLOR;
+   // self.teamsTableView.backgroundColor = GREY_COLOR;
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
     [self.teamsTableView reloadData];
 //    if ([FirebaseManager sharedInstance].currentUser.groupsIDs != NULL) {
@@ -136,26 +136,38 @@
         return cell;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.row];
+    cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
     CGSize imageViewSize = cell.identiconImageView.frame.size;
     cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
- 
+    [self performSegueWithIdentifier:@"SprintMenuToTeamSegue" sender:self];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 78.0f;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     NSUInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
     if (count == 0) {
         return 1;
     }else{
         return count;
     }
+
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 5.0f;
 }
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *v = [UIView new];
+    [v setBackgroundColor:[UIColor clearColor]];
+    return v;
+}
+
 @end
