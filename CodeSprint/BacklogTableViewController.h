@@ -10,4 +10,5 @@
 
 @interface BacklogTableViewController : UITableViewController
 
+@property (strong, nonatomic) NSString *selectedTeam;
 @end

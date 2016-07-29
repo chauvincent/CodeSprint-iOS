@@ -26,8 +26,6 @@
     return self;
 }
 
--(void)addNewSprint:(Sprint*)sprint{
-    [self.allSprints addObject:sprint];
-}
+
 
 @end

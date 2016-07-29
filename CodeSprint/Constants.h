@@ -29,5 +29,8 @@ extern NSString *const kCSUserTeamKey;
 #pragma mark - Team Keys
 extern NSString *const kTeamsHead;
 extern NSString *const kMembersHead;
+
+#pragma mark - Scrum Keys
+extern NSString *const kScrumHead;
 @end
 

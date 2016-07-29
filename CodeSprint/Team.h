@@ -16,11 +16,18 @@
 @property (strong, nonatomic) NSString *nickname;
 @property (strong, nonatomic) NSMutableArray *membersUID;
 @property (strong, nonatomic) NSMutableArray *allSprints;
+//
+//“teams”
+//- “ECS160”
+//      -members:
+//          -0: fasdfwefuhasdjkfks
+//          -1: oweprwfafsdfds
+//      -scrum:
+//          -0: 3j2jaskdjfhkjwehfkjwa
 
 // Initalize
 -(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name;
 
-// Update/Insert/Delete
--(void)addNewSprint:(Sprint*)sprint;
+
 
 @end

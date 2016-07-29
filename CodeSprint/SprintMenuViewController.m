@@ -9,6 +9,7 @@
 #import "SprintMenuViewController.h"
 #import "CreateTeamViewController.h"
 #import "SearchTeamViewController.h"
+#import "BacklogTableViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "Team.h"
 #import "FirebaseManager.h"
@@ -18,7 +19,7 @@
 
 @interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
-
+@property (strong, nonatomic) NSString *selectedTeam;
 @property (weak, nonatomic) IBOutlet UITableView *teamsTableView;
 @property (weak, nonatomic) RWBlurPopover *createTeamPopover;
 @property (strong, nonatomic) IGImageGenerator *simpleIdenticonsGenerator;
@@ -51,15 +52,18 @@
     NSLog(@"DISSPAEARING");
     
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"SprintMenuToTeamSegue"]) {
+        BacklogTableViewController *vc = [segue destinationViewController];
+        vc.selectedTeam = self.selectedTeam;
+    }
 }
-*/
 
 
 #pragma mark - IBActions
@@ -122,7 +126,9 @@
     [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].currentUser.uid];
     [self.teamsTableView reloadData];
 }
-
+-(void)didJoinTeam{
+    [self.teamsTableView reloadData];
+}
 #pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
@@ -142,6 +148,9 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"tapped on team : %@" , [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section]);
+    self.selectedTeam = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
     [self performSegueWithIdentifier:@"SprintMenuToTeamSegue" sender:self];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

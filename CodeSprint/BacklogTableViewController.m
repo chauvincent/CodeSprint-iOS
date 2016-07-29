@@ -9,13 +9,6 @@
 #import "BacklogTableViewController.h"
 #import "DZNSegmentedControl.h"
 
-#define DEBUG_APPERANCE     0
-#define DEBUG_IMAGE         0
-
-#define kBakgroundColor     [UIColor colorWithRed:0/255.0 green:87/255.0 blue:173/255.0 alpha:1.0]
-#define kTintColor          [UIColor colorWithRed:20/255.0 green:200/255.0 blue:255/255.0 alpha:1.0]
-#define kHairlineColor      [UIColor colorWithRed:0/255.0 green:36/255.0 blue:100/255.0 alpha:1.0]
-
 @interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
@@ -32,7 +25,7 @@
 
 - (void)loadView{
     [super loadView];
-    
+    NSLog(@"Selected team: %@", self.selectedTeam);
     self.title = @"SCRUM Artifacts";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSegment:)];
     
@@ -98,7 +91,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -137,8 +130,8 @@
     NSUInteger newSegment = self.control.numberOfSegments;
     
 
-    [self.control setTitle:[@"Favorites" uppercaseString] forSegmentAtIndex:newSegment];
-    [self.control setCount:@((arc4random()%10000)) forSegmentAtIndex:newSegment];
+//    [self.control setTitle:[@"Favorites" uppercaseString] forSegmentAtIndex:newSegment];
+//    [self.control setCount:@((arc4random()%10000)) forSegmentAtIndex:newSegment];
 
 }
 
@@ -160,19 +153,17 @@
 }
 
 - (void)updateControlCounts{
-    [self.control setCount:@((arc4random()%10000)) forSegmentAtIndex:0];
-    [self.control setCount:@((arc4random()%10000)) forSegmentAtIndex:1];
-    [self.control setCount:@((arc4random()%10000)) forSegmentAtIndex:2];
+    [self.control setCount:@(0) forSegmentAtIndex:0];
+    [self.control setCount:@(0) forSegmentAtIndex:1];
+    [self.control setCount:@(0) forSegmentAtIndex:2];
     
 }
 
 - (void)didChangeSegment:(DZNSegmentedControl *)control{
     [self.tableView reloadData];
+    // control.selectedSegmentIndex;
 }
-
-
 #pragma mark - DZNSegmentedControlDelegate Methods
-
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)view{
     return UIBarPositionAny;
 }

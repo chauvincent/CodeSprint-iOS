@@ -26,33 +26,42 @@
 }
 
 #pragma mark - References Lazy Initializers
-- (FIRDatabaseReference*)ref{
-    if (!ref) {
-        ref = [[FIRDatabase database] reference];
+- (FIRDatabaseReference*)refs{
+    if (!refs) {
+        refs = [[FIRDatabase database] reference];
     }
-    return ref;
+    return refs;
 }
 - (FIRDatabaseReference*)teamRefs{
     if (!teamsRefs) {
-        teamsRefs = [[self ref] child:kTeamsHead];
+        teamsRefs = [[self refs] child:kTeamsHead];
     }
     return teamsRefs;
 }
 - (FIRDatabaseReference*)userRefs{
     if (!userRefs) {
-        userRefs = [[self ref] child:kCSUserHead];
+        userRefs = [[self refs] child:kCSUserHead];
     }
     return userRefs;
 }
+- (FIRDatabaseReference*)scrumRefs{
+    if (!scrumRefs) {
+        scrumRefs = [[self refs] child:kScrumHead];
+    }
+    return scrumRefs;
+}
 #pragma mark - Reference Getters
 + (FIRDatabaseReference *)mainRef {
-    return [FirebaseManager sharedInstance].ref;
+    return [FirebaseManager sharedInstance].refs;
 }
 + (FIRDatabaseReference *)teamRef {
     return [FirebaseManager sharedInstance].teamRefs;
 }
 + (FIRDatabaseReference *)userRef{
     return [FirebaseManager sharedInstance].userRefs;
+}
++ (FIRDatabaseReference *)scrumRef{
+    return [FirebaseManager sharedInstance].scrumRefs;
 }
 
 #pragma mark - User Management
@@ -109,6 +118,7 @@
     }];
      
 }
+// If joined a new team, Observing in SprintMenu VC
 + (void)observeNewTeams{
     FIRDatabaseReference *userRef = [FirebaseManager userRef];
     FIRDatabaseQuery *usersQuery = [[userRef child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
@@ -132,6 +142,7 @@
     }];
 }
 #pragma mark - Team Management
+// Called in CreateVC
 + (void)createTeamWith:(Team *)teamInformation{
     FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname];
     NSArray *members = [[NSArray alloc] initWithArray:teamInformation.membersUID];
@@ -142,7 +153,12 @@
     FIRDatabaseReference *userNodeRef = [[FirebaseManager userRef] child:currentUID];
     NSDictionary *updateInfo = @{kCSUserTeamKey : newTeams};
     [userNodeRef updateChildValues:updateInfo];
+    
+    // Create New Scrum Node with, link it to team information
+    FIRDatabaseReference *scrumNode = [[FirebaseManager scrumRef] childByAutoId];
+    NSLog(@"NEW SCRUM NODE ADDED: %@", scrumNode.key);
 }
+// Called for user joining a team in SearchVC
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
     FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:kMembersHead] queryOrderedByChild:uid];
     __block NSArray *newmembers = [[NSArray alloc] init];
@@ -184,7 +200,7 @@
     }];
 }
 
-#pragma mark - Sprint Management
+#pragma mark - Scrum Management
 
 
 @end

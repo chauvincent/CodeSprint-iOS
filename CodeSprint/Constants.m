@@ -13,15 +13,17 @@
 
 #pragma mark CSUser Keys
 
-NSString *const kCSUserHead = @"CSUser";
-NSString *const kCSUserDisplayKey = @"displayName";
-NSString *const kCSUserDidSetDisplay = @"didSetDisplay";
-NSString *const kCSUserPhotoURL = @"photoURL";
-NSString *const kCSUserTeamKey = @"teams";
+NSString *const kCSUserHead             = @"CSUser";
+NSString *const kCSUserDisplayKey       = @"displayName";
+NSString *const kCSUserDidSetDisplay    = @"didSetDisplay";
+NSString *const kCSUserPhotoURL         = @"photoURL";
+NSString *const kCSUserTeamKey          = @"teams";
 
 #pragma mark Team Keys
-NSString *const kTeamsHead   = @"teams";
-NSString *const kMembersHead = @"members";
+NSString *const kTeamsHead              = @"teams";
+NSString *const kMembersHead            = @"members";
 
+#pragma mark Scrum Keys
+NSString *const kScrumHead              = @"scrum";
 
 @end
