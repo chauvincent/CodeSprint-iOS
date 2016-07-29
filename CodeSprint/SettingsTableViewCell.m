@@ -21,7 +21,7 @@
     UIImage *optionImage;
     NSString *optionName, *description;
     
-    switch (index.row) {
+    switch (index.section) {
         case 0:
             optionImage = [UIImage imageNamed:@"sprint_btn"];
             optionName = @"Sprint";
@@ -47,6 +47,10 @@
     self.optionNameLabel.text = optionName;
     self.descriptionLabel.text = description;
     self.descriptionLabel.textColor = [UIColor grayColor];
+    [self.layer setCornerRadius:10.0f];
+    [self.layer setMasksToBounds:YES];
+    [self.layer setBorderWidth:0.4f];
+    self.layer.borderColor = [UIColor colorWithRed:SHADOW_COLOR green:SHADOW_COLOR blue:SHADOW_COLOR alpha:1.0].CGColor;
 }
 
 
