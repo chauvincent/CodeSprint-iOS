@@ -33,7 +33,7 @@
 - (void)loadView{
     [super loadView];
     
-    self.title = @"Scrum Artifacts";
+    self.title = @"SCRUM Artifacts";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSegment:)];
     
     self.navigationItem.hidesBackButton = YES;
