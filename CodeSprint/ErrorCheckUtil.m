@@ -23,7 +23,7 @@
                  andDismissNamed:dismissTitle];
     }
     NSCharacterSet *charSet = [NSCharacterSet
-                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"];
+                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_- "];
     charSet = [charSet invertedSet];
     NSRange range = [inputText rangeOfCharacterFromSet:charSet];
     
