@@ -39,7 +39,7 @@
 
 #pragma mark - Keys
 NSString *clientID = @"6e0aa67e5343ab805db3";
-NSString *secretKey = @"bd24040ac627f399bc5bde4e7d6267289e10ddab";
+NSString *secretKey = @"88c8d081b80ab97bbaa5c2ccfc7937d383f86564";
 NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
 #pragma mark - Lazy Initializers
@@ -129,6 +129,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     NSString *currentURL = [request.URL absoluteString];
     if ([currentURL containsString:@"code="]) {
         NSRange indexOfCode = [currentURL rangeOfString:@"code="];
+        NSLog(@"CURRENT URL %@", currentURL);
         responseCode = [currentURL substringFromIndex:indexOfCode.location + 5];
         [UIView animateWithDuration:0.5 animations:^{
             self.gitHubWebView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
@@ -186,22 +187,27 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    NSDictionary *requiredParameters = @{@"client_id":clientID,
+    NSString *userKey = @"user";
+    NSDictionary *requiredParameters = @{
+                                         @"client_id":clientID,
                                          @"client_secret":secretKey,
-                                         @"code":responseCode
+                                         @"code":responseCode,
+                                        // @"scope":userKey
                                          };
-    
+  
     [manager POST:@"https://github.com/login/oauth/access_token" parameters:requiredParameters success:^(AFHTTPRequestOperation * operation, id responseObject) {
         NSLog(@"RESPONSE OBJ: %@", responseObject);
         accessToken = [responseObject valueForKey:@"access_token"];
         FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
+        
         [[FIRAuth auth] signInWithCredential:credentials
                                   completion:^(FIRUser *user, NSError *error) {
-                                           NSLog(@"GIT SIGN IN USER ID: %@", user.uid );
-                                      NSLog(@"ERROR: %@", error.description);
-                                      [self didSignInWith:user];
-                                      
+                                     
+                                
+                                          NSLog(@"ACCESS TOKEN %@", accessToken);
+                                          NSLog(@"GIT SIGN IN USER ID: %@", user.uid );
+                                          NSLog(@"ERROR: %@", error.description);
+                                
                                   }];
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
