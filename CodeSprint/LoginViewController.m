@@ -104,7 +104,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
                   }];
 }
 - (IBAction)githubLoginButtonPressed:(id)sender {
-    NSString *gitHubSignIn = [NSString stringWithFormat:@"https://github.com/login/oauth/authorize/?client_id=%@", clientID];
+    NSString *gitHubSignIn = [NSString stringWithFormat:@"https://github.com/login/oauth/authorize/?client_id=%@&scope=user", clientID];
     [self.gitHubWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:gitHubSignIn]]];
     [self.view addSubview:self.gitHubWebView];
     [self.view bringSubviewToFront:self.gitHubWebView];
@@ -183,16 +183,17 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 
 #pragma mark - GitHub Signin Helpers
+
 -(void)getAccessToken{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    NSString *userKey = @"user";
+    NSString *userKey = @"user:email";
     NSDictionary *requiredParameters = @{
                                          @"client_id":clientID,
                                          @"client_secret":secretKey,
                                          @"code":responseCode,
-                                        // @"scope":userKey
+                                         @"scope":userKey
                                          };
   
     [manager POST:@"https://github.com/login/oauth/access_token" parameters:requiredParameters success:^(AFHTTPRequestOperation * operation, id responseObject) {
@@ -214,5 +215,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         NSLog(@"Something went wrong: %@", error);
     }];
 }
+
 
 @end
