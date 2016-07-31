@@ -39,40 +39,14 @@
         NSLog(@"WAS SET ALREADY"); // RETURNING USER
         [FirebaseManager retreiveUsersTeams];
     }
-    // AFTER FETCH USER INFO
     [self setupViews];
     NSLog(@"at home did load");
     
-}
--(void)dismiss{
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-                                                         
-                                                         NSError *signOutError;
-                                                         BOOL status = [[FIRAuth auth] signOut:&signOutError];
-                                                         if (!status) {
-                                                             NSLog(@"Error signing out: %@", signOutError);
-                                                             return;
-                                                         }
-                                                         [FirebaseManager logoutUser];
-                                                         [self.navigationController popToRootViewControllerAnimated:YES];
-                                                     }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:nil];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout"
-                                                                   message:@"Are you sure you want to logout?"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:okAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-    //}
 
 /*
 #pragma mark - Navigation
@@ -85,16 +59,11 @@
 */
 #pragma mark - View Setup Methods
 -(void)setupViews{
-    // Set up Navigation bar
     self.navigationItem.title = @"CodeSprint";
-    //self.view.backgroundColor = GREY_COLOR;
-    //self.menuTableView.backgroundColor = GREY_COLOR;
     self.navigationItem.hidesBackButton = YES;
 
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
-    // NOTE REPLACE WITH FETCHED CURRENT USER PHOTO
-    // Setup ImageView
     NSURL *urlAddress = [FirebaseManager sharedInstance].currentUser.photoURL;
     if ([urlAddress.absoluteString containsString:@"github"]) {
         self.profilePictureImageView.image = [UIImage imageNamed:@"UserImage"];
@@ -119,12 +88,35 @@
     popover.tapBlurToDismissEnabled = NO;
     [popover showInViewController:self];
 }
+#pragma mark - Logout Methods
+-(void)dismiss{
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         
+                                                         NSError *signOutError;
+                                                         BOOL status = [[FIRAuth auth] signOut:&signOutError];
+                                                         if (!status) {
+                                                             NSLog(@"Error signing out: %@", signOutError);
+                                                             return;
+                                                         }
+                                                         [FirebaseManager logoutUser];
+                                                         [self.navigationController popToRootViewControllerAnimated:YES];
+                                                     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout"
+                                                                   message:@"Are you sure you want to logout?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 #pragma mark - CreateDisplayNameViewControllerDelegate
 -(void)setDisplayName:(NSString*)userInput{
     [FirebaseManager setUpNewUser:userInput];
 }
-
-
 #pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SettingsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell" forIndexPath:indexPath];
@@ -148,17 +140,14 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 5.0f;
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *v = [UIView new];
     [v setBackgroundColor:[UIColor clearColor]];
     return v;
 }
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }

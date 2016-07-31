@@ -19,7 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *teamTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
-@property (assign) BOOL didCreate;
+
 @end
 
 @implementation CreateTeamViewController
@@ -60,22 +60,23 @@
 
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
-
-    _didCreate = false;
     NSString *inputText = self.teamTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
     NSString *successTitle = @"Success";
-    UIAlertController *alert = [errorCheck checkBadInput:inputText withMessage:@"Please enter a unique team name" andDismiss:@"Dismiss" withSuccessMessage:@"You have joined a new team" title:successTitle];
+    UIAlertController *alert = [errorCheck checkBadInput:inputText
+                                             withMessage:@"Please enter a unique team name"
+                                              andDismiss:@"Dismiss"
+                                      withSuccessMessage:@"You have joined a new team" title:successTitle];
+    
     if ([alert.title isEqualToString:successTitle]) {
         [FirebaseManager isNewTeam:inputText withCompletion:^(BOOL result) {
             if (!result) {
-                UIViewController *doesNotExistAlert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"This team name is already taken, Please enter another team identifier"
+                UIViewController *doesNotExistAlert = [errorCheck showAlertWithTitle:@"Error"
+                                                                          andMessage:@"This team name is already taken, Please enter another team identifier"
                                                                      andDismissNamed:@"Ok"];
                 [self presentViewController:doesNotExistAlert animated:YES completion:nil];
-                _didCreate = false;
                 return;
-            }else if (result && !_didCreate){
-                _didCreate = true;
+            }else if (result ){
                 [self dismiss];
                 [self.delegate createdNewTeam:inputText];
             }

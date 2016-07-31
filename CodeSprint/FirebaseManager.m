@@ -124,7 +124,7 @@
     }];
 }
 #pragma mark - Team Management
-+ (void)createTeamWith:(Team *)teamInformation{
++ (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block{
     NSArray *newTeams = [self sharedInstance].currentUser.groupsIDs;
     NSString *currentUID = [self sharedInstance].currentUser.uid;
     [[[self userRef] child:currentUID] updateChildValues:@{kCSUserTeamKey : newTeams}];
@@ -134,6 +134,7 @@
     [teamRef updateChildValues:@{kMembersHead : teamInformation.membersUID,
                                  kTeamsScrumKey : scrumNode.key}];
     [scrumNode setValue:@{kScrumCreator:currentUID}];
+    block(true);
 }
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block{
     __block BOOL alreadyJoined = false;

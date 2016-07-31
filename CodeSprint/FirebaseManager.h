@@ -36,7 +36,7 @@
 
 
 #pragma mark - Insertion/Deletetion Functions
-+ (void)createTeamWith:(Team *)teamInformation;
++ (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block;
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block; 
 
 @end

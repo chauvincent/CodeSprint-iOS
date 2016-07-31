@@ -38,40 +38,30 @@
     self.teamsTableView.backgroundColor = GREY_COLOR;
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
     [self.teamsTableView reloadData];
-//    if ([FirebaseManager sharedInstance].currentUser.groupsIDs != NULL) {
-//        NSLog(@"VIEW DID LOAD, CURRENT TEAMS  = %@", [FirebaseManager sharedInstance].currentUser.groupsIDs);
-//    }
-//    // Do any additional setup after loading the view.
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"DISSPAEARING");
-    
-}
-
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SprintMenuToTeamSegue"]) {
         BacklogTableViewController *vc = [segue destinationViewController];
         vc.selectedTeam = self.selectedTeam;
     }
 }
-
-
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
-    [self displayMenuCreateWithIdentifier:@"CreateTeamViewController"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    CreateTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CreateTeamViewController"];
+    vc.delegate = self;
+    [self popoverController:vc];
 }
 - (IBAction)searchButtonPressed:(id)sender {
-    [self displayMenuSearchWithIdentifier:@"SearchTeamViewController"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    CreateTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchTeamViewController"];
+    vc.delegate = self;
+    [self popoverController:vc];
 }
 - (IBAction)editButtonPressed:(id)sender {
    
@@ -93,34 +83,24 @@
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)displayMenuCreateWithIdentifier:(NSString*)controllerName{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    CreateTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:controllerName];
-    vc.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
-    popover.throwingGestureEnabled = YES;
-    [popover showInViewController:self];
-    self.createTeamPopover = popover;
-}
--(void)displayMenuSearchWithIdentifier:(NSString*)controllerName{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    SearchTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:controllerName];
-    vc.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
-    popover.throwingGestureEnabled = YES;
-    [popover showInViewController:self];
-    self.createTeamPopover = popover;
+-(void)popoverController:(id)controller{
+    if ([controller isKindOfClass:[CreateTeamViewController class]] || [controller isKindOfClass:[SearchTeamViewController class]]) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+        popover.throwingGestureEnabled = YES;
+        [popover showInViewController:self];
+        self.createTeamPopover = popover;
+    }
 }
 
 #pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate
 -(void)createdNewTeam:(NSString*)inputText{
     Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].currentUser.uid andTeam:inputText];
     [[FirebaseManager sharedInstance].currentUser.groupsIDs addObject:inputText];
-    [FirebaseManager createTeamWith:newTeam];
-    NSLog(@"CREATE NEW TEAM CALLED");
-    [self.teamsTableView reloadData];
+    [FirebaseManager createTeamWith:newTeam
+                     withCompletion:^(BOOL result) {
+                         [self.teamsTableView reloadData];
+                     }];
 }
 -(void)joinNewTeam:(NSString*)teamName {
     [FirebaseManager addUserToTeam:teamName
@@ -132,16 +112,15 @@
 -(void)didJoinTeam{
     [self.teamsTableView reloadData];
 }
-#pragma mark - UITableViewDelegate
+#pragma mark - UITableViewDelegate 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];
-    
+    // TODO: refactor and set up image persistence
     if ([[FirebaseManager sharedInstance].currentUser.groupsIDs count] == 0) {
         cell.teamNameLabel.text = @"No teams to display.";
         CGSize imageViewSize = cell.identiconImageView.frame.size;
         cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
-        //cell.textLabel.textAlignment = NSTextAlignmentCenter;
         return cell;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -164,19 +143,12 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     NSUInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
-    if (count == 0) {
-        return 1;
-    }else{
-        return count;
-    }
-
+    return (count == 0) ? 1 : count;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 5.0f;
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *v = [UIView new];
     [v setBackgroundColor:[UIColor clearColor]];
     return v;

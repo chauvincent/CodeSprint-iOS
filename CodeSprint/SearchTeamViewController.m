@@ -19,18 +19,17 @@
 @property (weak, nonatomic) IBOutlet CustomTextField *inputNameTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 @property (weak, nonatomic) IBOutlet ImageStyleButton *searchTeamButton;
-@property (assign) BOOL didCall;
+
 @end
 
 @implementation SearchTeamViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _didCall = false;
     [self setupButtons];
 }
 -(void)viewWillDisappear:(BOOL)animated{
-    [self.delegate didJoinTeam];
+   [self.delegate didJoinTeam];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -64,7 +63,6 @@
 }
 #pragma mark - IBActions
 - (IBAction)searchButtonPressed:(id)sender {
-    _didCall = false;
     NSString *inputText = self.inputNameTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
     NSString *successTitle = @"Success";
@@ -76,11 +74,9 @@
                 UIViewController *doesNotExistAlert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"This team identifier could not be found. Please double-check your team's unique identifier."
                                andDismissNamed:@"Ok"];
                      [self presentViewController:doesNotExistAlert animated:YES completion:nil];
-                _didCall = false;
                 return;
-            }else if (!result && !_didCall){
+            }else if (!result ){
                 NSLog(@"join team");
-                _didCall = true;
                 [self.delegate joinNewTeam:inputText];
                 [self dismiss];
             }
