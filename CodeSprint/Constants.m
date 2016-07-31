@@ -22,8 +22,8 @@ NSString *const kCSUserTeamKey          = @"teams";
 #pragma mark Team Keys
 NSString *const kTeamsHead              = @"teams";
 NSString *const kMembersHead            = @"members";
-
+NSString *const kTeamsScrumKey          = @"scrum";
 #pragma mark Scrum Keys
 NSString *const kScrumHead              = @"scrum";
-
+NSString *const kScrumCreator           = @"creator";
 @end

@@ -127,9 +127,8 @@
 #pragma mark - ViewController Methods
 
 - (void)addSegment:(id)sender{
-    NSUInteger newSegment = self.control.numberOfSegments;
-    
-
+//    NSUInteger newSegment = self.control.numberOfSegments;
+//    
 //    [self.control setTitle:[@"Favorites" uppercaseString] forSegmentAtIndex:newSegment];
 //    [self.control setCount:@((arc4random()%10000)) forSegmentAtIndex:newSegment];
 

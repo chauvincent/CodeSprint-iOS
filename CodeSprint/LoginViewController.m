@@ -208,7 +208,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
                                           NSLog(@"ACCESS TOKEN %@", accessToken);
                                           NSLog(@"GIT SIGN IN USER ID: %@", user.uid );
                                           NSLog(@"ERROR: %@", error.description);
-                                
+                                      [self didSignInWith:user];
                                   }];
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {

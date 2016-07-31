@@ -27,7 +27,6 @@
 
 #pragma mark - User Management
 + (void)logoutUser;
-+ (void)updateUserInfo;
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block;
 + (void)setUpNewUser:(NSString*)displayName;
 + (void)retreiveUsersTeams;
@@ -38,6 +37,6 @@
 
 #pragma mark - Insertion/Deletetion Functions
 + (void)createTeamWith:(Team *)teamInformation;
-+ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid; 
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block; 
 
 @end

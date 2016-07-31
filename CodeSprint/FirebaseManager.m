@@ -52,16 +52,16 @@
 }
 #pragma mark - Reference Getters
 + (FIRDatabaseReference *)mainRef {
-    return [FirebaseManager sharedInstance].refs;
+    return [self sharedInstance].refs;
 }
 + (FIRDatabaseReference *)teamRef {
-    return [FirebaseManager sharedInstance].teamRefs;
+    return [self sharedInstance].teamRefs;
 }
 + (FIRDatabaseReference *)userRef{
-    return [FirebaseManager sharedInstance].userRefs;
+    return [self sharedInstance].userRefs;
 }
 + (FIRDatabaseReference *)scrumRef{
-    return [FirebaseManager sharedInstance].scrumRefs;
+    return [self sharedInstance].scrumRefs;
 }
 
 #pragma mark - User Management
@@ -70,35 +70,21 @@
 }
 + (void)setUpNewUser:(NSString*)displayName{
     NSString *uid = [FirebaseManager sharedInstance].currentUser.uid;
-    FIRDatabaseReference *currentUserRef = [[FirebaseManager userRef] child:uid];
-    NSDictionary *newUserInfo = @{kCSUserDidSetDisplay : @1,
-                                  kCSUserDisplayKey : displayName};
-    [currentUserRef updateChildValues:newUserInfo];
-}
-+ (void)updateUserInfo{
-    // Called when signed-in; refresh all info
+    [[[self userRef] child:uid] updateChildValues:@{kCSUserDidSetDisplay : @1,
+                                                    kCSUserDisplayKey : displayName}];
 }
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
-    // Return false if no display name set or first time user
     __block BOOL theResult = false;
     [[[self userRef] child:currentUser.uid] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        if (snapshot.value == [NSNull null]) { // if user node not created
-            FIRDatabaseReference *userRef = [[self userRef] child:currentUser.uid];
-            NSDictionary *userDetails = @{kCSUserDidSetDisplay : @0};
-            [userRef updateChildValues:userDetails];
-            NSLog(@"Did create a node for user");
-            theResult = false;
-            block(theResult);
+        if (snapshot.value == [NSNull null]) {
+            [[[self userRef] child:currentUser.uid] updateChildValues:@{kCSUserDidSetDisplay : @0}];
+            block(false);
         }else{
-            FIRDatabaseQuery *userQuery = [[[FirebaseManager userRef] child:currentUser.uid] queryOrderedByChild:kCSUserDisplayKey];
+            FIRDatabaseQuery *userQuery = [[[self userRef] child:currentUser.uid] queryOrderedByChild:kCSUserDisplayKey];
             [userQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 if (snapshot.value) {
                     NSDictionary *response = (NSDictionary*)snapshot.value;
-                    if ([response objectForKey:kCSUserDisplayKey]) {
-                        theResult = true;
-                    }else{
-                        theResult = false;
-                    }
+                    theResult = ([response objectForKey:kCSUserDisplayKey] ? true : false);
                 }
                 block(theResult);
             }];
@@ -106,24 +92,20 @@
     }];
 }
 + (void)retreiveUsersTeams{
-    FIRDatabaseReference *userRef = [FirebaseManager userRef];
-    FIRDatabaseQuery *usersQuery = [[userRef child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
+    FIRDatabaseQuery *usersQuery = [[[self userRef] child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
     [usersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *response = (NSDictionary*)snapshot.value;
         if ([[response allKeys] containsObject:kCSUserTeamKey]) {
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
         }else{
-            
+            NSLog(@"No teams");
         }
     }];
-     
 }
-// If joined a new team, Observing in SprintMenu VC
 + (void)observeNewTeams{
-    FIRDatabaseReference *userRef = [FirebaseManager userRef];
-    FIRDatabaseQuery *usersQuery = [[userRef child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
+    FIRDatabaseQuery *usersQuery = [[[self userRef] child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
     [usersQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"OBSERVER %@", snapshot.value);
+        NSLog(@"Observer Firing %@", snapshot.value);
         NSDictionary *response = (NSDictionary*)snapshot.value;
         if ([[response allKeys] containsObject:kCSUserTeamKey]) {
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
@@ -135,66 +117,52 @@
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];
-    [[[FirebaseManager teamRef] child:teamName] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[[self teamRef] child:teamName] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         response = (NSDictionary*)snapshot.value;
         BOOL isNew = ([response isEqual:[NSNull null]]) ? true : false;
         block(isNew);
     }];
 }
 #pragma mark - Team Management
-// Called in CreateVC
 + (void)createTeamWith:(Team *)teamInformation{
-    FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamInformation.nickname];
-    NSArray *members = [[NSArray alloc] initWithArray:teamInformation.membersUID];
-    NSDictionary *teamDetails = @{kMembersHead : members};
-    [teamRef updateChildValues:teamDetails];
-    NSArray *newTeams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
-    NSString *currentUID = [FirebaseManager sharedInstance].currentUser.uid;
-    FIRDatabaseReference *userNodeRef = [[FirebaseManager userRef] child:currentUID];
-    NSDictionary *updateInfo = @{kCSUserTeamKey : newTeams};
-    [userNodeRef updateChildValues:updateInfo];
+    NSArray *newTeams = [self sharedInstance].currentUser.groupsIDs;
+    NSString *currentUID = [self sharedInstance].currentUser.uid;
+    [[[self userRef] child:currentUID] updateChildValues:@{kCSUserTeamKey : newTeams}];
     
-    // Create New Scrum Node with, link it to team information
-    FIRDatabaseReference *scrumNode = [[FirebaseManager scrumRef] childByAutoId];
-    NSLog(@"NEW SCRUM NODE ADDED: %@", scrumNode.key);
+    FIRDatabaseReference *scrumNode = [[self scrumRef] childByAutoId];
+    FIRDatabaseReference *teamRef =[[self teamRef] child:teamInformation.nickname];
+    [teamRef updateChildValues:@{kMembersHead : teamInformation.membersUID,
+                                 kTeamsScrumKey : scrumNode.key}];
+    [scrumNode setValue:@{kScrumCreator:currentUID}];
 }
-// Called for user joining a team in SearchVC
-+ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid{
-    FIRDatabaseQuery *membersQuery = [[[[[FirebaseManager sharedInstance] teamRefs] child:teamName] child:kMembersHead] queryOrderedByChild:uid];
-    __block NSArray *newmembers = [[NSArray alloc] init];
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block{
     __block BOOL alreadyJoined = false;
+    FIRDatabaseQuery *membersQuery = [[[[self teamRef] child:teamName] child:kMembersHead] queryOrderedByChild:uid];
     [membersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         for (FIRDataSnapshot *child in snapshot.children) {
             if ([child.value isEqualToString:uid]) {
                 alreadyJoined = true;
-                return;
+                block(false);
             }
         }
         if(!alreadyJoined){
-            NSArray *response = (NSArray*)snapshot.value;
-            NSMutableArray *oldMembers = [response mutableCopy];
+            NSMutableArray *oldMembers = [(NSArray*)snapshot.value mutableCopy];
             [oldMembers addObject:uid];
-            newmembers = [NSArray arrayWithArray:oldMembers];
-            FIRDatabaseReference *teamRef =[[[FirebaseManager sharedInstance] teamRefs] child:teamName];
-            NSDictionary *teamDetails = @{kMembersHead : newmembers};
-            [teamRef updateChildValues:teamDetails];
-            
-            FIRDatabaseReference *userRef = [FirebaseManager userRef];
-            FIRDatabaseQuery *usersQuery = [[userRef child:uid] queryOrderedByChild:kCSUserTeamKey];
+            FIRDatabaseReference *teamRef =[[self teamRef] child:teamName];
+            FIRDatabaseQuery *usersQuery = [[[self userRef] child:uid] queryOrderedByChild:kCSUserTeamKey];
+            [teamRef updateChildValues:@{kMembersHead :[NSArray arrayWithArray:oldMembers]}];
             [usersQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 NSDictionary *response = (NSDictionary*)snapshot.value;
-                NSArray *newTeams = @[];
+                NSArray *newTeams;
                 if ([[response allKeys] containsObject:kCSUserTeamKey]) {
-                    // Has previous teams
                     NSMutableArray *oldTeams = [[response objectForKey:kCSUserTeamKey] mutableCopy];
                     [oldTeams addObject:teamName];
                     newTeams = [oldTeams mutableCopy];
                 }else{
-                    // No previous teams
                     newTeams = [NSArray arrayWithArray:[NSMutableArray arrayWithObject:teamName]];
                 }
-                FIRDatabaseReference *newTeamsRef = [[userRef child:uid] child:kCSUserTeamKey];
-                [newTeamsRef setValue:newTeams];
+                [[[[self userRef] child:uid] child:kCSUserTeamKey] setValue:newTeams];
+                block(true);
             }];
         }
     }];

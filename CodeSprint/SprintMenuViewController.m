@@ -122,9 +122,12 @@
     NSLog(@"CREATE NEW TEAM CALLED");
     [self.teamsTableView reloadData];
 }
--(void)joinNewTeam:(NSString*)teamName{
-    [FirebaseManager addUserToTeam:teamName andUser:[FirebaseManager sharedInstance].currentUser.uid];
-    [self.teamsTableView reloadData];
+-(void)joinNewTeam:(NSString*)teamName {
+    [FirebaseManager addUserToTeam:teamName
+                           andUser:[FirebaseManager sharedInstance].currentUser.uid
+                    withCompletion:^(BOOL result) {
+                        [self.teamsTableView reloadData];
+                    }];
 }
 -(void)didJoinTeam{
     [self.teamsTableView reloadData];
