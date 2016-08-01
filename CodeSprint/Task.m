@@ -10,9 +10,10 @@
 
 @implementation Task
 
--(instancetype)initTaskWith:(NSString*)task withDeadline:(NSDate*)date andCompleted:(BOOL)complete{
+-(instancetype)initTaskWithTitle:(NSString*)title withDescription:(NSString*)description andDeadline:(NSDate*)date{
     if (self = [super init]) {
-        _taskDescription = task;
+        _taskTitle = title;
+        _taskDescription = description;
         _dueDate = date;
         _isComplete = false;
     }

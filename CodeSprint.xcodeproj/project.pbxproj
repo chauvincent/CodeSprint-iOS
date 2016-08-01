@@ -17,6 +17,8 @@
 		754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8901D1D04F2004ABD43 /* CircleImageView.m */; };
 		754FF8941D1D281A004ABD43 /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8931D1D281A004ABD43 /* ShadowView.m */; };
 		754FF8971D1D2CD2004ABD43 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 754FF8961D1D2CD2004ABD43 /* Constants.m */; };
+		755637881D4EC78E00A136FF /* ViewSprintsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755637871D4EC78E00A136FF /* ViewSprintsViewController.m */; };
+		7556378E1D4F60EC00A136FF /* Artifacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 7556378D1D4F60EC00A136FF /* Artifacts.m */; };
 		755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76241D23E0E600B211CF /* SettingsTableViewCell.m */; };
 		755B76281D24158700B211CF /* Sprint.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76271D24158700B211CF /* Sprint.m */; };
 		755B762B1D2415CE00B211CF /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B762A1D2415CE00B211CF /* Team.m */; };
@@ -66,6 +68,10 @@
 		754FF8931D1D281A004ABD43 /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowView.m; sourceTree = "<group>"; };
 		754FF8951D1D2CD2004ABD43 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		754FF8961D1D2CD2004ABD43 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		755637861D4EC78E00A136FF /* ViewSprintsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSprintsViewController.h; sourceTree = "<group>"; };
+		755637871D4EC78E00A136FF /* ViewSprintsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSprintsViewController.m; sourceTree = "<group>"; };
+		7556378C1D4F60EC00A136FF /* Artifacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artifacts.h; sourceTree = "<group>"; };
+		7556378D1D4F60EC00A136FF /* Artifacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artifacts.m; sourceTree = "<group>"; };
 		755B76231D23E0E600B211CF /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCell.h; sourceTree = "<group>"; };
 		755B76241D23E0E600B211CF /* SettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewCell.m; sourceTree = "<group>"; };
 		755B76261D24158700B211CF /* Sprint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprint.h; sourceTree = "<group>"; };
@@ -138,6 +144,8 @@
 		751A755F1D18A7DD00923F61 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7556378C1D4F60EC00A136FF /* Artifacts.h */,
+				7556378D1D4F60EC00A136FF /* Artifacts.m */,
 				755B76261D24158700B211CF /* Sprint.h */,
 				755B76271D24158700B211CF /* Sprint.m */,
 				755B76291D2415CE00B211CF /* Team.h */,
@@ -266,6 +274,8 @@
 				75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */,
 				75BEA1B11D4B3DCC00F4F4D9 /* BacklogTableViewController.h */,
 				75BEA1B21D4B3DCC00F4F4D9 /* BacklogTableViewController.m */,
+				755637861D4EC78E00A136FF /* ViewSprintsViewController.h */,
+				755637871D4EC78E00A136FF /* ViewSprintsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -413,9 +423,11 @@
 				759286861D46D3CB00D3B9B8 /* TeamsTableViewCell.m in Sources */,
 				754FF8971D1D2CD2004ABD43 /* Constants.m in Sources */,
 				75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */,
+				755637881D4EC78E00A136FF /* ViewSprintsViewController.m in Sources */,
 				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
 				75C896F21D43635C00B9062F /* CreateDisplayNameViewController.m in Sources */,
 				751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */,
+				7556378E1D4F60EC00A136FF /* Artifacts.m in Sources */,
 				752C076A1D35B60100E8712D /* CreateTeamViewController.m in Sources */,
 				75BFABB91D181A6B0001CD57 /* main.m in Sources */,
 				755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */,

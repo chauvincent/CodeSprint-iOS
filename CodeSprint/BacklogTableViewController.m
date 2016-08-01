@@ -27,8 +27,8 @@
     [super loadView];
     NSLog(@"Selected team: %@", self.selectedTeam);
     self.title = @"SCRUM Artifacts";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSegment:)];
-    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSegment:)];
+//    
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
@@ -39,7 +39,7 @@
     [super viewDidLoad];
     
 
-    _menuItems = @[[@"Product Specs" uppercaseString], [@"Sprint Goals" uppercaseString], [@"Charts" uppercaseString]];
+    _menuItems = @[[@"Specs" uppercaseString], [@"Goals" uppercaseString], [@"Charts" uppercaseString],[@"Sprints" uppercaseString]];
 
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
@@ -91,19 +91,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return 1; // set to a count
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.textColor = [UIColor darkGrayColor];
+  
+   
     }
-
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ #%d", [[self.control titleForSegmentAtIndex:self.control.selectedSegmentIndex] capitalizedString], (int)indexPath.row+1];
+          cell.textLabel.text = @"Gasfasd";
+//    cell.textLabel.text = [NSString stringWithFormat:@"%@ #%d", [[self.control titleForSegmentAtIndex:self.control.selectedSegmentIndex] capitalizedString], (int)indexPath.row+1];
 
     return cell;
 }
@@ -125,14 +126,6 @@
 
 
 #pragma mark - ViewController Methods
-
-- (void)addSegment:(id)sender{
-//    NSUInteger newSegment = self.control.numberOfSegments;
-//    
-//    [self.control setTitle:[@"Favorites" uppercaseString] forSegmentAtIndex:newSegment];
-//    [self.control setCount:@((arc4random()%10000)) forSegmentAtIndex:newSegment];
-
-}
 
 - (void)refreshSegments:(id)sender{
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.menuItems];

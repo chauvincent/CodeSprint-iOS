@@ -11,7 +11,6 @@
 @interface Sprint : NSObject
 
 @property (strong, nonatomic) NSMutableArray *tasksArray;
-
 -(instancetype)initWithTask:(Task*)task;
 
 @end
