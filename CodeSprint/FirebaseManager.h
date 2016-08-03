@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Team.h"
-
+#import "Artifacts.h"
 #import "User.h"
 @import Firebase;
 
@@ -33,7 +33,7 @@
 
 #pragma mark - Observers
 + (void)observeNewTeams;
-+ (void)observeScrumNode:(NSString*)scrumKey;
++ (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
 
@@ -41,5 +41,10 @@
 #pragma mark - Insertion/Deletetion Functions
 + (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block;
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block; 
+
+#pragma mark - Scrum Functions
++ (void)appendProductSpecsForScrum:(NSString*)scrumKey andArtitifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL result))block;
+
+
 
 @end

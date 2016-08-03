@@ -7,9 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Artifacts.h"
+
+@protocol AddItemViewControllerDelegate <NSObject>
+
+-(void)updateArtifactItem;
+
+@end
 
 @interface AddItemViewController : UIViewController
 
 @property (nonatomic) NSUInteger index;
+@property (strong, nonatomic) NSString *currentScrum;
+@property (strong, nonatomic) Artifacts *currentArtifact;
+
+@property (weak, nonatomic) id<AddItemViewControllerDelegate> delegate;
+
 
 @end

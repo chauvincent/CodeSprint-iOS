@@ -13,7 +13,7 @@
 #import "FirebaseManager.h"
 #import "Artifacts.h"
 
-@interface BacklogTableViewController () <DZNSegmentedControlDelegate>
+@interface BacklogTableViewController () <DZNSegmentedControlDelegate, AddItemViewControllerDelegate>
 
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
@@ -47,9 +47,14 @@
 - (void)loadView{
     [super loadView];
     NSLog(@"Selected team: %@", self.selectedTeam);
-    NSLog(@"currentscrum: %@", [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam]);
-    NSString *scrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
-    [FirebaseManager observeScrumNode:scrumKey];
+    self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
+    
+    // Set up observer for backlog changes
+    [FirebaseManager observeScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
+        self.artifacts = artifact;
+        NSLog(@"%@", self.artifacts.productSpecs);
+        [self.tableView reloadData];
+    }];
     
     self.title = @"SCRUM Artifacts";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
@@ -61,9 +66,9 @@
 }
 - (void)viewDidLoad{
     [super viewDidLoad];
-        [self.artifacts.productSpecs addObject:@"raesrasef"];
-    
-    [self.artifacts.productSpecs addObject:@"raesrasef213131"];
+//        [self.artifacts.productSpecs addObject:@"raesrasef"];
+//    
+//    [self.artifacts.productSpecs addObject:@"raesrasef213131"];
     _menuItems = @[[@"Specs" uppercaseString], [@"Goals" uppercaseString], [@"Charts" uppercaseString],[@"Sprints" uppercaseString]];
 
     self.tableView.tableHeaderView = self.control;
@@ -84,6 +89,11 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     AddItemViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddItemViewController"];
     vc.index = self.currentIndex;
+    vc.currentScrum = self.currentScrumKey;
+    vc.currentArtifact = self.artifacts;
+    vc.delegate = self;
+    
+    NSLog(@"current scrum key: %@", self.currentScrumKey);
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
@@ -119,6 +129,10 @@
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }
+#pragma mark - AddItemViewControllerDelegate
+-(void)updateArtifactItem{
+    
+}
 #pragma mark - UITableViewDataSource Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -151,7 +165,6 @@
     static NSString *CellIdentifier = @"Cell";
     ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
-    
     switch (self.currentIndex) {
         case 0:
             if (self.artifacts.productSpecs.count == 0) {
@@ -167,7 +180,6 @@
                 cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the assigment specifications.";
                 cell.userInteractionEnabled = FALSE;
             }else{
-                
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.text = self.artifacts.sprintGoals[indexPath.row];
             }

@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #include "Constants.h"
 #include "User.h"
+#include "Artifacts.h"
 
 @implementation FirebaseManager
 
@@ -179,7 +180,25 @@
 }
 
 #pragma mark - Scrum Management
-+ (void)observeScrumNode:(NSString*)scrumKey{
++ (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
+    FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
+    [scrumQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSMutableArray *productSpecs = [[NSMutableArray alloc] init];
+        NSMutableArray *allGoals = [[NSMutableArray alloc] init];
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        if ([[response allKeys] containsObject:kScrumProductSpecs]) {
+            productSpecs = response[kScrumProductSpecs];
+        }
+        if ([[response allKeys] containsObject:kScrumSprintGoals]) {
+            allGoals = response[kScrumSprintGoals];
+        }
+        Artifacts *artifact = [[Artifacts alloc] initWithProductSpecs:productSpecs andGoals:allGoals];
+        block(artifact);
+    }];
+    
+    
+}
++ (void)appendProductSpecsForScrum:(NSString*)scrumKey andArtitifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL result))block{
     
 }
 

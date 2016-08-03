@@ -36,5 +36,7 @@ extern NSString *const kMembersHead;
 #pragma mark - Scrum Keys
 extern NSString *const kScrumHead;
 extern NSString *const kScrumCreator;
+extern NSString *const kScrumProductSpecs;
+extern NSString *const kScrumSprintGoals;
 @end
 
