@@ -54,6 +54,7 @@
         self.artifacts = artifact;
         NSLog(@"%@", self.artifacts.productSpecs);
         [self.tableView reloadData];
+        [self updateControlCounts];
     }];
     
     self.title = @"SCRUM Artifacts";
