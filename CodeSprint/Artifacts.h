@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) NSMutableArray *productSpecs;
 @property (strong, nonatomic) NSMutableArray *sprintGoals;
-
+-(instancetype)initWithProductSpecs:(NSMutableArray*)specs andGoals:(NSMutableArray*)sprintGoals;
 
 @end

@@ -109,11 +109,20 @@
         NSDictionary *response = (NSDictionary*)snapshot.value;
         if ([[response allKeys] containsObject:kCSUserTeamKey]) {
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
+            for (NSString *groupID in [FirebaseManager sharedInstance].currentUser.groupsIDs) {
+                FIRDatabaseQuery *scrumQuery = [[[self teamRef] child:groupID] queryOrderedByChild:kTeamsScrumKey];
+                [scrumQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                    NSDictionary *scrumSnap = (NSDictionary*)snapshot.value;
+                    NSString *scrumKey = scrumSnap[kTeamsScrumKey];
+                   [[FirebaseManager sharedInstance].currentUser.scrumIDs setObject:scrumKey forKey:groupID];
+                }];
+            }
         }else{
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[NSMutableArray alloc] init];
         }
     }];
 }
+
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];
@@ -170,6 +179,8 @@
 }
 
 #pragma mark - Scrum Management
-
++ (void)observeScrumNode:(NSString*)scrumKey{
+    
+}
 
 @end

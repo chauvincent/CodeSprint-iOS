@@ -430,7 +430,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="tq4-NO-Mmc">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="tq4-NO-Mmc" customClass="ArtifactsTableViewCell">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tq4-NO-Mmc" id="2SW-Si-rVF">
@@ -477,7 +477,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FTF-ca-LW1">
                                         <rect key="frame" x="189" y="55" width="122" height="65"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: Team-ECS160" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FSd-Bf-weB">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex: Team-ECS160" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FSd-Bf-weB" customClass="CustomTextField">
                                                 <rect key="frame" x="0.0" y="0.0" width="122" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="122" id="YnU-BO-KBB"/>
@@ -541,12 +541,97 @@
                     <connections>
                         <outlet property="clearButton" destination="JwW-Uw-2Hm" id="5av-hs-0e0"/>
                         <outlet property="createButton" destination="pyr-Bl-f32" id="rjL-Wk-elk"/>
-                        <outlet property="teamTextField" destination="FSd-Bf-weB" id="mfb-oZ-70f"/>
+                        <outlet property="teamTextField" destination="FSd-Bf-weB" id="cSc-EP-zSF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xLV-00-Xs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2891" y="-1881"/>
+        </scene>
+        <!--Add Item View Controller-->
+        <scene sceneID="C5L-Tk-BZR">
+            <objects>
+                <viewController storyboardIdentifier="AddItemViewController" id="Lkn-2n-q6G" customClass="AddItemViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zi7-UQ-bZD"/>
+                        <viewControllerLayoutGuide type="bottom" id="UX8-UK-W2X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="H5d-If-CnL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-MA-tS9">
+                                <rect key="frame" x="167" y="28" width="266" height="300"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zKh-Kc-Moy" customClass="CustomTextField">
+                                        <rect key="frame" x="23" y="0.0" width="220" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="220" id="Fze-zv-mwP"/>
+                                            <constraint firstAttribute="height" constant="30" id="d4x-FJ-XFK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="98V-Nx-V0r" customClass="CustomTextView">
+                                        <rect key="frame" x="23" y="40" width="220" height="72"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="220" id="VQl-tk-nfm"/>
+                                            <constraint firstAttribute="height" constant="72" id="cau-1x-Rcg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnc-xj-eOw">
+                                        <rect key="frame" x="96" y="122" width="75" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="dgi-qO-JLx"/>
+                                            <constraint firstAttribute="width" constant="75" id="hXf-I0-GGc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                        <color key="textColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="pkX-Ws-kQd">
+                                        <rect key="frame" x="0.0" y="156" width="266" height="109"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="266" id="Cu0-Do-Lxx"/>
+                                            <constraint firstAttribute="height" constant="109" id="R3D-VZ-LER"/>
+                                        </constraints>
+                                        <date key="date" timeIntervalSinceReferenceDate="491820607.66408002">
+                                            <!--2016-08-02 08:50:07 +0000-->
+                                        </date>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhU-6l-Y8q" customClass="ImageStyleButton">
+                                        <rect key="frame" x="121" y="275" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="2hN-r7-dFn"/>
+                                            <constraint firstAttribute="width" constant="25" id="oUz-OV-F2G"/>
+                                        </constraints>
+                                        <state key="normal" image="create-button2"/>
+                                        <connections>
+                                            <action selector="createButtonPressed:" destination="Lkn-2n-q6G" eventType="touchUpInside" id="frl-GA-JkX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ya3-MA-tS9" firstAttribute="centerX" secondItem="H5d-If-CnL" secondAttribute="centerX" id="ADF-kv-coY"/>
+                            <constraint firstItem="Ya3-MA-tS9" firstAttribute="top" secondItem="Zi7-UQ-bZD" secondAttribute="bottom" constant="8" symbolic="YES" id="Qum-wd-F4j"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="deadlineDatePicker" destination="pkX-Ws-kQd" id="aP0-qk-IgC"/>
+                        <outlet property="deadlineLabel" destination="xnc-xj-eOw" id="B9d-Sh-ftK"/>
+                        <outlet property="descriptionTextView" destination="98V-Nx-V0r" id="Jgb-DN-lEk"/>
+                        <outlet property="titleTextField" destination="zKh-Kc-Moy" id="TaU-Md-1Cm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="har-1h-ti2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3604" y="-1891"/>
         </scene>
         <!--Create Display Name View Controller-->
         <scene sceneID="PK5-Kx-WrX">

@@ -11,9 +11,10 @@
 @implementation Artifacts
 
 
--(instancetype)initWithProductSpecs:(NSMutableArray*)specs andGoals:(NSString*)sprintGoals{
+-(instancetype)initWithProductSpecs:(NSMutableArray*)specs andGoals:(NSMutableArray*)sprintGoals{
     if (self = [super init]) {
-      
+        _productSpecs = specs;
+        _sprintGoals = sprintGoals;
     }
     return self;
 }

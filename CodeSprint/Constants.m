@@ -18,6 +18,7 @@ NSString *const kCSUserDisplayKey       = @"displayName";
 NSString *const kCSUserDidSetDisplay    = @"didSetDisplay";
 NSString *const kCSUserPhotoURL         = @"photoURL";
 NSString *const kCSUserTeamKey          = @"teams";
+NSString *const kCSUserScrumKey         = @"scrum";
 
 #pragma mark Team Keys
 NSString *const kTeamsHead              = @"teams";

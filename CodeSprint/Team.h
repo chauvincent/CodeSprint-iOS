@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Sprint.h"
+
 #import "Task.h"
 
 @interface Team : NSObject
@@ -16,6 +16,8 @@
 @property (strong, nonatomic) NSString *nickname;
 @property (strong, nonatomic) NSMutableArray *membersUID;
 @property (strong, nonatomic) NSMutableArray *allSprints;
+@property (strong, nonatomic) NSString *scrumID;
+
 //
 //“teams”
 //- “ECS160”

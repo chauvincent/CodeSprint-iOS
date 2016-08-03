@@ -7,11 +7,12 @@
 //
 
 #import "CustomTextField.h"
-
+#import "Constants.h"
 @implementation CustomTextField
 
 -(void)awakeFromNib{
     self.layer.cornerRadius = 5.0;
+    self.backgroundColor = LIGHT_GREY_COLOR;
 }
 -(CGRect)textRectForBounds:(CGRect)bounds{
     return CGRectInset(bounds, 0, 0);

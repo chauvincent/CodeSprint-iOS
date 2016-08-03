@@ -12,7 +12,8 @@
 
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSMutableArray *groupsIDs;
-@property (strong, nonatomic) NSMutableArray *chatroomIDs;
+@property (strong, nonatomic) NSMutableDictionary *scrumIDs;
+@property (strong, nonatomic) NSMutableDictionary *chatroomIDs;
 @property (strong, nonatomic) NSString *displayName;
 @property (strong, nonatomic) NSURL *photoURL;
 @property (assign) BOOL didSetName;

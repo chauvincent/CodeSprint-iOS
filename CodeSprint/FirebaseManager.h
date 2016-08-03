@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Team.h"
-#import "Sprint.h"
+
 #import "User.h"
 @import Firebase;
 
@@ -30,7 +30,10 @@
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block;
 + (void)setUpNewUser:(NSString*)displayName;
 + (void)retreiveUsersTeams;
+
+#pragma mark - Observers
 + (void)observeNewTeams;
++ (void)observeScrumNode:(NSString*)scrumKey;
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
 

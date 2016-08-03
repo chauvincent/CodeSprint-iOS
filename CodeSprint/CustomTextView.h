@@ -1,13 +1,13 @@
 //
-//  ShadowView.h
+//  CustomTextView.h
 //  CodeSprint
 //
-//  Created by Vincent Chau on 6/24/16.
+//  Created by Vincent Chau on 8/2/16.
 //  Copyright © 2016 Vincent Chau. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ShadowView : UIView
+@interface CustomTextView : UITextView
 
 @end

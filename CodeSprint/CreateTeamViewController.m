@@ -12,12 +12,14 @@
 #import "FirebaseManager.h"
 #import "Team.h"
 #import "ErrorCheckUtil.h"
+#import "CustomTextField.h"
 
 #define MAX_INPUT_LENGTH 12
 
 @interface CreateTeamViewController () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *teamTextField;
+@property (strong, nonatomic) IBOutlet CustomTextField *teamTextField;
+
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 
 @end
