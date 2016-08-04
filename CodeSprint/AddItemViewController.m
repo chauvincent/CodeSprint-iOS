@@ -131,6 +131,14 @@
     [formatter setDateFormat:@"MMM d YYYY"];
     NSString *stringFromDate = [formatter stringFromDate:chosenDate];
     NSLog(@"%@", stringFromDate);
+    NSDictionary *newSprintGoal = @{kScrumSprintTitle:title,
+                                    kScrumSprintDescription:description,
+                                    kScrumSprintDeadline:stringFromDate,
+                                    kScrumSprintCompleted:@0};
+    [self.currentArtifact.sprintGoals addObject:newSprintGoal];
+    [FirebaseManager addSprintGoalToScrum:_currentScrum withArtifact:(Artifacts *)self.currentArtifact withCompletion:^(BOOL completed) {
+        [self dismiss];
+    }];
 }
 /*
 #pragma mark - Navigation

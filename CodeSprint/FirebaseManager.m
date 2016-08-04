@@ -208,6 +208,11 @@
     [scrumRef updateChildValues:@{kScrumProductSpecs:artifact.productSpecs}];
     block(true);
 }
++ (void)addSprintGoalToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
+    FIRDatabaseReference *scrumRef = [[self scrumRef] child:scrumKey];
+    [scrumRef updateChildValues:@{kScrumSprintGoals:artifact.sprintGoals}];
+    block(true);
+}
 
 
 @end
