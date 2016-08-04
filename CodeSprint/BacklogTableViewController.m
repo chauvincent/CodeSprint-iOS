@@ -12,9 +12,10 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "FirebaseManager.h"
 #import "Artifacts.h"
+#import "Constants.h"
+@interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 
-@interface BacklogTableViewController () <DZNSegmentedControlDelegate, AddItemViewControllerDelegate>
-
+@property (nonatomic, strong) AddItemViewController *vc;
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
 @property (nonatomic, strong) NSString *currentScrumKey;
@@ -53,7 +54,11 @@
     [FirebaseManager observeScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
         self.artifacts = artifact;
         NSLog(@"%@", self.artifacts.productSpecs);
+        NSLog(@"%@", self.artifacts.sprintGoals);
+
+        self.vc.currentArtifact = artifact;
         [self.tableView reloadData];
+        
         [self updateControlCounts];
     }];
     
@@ -88,14 +93,14 @@
 
 -(void)addArtifactItem:(id)sender{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AddItemViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AddItemViewController"];
-    vc.index = self.currentIndex;
-    vc.currentScrum = self.currentScrumKey;
-    vc.currentArtifact = self.artifacts;
-    vc.delegate = self;
+    self.vc = [storyboard instantiateViewControllerWithIdentifier:@"AddItemViewController"];
+    self.vc.index = self.currentIndex;
+    self.vc.currentScrum = self.currentScrumKey;
+    self.vc.currentArtifact = self.artifacts;
+
     
     NSLog(@"current scrum key: %@", self.currentScrumKey);
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
@@ -182,7 +187,12 @@
                 cell.userInteractionEnabled = FALSE;
             }else{
                 cell.userInteractionEnabled = TRUE;
-                cell.textLabel.text = self.artifacts.sprintGoals[indexPath.row];
+                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
+                NSLog(@"current dictionary: %@", currentDictionary);
+                NSString *taskTitle = currentDictionary[kScrumSprintTitle];
+                NSString *deadline = currentDictionary[kScrumSprintDeadline];
+                NSString *cellText = [NSString stringWithFormat:@"%@ - %@", deadline, taskTitle];
+                cell.textLabel.text = cellText;
             }
             break;
         case 2:

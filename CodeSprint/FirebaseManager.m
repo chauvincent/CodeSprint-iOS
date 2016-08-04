@@ -189,17 +189,25 @@
         if ([[response allKeys] containsObject:kScrumProductSpecs]) {
             productSpecs = response[kScrumProductSpecs];
         }
+        
         if ([[response allKeys] containsObject:kScrumSprintGoals]) {
-            allGoals = response[kScrumSprintGoals];
+//            allGoals = response[kScrumSprintGoals];
+            NSArray *test = (NSArray*)response[kScrumSprintGoals];
+            for (NSDictionary *dict in test) {
+                [allGoals addObject:dict];
+            }
+            NSLog(@"%@", allGoals);
         }
         Artifacts *artifact = [[Artifacts alloc] initWithProductSpecs:productSpecs andGoals:allGoals];
         block(artifact);
     }];
-    
-    
 }
-+ (void)appendProductSpecsForScrum:(NSString*)scrumKey andArtitifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL result))block{
++ (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
     
+    FIRDatabaseReference *scrumRef = [[self scrumRef] child:scrumKey];
+    [scrumRef updateChildValues:@{kScrumProductSpecs:artifact.productSpecs}];
+    block(true);
 }
+
 
 @end

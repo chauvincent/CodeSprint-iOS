@@ -43,8 +43,6 @@
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block; 
 
 #pragma mark - Scrum Functions
-+ (void)appendProductSpecsForScrum:(NSString*)scrumKey andArtitifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL result))block;
-
-
++ (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
 
 @end
