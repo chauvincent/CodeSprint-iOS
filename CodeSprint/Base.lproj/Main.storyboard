@@ -38,12 +38,62 @@
                     <view key="view" contentMode="scaleToFill" id="EZL-hS-H5r">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="r3R-hZ-bYG">
+                                <rect key="frame" x="10" y="72" width="581" height="519"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Import From Sprint Goals From The Add Button" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-ka-EQh">
+                                        <rect key="frame" x="90" y="0.0" width="402" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="402" id="Kcw-Ef-E8i"/>
+                                            <constraint firstAttribute="height" constant="20" id="M8I-LM-hro"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IpX-hJ-ndv">
+                                        <rect key="frame" x="0.0" y="30" width="581" height="442"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XRP-YS-qhu">
+                                                <rect key="frame" x="0.0" y="28" width="581" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XRP-YS-qhu" id="o8T-oP-6Ny">
+                                                    <rect key="frame" x="0.0" y="0.0" width="581" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gz-2v-geE">
+                                        <rect key="frame" x="268" y="482" width="46" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="KGI-7U-xxT"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8C9-ka-EQh" firstAttribute="top" secondItem="r3R-hZ-bYG" secondAttribute="top" id="4eT-tH-XAc"/>
+                                    <constraint firstItem="IpX-hJ-ndv" firstAttribute="leading" secondItem="r3R-hZ-bYG" secondAttribute="leading" id="By2-Tf-I3B"/>
+                                    <constraint firstAttribute="trailing" secondItem="IpX-hJ-ndv" secondAttribute="trailing" id="ZCY-Cz-hLu"/>
+                                    <constraint firstItem="IpX-hJ-ndv" firstAttribute="top" secondItem="8C9-ka-EQh" secondAttribute="bottom" constant="10" id="bnb-Tg-Zg1"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="r3R-hZ-bYG" firstAttribute="leading" secondItem="EZL-hS-H5r" secondAttribute="leadingMargin" constant="-10" id="VuW-94-FKM"/>
+                            <constraint firstItem="r3R-hZ-bYG" firstAttribute="centerX" secondItem="EZL-hS-H5r" secondAttribute="centerX" id="mKk-Xe-WaB"/>
+                            <constraint firstItem="sEr-Dy-kRY" firstAttribute="top" secondItem="r3R-hZ-bYG" secondAttribute="bottom" constant="9" id="rCN-mU-cze"/>
+                            <constraint firstItem="r3R-hZ-bYG" firstAttribute="top" secondItem="2Ix-W9-J2M" secondAttribute="bottom" constant="8" symbolic="YES" id="uYZ-s9-CpO"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pq4-ly-kcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2061" y="389"/>
+            <point key="canvasLocation" x="4578" y="-404"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="zDm-2H-PMA">
@@ -430,11 +480,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="tq4-NO-Mmc" customClass="ArtifactsTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="tq4-NO-Mmc" customClass="ArtifactsTableViewCell">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tq4-NO-Mmc" id="2SW-Si-rVF">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -444,10 +494,13 @@
                             <outlet property="delegate" destination="hg4-NJ-X9c" id="30p-L1-zLu"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="IEA-bd-SUh" kind="show" identifier="CellToSprintViewSegue" id="Cbh-58-Q9O"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P3C-Vr-B73" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3768" y="-404"/>
+            <point key="canvasLocation" x="3793" y="-404"/>
         </scene>
         <!--Create Team View Controller-->
         <scene sceneID="zRk-Jm-T6S">

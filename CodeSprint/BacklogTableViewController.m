@@ -256,7 +256,19 @@
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    
+    switch (self.currentIndex) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
+            break;
+        default:
+            break;
+    }
 }
 #pragma mark - ViewController Methods
 
