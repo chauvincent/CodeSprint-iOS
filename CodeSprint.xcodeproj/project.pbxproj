@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		75180A901D3C878B00B20A0A /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 75180A8F1D3C878B00B20A0A /* Task.m */; };
 		751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 751A755D1D183E9300923F61 /* FirebaseManager.m */; };
 		752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752C07631D30797C00E8712D /* SprintMenuViewController.m */; };
 		752C07671D30F52B00E8712D /* CircleBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 752C07661D30F52B00E8712D /* CircleBorderedButton.m */; };
@@ -49,8 +48,6 @@
 
 /* Begin PBXFileReference section */
 		3211F551BD5D394DF9192056 /* Pods-CodeSprint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeSprint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeSprint/Pods-CodeSprint.debug.xcconfig"; sourceTree = "<group>"; };
-		75180A8E1D3C878B00B20A0A /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
-		75180A8F1D3C878B00B20A0A /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		751A755C1D183E9300923F61 /* FirebaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseManager.h; sourceTree = "<group>"; };
 		751A755D1D183E9300923F61 /* FirebaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseManager.m; sourceTree = "<group>"; };
 		752C07621D30797C00E8712D /* SprintMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintMenuViewController.h; sourceTree = "<group>"; };
@@ -151,8 +148,6 @@
 				7556378D1D4F60EC00A136FF /* Artifacts.m */,
 				755B76291D2415CE00B211CF /* Team.h */,
 				755B762A1D2415CE00B211CF /* Team.m */,
-				75180A8E1D3C878B00B20A0A /* Task.h */,
-				75180A8F1D3C878B00B20A0A /* Task.m */,
 				759CA8341D3E2FE200A26EB9 /* User.h */,
 				759CA8351D3E2FE200A26EB9 /* User.m */,
 			);
@@ -447,7 +442,6 @@
 				75BEA1B31D4B3DCC00F4F4D9 /* BacklogTableViewController.m in Sources */,
 				759918981D1D981F00E38268 /* ShadowImageView.m in Sources */,
 				752C07671D30F52B00E8712D /* CircleBorderedButton.m in Sources */,
-				75180A901D3C878B00B20A0A /* Task.m in Sources */,
 				75BEA1B01D4B373700F4F4D9 /* SprintTableViewCell.m in Sources */,
 				7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */,
 				758454EF1D255506001C36EF /* PageContentViewController.m in Sources */,

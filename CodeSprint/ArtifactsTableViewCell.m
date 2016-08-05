@@ -14,7 +14,6 @@
     [super awakeFromNib];
     self.textLabel.textColor = [UIColor darkGrayColor];
     self.textLabel.font = [UIFont systemFontOfSize:13.0f];
-    self.textLabel.textAlignment = NSTextAlignmentCenter;
     self.textLabel.numberOfLines = 4;
     // Initialization code
 }

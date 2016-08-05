@@ -28,7 +28,8 @@
 -(Artifacts*)artifacts{
     if (!_artifacts) {
         _artifacts = [[Artifacts alloc] initWithProductSpecs:[[NSMutableArray alloc] init]
-                                                    andGoals:[[NSMutableArray alloc] init]];
+                                                    andGoals:[[NSMutableArray alloc] init]
+                                                 withSprints:[[NSMutableArray alloc] init]];
     }
     return _artifacts;
 }
@@ -55,7 +56,7 @@
         self.artifacts = artifact;
         NSLog(@"%@", self.artifacts.productSpecs);
         NSLog(@"%@", self.artifacts.sprintGoals);
-
+        NSLog(@"%@", self.artifacts.sprintCollection);
         self.vc.currentArtifact = artifact;
         [self.tableView reloadData];
         
@@ -158,6 +159,9 @@
         case 2:
             amountRows = self.allSprints.count;
             break;
+        case 3:
+            amountRows = self.artifacts.sprintCollection.count;
+            break;
         default:
             amountRows = 0;
     }
@@ -173,35 +177,60 @@
 
     switch (self.currentIndex) {
         case 0:
+         
             if (self.artifacts.productSpecs.count == 0) {
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"This is the Product Backlog. Please add project specifications here.";
                 cell.userInteractionEnabled = FALSE;
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }else{
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
         case 1:
             if(self.artifacts.sprintGoals.count == 0){
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the assigment specifications.";
                 cell.userInteractionEnabled = FALSE;
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }else{
                 cell.userInteractionEnabled = TRUE;
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
                 NSLog(@"current dictionary: %@", currentDictionary);
                 NSString *taskTitle = currentDictionary[kScrumSprintTitle];
                 NSString *deadline = currentDictionary[kScrumSprintDeadline];
                 NSString *cellText = [NSString stringWithFormat:@"%@ - %@", deadline, taskTitle];
                 cell.textLabel.text = cellText;
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
         case 2:
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.textLabel.text = @"No Burndown Charts To Show";
             cell.userInteractionEnabled = FALSE;
+            cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         case 3:
-            cell.textLabel.text = @"goto sprint view";
-            cell.userInteractionEnabled = FALSE;
+            if (self.artifacts.sprintCollection.count == 0) {
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                cell.textLabel.text = @"Please create a new sprint. Once created tap on the sprint for the sprint details";
+                cell.userInteractionEnabled = FALSE;
+            }else{
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];
+                NSLog(@"current dict %@", currentDictionary);
+                NSString *taskTitle = currentDictionary[kSprintTitle];
+                NSString *deadline = currentDictionary[kSprintDeadline];
+                NSString *cellText = [NSString stringWithFormat:@"%@ - %@", deadline, taskTitle];
+                cell.textLabel.text = cellText;
+                cell.userInteractionEnabled = TRUE;
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+            }
+  
             break;
         default:
             break;
@@ -226,17 +255,20 @@
     
 }
 
-
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    
+}
 #pragma mark - ViewController Methods
 
 - (void)updateControlCounts{
     NSNumber *productCount = [NSNumber numberWithUnsignedInteger:self.artifacts.productSpecs.count];
     NSNumber *sprintGoals = [NSNumber numberWithUnsignedInteger:self.artifacts.sprintGoals.count];
+    NSNumber *sprintCollection = [NSNumber numberWithUnsignedInteger:self.artifacts.sprintCollection.count];
     
     [self.control setCount:productCount forSegmentAtIndex:0];
     [self.control setCount:sprintGoals forSegmentAtIndex:1];
     [self.control setCount:@(0) forSegmentAtIndex:2]; // Burnout charts later
-    [self.control setCount:@(0) forSegmentAtIndex:3];
+    [self.control setCount:sprintCollection forSegmentAtIndex:3];
 }
 
 - (void)didChangeSegment:(DZNSegmentedControl *)control{

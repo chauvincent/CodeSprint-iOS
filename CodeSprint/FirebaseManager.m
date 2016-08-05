@@ -185,7 +185,10 @@
     [scrumQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSMutableArray *productSpecs = [[NSMutableArray alloc] init];
         NSMutableArray *allGoals = [[NSMutableArray alloc] init];
+        NSMutableArray *sprintCollection = [[NSMutableArray alloc] init];
         NSDictionary *response = (NSDictionary*)snapshot.value;
+        
+        NSLog(@"respones is : %@", response);
         if ([[response allKeys] containsObject:kScrumProductSpecs]) {
             productSpecs = response[kScrumProductSpecs];
         }
@@ -198,7 +201,15 @@
             }
             NSLog(@"%@", allGoals);
         }
-        Artifacts *artifact = [[Artifacts alloc] initWithProductSpecs:productSpecs andGoals:allGoals];
+        if ([[response allKeys] containsObject:kSprintHead]) {
+            NSLog(@"has scrum");
+            NSArray *sprintIntervals = (NSArray*)response[kSprintHead];
+            for (NSDictionary *dict in sprintIntervals) {
+                [sprintCollection addObject:dict];
+            }
+            
+        }
+        Artifacts *artifact = [[Artifacts alloc] initWithProductSpecs:productSpecs andGoals:allGoals withSprints:sprintCollection];
         block(artifact);
     }];
 }
@@ -211,6 +222,11 @@
 + (void)addSprintGoalToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
     FIRDatabaseReference *scrumRef = [[self scrumRef] child:scrumKey];
     [scrumRef updateChildValues:@{kScrumSprintGoals:artifact.sprintGoals}];
+    block(true);
+}
++ (void)createSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
+    FIRDatabaseReference *scrumRef = [[self scrumRef] child:scrumKey];
+    [scrumRef updateChildValues:@{kSprintHead:artifact.sprintCollection}];
     block(true);
 }
 

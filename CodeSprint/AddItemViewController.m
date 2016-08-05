@@ -52,13 +52,19 @@
             self.titleTextField.hidden = TRUE;
             break;
         case 1: // Add Sprint Goal
+            self.deadlineLabel.text = @"Deadline";
             self.deadlineLabel.hidden = FALSE;
             self.deadlineDatePicker.hidden = FALSE;
             self.titleTextField.hidden = FALSE;
+            self.titleTextField.placeholder = @"Title";
             break;
-        case 2: // Add
+        case 2: // Burnout Charts
             break;
-        case 3:
+        case 3: // Add A Sprint
+            self.descriptionTextView.hidden = TRUE;
+            self.titleTextField.placeholder = @"eg. Sprint 0";
+            self.deadlineLabel.text = @"Ends On:";
+            
             break;
         default:
             break;
@@ -96,7 +102,9 @@
             break;
         case 2: // Add
             break;
-        case 3:
+        case 3: // Add a sprint
+            NSLog(@"Add a Sprint");
+            [self addSprint];
             break;
         default:
             break;
@@ -127,10 +135,7 @@
     NSString *title = self.titleTextField.text;
     NSString *description = self.descriptionTextView.text;
     NSDate *chosenDate = [self.deadlineDatePicker date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMM d YYYY"];
-    NSString *stringFromDate = [formatter stringFromDate:chosenDate];
-    NSLog(@"%@", stringFromDate);
+    NSString *stringFromDate = [self convertDate:chosenDate];
     NSDictionary *newSprintGoal = @{kScrumSprintTitle:title,
                                     kScrumSprintDescription:description,
                                     kScrumSprintDeadline:stringFromDate,
@@ -139,6 +144,23 @@
     [FirebaseManager addSprintGoalToScrum:_currentScrum withArtifact:(Artifacts *)self.currentArtifact withCompletion:^(BOOL completed) {
         [self dismiss];
     }];
+}
+-(void)addSprint{
+    NSString *sprintName = self.titleTextField.text;
+    NSString *date = [self convertDate:self.deadlineDatePicker.date];
+    NSDictionary *newSprint = @{kSprintTitle:sprintName,
+                                kSprintGoalReference:@[@(-1)],
+                                kSprintDeadline:date};
+    [self.currentArtifact.sprintCollection addObject:newSprint];
+    [FirebaseManager createSprintFor:_currentScrum withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
+        [self dismiss];
+    }];
+}
+-(NSString*)convertDate:(NSDate*)date{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d YYYY"];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
 }
 /*
 #pragma mark - Navigation

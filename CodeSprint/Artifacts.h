@@ -10,8 +10,11 @@
 
 @interface Artifacts : NSObject
 
+// Arrays of JSON Dictionaries
 @property (strong, nonatomic) NSMutableArray *productSpecs;
 @property (strong, nonatomic) NSMutableArray *sprintGoals;
--(instancetype)initWithProductSpecs:(NSMutableArray*)specs andGoals:(NSMutableArray*)sprintGoals;
+@property (strong, nonatomic) NSMutableArray *sprintCollection; // collection of sprint objects
 
+-(instancetype)initWithProductSpecs:(NSMutableArray*)specs andGoals:(NSMutableArray*)sprintGoals withSprints:(NSMutableArray*)sprintCollection;
+    
 @end
