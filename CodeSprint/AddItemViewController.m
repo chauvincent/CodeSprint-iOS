@@ -63,7 +63,7 @@
         case 3: // Add A Sprint
             self.descriptionTextView.hidden = TRUE;
             self.titleTextField.placeholder = @"eg. Sprint 0";
-            self.deadlineLabel.text = @"Ends On:";
+            self.deadlineLabel.text = @"Deadline";
             
             break;
         default:

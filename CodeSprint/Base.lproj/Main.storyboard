@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-137" y="-394"/>
         </scene>
-        <!--View Controller-->
+        <!--View Sprint View Controller-->
         <scene sceneID="hgz-i4-5zT">
             <objects>
-                <viewController id="IEA-bd-SUh" sceneMemberID="viewController">
+                <viewController id="IEA-bd-SUh" customClass="ViewSprintViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Ix-W9-J2M"/>
                         <viewControllerLayoutGuide type="bottom" id="sEr-Dy-kRY"/>
@@ -42,8 +42,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="r3R-hZ-bYG">
                                 <rect key="frame" x="10" y="72" width="581" height="519"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Import From Sprint Goals From The Add Button" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-ka-EQh">
-                                        <rect key="frame" x="90" y="0.0" width="402" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-ka-EQh">
+                                        <rect key="frame" x="89" y="0.0" width="402" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="402" id="Kcw-Ef-E8i"/>
                                             <constraint firstAttribute="height" constant="20" id="M8I-LM-hro"/>
@@ -67,11 +67,12 @@
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gz-2v-geE">
-                                        <rect key="frame" x="268" y="482" width="46" height="37"/>
+                                        <rect key="frame" x="241" y="482" width="100" height="37"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="KGI-7U-xxT"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Remove Sprint"/>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -90,6 +91,9 @@
                             <constraint firstItem="r3R-hZ-bYG" firstAttribute="top" secondItem="2Ix-W9-J2M" secondAttribute="bottom" constant="8" symbolic="YES" id="uYZ-s9-CpO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="deadlineLabel" destination="8C9-ka-EQh" id="p9B-cZ-nSL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pq4-ly-kcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -484,7 +488,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tq4-NO-Mmc" id="2SW-Si-rVF">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -685,6 +689,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="har-1h-ti2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3604" y="-1891"/>
+        </scene>
+        <!--Import Items View Controller-->
+        <scene sceneID="zeS-Q1-1gm">
+            <objects>
+                <viewController storyboardIdentifier="ImportItemsViewController" id="URa-rF-eCP" customClass="ImportItemsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B3g-cU-DUe"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ir0-Xd-412"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iS4-V1-rDt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="73e-9X-w0V">
+                                <rect key="frame" x="28" y="0.0" width="542" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImportCell" id="LKZ-Af-TTb">
+                                        <rect key="frame" x="0.0" y="28" width="542" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LKZ-Af-TTb" id="CTS-kz-Gfq">
+                                            <rect key="frame" x="0.0" y="0.0" width="542" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="73e-9X-w0V" firstAttribute="bottom" secondItem="Ir0-Xd-412" secondAttribute="top" id="3Dz-SA-8Ss"/>
+                            <constraint firstItem="73e-9X-w0V" firstAttribute="top" secondItem="iS4-V1-rDt" secondAttribute="top" id="GHT-Up-EQj"/>
+                            <constraint firstItem="73e-9X-w0V" firstAttribute="leading" secondItem="iS4-V1-rDt" secondAttribute="leadingMargin" constant="8" id="LrJ-9w-x2v"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="73e-9X-w0V" secondAttribute="trailing" constant="10" id="jhS-xA-F0O"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="sprintGoalsTableView" destination="73e-9X-w0V" id="E9J-JS-9CY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jLn-Eo-dgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4287" y="-1891"/>
         </scene>
         <!--Create Display Name View Controller-->
         <scene sceneID="PK5-Kx-WrX">

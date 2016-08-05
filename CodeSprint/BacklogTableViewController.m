@@ -13,12 +13,16 @@
 #import "FirebaseManager.h"
 #import "Artifacts.h"
 #import "Constants.h"
+#import "ViewSprintViewController.h"
+
 @interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 
 @property (nonatomic, strong) AddItemViewController *vc;
+@property (nonatomic, strong) ViewSprintViewController *viewSprintController;
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
 @property (nonatomic, strong) NSString *currentScrumKey;
+@property (nonatomic) NSInteger selectedSprintIndex;
 @property (nonatomic) NSUInteger currentIndex;
 
 @end
@@ -57,7 +61,10 @@
         NSLog(@"%@", self.artifacts.productSpecs);
         NSLog(@"%@", self.artifacts.sprintGoals);
         NSLog(@"%@", self.artifacts.sprintCollection);
+        // Chaining Observer
         self.vc.currentArtifact = artifact;
+        self.viewSprintController.currentArtifact = artifact;
+        self.viewSprintController.vc.currentArtifact = artifact;
         [self.tableView reloadData];
         
         [self updateControlCounts];
@@ -132,7 +139,13 @@
     }
     return _control;
 }
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"CellToSprintViewSegue"]) {
+        self.viewSprintController = [segue destinationViewController];
+        self.viewSprintController.selectedIndex = self.selectedSprintIndex;
+        self.viewSprintController.currentArtifact = self.artifacts;
+    }
+}
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -264,6 +277,7 @@
         case 2:
             break;
         case 3:
+            self.selectedSprintIndex = indexPath.row;
             [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
             break;
         default:
@@ -271,7 +285,6 @@
     }
 }
 #pragma mark - ViewController Methods
-
 - (void)updateControlCounts{
     NSNumber *productCount = [NSNumber numberWithUnsignedInteger:self.artifacts.productSpecs.count];
     NSNumber *sprintGoals = [NSNumber numberWithUnsignedInteger:self.artifacts.sprintGoals.count];
