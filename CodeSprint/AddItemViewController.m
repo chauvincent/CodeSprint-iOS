@@ -58,9 +58,9 @@
             self.titleTextField.hidden = FALSE;
             self.titleTextField.placeholder = @"Title";
             break;
-        case 2: // Burnout Charts
-            break;
-        case 3: // Add A Sprint
+      //  case 2: // Burnout Charts
+        //    break;
+        case 2: // Add A Sprint
             self.descriptionTextView.hidden = TRUE;
             self.titleTextField.placeholder = @"eg. Sprint 0";
             self.deadlineLabel.text = @"Deadline";
@@ -100,9 +100,9 @@
             NSLog(@"Add Sprint Goals");
             [self addSprintGoals];
             break;
-        case 2: // Add
-            break;
-        case 3: // Add a sprint
+        //case 2: // Add
+          //  break;
+        case 2: // Add a sprint
             NSLog(@"Add a Sprint");
             [self addSprint];
             break;

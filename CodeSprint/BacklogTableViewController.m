@@ -54,7 +54,7 @@
     [super loadView];
     NSLog(@"Selected team: %@", self.selectedTeam);
     self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
-    
+   
     // Set up observer for backlog changes
     [FirebaseManager observeScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
         self.artifacts = artifact;
@@ -70,9 +70,9 @@
         [self updateControlCounts];
     }];
     
-    self.title = @"SCRUM Artifacts";
+//    self.title = @"SCRUM Artifacts";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
-
+    
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
@@ -83,7 +83,7 @@
 //        [self.artifacts.productSpecs addObject:@"raesrasef"];
 //    
 //    [self.artifacts.productSpecs addObject:@"raesrasef213131"];
-    _menuItems = @[[@"Specs" uppercaseString], [@"Goals" uppercaseString], [@"Charts" uppercaseString],[@"Sprints" uppercaseString]];
+    _menuItems = @[@"Specifications",@"Sprint Goals",@"Active Sprints"];//@[[@"Specification" uppercaseString], [@"Sprint Backlog" uppercaseString],[@"Sprints" uppercaseString]];
 
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
@@ -122,7 +122,6 @@
         _control.selectedSegmentIndex = 0;
         _control.bouncySelectionIndicator = NO;
         _control.height = 75.0f;
-        
         //                _control.height = 120.0f;
         //                _control.width = 300.0f;
         //                _control.showsGroupingSeparators = YES;
@@ -169,10 +168,10 @@
         case 1:
             amountRows = self.artifacts.sprintGoals.count;
             break;
+//        case 2:
+//            amountRows = self.allSprints.count;
+//            break;
         case 2:
-            amountRows = self.allSprints.count;
-            break;
-        case 3:
             amountRows = self.artifacts.sprintCollection.count;
             break;
         default:
@@ -190,20 +189,21 @@
 
     switch (self.currentIndex) {
         case 0:
-         
+            self.title = @"Product Backlog";
             if (self.artifacts.productSpecs.count == 0) {
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"This is the Product Backlog. Please add project specifications here.";
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }else{
-                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
         case 1:
+            self.title = @"Sprint Backlog";
             if(self.artifacts.sprintGoals.count == 0){
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the assigment specifications.";
@@ -216,20 +216,21 @@
                 NSLog(@"current dictionary: %@", currentDictionary);
                 NSString *taskTitle = currentDictionary[kScrumSprintTitle];
                 NSString *deadline = currentDictionary[kScrumSprintDeadline];
-                NSString *cellText = [NSString stringWithFormat:@"%@ - %@", deadline, taskTitle];
+                NSString *cellText = [NSString stringWithFormat:@"Deadline: %@ - %@", deadline, taskTitle];
                 cell.textLabel.text = cellText;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
+//        case 2:
+//            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+//            cell.textLabel.text = @"No Burndown Charts To Show";
+//            cell.userInteractionEnabled = FALSE;
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//            break;
         case 2:
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            cell.textLabel.text = @"No Burndown Charts To Show";
-            cell.userInteractionEnabled = FALSE;
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            break;
-        case 3:
+            self.title = @"Active Sprints";
             if (self.artifacts.sprintCollection.count == 0) {
-                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"Please create a new sprint. Once created tap on the sprint for the sprint details";
                 cell.userInteractionEnabled = FALSE;
             }else{
@@ -238,7 +239,7 @@
                 NSLog(@"current dict %@", currentDictionary);
                 NSString *taskTitle = currentDictionary[kSprintTitle];
                 NSString *deadline = currentDictionary[kSprintDeadline];
-                NSString *cellText = [NSString stringWithFormat:@"%@ - %@", deadline, taskTitle];
+                NSString *cellText = [NSString stringWithFormat:@"Deadline: %@ - %@", deadline, taskTitle];
                 cell.textLabel.text = cellText;
                 cell.userInteractionEnabled = TRUE;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
@@ -274,9 +275,9 @@
             break;
         case 1:
             break;
+//        case 2:
+//            break;
         case 2:
-            break;
-        case 3:
             self.selectedSprintIndex = indexPath.row;
             [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
             break;
@@ -292,8 +293,8 @@
     
     [self.control setCount:productCount forSegmentAtIndex:0];
     [self.control setCount:sprintGoals forSegmentAtIndex:1];
-    [self.control setCount:@(0) forSegmentAtIndex:2]; // Burnout charts later
-    [self.control setCount:sprintCollection forSegmentAtIndex:3];
+    //[self.control setCount:@(0) forSegmentAtIndex:2]; // Burnout charts later
+    [self.control setCount:sprintCollection forSegmentAtIndex:2];
 }
 
 - (void)didChangeSegment:(DZNSegmentedControl *)control{

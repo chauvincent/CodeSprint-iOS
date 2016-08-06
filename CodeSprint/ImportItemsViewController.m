@@ -7,7 +7,7 @@
 //
 
 #import "ImportItemsViewController.h"
-
+#import "Constants.h"
 
 @interface ImportItemsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
@@ -19,6 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
+    self.sprintGoalsTableView.delegate = self;
+    self.sprintGoalsTableView.dataSource = self;
+    NSLog(@"ARTIFACT IN IMPORT: %@", self.currentArtifact.sprintGoals);
     // Do any additional setup after loading the view.
 }
 
@@ -64,15 +67,17 @@
     if ([self.currentArtifact.sprintGoals count] == 0) {
         cell.textLabel.text = @"Nothing to import, Please Create Some Sprint Goals";
     }else{
-        cell.textLabel.text = self.currentArtifact.sprintGoals[indexPath.row];
+        NSDictionary *currentGoal = self.currentArtifact.sprintGoals[indexPath.row];
+        cell.textLabel.text = currentGoal[kSprintTitle];
     }
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if ([self.currentArtifact.sprintGoals count] == 0) {
         return 1;
+    }else{
+        return [self.currentArtifact.sprintGoals count];
     }
-    return [self.currentArtifact.sprintGoals count];
 }
 
 
