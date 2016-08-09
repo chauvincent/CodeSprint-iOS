@@ -11,9 +11,9 @@
 #import "ImportItemsViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 
-@interface ViewSprintViewController ()
+@interface ViewSprintViewController () <ImportItemsViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
-
+@property (strong, nonatomic) NSMutableArray *goalRefs;
 @end
 
 @implementation ViewSprintViewController
@@ -42,6 +42,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
     self.vc.currentArtifact = self.currentArtifact;
+    self.vc.delegate = self;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
@@ -49,6 +50,13 @@
 }
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)didImport:(NSMutableArray*)selected{
+    NSLog(@"selected index: %ld", (long)self.selectedIndex);
+    //NSLog(@"%@", self.currentArtifact.sprintCollection[self.selectedIndex]);
+    NSDictionary *currentSprint = self.currentArtifact.sprintCollection[self.selectedIndex];
+    //NSArray *currentSprint = currentSprint[@"goalref"];
+    NSLog(@"CURRENT SPRINT %@",currentSprint);
 }
 /*
 #pragma mark - Navigation

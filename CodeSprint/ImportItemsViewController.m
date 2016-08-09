@@ -11,7 +11,9 @@
 
 @interface ImportItemsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
-@property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *submitButton;
+@property (strong, nonatomic) UITapGestureRecognizer *contentTapGesture;
+@property (strong, nonatomic) NSMutableArray *selected;
 @end
 
 @implementation ImportItemsViewController
@@ -19,8 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
+    self.selected = [[NSMutableArray alloc] init];
     self.sprintGoalsTableView.delegate = self;
     self.sprintGoalsTableView.dataSource = self;
+  
+    self.sprintGoalsTableView.allowsMultipleSelectionDuringEditing = YES;
+    [self.sprintGoalsTableView setEditing:YES animated:YES];
     NSLog(@"ARTIFACT IN IMPORT: %@", self.currentArtifact.sprintGoals);
     // Do any additional setup after loading the view.
 }
@@ -34,11 +40,12 @@
     return CGSizeMake(280.0f, 320.0f);
 }
 -(void)setupView{
+    self.navigationItem.title = @"Import Goals";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;
     [self.view addGestureRecognizer:tap];
-    
+
     UIImage* closeImage = [UIImage imageNamed:@"Close-Button"];
     CGRect frameimg = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
     UIButton *button = [[UIButton alloc] initWithFrame:frameimg];
@@ -48,17 +55,12 @@
     [button setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
-   
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPressed:)];
-    self.navigationItem.leftBarButtonItem = editButton;
-    self.navigationItem.title = @"Create";
+    self.navigationItem.leftBarButtonItem = self.submitButton;
+    self.navigationItem.leftBarButtonItem.title = @"OK";
 }
 #pragma mark - IBActions
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
--(void)editButtonPressed:(id)sender{
-    
 }
 #pragma mark - UITableViewDelegate && UITableViewDatasource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -79,7 +81,20 @@
         return [self.currentArtifact.sprintGoals count];
     }
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([self.selected containsObject:indexPath]){
+        [self.selected removeObject:indexPath];
+    }else{
+        [self.selected addObject:indexPath];
+    }
+}
+- (IBAction)submitButtonPressed:(id)sender {
+    [self dismiss];
+    for (NSIndexPath *path in self.selected) {
+        NSLog(@"%ld", (long)path.row);
+    }
+    [self.delegate didImport:self.selected];
+}
 
 /*
 #pragma mark - Navigation

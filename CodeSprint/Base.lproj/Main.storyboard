@@ -702,7 +702,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="73e-9X-w0V">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="73e-9X-w0V">
                                 <rect key="frame" x="28" y="0.0" width="542" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -727,9 +727,15 @@
                     </view>
                     <connections>
                         <outlet property="sprintGoalsTableView" destination="73e-9X-w0V" id="E9J-JS-9CY"/>
+                        <outlet property="submitButton" destination="IP8-eN-rRC" id="hYn-yl-t6E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jLn-Eo-dgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Item" id="IP8-eN-rRC">
+                    <connections>
+                        <action selector="submitButtonPressed:" destination="URa-rF-eCP" id="uRk-WG-qNt"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="2335" y="-2011"/>
         </scene>

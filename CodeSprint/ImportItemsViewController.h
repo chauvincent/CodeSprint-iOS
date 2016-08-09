@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "Artifacts.h"
+@protocol ImportItemsViewDelegate <NSObject>
+
+-(void)didImport:(NSMutableArray*)selected;
+
+@end
+
 @interface ImportItemsViewController : UIViewController
 
 @property (strong, nonatomic) Artifacts *currentArtifact;
+@property (weak, nonatomic) id<ImportItemsViewDelegate> delegate;
+
 
 @end

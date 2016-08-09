@@ -65,6 +65,7 @@
         self.vc.currentArtifact = artifact;
         self.viewSprintController.currentArtifact = artifact;
         self.viewSprintController.vc.currentArtifact = artifact;
+        
         [self.tableView reloadData];
         
         [self updateControlCounts];
@@ -76,6 +77,8 @@
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
+    
+    
 
 }
 - (void)viewDidLoad{

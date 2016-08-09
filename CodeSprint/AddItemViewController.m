@@ -31,7 +31,6 @@
     [self setupButtons];
     
     NSLog(@"additem : %@", _currentScrum);
-    self.navigationItem.title = @"Add";
     NSLog(@"current index: %lu", (unsigned long)self.index);
 }
 
@@ -47,11 +46,13 @@
     
     switch (self.index) {
         case 0: // Add Product Spec
+            self.navigationItem.title = @"Add Specification";
             self.deadlineLabel.hidden = TRUE;
             self.deadlineDatePicker.hidden = TRUE;
             self.titleTextField.hidden = TRUE;
             break;
         case 1: // Add Sprint Goal
+              self.navigationItem.title = @"Add Sprint Goal";
             self.deadlineLabel.text = @"Deadline";
             self.deadlineLabel.hidden = FALSE;
             self.deadlineDatePicker.hidden = FALSE;
@@ -61,10 +62,10 @@
       //  case 2: // Burnout Charts
         //    break;
         case 2: // Add A Sprint
+            self.navigationItem.title = @"Add Sprint";
             self.descriptionTextView.hidden = TRUE;
             self.titleTextField.placeholder = @"eg. Sprint 0";
             self.deadlineLabel.text = @"Deadline";
-            
             break;
         default:
             break;
@@ -87,13 +88,11 @@
     
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
-    self.navigationItem.title = @"Search";
-    
 }
 - (IBAction)createButtonPressed:(id)sender {
     switch (self.index) {
         case 0: // Add Product Spec
-            NSLog(@"Add product spec");
+            NSLog(@"Add Specification");
             [self addProductSpecs];
             break;
         case 1: // Add Sprint Goal

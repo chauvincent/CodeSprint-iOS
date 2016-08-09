@@ -77,6 +77,7 @@
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
     __block BOOL theResult = false;
     [[[self userRef] child:currentUser.uid] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSLog(@"asdfasdf");
         if (snapshot.value == [NSNull null]) {
             [[[self userRef] child:currentUser.uid] updateChildValues:@{kCSUserDidSetDisplay : @0}];
             block(false);
