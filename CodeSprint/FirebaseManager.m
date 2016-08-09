@@ -230,6 +230,8 @@
     [scrumRef updateChildValues:@{kSprintHead:artifact.sprintCollection}];
     block(true);
 }
-
++ (void)updateSprintFor:(NSString*)scrumKey withGoalRefs:(NSMutableArray*)refs withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
+    
+}
 
 @end

@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "ImportItemsViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
+#import "FirebaseManager.h"
 
 @interface ViewSprintViewController () <ImportItemsViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
@@ -19,7 +20,7 @@
 @implementation ViewSprintViewController
 - (void)loadView{
      [super loadView];
-    self.navigationItem.title = @"Sprint";
+    self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
@@ -55,8 +56,13 @@
     NSLog(@"selected index: %ld", (long)self.selectedIndex);
     //NSLog(@"%@", self.currentArtifact.sprintCollection[self.selectedIndex]);
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[self.selectedIndex];
+    NSArray *current = [currentSprint objectForKey:@"goalref"];
     //NSArray *currentSprint = currentSprint[@"goalref"];
-    NSLog(@"CURRENT SPRINT %@",currentSprint);
+    NSLog(@"CURRENT SPRINT %@",current); // -1
+    [FirebaseManager updateSprintFor:self.currentScrum withGoalRefs:selected withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
+        NSLog(@"finish");
+    }];
+    
 }
 /*
 #pragma mark - Navigation

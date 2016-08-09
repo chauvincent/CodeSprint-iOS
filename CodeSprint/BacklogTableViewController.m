@@ -65,6 +65,7 @@
         self.vc.currentArtifact = artifact;
         self.viewSprintController.currentArtifact = artifact;
         self.viewSprintController.vc.currentArtifact = artifact;
+        self.viewSprintController.currentScrum = self.currentScrumKey;
         
         [self.tableView reloadData];
         
@@ -203,6 +204,7 @@
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
+                cell.detailTextLabel.text = @"";
             }
             break;
         case 1:
@@ -219,8 +221,9 @@
                 NSLog(@"current dictionary: %@", currentDictionary);
                 NSString *taskTitle = currentDictionary[kScrumSprintTitle];
                 NSString *deadline = currentDictionary[kScrumSprintDeadline];
-                NSString *cellText = [NSString stringWithFormat:@"Deadline: %@ - %@", deadline, taskTitle];
-                cell.textLabel.text = cellText;
+                NSString *subtitleText = [NSString stringWithFormat:@"Deadline: %@", deadline];
+                cell.textLabel.text = taskTitle;
+                cell.detailTextLabel.text = subtitleText;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
@@ -242,8 +245,9 @@
                 NSLog(@"current dict %@", currentDictionary);
                 NSString *taskTitle = currentDictionary[kSprintTitle];
                 NSString *deadline = currentDictionary[kSprintDeadline];
-                NSString *cellText = [NSString stringWithFormat:@"Deadline: %@ - %@", deadline, taskTitle];
-                cell.textLabel.text = cellText;
+                NSString *subtitleText = [NSString stringWithFormat:@"Ends on: %@", deadline];
+                cell.textLabel.text = taskTitle;
+                cell.detailTextLabel.text = subtitleText;
                 cell.userInteractionEnabled = TRUE;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
