@@ -75,7 +75,7 @@
     NSLog(@"CELL FOR ROW AT INDEX PATH:");
     NSLog(@"%@", goalRefs);
     NSLog(@"goals:    %@", self.currentArtifact.sprintGoals);
-    NSInteger *myInt = [goalRefs[indexPath.row] integerValue];
+    NSInteger myInt = [goalRefs[indexPath.row] integerValue];
     NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
     cell.textLabel.text = currentSprint[kScrumSprintTitle];
     cell.detailTextLabel.text = currentSprint[kScrumSprintDeadline];

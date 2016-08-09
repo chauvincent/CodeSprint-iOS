@@ -14,6 +14,7 @@
 #import "Artifacts.h"
 #import "Constants.h"
 #import "ViewSprintViewController.h"
+#import "PopupSettingsViewController.h"
 
 @interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 
@@ -74,22 +75,15 @@
         [self updateControlCounts];
     }];
     
-//    self.title = @"SCRUM Artifacts";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
-    
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
-    
-    
-
 }
 - (void)viewDidLoad{
     [super viewDidLoad];
-//        [self.artifacts.productSpecs addObject:@"raesrasef"];
-//    
-//    [self.artifacts.productSpecs addObject:@"raesrasef213131"];
-    _menuItems = @[@"Specifications",@"Sprint Goals",@"Active Sprints"];//@[[@"Specification" uppercaseString], [@"Sprint Backlog" uppercaseString],[@"Sprints" uppercaseString]];
+
+    _menuItems = @[@"Specifications",@"Sprint Goals",@"Active Sprints"];
 
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
@@ -111,8 +105,6 @@
     self.vc.index = self.currentIndex;
     self.vc.currentScrum = self.currentScrumKey;
     self.vc.currentArtifact = self.artifacts;
-
-    
     NSLog(@"current scrum key: %@", self.currentScrumKey);
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
@@ -128,17 +120,7 @@
         _control.selectedSegmentIndex = 0;
         _control.bouncySelectionIndicator = NO;
         _control.height = 75.0f;
-        //                _control.height = 120.0f;
-        //                _control.width = 300.0f;
-        //                _control.showsGroupingSeparators = YES;
-        //                _control.inverseTitles = YES;
-        //                _control.backgroundColor = [UIColor lightGrayColor];
-        //                _control.tintColor = [UIColor purpleColor];
-        //                _control.hairlineColor = [UIColor purpleColor];
-        //                _control.showsCount = NO;
-        //                _control.autoAdjustSelectionIndicatorWidth = NO;
-        //                _control.selectionIndicatorHeight = 4.0;
-                        _control.adjustsFontSizeToFitWidth = YES;
+        _control.adjustsFontSizeToFitWidth = YES;
         
         [_control addTarget:self action:@selector(didChangeSegment:) forControlEvents:UIControlEventValueChanged];
     }
@@ -175,9 +157,6 @@
         case 1:
             amountRows = self.artifacts.sprintGoals.count;
             break;
-//        case 2:
-//            amountRows = self.allSprints.count;
-//            break;
         case 2:
             amountRows = self.artifacts.sprintCollection.count;
             break;
@@ -232,12 +211,6 @@
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
-//        case 2:
-//            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-//            cell.textLabel.text = @"No Burndown Charts To Show";
-//            cell.userInteractionEnabled = FALSE;
-//            cell.accessoryType = UITableViewCellAccessoryNone;
-//            break;
         case 2:
             self.title = @"Active Sprints";
             if (self.artifacts.sprintCollection.count == 0) {
@@ -285,11 +258,11 @@
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     switch (self.currentIndex) {
         case 0:
+            [self popoverForCell:indexPath.row];
             break;
         case 1:
+            [self popoverForCell:indexPath.row];
             break;
-//        case 2:
-//            break;
         case 2:
             self.selectedSprintIndex = indexPath.row;
             self.viewSprintController.currentScrum = self.currentScrumKey;
@@ -298,6 +271,17 @@
         default:
             break;
     }
+}
+-(void)popoverForCell:(NSInteger)indexPath{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
+    viewc.currentIndex = self.currentIndex;
+    viewc.indexPath = indexPath;
+    viewc.currentArtifact = self.artifacts;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
+    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+    popover.throwingGestureEnabled = YES;
+    [popover showInViewController:self];
 }
 #pragma mark - ViewController Methods
 - (void)updateControlCounts{

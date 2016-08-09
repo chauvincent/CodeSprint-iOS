@@ -44,6 +44,7 @@
 		75C896F21D43635C00B9062F /* CreateDisplayNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */; };
 		75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F41D45A41500B9062F /* ErrorCheckUtil.m */; };
 		75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */; };
+		75F97B181D5A877B00A8633F /* PopupSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */; };
 		A1137C1E6815F8B9B4AFFA5D /* libPods-CodeSprint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,8 @@
 		75C896F41D45A41500B9062F /* ErrorCheckUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorCheckUtil.m; sourceTree = "<group>"; };
 		75E94BE71D51844600F859FD /* ArtifactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtifactsTableViewCell.h; sourceTree = "<group>"; };
 		75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtifactsTableViewCell.m; sourceTree = "<group>"; };
+		75F97B161D5A877B00A8633F /* PopupSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupSettingsViewController.h; sourceTree = "<group>"; };
+		75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupSettingsViewController.m; sourceTree = "<group>"; };
 		A24BF0BC3A0D7F39014C4C32 /* Pods-CodeSprint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeSprint.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeSprint/Pods-CodeSprint.release.xcconfig"; sourceTree = "<group>"; };
 		C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CodeSprint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -281,6 +284,8 @@
 				75843BF41D546A9400D6777F /* ViewSprintViewController.m */,
 				75843BF61D547F9C00D6777F /* ImportItemsViewController.h */,
 				75843BF71D547F9C00D6777F /* ImportItemsViewController.m */,
+				75F97B161D5A877B00A8633F /* PopupSettingsViewController.h */,
+				75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -457,6 +462,7 @@
 				75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */,
 				7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */,
 				75843BF81D547F9C00D6777F /* ImportItemsViewController.m in Sources */,
+				75F97B181D5A877B00A8633F /* PopupSettingsViewController.m in Sources */,
 				754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
