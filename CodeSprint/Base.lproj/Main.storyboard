@@ -56,7 +56,7 @@
                                         <rect key="frame" x="0.0" y="30" width="581" height="442"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="bXw-t9-Uft" detailTextLabel="SaM-gR-j8D" style="IBUITableViewCellStyleSubtitle" id="XRP-YS-qhu">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ViewSprintCell" textLabel="bXw-t9-Uft" detailTextLabel="SaM-gR-j8D" style="IBUITableViewCellStyleSubtitle" id="XRP-YS-qhu">
                                                 <rect key="frame" x="0.0" y="28" width="581" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XRP-YS-qhu" id="o8T-oP-6Ny">
@@ -109,6 +109,7 @@
                     </view>
                     <connections>
                         <outlet property="deadlineLabel" destination="8C9-ka-EQh" id="p9B-cZ-nSL"/>
+                        <outlet property="sprintGoalsTableView" destination="IpX-hJ-ndv" id="KXl-JU-ryH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pq4-ly-kcY" userLabel="First Responder" sceneMemberID="firstResponder"/>

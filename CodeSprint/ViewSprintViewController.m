@@ -12,8 +12,9 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "FirebaseManager.h"
 
-@interface ViewSprintViewController () <ImportItemsViewDelegate>
+@interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
+@property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
 @property (strong, nonatomic) NSMutableArray *goalRefs;
 @end
 
@@ -22,7 +23,8 @@
      [super loadView];
     self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
-    
+    self.sprintGoalsTableView.delegate = self;
+    self.sprintGoalsTableView.dataSource = self;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(importButtonPressed:)];
@@ -55,14 +57,24 @@
 -(void)didImport:(NSMutableArray*)selected{
     NSLog(@"selected index: %ld", (long)self.selectedIndex);
     //NSLog(@"%@", self.currentArtifact.sprintCollection[self.selectedIndex]);
-    NSDictionary *currentSprint = self.currentArtifact.sprintCollection[self.selectedIndex];
-    NSArray *current = [currentSprint objectForKey:@"goalref"];
-    //NSArray *currentSprint = currentSprint[@"goalref"];
-    NSLog(@"CURRENT SPRINT %@",current); // -1
-    [FirebaseManager updateSprintFor:self.currentScrum withGoalRefs:selected withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
-        NSLog(@"finish");
+    [FirebaseManager updateSprintFor:self.currentScrum withGoalRefs:selected andCollectionIndex:(NSInteger)self.selectedIndex withArtifact:self.currentArtifact withCompletion:^(Artifacts *artifact) {
+        self.currentArtifact = artifact;
+        NSLog(@"CAME BACKKKKKKK:");
+        NSLog(@"%@", self.currentArtifact.sprintCollection);
+        //[self.sprintGoalsTableView reloadData];
     }];
-    
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewSprintCell"];
+    return cell;
+
+    //ViewSprintCell
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
 /*
 #pragma mark - Navigation

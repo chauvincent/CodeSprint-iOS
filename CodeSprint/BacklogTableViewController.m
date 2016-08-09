@@ -58,9 +58,11 @@
     // Set up observer for backlog changes
     [FirebaseManager observeScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
         self.artifacts = artifact;
+        NSLog(@"==============  OBSERVER IS FIRING  ==============");
         NSLog(@"%@", self.artifacts.productSpecs);
         NSLog(@"%@", self.artifacts.sprintGoals);
         NSLog(@"%@", self.artifacts.sprintCollection);
+        NSLog(@"===================================================");
         // Chaining Observer
         self.vc.currentArtifact = artifact;
         self.viewSprintController.currentArtifact = artifact;
@@ -147,6 +149,7 @@
         self.viewSprintController = [segue destinationViewController];
         self.viewSprintController.selectedIndex = self.selectedSprintIndex;
         self.viewSprintController.currentArtifact = self.artifacts;
+        self.viewSprintController.currentScrum = self.currentScrumKey;
     }
 }
 -(void)dismiss{
@@ -286,6 +289,7 @@
 //            break;
         case 2:
             self.selectedSprintIndex = indexPath.row;
+            self.viewSprintController.currentScrum = self.currentScrumKey;
             [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
             break;
         default:

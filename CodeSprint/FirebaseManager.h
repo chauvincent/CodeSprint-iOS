@@ -46,6 +46,6 @@
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
 + (void)addSprintGoalToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
 + (void)createSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
-+ (void)updateSprintFor:(NSString*)scrumKey withGoalRefs:(NSMutableArray*)refs withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
++ (void)updateSprintFor:(NSString*)scrumKey withGoalRefs:(NSMutableArray*)refs andCollectionIndex:(NSInteger)index withArtifact:(Artifacts*)artifact withCompletion:(void (^)(Artifacts* artifact))block;
 
 @end

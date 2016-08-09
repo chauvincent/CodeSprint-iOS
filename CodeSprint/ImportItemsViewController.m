@@ -89,11 +89,16 @@
     }
 }
 - (IBAction)submitButtonPressed:(id)sender {
-    [self dismiss];
-    for (NSIndexPath *path in self.selected) {
-        NSLog(@"%ld", (long)path.row);
+    
+    if (self.selected.count!=0) {
+        [self.delegate didImport:self.selected];
+
     }
-    [self.delegate didImport:self.selected];
+//
+//    for (NSIndexPath *path in self.selected) {
+//        NSLog(@"%ld", (long)path.row);
+//    }
+    [self dismiss];
 }
 
 /*
