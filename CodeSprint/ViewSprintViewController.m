@@ -11,6 +11,7 @@
 #import "ImportItemsViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "FirebaseManager.h"
+#import "Constants.h"
 
 @interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
@@ -59,19 +60,35 @@
     //NSLog(@"%@", self.currentArtifact.sprintCollection[self.selectedIndex]);
     [FirebaseManager updateSprintFor:self.currentScrum withGoalRefs:selected andCollectionIndex:(NSInteger)self.selectedIndex withArtifact:self.currentArtifact withCompletion:^(Artifacts *artifact) {
         self.currentArtifact = artifact;
-        NSLog(@"CAME BACKKKKKKK:");
-        NSLog(@"%@", self.currentArtifact.sprintCollection);
-        //[self.sprintGoalsTableView reloadData];
+      //  NSLog(@"%@", self.currentArtifact.sprintCollection);
+        [self.sprintGoalsTableView reloadData];
     }];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewSprintCell"];
+    
+    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
+    NSArray *goalRefs = dictionary[kSprintGoalReference];
+//    NSNumber *currentIndex = [goalRefs objectAtIndex:indexPath.row];
+//    int index = [currentIndex intValue];
+//    cell.textLabel.text = self.currentArtifact.sprintGoals[index];
+    NSLog(@"CELL FOR ROW AT INDEX PATH:");
+    NSLog(@"%@", goalRefs);
+    NSLog(@"goals:    %@", self.currentArtifact.sprintGoals);
+    NSInteger *myInt = [goalRefs[indexPath.row] integerValue];
+    NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
+    cell.textLabel.text = currentSprint[kScrumSprintTitle];
+    cell.detailTextLabel.text = currentSprint[kScrumSprintDeadline];
+    //    NSInteger myint = [indexPath.row integerValue];
+//    
+//    NSLog(@"%@", [self.currentArtifact.sprintGoals objectAtIndex:goalRefs[indexPath.row]]);
     return cell;
-
     //ViewSprintCell
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
+    NSArray *goals = (NSArray*)dictionary[kSprintGoalReference];
+    return [goals count];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

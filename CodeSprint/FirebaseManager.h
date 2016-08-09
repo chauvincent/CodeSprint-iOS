@@ -31,18 +31,19 @@
 + (void)setUpNewUser:(NSString*)displayName;
 + (void)retreiveUsersTeams;
 
-#pragma mark - Observers
+#pragma mark - Active Observers
 + (void)observeNewTeams;
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
+
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
 
 
-#pragma mark - Insertion/Deletetion Functions
+#pragma mark - Insertion/Deletetion Teams Functions
 + (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block;
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block; 
 
-#pragma mark - Scrum Functions
+#pragma mark - Scrum/Sprint Management Functions
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
 + (void)addSprintGoalToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
 + (void)createSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;

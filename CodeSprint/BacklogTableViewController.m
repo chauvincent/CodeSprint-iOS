@@ -197,6 +197,7 @@
     switch (self.currentIndex) {
         case 0:
             self.title = @"Product Backlog";
+             cell.detailTextLabel.text = @"";
             if (self.artifacts.productSpecs.count == 0) {
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"This is the Product Backlog. Please add project specifications here.";
@@ -217,6 +218,7 @@
                 cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the assigment specifications.";
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
+                 cell.detailTextLabel.text = @"";
             }else{
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
@@ -242,6 +244,7 @@
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"Please create a new sprint. Once created tap on the sprint for the sprint details";
                 cell.userInteractionEnabled = FALSE;
+                 cell.detailTextLabel.text = @"";
             }else{
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];

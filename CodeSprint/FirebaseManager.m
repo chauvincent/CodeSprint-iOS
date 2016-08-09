@@ -237,7 +237,6 @@
         NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
         NSDictionary *currentSprint = sprintArray[index];
         NSMutableArray *goalRef = [currentSprint[kSprintGoalReference] mutableCopy];
-       
         for (int i = 0; i < refs.count; i++) {
             NSIndexPath *path = (NSIndexPath*)refs[i];
             NSInteger myInteger = path.row;
@@ -251,14 +250,12 @@
         NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:goalRef];
         NSArray *arrayWithoutDuplicates = [orderedSet array];
         NSMutableDictionary *dict = [[artifact.sprintCollection objectAtIndex:index] mutableCopy];
-        
         FIRDatabaseReference *updateRef = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)index]];
         [updateRef updateChildValues:@{kSprintGoalReference:arrayWithoutDuplicates}];
         dict[kSprintGoalReference] = arrayWithoutDuplicates;
         artifact.sprintCollection[index] = dict;
         Artifacts *newArtifact = [[Artifacts alloc] initWithProductSpecs:artifact.productSpecs andGoals:artifact.sprintGoals withSprints:artifact.sprintCollection];
         block(newArtifact);
-        
     }];
 }
 
