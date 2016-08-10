@@ -14,7 +14,6 @@
 
 @implementation PageContentViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.contentImageView.image = [UIImage imageNamed:self.imageFile];

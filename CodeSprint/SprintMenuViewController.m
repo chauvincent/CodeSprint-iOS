@@ -64,7 +64,7 @@
     [self popoverController:vc];
 }
 - (IBAction)editButtonPressed:(id)sender {
-   
+   // Add Later: Leave Team Button
 }
 
 #pragma mark - View Setup

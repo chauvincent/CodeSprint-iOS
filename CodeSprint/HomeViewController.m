@@ -29,19 +29,15 @@
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"VIEW DID APPEAR");
     
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
     if([FirebaseManager sharedInstance].isNewUser){
         [self displaySetNameMenu];
     }else{
-        NSLog(@"WAS SET ALREADY"); // RETURNING USER
         [FirebaseManager retreiveUsersTeams];
     }
     [self setupViews];
-    NSLog(@"at home did load");
-    
 }
 
 - (void)didReceiveMemoryWarning {

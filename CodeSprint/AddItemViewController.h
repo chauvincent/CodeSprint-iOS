@@ -16,7 +16,4 @@
 @property (strong, nonatomic) NSString *currentScrum;
 @property (strong, nonatomic) Artifacts *currentArtifact;
 
-
-
-
 @end

@@ -49,8 +49,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     }
     return _gitHubWebView;
 }
-
-#pragma mark - Lifecycle
+#pragma mark - View Controller Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -61,8 +60,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         [self didSignInWith:currentUser];
         NSLog(@"already signed in");
     }
-
-    // Animate views
     self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -73,9 +70,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [super didReceiveMemoryWarning];
 }
 
-
 #pragma mark - Navigation
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"LoginToHomeSegue"]) {
 
@@ -112,7 +107,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [UIView animateWithDuration:0.5 animations:^{
         self.gitHubWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
     }];
-    
     CGFloat height = [[UIScreen mainScreen] bounds].size.height - self.view.frame.size.height;
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     closeButton.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
@@ -138,8 +132,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
             [self.gitHubWebView removeFromSuperview];
         }];
         [self getAccessToken];
-        NSLog(@"access token %@", accessToken);
-        NSLog(@"did sign in");
+
     }
     return YES;
 }
@@ -156,30 +149,20 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - User Helper Methods
 -(void)didSignInWith:(FIRUser *)user{
     NSString *displayName = user.displayName.length > 0 ? user.displayName : @"DEFAULT";
-    NSLog(@"DISPLAY NAME : %@", displayName);
-    NSLog(@"CURRENT USER UID %@", user.uid);
     User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
     currentUser.photoURL = user.photoURL;
     currentUser.didSetName = false;
     
-    // temporrary
     [FirebaseManager sharedInstance].currentUser = currentUser;
-    NSLog(@"LOOKUP CALLED");
     [FirebaseManager lookUpUser:currentUser withCompletion:^(BOOL result) {
         if(result){
-            NSLog(@"There is a displayname");
             [FirebaseManager sharedInstance].isNewUser = !result;
         }else{
-            NSLog(@"no displayName");
             [FirebaseManager sharedInstance].isNewUser = !result;
         }
-        NSLog(@"LOOK UP FINISED");
         [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
     }];
     
-}
--(void)updateUserInformation{
-
 }
 
 #pragma mark - GitHub Signin Helpers

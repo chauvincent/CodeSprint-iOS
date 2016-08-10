@@ -89,15 +89,9 @@
     }
 }
 - (IBAction)submitButtonPressed:(id)sender {
-    
     if (self.selected.count!=0) {
         [self.delegate didImport:self.selected];
-
     }
-//
-//    for (NSIndexPath *path in self.selected) {
-//        NSLog(@"%ld", (long)path.row);
-//    }
     [self dismiss];
 }
 

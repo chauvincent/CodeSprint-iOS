@@ -62,7 +62,6 @@
     //NSLog(@"%@", self.currentArtifact.sprintCollection[self.selectedIndex]);
     [FirebaseManager updateSprintFor:self.currentScrum withGoalRefs:selected andCollectionIndex:(NSInteger)self.selectedIndex withArtifact:self.currentArtifact withCompletion:^(Artifacts *artifact) {
         self.currentArtifact = artifact;
-      //  NSLog(@"%@", self.currentArtifact.sprintCollection);
         [self.sprintGoalsTableView reloadData];
     }];
 }
@@ -71,11 +70,7 @@
     
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSArray *goalRefs = dictionary[kSprintGoalReference];
-    NSLog(@"DICTIONARY: %@", dictionary);
-    NSLog(@"GOALREFS: %@", goalRefs);
-//    NSNumber *currentIndex = [goalRefs objectAtIndex:indexPath.row];
-//    int index = [currentIndex intValue];
-//    cell.textLabel.text = self.currentArtifact.sprintGoals[index];
+
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
         cell.textLabel.text = @"No Goals To Display.";
         cell.detailTextLabel.text = @"";
@@ -89,13 +84,7 @@
         cell.textLabel.text = currentSprint[kScrumSprintTitle];
         cell.detailTextLabel.text = currentSprint[kScrumSprintDeadline];
     }
-    
-
-    //    NSInteger myint = [indexPath.row integerValue];
-//    
-//    NSLog(@"%@", [self.currentArtifact.sprintGoals objectAtIndex:goalRefs[indexPath.row]]);
     return cell;
-    //ViewSprintCell
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];

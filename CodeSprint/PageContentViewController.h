@@ -10,8 +10,8 @@
 
 @interface PageContentViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *contentImageView;
 @property NSUInteger index;
 @property NSString *imageFile;
+@property (weak, nonatomic) IBOutlet UIImageView *contentImageView;
 
 @end
