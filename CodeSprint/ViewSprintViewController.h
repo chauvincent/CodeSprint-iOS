@@ -12,7 +12,7 @@
 
 @interface ViewSprintViewController : UIViewController
 
-@property (nonatomic) NSInteger selectedIndex;
+@property (nonatomic) NSUInteger selectedIndex;
 @property (strong, nonatomic) Artifacts *currentArtifact;
 @property (strong, nonatomic) ImportItemsViewController *vc;
 @property (strong, nonatomic) NSString *currentScrum;

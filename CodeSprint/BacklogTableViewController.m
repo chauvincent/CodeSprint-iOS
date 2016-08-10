@@ -23,7 +23,7 @@
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
 @property (nonatomic, strong) NSString *currentScrumKey;
-@property (nonatomic) NSInteger selectedSprintIndex;
+@property (nonatomic) NSUInteger selectedSprintIndex;
 @property (nonatomic) NSUInteger currentIndex;
 
 @end
@@ -194,7 +194,7 @@
             self.title = @"Sprint Backlog";
             if(self.artifacts.sprintGoals.count == 0){
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the assigment specifications.";
+                cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the project specifications.";
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
                  cell.detailTextLabel.text = @"";
@@ -215,7 +215,7 @@
             self.title = @"Active Sprints";
             if (self.artifacts.sprintCollection.count == 0) {
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"Please create a new sprint. Once created tap on the sprint for the sprint details";
+                cell.textLabel.text = @"Please create a new sprint. Once created, tap cell to manage sprint.";
                 cell.userInteractionEnabled = FALSE;
                  cell.detailTextLabel.text = @"";
             }else{
@@ -228,7 +228,7 @@
                 cell.textLabel.text = taskTitle;
                 cell.detailTextLabel.text = subtitleText;
                 cell.userInteractionEnabled = TRUE;
-                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
   
             break;
@@ -252,7 +252,12 @@
 #pragma mark - UITableViewDelegate Methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (self.currentIndex == 2) {
+        self.selectedSprintIndex = indexPath.row;
+        NSLog(@"%lu", (unsigned long)self.selectedSprintIndex);
+        self.viewSprintController.currentScrum = self.currentScrumKey;
+        [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
@@ -262,11 +267,6 @@
             break;
         case 1:
             [self popoverForCell:indexPath.row];
-            break;
-        case 2:
-            self.selectedSprintIndex = indexPath.row;
-            self.viewSprintController.currentScrum = self.currentScrumKey;
-            [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
             break;
         default:
             break;

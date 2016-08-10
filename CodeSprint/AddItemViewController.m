@@ -70,7 +70,8 @@
         default:
             break;
     }
-    
+    self.deadlineDatePicker.minimumDate = [NSDate date];
+
 }
 -(void)setupButtons{
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];

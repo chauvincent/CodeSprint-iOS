@@ -12,9 +12,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.textLabel.textColor = [UIColor darkGrayColor];
+    self.textLabel.textColor = [UIColor blackColor];
     self.textLabel.font = [UIFont systemFontOfSize:13.0f];
     self.textLabel.numberOfLines = 4;
+    self.detailTextLabel.textColor = [UIColor grayColor];
     // Initialization code
 }
 

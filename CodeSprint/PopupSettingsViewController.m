@@ -12,10 +12,38 @@
 #import "Constants.h"
 
 @interface PopupSettingsViewController ()
+@property (strong, nonatomic) IBOutlet UITextView *titleTextView;
+@property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (strong, nonatomic) IBOutlet UIButton *completedButton;
+@property (strong, nonatomic) IBOutlet UIButton *removeButton;
 @property (strong, nonatomic) UITapGestureRecognizer *contentTapGesture;
 @end
 
 @implementation PopupSettingsViewController
+-(void)loadView{
+    [super loadView];
+    [self setupView];
+    switch (self.currentIndex) {
+        case 0:
+            self.navigationItem.title = @"Specification";
+            self.descriptionTextView.text = @"";
+            self.titleTextView.hidden = NO;
+            break;
+        case 1:
+            self.navigationItem.title = @"View Goal";
+            self.descriptionTextView.hidden = NO;
+            self.titleTextView.hidden = NO;
+            break;
+        case 2:
+            self.navigationItem.title = @"View Sprint";
+            self.descriptionTextView.hidden = NO;
+            self.titleTextView.hidden = NO;
+            break;
+        default:
+            break;
+    }
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,7 +59,6 @@
     return CGSizeMake(280.0f, 320.0f);
 }
 -(void)setupView{
-    self.navigationItem.title = @"Import Goals";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;
@@ -60,5 +87,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)removeButtonPressed:(id)sender {
+}
+- (IBAction)completeItemPressed:(id)sender {
+}
 
 @end

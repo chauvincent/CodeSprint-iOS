@@ -43,7 +43,7 @@
                                 <rect key="frame" x="10" y="72" width="581" height="519"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-ka-EQh">
-                                        <rect key="frame" x="89" y="0.0" width="402" height="20"/>
+                                        <rect key="frame" x="90" y="0.0" width="402" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="402" id="Kcw-Ef-E8i"/>
                                             <constraint firstAttribute="height" constant="20" id="M8I-LM-hro"/>
@@ -56,11 +56,11 @@
                                         <rect key="frame" x="0.0" y="30" width="581" height="442"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ViewSprintCell" textLabel="bXw-t9-Uft" detailTextLabel="SaM-gR-j8D" style="IBUITableViewCellStyleSubtitle" id="XRP-YS-qhu">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="ViewSprintCell" textLabel="bXw-t9-Uft" detailTextLabel="SaM-gR-j8D" style="IBUITableViewCellStyleSubtitle" id="XRP-YS-qhu" customClass="ArtifactsTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="581" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XRP-YS-qhu" id="o8T-oP-6Ny">
-                                                    <rect key="frame" x="0.0" y="0.0" width="581" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="534" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bXw-t9-Uft">
@@ -83,12 +83,15 @@
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gz-2v-geE">
-                                        <rect key="frame" x="241" y="482" width="100" height="37"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="221" y="482" width="140" height="37"/>
+                                        <color key="backgroundColor" red="0.96862745098039216" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="37" id="KGI-7U-xxT"/>
+                                            <constraint firstAttribute="width" constant="140" id="GgK-bC-Qn6"/>
+                                            <constraint firstAttribute="height" constant="37" id="k3q-1X-mfE"/>
                                         </constraints>
-                                        <state key="normal" title="Remove Sprint"/>
+                                        <state key="normal" title="Remove Sprint">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -501,11 +504,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" textLabel="hot-KW-32L" detailTextLabel="97y-H4-uXb" style="IBUITableViewCellStyleSubtitle" id="tq4-NO-Mmc" customClass="ArtifactsTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="hot-KW-32L" detailTextLabel="97y-H4-uXb" style="IBUITableViewCellStyleSubtitle" id="tq4-NO-Mmc" customClass="ArtifactsTableViewCell">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tq4-NO-Mmc" id="2SW-Si-rVF">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hot-KW-32L">
@@ -785,53 +788,62 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cCf-ox-9ys">
-                                <rect key="frame" x="189" y="28" width="223" height="192"/>
+                                <rect key="frame" x="189" y="28" width="223" height="220"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K3R-Ku-xEJ" customClass="CustomTextField">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Testing Title " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="foF-5q-Ciy">
                                         <rect key="frame" x="0.0" y="0.0" width="223" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="223" id="4sa-oj-0ap"/>
-                                            <constraint firstAttribute="width" constant="203" id="PeC-mX-Hlo"/>
-                                            <constraint firstAttribute="height" constant="30" id="vrL-Gt-ONU"/>
+                                            <constraint firstAttribute="height" constant="30" id="0dM-4M-0oQ"/>
+                                            <constraint firstAttribute="width" constant="223" id="pZQ-MX-DSU"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="PeC-mX-Hlo"/>
-                                            </mask>
-                                        </variation>
-                                    </textField>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BaF-EF-VLG" customClass="CustomTextView">
-                                        <rect key="frame" x="0.0" y="40" width="223" height="72"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Finish the java paraser and do all sorts of things" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BaF-EF-VLG">
+                                        <rect key="frame" x="0.0" y="40" width="223" height="100"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="223" id="FQi-CI-Gjz"/>
-                                            <constraint firstAttribute="height" constant="72" id="fiv-FJ-mmh"/>
+                                            <constraint firstAttribute="width" constant="223" id="G7V-6t-IyH"/>
+                                            <constraint firstAttribute="height" constant="100" id="JVP-CN-1Ga"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3T-gf-Mej">
-                                        <rect key="frame" x="59" y="122" width="106" height="30"/>
+                                        <rect key="frame" x="0.0" y="150" width="223" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="106" id="e1Z-QF-8GC"/>
-                                            <constraint firstAttribute="height" constant="30" id="z8Q-dY-G87"/>
+                                            <constraint firstAttribute="height" constant="30" id="CWJ-Gb-ATv"/>
+                                            <constraint firstAttribute="width" constant="223" id="irV-1n-XLL"/>
                                         </constraints>
-                                        <state key="normal" title="Mark Complete"/>
+                                        <state key="normal" title="Mark as Completed">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="completeItemPressed:" destination="xAv-ho-eUY" eventType="touchUpInside" id="VGC-y7-Wed"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bj-Oq-shd">
-                                        <rect key="frame" x="84" y="162" width="56" height="30"/>
+                                        <rect key="frame" x="0.0" y="190" width="223" height="30"/>
+                                        <color key="backgroundColor" red="0.96862745098039216" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="56" id="MdM-oo-nCe"/>
-                                            <constraint firstAttribute="height" constant="30" id="aff-53-yJc"/>
+                                            <constraint firstAttribute="height" constant="30" id="NPK-AQ-tDf"/>
+                                            <constraint firstAttribute="width" constant="223" id="aQb-Ph-1JO"/>
                                         </constraints>
-                                        <state key="normal" title="Remove"/>
+                                        <state key="normal" title="Remove This Item">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="removeButtonPressed:" destination="xAv-ho-eUY" eventType="touchUpInside" id="GzI-Dc-X4I"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="K3R-Ku-xEJ" secondAttribute="trailing" id="sIQ-gY-0dT"/>
-                                    <constraint firstItem="K3R-Ku-xEJ" firstAttribute="leading" secondItem="cCf-ox-9ys" secondAttribute="leading" id="vXm-FH-YND"/>
+                                    <constraint firstItem="O3T-gf-Mej" firstAttribute="leading" secondItem="cCf-ox-9ys" secondAttribute="leading" id="7Li-4i-rT3"/>
+                                    <constraint firstAttribute="trailing" secondItem="O3T-gf-Mej" secondAttribute="trailing" id="Ga7-Ly-aiq"/>
+                                    <constraint firstAttribute="trailing" secondItem="0bj-Oq-shd" secondAttribute="trailing" id="JEO-Pq-Mof"/>
+                                    <constraint firstItem="0bj-Oq-shd" firstAttribute="leading" secondItem="cCf-ox-9ys" secondAttribute="leading" id="xD5-LS-mg6"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -841,6 +853,12 @@
                             <constraint firstItem="cCf-ox-9ys" firstAttribute="top" secondItem="sF0-ZE-eka" secondAttribute="bottom" constant="8" symbolic="YES" id="oTS-pg-tC0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="completedButton" destination="O3T-gf-Mej" id="dTx-EB-0tf"/>
+                        <outlet property="descriptionTextView" destination="BaF-EF-VLG" id="nsH-tg-9tP"/>
+                        <outlet property="removeButton" destination="0bj-Oq-shd" id="iGt-Q5-BMP"/>
+                        <outlet property="titleTextView" destination="foF-5q-Ciy" id="VVK-rg-sgp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ca8-Y7-nKH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

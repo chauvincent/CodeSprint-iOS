@@ -12,6 +12,7 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "FirebaseManager.h"
 #import "Constants.h"
+#import "ArtifactsTableViewCell.h"
 
 @interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
@@ -26,6 +27,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.sprintGoalsTableView.delegate = self;
     self.sprintGoalsTableView.dataSource = self;
+    self.sprintGoalsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(importButtonPressed:)];
@@ -65,20 +67,30 @@
     }];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewSprintCell"];
+    ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewSprintCell"];
     
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSArray *goalRefs = dictionary[kSprintGoalReference];
+    NSLog(@"DICTIONARY: %@", dictionary);
+    NSLog(@"GOALREFS: %@", goalRefs);
 //    NSNumber *currentIndex = [goalRefs objectAtIndex:indexPath.row];
 //    int index = [currentIndex intValue];
 //    cell.textLabel.text = self.currentArtifact.sprintGoals[index];
-    NSLog(@"CELL FOR ROW AT INDEX PATH:");
-    NSLog(@"%@", goalRefs);
-    NSLog(@"goals:    %@", self.currentArtifact.sprintGoals);
-    NSInteger myInt = [goalRefs[indexPath.row] integerValue];
-    NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
-    cell.textLabel.text = currentSprint[kScrumSprintTitle];
-    cell.detailTextLabel.text = currentSprint[kScrumSprintDeadline];
+    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
+        cell.textLabel.text = @"No Goals To Display.";
+        cell.detailTextLabel.text = @"";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.numberOfLines = 3;
+    }else{
+        cell.textLabel.numberOfLines = 3;
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        NSInteger myInt = [goalRefs[indexPath.row] integerValue];
+        NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
+        cell.textLabel.text = currentSprint[kScrumSprintTitle];
+        cell.detailTextLabel.text = currentSprint[kScrumSprintDeadline];
+    }
+    
+
     //    NSInteger myint = [indexPath.row integerValue];
 //    
 //    NSLog(@"%@", [self.currentArtifact.sprintGoals objectAtIndex:goalRefs[indexPath.row]]);
