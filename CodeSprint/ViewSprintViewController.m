@@ -13,6 +13,7 @@
 #import "FirebaseManager.h"
 #import "Constants.h"
 #import "ArtifactsTableViewCell.h"
+#import "PopupSettingsViewController.h"
 
 @interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
@@ -93,6 +94,19 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
+}
+
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
+    viewc.currentIndex = 2;
+    viewc.indexPath = indexPath.row;
+    viewc.currentArtifact = self.currentArtifact;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
+    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+    popover.throwingGestureEnabled = YES;
+    [popover showInViewController:self];
 }
 /*
 #pragma mark - Navigation

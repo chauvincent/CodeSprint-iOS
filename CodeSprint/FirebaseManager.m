@@ -91,6 +91,7 @@
                 block(theResult);
             }];
         }
+       
     }];
 }
 + (void)retreiveUsersTeams{

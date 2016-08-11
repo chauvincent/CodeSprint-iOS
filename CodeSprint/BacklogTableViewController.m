@@ -30,6 +30,7 @@
 
 @implementation BacklogTableViewController
 
+#pragma mark - Lazy Init
 -(Artifacts*)artifacts{
     if (!_artifacts) {
         _artifacts = [[Artifacts alloc] initWithProductSpecs:[[NSMutableArray alloc] init]
@@ -44,13 +45,19 @@
     }
     return _allSprints;
 }
-
-// Product Backlog(specifications) -> Sprint Backlog -> Sprint  (loop) -> burnout chart
-// Sprint planning -> Daily Scrim -> Sprint Review(at end of sprint) -> Chat
-
-// workflow
-// product backlog(professor specs) -> sprint planning (plan/discuss user storeis) -> (sprint backlog user stories goals) -> SPRINT (1-3 weeks) with daily scrum every 24 hours. -> Shipped product/review/reflect
-
+- (DZNSegmentedControl *)control{
+    if (!_control){
+        _control = [[DZNSegmentedControl alloc] initWithItems:self.menuItems];
+        _control.delegate = self;
+        _control.selectedSegmentIndex = 0;
+        _control.bouncySelectionIndicator = NO;
+        _control.height = 75.0f;
+        _control.adjustsFontSizeToFitWidth = YES;
+        [_control addTarget:self action:@selector(didChangeSegment:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _control;
+}
+#pragma mark - ViewController Lifecycle
 - (void)loadView{
     [super loadView];
     NSLog(@"Selected team: %@", self.selectedTeam);
@@ -99,6 +106,19 @@
     [super viewDidAppear:animated];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"CellToSprintViewSegue"]) {
+        self.viewSprintController = [segue destinationViewController];
+        self.viewSprintController.selectedIndex = self.selectedSprintIndex;
+        self.viewSprintController.currentArtifact = self.artifacts;
+        self.viewSprintController.currentScrum = self.currentScrumKey;
+    }
+}
+-(void)dismiss{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - IBAction
 -(void)addArtifactItem:(id)sender{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.vc = [storyboard instantiateViewControllerWithIdentifier:@"AddItemViewController"];
@@ -111,38 +131,7 @@
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
 }
-
-- (DZNSegmentedControl *)control{
-    if (!_control)
-    {
-        _control = [[DZNSegmentedControl alloc] initWithItems:self.menuItems];
-        _control.delegate = self;
-        _control.selectedSegmentIndex = 0;
-        _control.bouncySelectionIndicator = NO;
-        _control.height = 75.0f;
-        _control.adjustsFontSizeToFitWidth = YES;
-        
-        [_control addTarget:self action:@selector(didChangeSegment:) forControlEvents:UIControlEventValueChanged];
-    }
-    return _control;
-}
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"CellToSprintViewSegue"]) {
-        self.viewSprintController = [segue destinationViewController];
-        self.viewSprintController.selectedIndex = self.selectedSprintIndex;
-        self.viewSprintController.currentArtifact = self.artifacts;
-        self.viewSprintController.currentScrum = self.currentScrumKey;
-    }
-}
--(void)dismiss{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark - AddItemViewControllerDelegate
--(void)updateArtifactItem{
-    
-}
-#pragma mark - UITableViewDataSource Methods
-
+#pragma mark - UITableViewDataSource && UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -168,7 +157,6 @@
     }
     return amountRows;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -248,9 +236,6 @@
 -(void)configureCell:(UITableViewCell*)cell{
     
 }
-
-#pragma mark - UITableViewDelegate Methods
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.currentIndex == 2) {
         self.selectedSprintIndex = indexPath.row;
@@ -272,18 +257,19 @@
             break;
     }
 }
+#pragma mark - Helper Methods
 -(void)popoverForCell:(NSInteger)indexPath{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
     viewc.currentIndex = self.currentIndex;
     viewc.indexPath = indexPath;
     viewc.currentArtifact = self.artifacts;
+
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
 }
-#pragma mark - ViewController Methods
 - (void)updateControlCounts{
     NSNumber *productCount = [NSNumber numberWithUnsignedInteger:self.artifacts.productSpecs.count];
     NSNumber *sprintGoals = [NSNumber numberWithUnsignedInteger:self.artifacts.sprintGoals.count];

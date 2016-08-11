@@ -12,6 +12,7 @@
 #import "Constants.h"
 
 @interface PopupSettingsViewController ()
+@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UITextView *titleTextView;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (strong, nonatomic) IBOutlet UIButton *completedButton;
@@ -23,21 +24,29 @@
 -(void)loadView{
     [super loadView];
     [self setupView];
+    
+    NSDictionary *currentGoals = self.currentArtifact.sprintGoals[_indexPath];
+        self.descriptionLabel.hidden = NO;
     switch (self.currentIndex) {
         case 0:
             self.navigationItem.title = @"Specification";
             self.descriptionTextView.text = @"";
             self.titleTextView.hidden = NO;
+            self.titleTextView.text = self.currentArtifact.productSpecs[_indexPath];
+            self.descriptionLabel.hidden = YES;
             break;
         case 1:
             self.navigationItem.title = @"View Goal";
             self.descriptionTextView.hidden = NO;
             self.titleTextView.hidden = NO;
+            self.titleTextView.text = currentGoals[kScrumSprintTitle];
+            self.descriptionTextView.text = currentGoals[kScrumSprintDescription];
             break;
         case 2:
-            self.navigationItem.title = @"View Sprint";
+            self.navigationItem.title = @"Sprint Goal";
             self.descriptionTextView.hidden = NO;
             self.titleTextView.hidden = NO;
+            [self setForSprint];
             break;
         default:
             break;
@@ -74,6 +83,12 @@
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
     self.navigationItem.leftBarButtonItem.title = @"OK";
+}
+-(void)setForSprint{
+    NSLog(@"SET FOR SPRINT: ");
+    NSLog(@"%@",self.currentArtifact.sprintCollection);
+    NSLog(@"Sprint Goals: ");
+    NSLog(@"%@", self.currentArtifact.sprintGoals);
 }
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];

@@ -787,21 +787,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cCf-ox-9ys">
-                                <rect key="frame" x="189" y="28" width="223" height="220"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cCf-ox-9ys">
+                                <rect key="frame" x="189" y="28" width="223" height="257"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Za-C2-7Ud">
+                                        <rect key="frame" x="0.0" y="0.0" width="223" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="223" id="6Gq-9c-MUk"/>
+                                            <constraint firstAttribute="height" constant="21" id="ntb-po-0qx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Testing Title " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="foF-5q-Ciy">
-                                        <rect key="frame" x="0.0" y="0.0" width="223" height="30"/>
+                                        <rect key="frame" x="0.0" y="26" width="223" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="0dM-4M-0oQ"/>
                                             <constraint firstAttribute="width" constant="223" id="pZQ-MX-DSU"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FG5-7j-Lt4">
+                                        <rect key="frame" x="0.0" y="61" width="223" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="223" id="XIs-qt-L4C"/>
+                                            <constraint firstAttribute="height" constant="21" id="uI3-wY-goy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Finish the java paraser and do all sorts of things" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BaF-EF-VLG">
-                                        <rect key="frame" x="0.0" y="40" width="223" height="100"/>
+                                        <rect key="frame" x="0.0" y="87" width="223" height="100"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="223" id="G7V-6t-IyH"/>
@@ -811,7 +831,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3T-gf-Mej">
-                                        <rect key="frame" x="0.0" y="150" width="223" height="30"/>
+                                        <rect key="frame" x="0.0" y="192" width="223" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="CWJ-Gb-ATv"/>
@@ -825,7 +845,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bj-Oq-shd">
-                                        <rect key="frame" x="0.0" y="190" width="223" height="30"/>
+                                        <rect key="frame" x="0.0" y="227" width="223" height="30"/>
                                         <color key="backgroundColor" red="0.96862745098039216" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="NPK-AQ-tDf"/>
@@ -843,6 +863,8 @@
                                     <constraint firstItem="O3T-gf-Mej" firstAttribute="leading" secondItem="cCf-ox-9ys" secondAttribute="leading" id="7Li-4i-rT3"/>
                                     <constraint firstAttribute="trailing" secondItem="O3T-gf-Mej" secondAttribute="trailing" id="Ga7-Ly-aiq"/>
                                     <constraint firstAttribute="trailing" secondItem="0bj-Oq-shd" secondAttribute="trailing" id="JEO-Pq-Mof"/>
+                                    <constraint firstItem="FG5-7j-Lt4" firstAttribute="leading" secondItem="cCf-ox-9ys" secondAttribute="leading" id="lpA-bz-Jxx"/>
+                                    <constraint firstItem="8Za-C2-7Ud" firstAttribute="leading" secondItem="cCf-ox-9ys" secondAttribute="leading" id="ngh-Ie-87T"/>
                                     <constraint firstItem="0bj-Oq-shd" firstAttribute="leading" secondItem="cCf-ox-9ys" secondAttribute="leading" id="xD5-LS-mg6"/>
                                 </constraints>
                             </stackView>
@@ -855,6 +877,7 @@
                     </view>
                     <connections>
                         <outlet property="completedButton" destination="O3T-gf-Mej" id="dTx-EB-0tf"/>
+                        <outlet property="descriptionLabel" destination="FG5-7j-Lt4" id="4sH-mX-Gub"/>
                         <outlet property="descriptionTextView" destination="BaF-EF-VLG" id="nsH-tg-9tP"/>
                         <outlet property="removeButton" destination="0bj-Oq-shd" id="iGt-Q5-BMP"/>
                         <outlet property="titleTextView" destination="foF-5q-Ciy" id="VVK-rg-sgp"/>
