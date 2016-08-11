@@ -82,7 +82,7 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gz-2v-geE">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gz-2v-geE" customClass="AnimatedButton">
                                         <rect key="frame" x="221" y="482" width="140" height="37"/>
                                         <color key="backgroundColor" red="0.96862745098039216" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -92,6 +92,9 @@
                                         <state key="normal" title="Remove Sprint">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="removeButtonPressed:" destination="IEA-bd-SUh" eventType="touchUpInside" id="GPo-bx-DQI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -112,6 +115,7 @@
                     </view>
                     <connections>
                         <outlet property="deadlineLabel" destination="8C9-ka-EQh" id="p9B-cZ-nSL"/>
+                        <outlet property="removeSprintButton" destination="7gz-2v-geE" id="anp-sr-V0A"/>
                         <outlet property="sprintGoalsTableView" destination="IpX-hJ-ndv" id="KXl-JU-ryH"/>
                     </connections>
                 </viewController>
@@ -830,7 +834,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3T-gf-Mej">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3T-gf-Mej" customClass="AnimatedButton">
                                         <rect key="frame" x="0.0" y="192" width="223" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -841,10 +845,10 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="completeItemPressed:" destination="xAv-ho-eUY" eventType="touchUpInside" id="VGC-y7-Wed"/>
+                                            <action selector="completedButton:" destination="xAv-ho-eUY" eventType="touchUpInside" id="zkU-BZ-gBY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bj-Oq-shd">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bj-Oq-shd" customClass="AnimatedButton">
                                         <rect key="frame" x="0.0" y="227" width="223" height="30"/>
                                         <color key="backgroundColor" red="0.96862745098039216" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -855,7 +859,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="removeButtonPressed:" destination="xAv-ho-eUY" eventType="touchUpInside" id="GzI-Dc-X4I"/>
+                                            <action selector="removeButton:" destination="xAv-ho-eUY" eventType="touchUpInside" id="NTa-Tm-1OI"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -876,10 +880,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="completedButton" destination="O3T-gf-Mej" id="dTx-EB-0tf"/>
+                        <outlet property="completedButton" destination="O3T-gf-Mej" id="j9d-vn-AI6"/>
                         <outlet property="descriptionLabel" destination="FG5-7j-Lt4" id="4sH-mX-Gub"/>
                         <outlet property="descriptionTextView" destination="BaF-EF-VLG" id="nsH-tg-9tP"/>
-                        <outlet property="removeButton" destination="0bj-Oq-shd" id="iGt-Q5-BMP"/>
+                        <outlet property="removeButton" destination="0bj-Oq-shd" id="IfU-sg-agF"/>
                         <outlet property="titleTextView" destination="foF-5q-Ciy" id="VVK-rg-sgp"/>
                     </connections>
                 </viewController>

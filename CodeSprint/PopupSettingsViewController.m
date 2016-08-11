@@ -10,13 +10,16 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "FirebaseManager.h"
 #import "Constants.h"
+#import "AnimatedButton.h"
 
 @interface PopupSettingsViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UITextView *titleTextView;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (strong, nonatomic) IBOutlet UIButton *completedButton;
-@property (strong, nonatomic) IBOutlet UIButton *removeButton;
+@property (strong, nonatomic) IBOutlet AnimatedButton *removeButton;
+
+@property (strong, nonatomic) IBOutlet AnimatedButton *completedButton;
+
 @property (strong, nonatomic) UITapGestureRecognizer *contentTapGesture;
 @end
 
@@ -93,6 +96,10 @@
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)completedButton:(id)sender {
+}
+- (IBAction)removeButton:(id)sender {
+}
 /*
 #pragma mark - Navigation
 
@@ -102,9 +109,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (IBAction)removeButtonPressed:(id)sender {
-}
-- (IBAction)completeItemPressed:(id)sender {
-}
 
 @end

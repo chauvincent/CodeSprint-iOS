@@ -14,10 +14,11 @@
 #import "Constants.h"
 #import "ArtifactsTableViewCell.h"
 #import "PopupSettingsViewController.h"
-
+#import "AnimatedButton.h"
 @interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
+@property (strong, nonatomic) IBOutlet AnimatedButton *removeSprintButton;
 @property (strong, nonatomic) NSMutableArray *goalRefs;
 @end
 
@@ -117,5 +118,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)removeButtonPressed:(id)sender {
+}
 
 @end
