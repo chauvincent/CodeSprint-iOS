@@ -1,21 +1,16 @@
 //
-//  ImageStyleButton.m
+//  AnimatedButton.m
 //  CodeSprint
 //
-//  Created by Vincent Chau on 7/13/16.
+//  Created by Vincent Chau on 8/11/16.
 //  Copyright © 2016 Vincent Chau. All rights reserved.
 //
 
-#import "ImageStyleButton.h"
-#import "Constants.h"
+#import "AnimatedButton.h"
 #import <pop/POP.h>
-@implementation ImageStyleButton
+@implementation AnimatedButton
 
 -(void)awakeFromNib{
-    [super awakeFromNib];
-    self.contentMode = UIViewContentModeScaleToFill;
-    self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
-    self.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
     [self setupView];
 }
 -(void)setupView{

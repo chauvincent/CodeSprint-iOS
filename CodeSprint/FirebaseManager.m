@@ -76,6 +76,8 @@
 }
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
     __block BOOL theResult = false;
+    NSLog(@"LOOKUPUSER ");
+    NSLog(@"CUURENT UID %@",currentUser.uid );
     [[[self userRef] child:currentUser.uid] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSLog(@"asdfasdf");
         if (snapshot.value == [NSNull null]) {
@@ -91,7 +93,6 @@
                 block(theResult);
             }];
         }
-       
     }];
 }
 + (void)retreiveUsersTeams{

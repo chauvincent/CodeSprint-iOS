@@ -30,6 +30,7 @@
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		759CA8361D3E2FE200A26EB9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 759CA8351D3E2FE200A26EB9 /* User.m */; };
+		75AE51C21D5D2406001B4939 /* AnimatedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AE51C11D5D2406001B4939 /* AnimatedButton.m */; };
 		75B375AB1D4AEBD7008F73F6 /* CustomUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B375AA1D4AEBD7008F73F6 /* CustomUILabel.m */; };
 		75BEA1B01D4B373700F4F4D9 /* SprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BEA1AF1D4B373700F4F4D9 /* SprintTableViewCell.m */; };
 		75BEA1B31D4B3DCC00F4F4D9 /* BacklogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BEA1B21D4B3DCC00F4F4D9 /* BacklogTableViewController.m */; };
@@ -96,6 +97,8 @@
 		7599189B1D1E2AF600E38268 /* AnimationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationGenerator.m; sourceTree = "<group>"; };
 		759CA8341D3E2FE200A26EB9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		759CA8351D3E2FE200A26EB9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		75AE51C01D5D2406001B4939 /* AnimatedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedButton.h; sourceTree = "<group>"; };
+		75AE51C11D5D2406001B4939 /* AnimatedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedButton.m; sourceTree = "<group>"; };
 		75B375A91D4AEBD7008F73F6 /* CustomUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUILabel.h; sourceTree = "<group>"; };
 		75B375AA1D4AEBD7008F73F6 /* CustomUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUILabel.m; sourceTree = "<group>"; };
 		75BEA1AE1D4B373700F4F4D9 /* SprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintTableViewCell.h; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 				755637991D509E1C00A136FF /* CustomTextView.m */,
 				75E94BE71D51844600F859FD /* ArtifactsTableViewCell.h */,
 				75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */,
+				75AE51C01D5D2406001B4939 /* AnimatedButton.h */,
+				75AE51C11D5D2406001B4939 /* AnimatedButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -459,6 +464,7 @@
 				7588AF081D3845CB00F6E1E9 /* SearchTeamViewController.m in Sources */,
 				752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */,
 				7556379A1D509E1C00A136FF /* CustomTextView.m in Sources */,
+				75AE51C21D5D2406001B4939 /* AnimatedButton.m in Sources */,
 				75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */,
 				7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */,
 				75843BF81D547F9C00D6777F /* ImportItemsViewController.m in Sources */,
