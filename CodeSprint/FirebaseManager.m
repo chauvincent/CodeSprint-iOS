@@ -266,6 +266,7 @@
         NSMutableArray *sprintArray = [(NSArray*)snapshot.value mutableCopy];
         [sprintArray removeObjectAtIndex:selectedIndex];
         [currentSprint setValue:sprintArray];
+        NSLog(@"INSIDE REMOVE: %@", sprintArray);
         block(true);
     }];
 }

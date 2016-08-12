@@ -20,7 +20,7 @@
 @interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 
 @property (nonatomic, strong) AddItemViewController *vc;
-@property (nonatomic, strong) ViewSprintViewController *viewSprintController;
+@property (nonatomic, weak) ViewSprintViewController *viewSprintController;
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
 @property (nonatomic, strong) NSString *currentScrumKey;
