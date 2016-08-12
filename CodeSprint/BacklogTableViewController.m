@@ -170,7 +170,7 @@
              cell.detailTextLabel.text = @"";
             if (self.artifacts.productSpecs.count == 0) {
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"This is the Product Backlog. Please add project specifications here.";
+                cell.textLabel.text = @"This is the Product Backlog. Please add the product specifications here before proceeding to the next tab.";
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }else{
@@ -183,13 +183,20 @@
             break;
         case 1:
             self.title = @"Sprint Backlog";
-            if(self.artifacts.sprintGoals.count == 0){
+            if(self.artifacts.sprintGoals.count == 0 && self.artifacts.productSpecs.count == 0){
+                cell.hidden = TRUE;
+                [self.control setSelectedSegmentIndex:0];
+                self.currentIndex = 0;
+                [self.tableView reloadData];
+            }else if(self.artifacts.sprintGoals.count == 0){
+                cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the project specifications.";
+                cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the project specifications and their deadlines.";
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
                  cell.detailTextLabel.text = @"";
             }else{
+                cell.hidden = FALSE;
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
@@ -204,12 +211,21 @@
             break;
         case 2:
             self.title = @"Active Sprints";
+            if (self.artifacts.productSpecs.count == 0 || self.artifacts.sprintGoals.count == 0 ) {
+                cell.hidden = TRUE;
+                [self.control setSelectedSegmentIndex:1];
+                self.currentIndex = 1;
+                [self.tableView reloadData];
+            }
             if (self.artifacts.sprintCollection.count == 0) {
+                cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"Please create a new sprint. Once created, tap cell to manage sprint.";
+                cell.textLabel.text = @"Please create a new sprint. Once created tap on the cell to manage an active sprint.";
                 cell.userInteractionEnabled = FALSE;
                  cell.detailTextLabel.text = @"";
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }else{
+                cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];
                 NSLog(@"current dict %@", currentDictionary);
@@ -285,15 +301,15 @@
 }
 
 - (void)didChangeSegment:(DZNSegmentedControl *)control{
-    if (self.artifacts.sprintGoals.count == 0 && control.selectedSegmentIndex == 1) {
+    if (self.artifacts.productSpecs.count == 0 && control.selectedSegmentIndex == 1) {
         ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
-        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Sprint Goals" andMessage:@"Please add the product requirements in the previous tab before proceeding to the Sprint Backlog" andDismissNamed:@"OK"];
+        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Sprint Goals" andMessage:@"Please add to the Specifications tab, before proceeding to the Sprint Backlog." andDismissNamed:@"OK"];
         [self presentViewController:alert animated:YES completion:nil];
         self.currentIndex = control.selectedSegmentIndex;
         [self.tableView reloadData];
-    }else if (self.artifacts.sprintCollection.count == 0 && control.selectedSegmentIndex == 2){
+    }else if (self.artifacts.sprintGoals.count == 0 && control.selectedSegmentIndex == 2){
         ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
-        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Active Sprints" andMessage:@"Please add goals to the Sprint Backlog on the previous tab before proceeding." andDismissNamed:@"OK"];
+        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Active Sprints" andMessage:@"Please add to the Sprint Goals tab before proceeding to create Active Sprints." andDismissNamed:@"OK"];
         [self presentViewController:alert animated:YES completion:nil];
         self.currentIndex = control.selectedSegmentIndex;
         [self.tableView reloadData];

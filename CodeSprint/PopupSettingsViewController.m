@@ -27,8 +27,8 @@
 -(void)loadView{
     [super loadView];
     [self setupView];
-    
-    NSDictionary *currentGoals = self.currentArtifact.sprintGoals[_indexPath];
+    NSLog(@"CURRENT PRODCT SPEC LOCAL: %@",self.currentArtifact.productSpecs);
+
         self.descriptionLabel.hidden = NO;
     switch (self.currentIndex) {
         case 0:
@@ -42,8 +42,7 @@
             self.navigationItem.title = @"View Goal";
             self.descriptionTextView.hidden = NO;
             self.titleTextView.hidden = NO;
-            self.titleTextView.text = currentGoals[kScrumSprintTitle];
-            self.descriptionTextView.text = currentGoals[kScrumSprintDescription];
+            [self setForGoals];
             break;
         case 2:
             self.navigationItem.title = @"Sprint Goal";
@@ -55,7 +54,12 @@
             break;
     }
 }
-
+-(void)setForGoals{
+    NSDictionary *currentGoals;
+    currentGoals = self.currentArtifact.sprintGoals[_indexPath];
+    self.titleTextView.text = currentGoals[kScrumSprintTitle];
+    self.descriptionTextView.text = currentGoals[kScrumSprintDescription];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];

@@ -51,12 +51,10 @@
     
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSArray *goalRefs = dictionary[kSprintGoalReference];
-    
-    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]){
-        ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
-        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Import Goals: Error" andMessage:@"Please add sprint goals on the previous menu before importing." andDismissNamed:@"OK"];
-        [self presentViewController:alert animated:YES completion:nil];
-    }else{
+    NSLog(@"%@", goalRefs);
+//    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]){
+//
+//    }else{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
         self.vc.currentArtifact = self.currentArtifact;
@@ -65,7 +63,7 @@
         RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
         popover.throwingGestureEnabled = YES;
         [popover showInViewController:self];
-    }
+   // }
 }
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
@@ -85,17 +83,21 @@
     NSArray *goalRefs = dictionary[kSprintGoalReference];
 
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
-        cell.textLabel.text = @"Nothing To Display";
+        cell.textLabel.text = @"Nothing To Display. Please import tasks from Sprint Goals by tapping the add button.";
         cell.detailTextLabel.text = @"";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.numberOfLines = 3;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.userInteractionEnabled = FALSE;
     }else{
         cell.textLabel.numberOfLines = 3;
+        cell.userInteractionEnabled = TRUE;
         cell.textLabel.textAlignment = NSTextAlignmentLeft;
         NSInteger myInt = [goalRefs[indexPath.row] integerValue];
         NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
         cell.textLabel.text = currentSprint[kScrumSprintTitle];
         cell.detailTextLabel.text = currentSprint[kScrumSprintDeadline];
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
     return cell;
 }

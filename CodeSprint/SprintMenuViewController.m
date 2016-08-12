@@ -126,7 +126,8 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
     CGSize imageViewSize = cell.identiconImageView.frame.size;
-    cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
+    u_int32_t random = arc4random();
+    cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:random size:imageViewSize];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
