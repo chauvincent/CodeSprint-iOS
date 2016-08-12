@@ -12,4 +12,6 @@
 -(UIAlertController*)checkBadInput:(NSString*)inputText withMessage:(NSString*)message andDismiss:(NSString*)dismissTitle withSuccessMessage:(NSString*)successMessage title:(NSString*)sucessTitle;
 
 -(UIAlertController*)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss;
+
+-(UIAlertController*)checkBadInputForTextViews:(NSString*)inputText withMessage:(NSString*)message andDismiss:(NSString*)dismissTitle withSuccessMessage:(NSString*)successMessage title:(NSString*)sucessTitle;
 @end

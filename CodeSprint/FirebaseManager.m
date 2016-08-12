@@ -65,7 +65,7 @@
     return [self sharedInstance].scrumRefs;
 }
 
-#pragma mark - User Management
+#pragma mark - User Management - Lifecycle
 + (void)logoutUser{
     [FirebaseManager sharedInstance].currentUser = nil;
 }
@@ -76,10 +76,7 @@
 }
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block{
     __block BOOL theResult = false;
-    NSLog(@"LOOKUPUSER ");
-    NSLog(@"CUURENT UID %@",currentUser.uid );
     [[[self userRef] child:currentUser.uid] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"asdfasdf");
         if (snapshot.value == [NSNull null]) {
             [[[self userRef] child:currentUser.uid] updateChildValues:@{kCSUserDidSetDisplay : @0}];
             block(false);
@@ -136,7 +133,7 @@
         block(isNew);
     }];
 }
-#pragma mark - Team Management
+#pragma mark - Team Management - Creations
 + (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block{
     NSArray *newTeams = [self sharedInstance].currentUser.groupsIDs;
     NSString *currentUID = [self sharedInstance].currentUser.uid;
@@ -182,7 +179,9 @@
     }];
 }
 
-#pragma mark - Scrum Management
+#pragma mark - Team Management - Deletions
+
+#pragma mark - Scrum Management - Insertions
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
     FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
     [scrumQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -260,5 +259,7 @@
         block(newArtifact);
     }];
 }
+#pragma mark - Scrum Management - Deletions
+
 
 @end

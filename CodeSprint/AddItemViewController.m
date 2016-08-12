@@ -12,7 +12,7 @@
 #import "CustomTextField.h"
 #import "CustomTextView.h"
 #import "BacklogTableViewController.h"
-
+#import "ErrorCheckUtil.h"
 @interface AddItemViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
@@ -121,40 +121,74 @@
         return NO;
     }
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    return newLength <= 12;
+    return newLength <= 20;
 }
 #pragma mark - Helper Methods
 - (void)addProductSpecs{
-    NSString *input = self.descriptionTextView.text;
-    [self.currentArtifact.productSpecs addObject:input];
-    [FirebaseManager addProductSpecToScrum:self.currentScrum withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
-        [self dismiss];
-    }];
+    NSString *inputText = self.descriptionTextView.text;
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    NSString *successTitle = @"Success";
+    UIAlertController *alert = [errorCheck checkBadInputForTextViews:inputText
+                                             withMessage:@"Please enter a product specification."
+                                              andDismiss:@"Dismiss"
+                                      withSuccessMessage:@"Created" title:successTitle];
+    if ([alert.title isEqualToString:successTitle]) {
+        [self.currentArtifact.productSpecs addObject:inputText];
+        [FirebaseManager addProductSpecToScrum:self.currentScrum withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
+            [self dismiss];
+        }];
+    }else{
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 -(void)addSprintGoals{
-    NSString *title = self.titleTextField.text;
-    NSString *description = self.descriptionTextView.text;
-    NSDate *chosenDate = [self.deadlineDatePicker date];
-    NSString *stringFromDate = [self convertDate:chosenDate];
-    NSDictionary *newSprintGoal = @{kScrumSprintTitle:title,
-                                    kScrumSprintDescription:description,
-                                    kScrumSprintDeadline:stringFromDate,
-                                    kScrumSprintCompleted:@0};
-    [self.currentArtifact.sprintGoals addObject:newSprintGoal];
-    [FirebaseManager addSprintGoalToScrum:_currentScrum withArtifact:(Artifacts *)self.currentArtifact withCompletion:^(BOOL completed) {
-        [self dismiss];
-    }];
+    NSString *inputText =  [NSString stringWithFormat:@"%@ %@", self.descriptionTextView.text, self.titleTextField.text];
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    NSString *successTitle = @"Success";
+    UIAlertController *alert = [errorCheck checkBadInputForTextViews:inputText
+                                             withMessage:@"Please enter a sprint goal."
+                                              andDismiss:@"Dismiss"
+                                      withSuccessMessage:@"Created" title:successTitle];
+    if ([alert.title isEqualToString:successTitle]) {
+        NSString *title = self.titleTextField.text;
+        NSString *description = self.descriptionTextView.text;
+        NSDate *chosenDate = [self.deadlineDatePicker date];
+        NSString *stringFromDate = [self convertDate:chosenDate];
+        NSDictionary *newSprintGoal = @{kScrumSprintTitle:title,
+                                        kScrumSprintDescription:description,
+                                        kScrumSprintDeadline:stringFromDate,
+                                        kScrumSprintCompleted:@0};
+        [self.currentArtifact.sprintGoals addObject:newSprintGoal];
+        [FirebaseManager addSprintGoalToScrum:_currentScrum withArtifact:(Artifacts *)self.currentArtifact withCompletion:^(BOOL completed) {
+            [self dismiss];
+        }];
+    }else{
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 -(void)addSprint{
     NSString *sprintName = self.titleTextField.text;
-    NSString *date = [self convertDate:self.deadlineDatePicker.date];
-    NSDictionary *newSprint = @{kSprintTitle:sprintName,
-                                kSprintGoalReference:@[@(-1)],
-                                kSprintDeadline:date};
-    [self.currentArtifact.sprintCollection addObject:newSprint];
-    [FirebaseManager createSprintFor:_currentScrum withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
-        [self dismiss];
-    }];
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    NSString *successTitle = @"Success";
+    UIAlertController *alert = [errorCheck checkBadInputForTextViews:sprintName
+                                             withMessage:@"Please enter a name sprint name."
+                                              andDismiss:@"Dismiss"
+                                      withSuccessMessage:@"Created" title:successTitle];
+    if ([alert.title isEqualToString:successTitle]) {
+        NSString *date = [self convertDate:self.deadlineDatePicker.date];
+        NSDictionary *newSprint = @{kSprintTitle:sprintName,
+                                    kSprintGoalReference:@[@(-1)],
+                                    kSprintDeadline:date};
+        [self.currentArtifact.sprintCollection addObject:newSprint];
+        [FirebaseManager createSprintFor:_currentScrum withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
+            [self dismiss];
+        }];
+    }else{
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+
+
 }
 -(NSString*)convertDate:(NSDate*)date{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

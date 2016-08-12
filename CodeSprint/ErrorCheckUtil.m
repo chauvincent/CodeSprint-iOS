@@ -37,6 +37,27 @@
 
     return success; // returns nil if valid input
 }
+-(UIAlertController*)checkBadInputForTextViews:(NSString*)inputText withMessage:(NSString*)message andDismiss:(NSString*)dismissTitle withSuccessMessage:(NSString*)successMessage title:(NSString*)sucessTitle{
+    
+    if ([inputText isEqualToString:@""]) {
+        return [self showAlertWithTitle:@"Error: Blank Input" andMessage:message
+                        andDismissNamed:dismissTitle];
+    }
+    NSCharacterSet *charSet = [NSCharacterSet
+                               characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-:!@#$%^&*()-=+{}[];:'/., "];
+    charSet = [charSet invertedSet];
+    NSRange range = [inputText rangeOfCharacterFromSet:charSet];
+    
+    if (range.location != NSNotFound) {
+        return [self showAlertWithTitle:@"Invalid Characters" andMessage:@"Some invalid characters may have been detected."
+                        andDismissNamed:@"Dismiss"];
+    }
+    
+    UIAlertController *success = [self showAlertWithTitle:sucessTitle andMessage:successMessage
+                                          andDismissNamed:@"OK"];
+    
+    return success; // returns nil if valid input
+}
 -(UIAlertController*)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];

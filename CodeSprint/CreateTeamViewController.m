@@ -14,7 +14,7 @@
 #import "ErrorCheckUtil.h"
 #import "CustomTextField.h"
 
-#define MAX_INPUT_LENGTH 12
+#define MAX_INPUT_LENGTH 20
 
 @interface CreateTeamViewController () <UITextFieldDelegate>
 
