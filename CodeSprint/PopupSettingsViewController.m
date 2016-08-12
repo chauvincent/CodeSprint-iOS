@@ -13,14 +13,14 @@
 #import "AnimatedButton.h"
 
 @interface PopupSettingsViewController ()
+
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UITextView *titleTextView;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (strong, nonatomic) IBOutlet AnimatedButton *removeButton;
-
 @property (strong, nonatomic) IBOutlet AnimatedButton *completedButton;
-
 @property (strong, nonatomic) UITapGestureRecognizer *contentTapGesture;
+
 @end
 
 @implementation PopupSettingsViewController
@@ -56,7 +56,6 @@
     }
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
@@ -88,10 +87,12 @@
     self.navigationItem.leftBarButtonItem.title = @"OK";
 }
 -(void)setForSprint{
-    NSLog(@"SET FOR SPRINT: ");
-    NSLog(@"%@",self.currentArtifact.sprintCollection);
-    NSLog(@"Sprint Goals: ");
-    NSLog(@"%@", self.currentArtifact.sprintGoals);
+    NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
+    NSArray *goalRefs = currentSprint[kSprintGoalReference];
+    NSUInteger current = [goalRefs[_indexPath] integerValue];
+    NSDictionary *currentGoal = self.currentArtifact.sprintGoals[current];
+    self.titleTextView.text = currentGoal[kScrumSprintTitle];
+    self.descriptionTextView.text = currentGoal[kScrumSprintDescription];
 }
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];

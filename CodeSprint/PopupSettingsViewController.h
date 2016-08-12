@@ -14,5 +14,5 @@
 @property (nonatomic) NSInteger currentIndex;
 @property (nonatomic) NSInteger indexPath;
 @property (strong, nonatomic) Artifacts *currentArtifact;
-
+@property (nonatomic) NSInteger selectedIndex;
 @end

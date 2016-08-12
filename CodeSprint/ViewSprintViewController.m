@@ -103,7 +103,7 @@
     viewc.currentIndex = 2;
     viewc.indexPath = indexPath.row;
     viewc.currentArtifact = self.currentArtifact;
-    
+    viewc.selectedIndex = self.selectedIndex;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
