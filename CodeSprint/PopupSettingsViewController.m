@@ -24,12 +24,29 @@
 @end
 
 @implementation PopupSettingsViewController
+
+#pragma mark - View Controller Lifecycle
 -(void)loadView{
     [super loadView];
     [self setupView];
-    NSLog(@"CURRENT PRODCT SPEC LOCAL: %@",self.currentArtifact.productSpecs);
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupView];
+    // Do any additional setup after loading the view.
+}
 
-        self.descriptionLabel.hidden = NO;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+#pragma mark - View Setup
+-(CGSize)preferredContentSize{
+    return CGSizeMake(280.0f, 320.0f);
+}
+-(void)setupView{
+    NSLog(@"CURRENT PRODCT SPEC LOCAL: %@",self.currentArtifact.productSpecs);
+    self.descriptionLabel.hidden = NO;
     switch (self.currentIndex) {
         case 0:
             self.navigationItem.title = @"Specification";
@@ -53,27 +70,6 @@
         default:
             break;
     }
-}
--(void)setForGoals{
-    NSDictionary *currentGoals;
-    currentGoals = self.currentArtifact.sprintGoals[_indexPath];
-    self.titleTextView.text = currentGoals[kScrumSprintTitle];
-    self.descriptionTextView.text = currentGoals[kScrumSprintDescription];
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setupView];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
--(CGSize)preferredContentSize{
-    return CGSizeMake(280.0f, 320.0f);
-}
--(void)setupView{
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;
@@ -90,6 +86,12 @@
     self.navigationItem.rightBarButtonItem = closeButton;
     self.navigationItem.leftBarButtonItem.title = @"OK";
 }
+-(void)setForGoals{
+    NSDictionary *currentGoals;
+    currentGoals = self.currentArtifact.sprintGoals[_indexPath];
+    self.titleTextView.text = currentGoals[kScrumSprintTitle];
+    self.descriptionTextView.text = currentGoals[kScrumSprintDescription];
+}
 -(void)setForSprint{
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
     NSArray *goalRefs = currentSprint[kSprintGoalReference];
@@ -101,9 +103,33 @@
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+#pragma mark - IBActions
 - (IBAction)completedButton:(id)sender {
 }
 - (IBAction)removeButton:(id)sender {
+    switch (self.currentIndex) {
+        case 0:
+            [self removeProductSpec];
+            break;
+        case 1:
+            [self removeSprintGoal];
+            break;
+        case 2:
+            [self removeGoalInsideSprint];
+            break;
+        default:
+            break;
+    }
+}
+#pragma mark - Helpers
+-(void)removeProductSpec{
+    
+}
+-(void)removeSprintGoal{
+    
+}
+-(void)removeGoalInsideSprint{
+    
 }
 /*
 #pragma mark - Navigation

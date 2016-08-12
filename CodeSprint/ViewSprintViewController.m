@@ -16,6 +16,7 @@
 #import "PopupSettingsViewController.h"
 #import "AnimatedButton.h"
 #import "ErrorCheckUtil.h"
+
 @interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
@@ -49,12 +50,12 @@
 }
 -(void)importButtonPressed:(id)sender{
     
-    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
-    NSArray *goalRefs = dictionary[kSprintGoalReference];
-    NSLog(@"%@", goalRefs);
-//    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]){
-//
-//    }else{
+//    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
+//    NSArray *goalRefs = dictionary[kSprintGoalReference];
+//    NSLog(@"%@", goalRefs);
+////    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]){
+////
+////    }else{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
         self.vc.currentArtifact = self.currentArtifact;
@@ -139,6 +140,10 @@
 }
 */
 - (IBAction)removeButtonPressed:(id)sender {
+    NSLog(@"Remove Sprint Pressed");
+    [FirebaseManager removeActiveSprintFor:self.currentScrum withArtifact:self.currentArtifact forIndex:self.selectedIndex withCompletion:^(BOOL compelted) {
+        [self dismiss];
+    }];
 }
 
 @end

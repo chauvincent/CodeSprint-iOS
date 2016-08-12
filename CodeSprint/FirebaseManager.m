@@ -260,6 +260,14 @@
     }];
 }
 #pragma mark - Scrum Management - Deletions
-
++ (void)removeActiveSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact forIndex:(NSInteger)selectedIndex withCompletion:(void (^)(BOOL compelted))block{
+    FIRDatabaseReference *currentSprint = [[[self scrumRef] child:scrumKey] child:kSprintHead];
+    [currentSprint observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSMutableArray *sprintArray = [(NSArray*)snapshot.value mutableCopy];
+        [sprintArray removeObjectAtIndex:selectedIndex];
+        [currentSprint setValue:sprintArray];
+    }];
+    block(true);
+}
 
 @end
