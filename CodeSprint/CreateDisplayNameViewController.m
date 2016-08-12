@@ -12,7 +12,7 @@
 #import "FirebaseManager.h"
 #import "ErrorCheckUtil.h"
 
-#define MAX_INPUT_LENGTH 12
+#define MAX_INPUT_LENGTH 20
 
 @interface CreateDisplayNameViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet ImageStyleButton *createDisplayNameButton;

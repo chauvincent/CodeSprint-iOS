@@ -83,7 +83,7 @@
     NSArray *goalRefs = dictionary[kSprintGoalReference];
 
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
-        cell.textLabel.text = @"Nothing To Display. Please import tasks from Sprint Goals by tapping the add button.";
+        cell.textLabel.text = @"Nothing To Display. Please import tasks from \"Sprint Goals\" by tapping the add button above.";
         cell.detailTextLabel.text = @"";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.numberOfLines = 3;
@@ -96,7 +96,8 @@
         NSInteger myInt = [goalRefs[indexPath.row] integerValue];
         NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
         cell.textLabel.text = currentSprint[kScrumSprintTitle];
-        cell.detailTextLabel.text = currentSprint[kScrumSprintDeadline];
+        NSString *detailText = [NSString stringWithFormat:@"Deadline: %@",currentSprint[kScrumSprintDeadline]];
+        cell.detailTextLabel.text = detailText;
         cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
     return cell;

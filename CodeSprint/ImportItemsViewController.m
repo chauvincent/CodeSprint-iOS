@@ -41,7 +41,7 @@
     return CGSizeMake(280.0f, 320.0f);
 }
 -(void)setupView{
-    self.navigationItem.title = @"Import Goals";
+    self.navigationItem.title = @"Import From Goals";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;

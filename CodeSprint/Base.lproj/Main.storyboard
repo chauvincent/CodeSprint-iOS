@@ -742,27 +742,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="73e-9X-w0V">
-                                <rect key="frame" x="28" y="0.0" width="542" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImportCell" id="LKZ-Af-TTb">
-                                        <rect key="frame" x="0.0" y="28" width="542" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LKZ-Af-TTb" id="CTS-kz-Gfq">
-                                            <rect key="frame" x="0.0" y="0.0" width="542" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="n7o-Lu-JfR">
+                                <rect key="frame" x="167" y="28" width="266" height="268"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="73e-9X-w0V">
+                                        <rect key="frame" x="0.0" y="0.0" width="266" height="200"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="Tyh-R1-NXq"/>
+                                            <constraint firstAttribute="width" constant="266" id="ZS3-CP-L1e"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="xj8-ie-huj"/>
+                                        </constraints>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImportCell" id="LKZ-Af-TTb">
+                                                <rect key="frame" x="0.0" y="28" width="266" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LKZ-Af-TTb" id="CTS-kz-Gfq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="266" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you want to import additional goals that are not on the list, please go back and add to the Sprint Goal tab." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-6c-vZa">
+                                        <rect key="frame" x="0.0" y="200" width="266" height="68"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="311" id="EdH-hP-SQ9"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="FNG-zU-D9T"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="68" id="gZC-Qq-f3v"/>
+                                            <constraint firstAttribute="height" constant="68" id="luW-Jm-HkC"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="266" id="pR1-kr-ozQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="EdH-hP-SQ9"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="73e-9X-w0V" firstAttribute="bottom" secondItem="Ir0-Xd-412" secondAttribute="top" id="3Dz-SA-8Ss"/>
-                            <constraint firstItem="73e-9X-w0V" firstAttribute="top" secondItem="iS4-V1-rDt" secondAttribute="top" id="GHT-Up-EQj"/>
-                            <constraint firstItem="73e-9X-w0V" firstAttribute="leading" secondItem="iS4-V1-rDt" secondAttribute="leadingMargin" constant="8" id="LrJ-9w-x2v"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="73e-9X-w0V" secondAttribute="trailing" constant="10" id="jhS-xA-F0O"/>
+                            <constraint firstItem="n7o-Lu-JfR" firstAttribute="centerX" secondItem="iS4-V1-rDt" secondAttribute="centerX" id="hFI-dJ-Wxj"/>
+                            <constraint firstItem="n7o-Lu-JfR" firstAttribute="top" secondItem="B3g-cU-DUe" secondAttribute="bottom" constant="8" symbolic="YES" id="kw4-BN-Zhv"/>
                         </constraints>
                     </view>
                     <connections>

@@ -13,7 +13,7 @@
 #import "CustomTextField.h"
 #import "ErrorCheckUtil.h"
 
-#define MAX_INPUT_LENGTH 12
+#define MAX_INPUT_LENGTH 20
 @interface SearchTeamViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet CustomTextField *inputNameTextField;
