@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Artifacts.h"
 
+
 @interface PopupSettingsViewController : UIViewController
 
 @property (nonatomic) NSInteger currentIndex;
@@ -16,4 +17,7 @@
 @property (strong, nonatomic) Artifacts *currentArtifact;
 @property (nonatomic) NSInteger selectedIndex;
 @property (strong, nonatomic) NSString *scrumKey;
+
+
+
 @end

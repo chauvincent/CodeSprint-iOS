@@ -30,6 +30,7 @@ NSString *const kScrumHead              = @"scrum";
 NSString *const kScrumCreator           = @"creator";
 NSString *const kScrumProductSpecs      = @"productSpecs";
 NSString *const kScrumSprintGoals       = @"sprintGoals";
+NSString *const kScrumProductComplete   = @"completed";
 
 #pragma mark Artifact Keys
 NSString *const kScrumSprintTitle       = @"title";

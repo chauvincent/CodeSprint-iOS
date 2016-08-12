@@ -28,6 +28,7 @@ extern NSString *const kScrumHead;
 extern NSString *const kScrumCreator;
 extern NSString *const kScrumProductSpecs;
 extern NSString *const kScrumSprintGoals;
+extern NSString *const kScrumProductComplete;
 
 #pragma mark - Artifacts Keys
 extern NSString *const kScrumSprintTitle;

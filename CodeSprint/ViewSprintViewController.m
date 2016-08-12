@@ -16,8 +16,9 @@
 #import "PopupSettingsViewController.h"
 #import "AnimatedButton.h"
 #import "ErrorCheckUtil.h"
+#import "BacklogTableViewController.h"
 
-@interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource, BacklogTableViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
 @property (strong, nonatomic) IBOutlet AnimatedButton *removeSprintButton;
@@ -27,6 +28,12 @@
 @implementation ViewSprintViewController
 - (void)loadView{
      [super loadView];
+    
+    NSUInteger currentVCIndex = [self.navigationController.viewControllers indexOfObject:self.navigationController.topViewController];
+    //previous view controller
+    BacklogTableViewController *parentVC = (BacklogTableViewController*)[self.navigationController.viewControllers objectAtIndex:currentVCIndex - 1];
+    parentVC.delegate = self;
+
     self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
     self.sprintGoalsTableView.delegate = self;
@@ -49,22 +56,15 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)importButtonPressed:(id)sender{
-    
-//    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
-//    NSArray *goalRefs = dictionary[kSprintGoalReference];
-//    NSLog(@"%@", goalRefs);
-////    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]){
-////
-////    }else{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
-        self.vc.currentArtifact = self.currentArtifact;
-        self.vc.delegate = self;
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
-        RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
-        popover.throwingGestureEnabled = YES;
-        [popover showInViewController:self];
-   // }
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
+    self.vc.currentArtifact = self.currentArtifact;
+    self.vc.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
+    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+    popover.throwingGestureEnabled = YES;
+    [popover showInViewController:self];
 }
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
@@ -124,6 +124,7 @@
         viewc.indexPath = indexPath.row;
         viewc.currentArtifact = self.currentArtifact;
         viewc.selectedIndex = self.selectedIndex;
+        viewc.scrumKey = self.currentScrum;
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
         RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
         popover.throwingGestureEnabled = YES;
@@ -146,4 +147,9 @@
     }];
 }
 
+-(void)notifySubscribers:(Artifacts *)artifact{
+    NSLog(@"DID GET NOTIFIED");
+    self.currentArtifact = artifact;
+    [self.sprintGoalsTableView reloadData];
+}
 @end

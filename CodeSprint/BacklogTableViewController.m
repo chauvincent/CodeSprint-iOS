@@ -77,7 +77,7 @@
         self.viewSprintController.currentArtifact = artifact;
         self.viewSprintController.vc.currentArtifact = artifact;
         self.viewSprintController.currentScrum = self.currentScrumKey;
-        
+        [self.delegate notifySubscribers:self.artifacts];
         [self.tableView reloadData];
         
         [self updateControlCounts];
@@ -260,6 +260,7 @@
         self.selectedSprintIndex = indexPath.row;
         NSLog(@"%lu", (unsigned long)self.selectedSprintIndex);
         self.viewSprintController.currentScrum = self.currentScrumKey;
+        self.viewSprintController.selectedSprintIndex = indexPath.row;
         [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
     }
 }

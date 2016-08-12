@@ -278,5 +278,32 @@
         block(true);
     }];
 }
++ (void)removeSprintGoalFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact forIndex:(NSInteger)selectedIndex andSprintIndex:(NSUInteger)selectedSprint withCompletion:(void (^)(Artifacts* artifact))block{
+
+    FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kSprintHead];
+    [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
+        NSDictionary *currentSprint = sprintArray[selectedSprint];
+        NSMutableArray *goalRef = [currentSprint[kSprintGoalReference] mutableCopy];
+        
+        [goalRef removeObjectAtIndex:selectedIndex];
+        if (goalRef.count == 0) {
+            [goalRef addObject:@(-1)];
+        }
+        NSArray *array = [NSArray arrayWithArray:goalRef];
+
+        FIRDatabaseReference *updateRef = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)selectedSprint]];
+        [updateRef updateChildValues:@{kSprintGoalReference:array}];
+        
+
+        NSMutableDictionary *dict = [[artifact.sprintCollection objectAtIndex:selectedIndex] mutableCopy];
+        dict[kSprintGoalReference] = array;
+        artifact.sprintCollection[selectedIndex] = dict;
+        Artifacts *newArtifact = [[Artifacts alloc] initWithProductSpecs:artifact.productSpecs andGoals:artifact.sprintGoals withSprints:artifact.sprintCollection];
+        block(newArtifact);
+
+    }];
+}
 
 @end

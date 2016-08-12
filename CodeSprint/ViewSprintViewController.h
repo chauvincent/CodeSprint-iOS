@@ -16,5 +16,5 @@
 @property (strong, nonatomic) Artifacts *currentArtifact;
 @property (strong, nonatomic) ImportItemsViewController *vc;
 @property (strong, nonatomic) NSString *currentScrum;
-
+@property (nonatomic) NSUInteger selectedSprintIndex;
 @end

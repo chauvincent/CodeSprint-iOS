@@ -47,6 +47,7 @@
 -(void)setupView{
     NSLog(@"CURRENT PRODCT SPEC LOCAL: %@",self.currentArtifact.productSpecs);
     self.descriptionLabel.hidden = NO;
+    self.completedButton.hidden = NO;
     switch (self.currentIndex) {
         case 0:
             self.navigationItem.title = @"Specification";
@@ -54,6 +55,7 @@
             self.titleTextView.hidden = NO;
             self.titleTextView.text = self.currentArtifact.productSpecs[_indexPath];
             self.descriptionLabel.hidden = YES;
+            self.completedButton.hidden = YES;
             break;
         case 1:
             self.navigationItem.title = @"View Goal";
@@ -133,7 +135,16 @@
     
 }
 -(void)removeGoalInsideSprint{
-    
+    NSLog(@"indexpath: %ld", (long)self.indexPath);
+    NSLog(@"selectedIndex: %ld", self.selectedIndex);
+    [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath andSprintIndex:self.selectedIndex withCompletion:^(Artifacts *artifact) {
+        [self dismiss];
+    }];
+
+
+    //    [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath withCompletion:^(BOOL compelted) {
+//        NSLog(@"REMOVE GOAL");
+//    }];
 }
 /*
 #pragma mark - Navigation

@@ -764,7 +764,7 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you want to import additional goals that are not on the list, please go back and add to the Sprint Goal tab." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-6c-vZa">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you want to import additional goals that are not on the list, please go back and add to the Sprint Goals tab." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-6c-vZa">
                                         <rect key="frame" x="0.0" y="200" width="266" height="68"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="311" id="EdH-hP-SQ9"/>
