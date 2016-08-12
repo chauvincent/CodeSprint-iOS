@@ -51,6 +51,7 @@
 
 #pragma mark - Scrum/Sprint Deledtion Functions
 + (void)removeActiveSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact forIndex:(NSInteger)selectedIndex withCompletion:(void (^)(BOOL compelted))block;
++ (void)removeProductSpecFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact forIndex:(NSInteger)selectedIndex withCompletion:(void (^)(BOOL compelted))block;
 
 
 @end

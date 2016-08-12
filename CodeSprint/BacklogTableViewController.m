@@ -283,7 +283,7 @@
     viewc.currentIndex = self.currentIndex;
     viewc.indexPath = indexPath;
     viewc.currentArtifact = self.artifacts;
-
+    viewc.scrumKey = self.currentScrumKey;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;

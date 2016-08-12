@@ -123,7 +123,11 @@
 }
 #pragma mark - Helpers
 -(void)removeProductSpec{
-    
+    // indexpath
+    [FirebaseManager removeProductSpecFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath withCompletion:^(BOOL compelted) {
+        NSLog(@"DID REMOVE");
+        [self dismiss];
+    }];
 }
 -(void)removeSprintGoal{
     

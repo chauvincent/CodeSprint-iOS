@@ -266,8 +266,17 @@
         NSMutableArray *sprintArray = [(NSArray*)snapshot.value mutableCopy];
         [sprintArray removeObjectAtIndex:selectedIndex];
         [currentSprint setValue:sprintArray];
+        block(true);
     }];
-    block(true);
+}
++ (void)removeProductSpecFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact forIndex:(NSInteger)selectedIndex withCompletion:(void (^)(BOOL compelted))block{
+    FIRDatabaseReference *currentScrum = [[[self scrumRef] child:scrumKey] child:kScrumProductSpecs];
+    [currentScrum observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSMutableArray *productSpecs = [(NSArray*)snapshot.value mutableCopy];
+        [productSpecs removeObjectAtIndex:selectedIndex];
+        [currentScrum setValue:productSpecs];
+        block(true);
+    }];
 }
 
 @end

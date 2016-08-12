@@ -15,4 +15,5 @@
 @property (nonatomic) NSInteger indexPath;
 @property (strong, nonatomic) Artifacts *currentArtifact;
 @property (nonatomic) NSInteger selectedIndex;
+@property (strong, nonatomic) NSString *scrumKey;
 @end
