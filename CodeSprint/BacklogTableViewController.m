@@ -15,6 +15,7 @@
 #import "Constants.h"
 #import "ViewSprintViewController.h"
 #import "PopupSettingsViewController.h"
+#import "ErrorCheckUtil.h"
 
 @interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 
@@ -107,6 +108,7 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+
     if ([segue.identifier isEqualToString:@"CellToSprintViewSegue"]) {
         self.viewSprintController = [segue destinationViewController];
         self.viewSprintController.selectedIndex = self.selectedSprintIndex;
@@ -120,6 +122,7 @@
 
 #pragma mark - IBAction
 -(void)addArtifactItem:(id)sender{
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.vc = [storyboard instantiateViewControllerWithIdentifier:@"AddItemViewController"];
     self.vc.index = self.currentIndex;
@@ -282,9 +285,23 @@
 }
 
 - (void)didChangeSegment:(DZNSegmentedControl *)control{
-    self.currentIndex = control.selectedSegmentIndex;
-    [self.tableView reloadData];
-    
+    if (self.artifacts.sprintGoals.count == 0 && control.selectedSegmentIndex == 1) {
+        ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Sprint Goals" andMessage:@"Please add the product requirements in the previous tab before proceeding to the Sprint Backlog" andDismissNamed:@"OK"];
+        [self presentViewController:alert animated:YES completion:nil];
+        self.currentIndex = control.selectedSegmentIndex;
+        [self.tableView reloadData];
+    }else if (self.artifacts.sprintCollection.count == 0 && control.selectedSegmentIndex == 2){
+        ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Active Sprints" andMessage:@"Please add goals to the Sprint Backlog on the previous tab before proceeding." andDismissNamed:@"OK"];
+        [self presentViewController:alert animated:YES completion:nil];
+        self.currentIndex = control.selectedSegmentIndex;
+        [self.tableView reloadData];
+    }else{
+        self.currentIndex = control.selectedSegmentIndex;
+        [self.tableView reloadData];
+    }
+
 }
 #pragma mark - DZNSegmentedControlDelegate Methods
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)view{

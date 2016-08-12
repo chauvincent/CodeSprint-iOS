@@ -8,6 +8,7 @@
 
 #import "ImportItemsViewController.h"
 #import "Constants.h"
+#import "ErrorCheckUtil.h"
 
 @interface ImportItemsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
@@ -67,8 +68,10 @@
     static NSString *CellIdentifier = @"ImportCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if ([self.currentArtifact.sprintGoals count] == 0) {
-        cell.textLabel.text = @"Nothing to import, Please Create Some Sprint Goals";
+        cell.textLabel.text = @"None To Select";
+        self.submitButton.enabled = NO;
     }else{
+        self.submitButton.enabled = YES;
         NSDictionary *currentGoal = self.currentArtifact.sprintGoals[indexPath.row];
         cell.textLabel.text = currentGoal[kSprintTitle];
     }

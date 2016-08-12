@@ -15,6 +15,7 @@
 #import "ArtifactsTableViewCell.h"
 #import "PopupSettingsViewController.h"
 #import "AnimatedButton.h"
+#import "ErrorCheckUtil.h"
 @interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
@@ -47,14 +48,24 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)importButtonPressed:(id)sender{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
-    self.vc.currentArtifact = self.currentArtifact;
-    self.vc.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
-    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
-    popover.throwingGestureEnabled = YES;
-    [popover showInViewController:self];
+    
+    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
+    NSArray *goalRefs = dictionary[kSprintGoalReference];
+    
+    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]){
+        ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Import Goals: Error" andMessage:@"Please add sprint goals on the previous menu before importing." andDismissNamed:@"OK"];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
+        self.vc.currentArtifact = self.currentArtifact;
+        self.vc.delegate = self;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
+        RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+        popover.throwingGestureEnabled = YES;
+        [popover showInViewController:self];
+    }
 }
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
@@ -74,7 +85,7 @@
     NSArray *goalRefs = dictionary[kSprintGoalReference];
 
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
-        cell.textLabel.text = @"No Goals To Display.";
+        cell.textLabel.text = @"Nothing To Display";
         cell.detailTextLabel.text = @"";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.numberOfLines = 3;
@@ -98,16 +109,22 @@
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
-    viewc.currentIndex = 2;
-    viewc.indexPath = indexPath.row;
-    viewc.currentArtifact = self.currentArtifact;
-    viewc.selectedIndex = self.selectedIndex;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
-    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
-    popover.throwingGestureEnabled = YES;
-    [popover showInViewController:self];
+    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
+    NSArray *goalRefs = dictionary[kSprintGoalReference];
+    if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
+        
+    }else{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
+        viewc.currentIndex = 2;
+        viewc.indexPath = indexPath.row;
+        viewc.currentArtifact = self.currentArtifact;
+        viewc.selectedIndex = self.selectedIndex;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
+        RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+        popover.throwingGestureEnabled = YES;
+        [popover showInViewController:self];
+    }
 }
 /*
 #pragma mark - Navigation
