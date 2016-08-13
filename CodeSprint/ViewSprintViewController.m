@@ -47,7 +47,6 @@
             [self.sprintGoalsTableView reloadData];
         }
     }];
-
     self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
     self.sprintGoalsTableView.delegate = self;
@@ -153,6 +152,11 @@
         [popover showInViewController:self];
     }
     
+}
+- (IBAction)removeSprintButtonPressed:(id)sender {
+    [FirebaseManager removeActiveSprintFor:self.currentScrum withArtifact:self.currentArtifact forIndex:self.selectedIndex withCompletion:^(BOOL compelted) {
+        NSLog(@"DID REMOVE");
+    }];
 }
 /*
 #pragma mark - Navigation
