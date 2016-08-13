@@ -24,7 +24,6 @@
     }
     return _pageImages;
 }
-
 -(UIPageViewController*)PageViewController{
     if (!_PageViewController) {
         _PageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
@@ -32,18 +31,14 @@
     }
     return _PageViewController;
 }
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 -(void)setupView{
     self.navigationItem.title = @"Introduction";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];

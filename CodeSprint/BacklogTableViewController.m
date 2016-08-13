@@ -296,7 +296,6 @@
                 cell.detailTextLabel.text = @"";
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }else {
-                
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];
