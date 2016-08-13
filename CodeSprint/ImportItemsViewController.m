@@ -29,7 +29,7 @@
   
     self.sprintGoalsTableView.allowsMultipleSelectionDuringEditing = YES;
     [self.sprintGoalsTableView setEditing:YES animated:YES];
-    NSLog(@"ARTIFACT IN IMPORT: %@", self.currentArtifact.sprintGoals);
+
     // Do any additional setup after loading the view.
 }
 

@@ -31,7 +31,7 @@
 
 @implementation BacklogTableViewController
 
-#pragma mark - Lazy Init
+#pragma mark - Lazy Initializations
 -(Artifacts*)artifacts{
     if (!_artifacts) {
         _artifacts = [[Artifacts alloc] initWithProductSpecs:[[NSMutableArray alloc] init]
@@ -61,27 +61,9 @@
 #pragma mark - ViewController Lifecycle
 - (void)loadView{
     [super loadView];
-
-    NSLog(@"Selected team: %@", self.selectedTeam);
-    self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
-   
-    // Set up observer for backlog changes
-    [FirebaseManager observePassiveScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
-        self.artifacts = artifact;
-        // Chaining Observer
-        self.vc.currentArtifact = artifact;
-        self.viewSprintController.currentArtifact = artifact;
-        self.viewSprintController.vc.currentArtifact = artifact;
-        self.viewSprintController.currentScrum = self.currentScrumKey;
-      // [self.tableView reloadData];
-       [self updateControlCounts];
-    }];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
-    self.navigationItem.hidesBackButton = YES;
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
-    self.navigationItem.leftBarButtonItem = newBackButton;
+    [self setupView];
 }
+
 - (void)viewDidLoad{
     [super viewDidLoad];
 
@@ -90,17 +72,9 @@
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
     [FirebaseManager observePassiveScrumNode:self.currentScrumKey withCompletion:^(Artifacts *artifact) {
-        NSLog(@"DID OBSERVE PASSIVE");
         self.artifacts = artifact;
         [self.tableView reloadData];
     }];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button addTarget:self
-               action:@selector(removePressed:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Show View" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
-    [self.tableView addSubview:button];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -114,7 +88,6 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-
     if ([segue.identifier isEqualToString:@"CellToSprintViewSegue"]) {
         self.viewSprintController = [segue destinationViewController];
         self.viewSprintController.selectedIndex = self.selectedSprintIndex;
@@ -125,7 +98,39 @@
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+#pragma mark - Helper Methods
+-(void)setupView{
+    self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
+    [FirebaseManager observePassiveScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
+        self.artifacts = artifact;
+        self.vc.currentArtifact = artifact;
+        self.viewSprintController.currentArtifact = artifact;
+        self.viewSprintController.vc.currentArtifact = artifact;
+        self.viewSprintController.currentScrum = self.currentScrumKey;
+        [self updateControlCounts];
+    }];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
+    self.navigationItem.hidesBackButton = YES;
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    self.navigationItem.leftBarButtonItem = newBackButton;
+}
+-(void)popoverForCell:(NSInteger)indexPath{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
+    viewc.currentIndex = self.currentIndex;
+    viewc.indexPath = indexPath;
+    viewc.currentArtifact = self.artifacts;
+    viewc.scrumKey = self.currentScrumKey;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
+    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
+    popover.throwingGestureEnabled = YES;
+    [popover showInViewController:self];
+}
+-(void)didUpdateForIndex:(NSInteger)index{
+    [FirebaseManager removeActiveSprintFor:self.currentScrumKey withArtifact:self.artifacts forIndex:index withCompletion:^(BOOL compelted) {
+    }];
+}
 #pragma mark - IBAction
 -(void)addArtifactItem:(id)sender{
     
@@ -146,7 +151,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
     NSInteger amountRows;
     switch (self.currentIndex) {
         case 0:
@@ -259,9 +263,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 30.0;
 }
--(void)configureCell:(UITableViewCell*)cell{
-    
-}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.currentIndex == 2) {
         self.selectedSprintIndex = indexPath.row;
@@ -284,18 +285,14 @@
             break;
     }
 }
-#pragma mark - Helper Methods
--(void)popoverForCell:(NSInteger)indexPath{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
-    viewc.currentIndex = self.currentIndex;
-    viewc.indexPath = indexPath;
-    viewc.currentArtifact = self.artifacts;
-    viewc.scrumKey = self.currentScrumKey;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewc];
-    RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
-    popover.throwingGestureEnabled = YES;
-    [popover showInViewController:self];
+
+#pragma mark - DZNSegmentedControlDelegate Methods
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)view{
+    return UIBarPositionAny;
+}
+
+- (UIBarPosition)positionForSelectionIndicator:(id<UIBarPositioning>)bar{
+    return UIBarPositionAny;
 }
 - (void)updateControlCounts{
     NSNumber *productCount = [NSNumber numberWithUnsignedInteger:self.artifacts.productSpecs.count];
@@ -304,7 +301,6 @@
     
     [self.control setCount:productCount forSegmentAtIndex:0];
     [self.control setCount:sprintGoals forSegmentAtIndex:1];
-    //[self.control setCount:@(0) forSegmentAtIndex:2]; // Burnout charts later
     [self.control setCount:sprintCollection forSegmentAtIndex:2];
 }
 
@@ -324,30 +320,9 @@
     }else{
         self.currentIndex = control.selectedSegmentIndex;
         [self.tableView reloadData];
-
+        
     }
-
-}
--(void)removePressed:(id)sender{
     
-}
--(void)didUpdateForIndex:(NSInteger)index{
-    NSLog(@"DELEGATE CALLED");
-    NSLog(@"%ld",(long)index);
-    [FirebaseManager removeActiveSprintFor:self.currentScrumKey withArtifact:self.artifacts forIndex:index withCompletion:^(BOOL compelted) {
-        NSLog(@"FINISHIED");
-
-    }];
-}
-
-
-#pragma mark - DZNSegmentedControlDelegate Methods
-- (UIBarPosition)positionForBar:(id <UIBarPositioning>)view{
-    return UIBarPositionAny;
-}
-
-- (UIBarPosition)positionForSelectionIndicator:(id<UIBarPositioning>)bar{
-    return UIBarPositionAny;
 }
 
 @end

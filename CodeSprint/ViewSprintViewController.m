@@ -26,27 +26,36 @@
 @end
 
 @implementation ViewSprintViewController
-- (void)viewWillAppear:(BOOL)animated{
 
-}
+#pragma mark - View Controller Lifecycle
 - (void)loadView{
      [super loadView];
+    [self setupView];
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // If deleted by another user while current user looking at VC
     __block BOOL currentDelete = false;
     [FirebaseManager observeIncaseDelete:self.currentScrum withCurrentIndex:self.selectedIndex withCompletion:^(BOOL completed) {
         if (completed) {
             currentDelete = true;
             [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            
         }
     }];
-    
     [FirebaseManager observePassiveScrumNode:self.currentScrum withCompletion:^(Artifacts *artifact) {
         if (!currentDelete) {
             self.currentArtifact = artifact;
             [self.sprintGoalsTableView reloadData];
         }
     }];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Helper Methods
+-(void)setupView{
     self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
     self.sprintGoalsTableView.delegate = self;
@@ -54,22 +63,13 @@
     self.sprintGoalsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
-     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(importButtonPressed:)];
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(importButtonPressed:)];
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSString *deadlineText = [NSString stringWithFormat:@"Deadline: %@",currentSprint[kSprintDeadline]];
     self.deadlineLabel.text = deadlineText;
-    // Do any additional setup after loading the view.
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - IBActions
 -(void)importButtonPressed:(id)sender{
-
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
     self.vc.currentArtifact = self.currentArtifact;
@@ -79,17 +79,20 @@
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
 }
--(void)dismiss{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 -(void)didImport:(NSMutableArray*)selected{
-    NSLog(@"selected index: %ld", (long)self.selectedIndex);
-    //NSLog(@"%@", self.currentArtifact.sprintCollection[self.selectedIndex]);
     [FirebaseManager updateSprintFor:self.currentScrum withGoalRefs:selected andCollectionIndex:(NSInteger)self.selectedIndex withArtifact:self.currentArtifact withCompletion:^(Artifacts *artifact) {
         self.currentArtifact = artifact;
         [self.sprintGoalsTableView reloadData];
     }];
 }
+- (IBAction)removeSprintButtonPressed:(id)sender {
+    [FirebaseManager removeActiveSprintFor:self.currentScrum withArtifact:self.currentArtifact forIndex:self.selectedIndex withCompletion:^(BOOL compelted) {
+    }];
+}
+-(void)dismiss{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark - UITableViewDelegate && UITableViewDataSource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewSprintCell"];
     
@@ -117,7 +120,6 @@
             cell.accessoryType = UITableViewCellAccessoryDetailButton;
         }
     }
-    
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -131,9 +133,6 @@
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-   
-   
-    
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSArray *goalRefs = dictionary[kSprintGoalReference];
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
@@ -151,13 +150,9 @@
         popover.throwingGestureEnabled = YES;
         [popover showInViewController:self];
     }
-    
 }
-- (IBAction)removeSprintButtonPressed:(id)sender {
-    [FirebaseManager removeActiveSprintFor:self.currentScrum withArtifact:self.currentArtifact forIndex:self.selectedIndex withCompletion:^(BOOL compelted) {
-        NSLog(@"DID REMOVE");
-    }];
-}
+
+
 /*
 #pragma mark - Navigation
 

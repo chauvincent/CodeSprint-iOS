@@ -36,7 +36,6 @@
     [FirebaseManager observePassiveScrumNode:self.scrumKey withCompletion:^(Artifacts *artifact) {
         self.currentArtifact = artifact;
     }];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -128,7 +127,6 @@
 }
 #pragma mark - Helpers
 -(void)removeProductSpec{
-    // indexpath
     [FirebaseManager removeProductSpecFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath withCompletion:^(BOOL compelted) {
         NSLog(@"DID REMOVE");
         [self dismiss];
@@ -138,16 +136,9 @@
     
 }
 -(void)removeGoalInsideSprint{
-    NSLog(@"indexpath: %ld", (long)self.indexPath); // working
-    NSLog(@"selectedIndex: %ld", _selectedIndex); // not working
     [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath andSprintIndex:_selectedIndex withCompletion:^(Artifacts *artifact) {
         [self dismiss];
     }];
-
-
-    //    [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath withCompletion:^(BOOL compelted) {
-//        NSLog(@"REMOVE GOAL");
-//    }];
 }
 /*
 #pragma mark - Navigation
