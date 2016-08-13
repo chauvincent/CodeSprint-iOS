@@ -35,12 +35,10 @@
 #pragma mark - IBActions
 - (IBAction)createDisplayButtonPressed:(id)sender {
     NSString *usernameInput = self.displayNameTextField.text;
-    
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
     if ([usernameInput isEqualToString:@""]) {
         UIAlertController *alert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Please enter a display name" andDismissNamed:@"Ok"];
         [self presentViewController:alert animated:YES completion:nil];
-
     }else{
         [self.delegate setDisplayName:usernameInput];
         [self dismissViewControllerAnimated:YES completion:nil];

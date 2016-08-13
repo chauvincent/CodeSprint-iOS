@@ -18,7 +18,7 @@
 #import "ErrorCheckUtil.h"
 #import "BacklogTableViewController.h"
 
-@interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource, BacklogTableViewControllerDelegate>
+@interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
 @property (strong, nonatomic) IBOutlet AnimatedButton *removeSprintButton;

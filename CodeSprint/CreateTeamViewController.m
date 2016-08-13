@@ -19,7 +19,6 @@
 @interface CreateTeamViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet CustomTextField *teamTextField;
-
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 
 @end

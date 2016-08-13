@@ -11,19 +11,10 @@
 #import "ArtifactsTableViewCell.h"
 #import "Artifacts.h"
 
-@protocol BacklogTableViewControllerDelegate <NSObject>
-
-@optional
--(void)notifySubscribers:(Artifacts*)artifact;
-
-@end
-
 @interface BacklogTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSString *selectedTeam;
 @property (strong, nonatomic) Artifacts *artifacts;
 @property (strong, nonatomic) NSMutableArray *allSprints;
-
-@property (weak, nonatomic) id<BacklogTableViewControllerDelegate> delegate;
 
 @end

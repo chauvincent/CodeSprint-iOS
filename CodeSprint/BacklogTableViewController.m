@@ -66,9 +66,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-
     _menuItems = @[@"Specifications",@"Sprint Goals",@"Active Sprints"];
-
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
     [FirebaseManager observePassiveScrumNode:self.currentScrumKey withCompletion:^(Artifacts *artifact) {
@@ -76,7 +74,6 @@
         [self.tableView reloadData];
     }];
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -127,19 +124,13 @@
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
 }
--(void)didUpdateForIndex:(NSInteger)index{
-    [FirebaseManager removeActiveSprintFor:self.currentScrumKey withArtifact:self.artifacts forIndex:index withCompletion:^(BOOL compelted) {
-    }];
-}
 #pragma mark - IBAction
 -(void)addArtifactItem:(id)sender{
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.vc = [storyboard instantiateViewControllerWithIdentifier:@"AddItemViewController"];
     self.vc.index = self.currentIndex;
     self.vc.currentScrum = self.currentScrumKey;
     self.vc.currentArtifact = self.artifacts;
-    NSLog(@"current scrum key: %@", self.currentScrumKey);
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.vc];
     RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
     popover.throwingGestureEnabled = YES;
@@ -149,7 +140,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSInteger amountRows;
     switch (self.currentIndex) {
@@ -170,90 +160,11 @@
     }
     return amountRows;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    switch (self.currentIndex) {
-        case 0:
-            self.title = @"Product Backlog";
-             cell.detailTextLabel.text = @"";
-            if (self.artifacts.productSpecs.count == 0) {
-                cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"This is the Product Backlog. Please add the product specifications here before proceeding to the next tab.";
-                cell.userInteractionEnabled = FALSE;
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }else{
-                cell.textLabel.textAlignment = NSTextAlignmentLeft;
-                cell.userInteractionEnabled = TRUE;
-                cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
-                cell.accessoryType = UITableViewCellAccessoryDetailButton;
-                cell.detailTextLabel.text = @"";
-            }
-            break;
-        case 1:
-            self.title = @"Sprint Backlog";
-            if(self.artifacts.sprintGoals.count == 0 && self.artifacts.productSpecs.count == 0){
-                cell.hidden = TRUE;
-                [self.control setSelectedSegmentIndex:0];
-                self.currentIndex = 0;
-                [self.tableView reloadData];
-            }else if(self.artifacts.sprintGoals.count == 0){
-                cell.hidden = FALSE;
-                cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the project specifications and their deadlines.";
-                cell.userInteractionEnabled = FALSE;
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                 cell.detailTextLabel.text = @"";
-            }else{
-                cell.hidden = FALSE;
-                cell.userInteractionEnabled = TRUE;
-                cell.textLabel.textAlignment = NSTextAlignmentLeft;
-                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
-                NSLog(@"current dictionary: %@", currentDictionary);
-                NSString *taskTitle = currentDictionary[kScrumSprintTitle];
-                NSString *deadline = currentDictionary[kScrumSprintDeadline];
-                NSString *subtitleText = [NSString stringWithFormat:@"Deadline: %@", deadline];
-                cell.textLabel.text = taskTitle;
-                cell.detailTextLabel.text = subtitleText;
-                cell.accessoryType = UITableViewCellAccessoryDetailButton;
-            }
-            break;
-        case 2:
-            self.title = @"Active Sprints";
-            if (self.artifacts.productSpecs.count == 0 || self.artifacts.sprintGoals.count == 0 ) {
-                cell.hidden = TRUE;
-                [self.control setSelectedSegmentIndex:1];
-                self.currentIndex = 1;
-                [self.tableView reloadData];
-            }
-            if (self.artifacts.sprintCollection.count == 0) {
-                cell.hidden = FALSE;
-                cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"Please create a new sprint. Once created tap on the cell to manage an active sprint.";
-                cell.userInteractionEnabled = FALSE;
-                 cell.detailTextLabel.text = @"";
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }else {
-                    
-                cell.hidden = FALSE;
-                cell.textLabel.textAlignment = NSTextAlignmentLeft;
-                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];
-                NSLog(@"current dict %@", currentDictionary);
-                NSString *taskTitle = currentDictionary[kSprintTitle];
-                NSString *deadline = currentDictionary[kSprintDeadline];
-                NSString *subtitleText = [NSString stringWithFormat:@"Ends on: %@", deadline];
-                cell.textLabel.text = taskTitle;
-                cell.detailTextLabel.text = subtitleText;
-                cell.userInteractionEnabled = TRUE;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }
-  
-            break;
-        default:
-            break;
-    }
-    return cell;
+    return [self configureCellForIndex:indexPath withCell:cell];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -303,7 +214,6 @@
     [self.control setCount:sprintGoals forSegmentAtIndex:1];
     [self.control setCount:sprintCollection forSegmentAtIndex:2];
 }
-
 - (void)didChangeSegment:(DZNSegmentedControl *)control{
     if (self.artifacts.productSpecs.count == 0 && control.selectedSegmentIndex == 1) {
         ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
@@ -322,7 +232,87 @@
         [self.tableView reloadData];
         
     }
-    
+}
+#pragma mark - Cell Helpers
+-(ArtifactsTableViewCell*)configureCellForIndex:(NSIndexPath*)indexPath withCell:(ArtifactsTableViewCell*)cell{
+    switch (self.currentIndex) {
+        case 0:
+            self.title = @"Product Backlog";
+            cell.detailTextLabel.text = @"";
+            if (self.artifacts.productSpecs.count == 0) {
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.textLabel.text = @"This is the Product Backlog. Please add the product specifications here before proceeding to the next tab.";
+                cell.userInteractionEnabled = FALSE;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }else{
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                cell.userInteractionEnabled = TRUE;
+                cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+                cell.detailTextLabel.text = @"";
+            }
+            break;
+        case 1:
+            self.title = @"Sprint Backlog";
+            if(self.artifacts.sprintGoals.count == 0 && self.artifacts.productSpecs.count == 0){
+                cell.hidden = TRUE;
+                [self.control setSelectedSegmentIndex:0];
+                self.currentIndex = 0;
+                [self.tableView reloadData];
+            }else if(self.artifacts.sprintGoals.count == 0){
+                cell.hidden = FALSE;
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the project specifications and their deadlines.";
+                cell.userInteractionEnabled = FALSE;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.detailTextLabel.text = @"";
+            }else{
+                cell.hidden = FALSE;
+                cell.userInteractionEnabled = TRUE;
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
+                NSLog(@"current dictionary: %@", currentDictionary);
+                NSString *taskTitle = currentDictionary[kScrumSprintTitle];
+                NSString *deadline = currentDictionary[kScrumSprintDeadline];
+                NSString *subtitleText = [NSString stringWithFormat:@"Deadline: %@", deadline];
+                cell.textLabel.text = taskTitle;
+                cell.detailTextLabel.text = subtitleText;
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+            }
+            break;
+        case 2:
+            self.title = @"Active Sprints";
+            if (self.artifacts.productSpecs.count == 0 || self.artifacts.sprintGoals.count == 0 ) {
+                cell.hidden = TRUE;
+                [self.control setSelectedSegmentIndex:1];
+                self.currentIndex = 1;
+                [self.tableView reloadData];
+            }
+            if (self.artifacts.sprintCollection.count == 0) {
+                cell.hidden = FALSE;
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.textLabel.text = @"Please create a new sprint. Once created tap on the cell to manage an active sprint.";
+                cell.userInteractionEnabled = FALSE;
+                cell.detailTextLabel.text = @"";
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }else {
+                
+                cell.hidden = FALSE;
+                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];
+                NSString *taskTitle = currentDictionary[kSprintTitle];
+                NSString *deadline = currentDictionary[kSprintDeadline];
+                NSString *subtitleText = [NSString stringWithFormat:@"Ends on: %@", deadline];
+                cell.textLabel.text = taskTitle;
+                cell.detailTextLabel.text = subtitleText;
+                cell.userInteractionEnabled = TRUE;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            break;
+        default:
+            break;
+    }
+    return cell;
 }
 
 @end
