@@ -26,13 +26,27 @@
 @end
 
 @implementation ViewSprintViewController
+- (void)viewWillAppear:(BOOL)animated{
+
+}
 - (void)loadView{
      [super loadView];
+    __block BOOL currentDelete = false;
+    [FirebaseManager observeIncaseDelete:self.currentScrum withCurrentIndex:self.selectedIndex withCompletion:^(BOOL completed) {
+        if (completed) {
+            currentDelete = true;
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            
+        }
+    }];
     
-    NSUInteger currentVCIndex = [self.navigationController.viewControllers indexOfObject:self.navigationController.topViewController];
-    //previous view controller
-    BacklogTableViewController *parentVC = (BacklogTableViewController*)[self.navigationController.viewControllers objectAtIndex:currentVCIndex - 1];
-    parentVC.delegate = self;
+    [FirebaseManager observePassiveScrumNode:self.currentScrum withCompletion:^(Artifacts *artifact) {
+        if (!currentDelete) {
+            self.currentArtifact = artifact;
+            [self.sprintGoalsTableView reloadData];
+        }
+    }];
 
     self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
@@ -80,6 +94,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewSprintCell"];
     
+   
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSArray *goalRefs = dictionary[kSprintGoalReference];
 
@@ -91,28 +106,35 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.userInteractionEnabled = FALSE;
     }else{
-        cell.textLabel.numberOfLines = 3;
-        cell.userInteractionEnabled = TRUE;
-        cell.textLabel.textAlignment = NSTextAlignmentLeft;
-        NSInteger myInt = [goalRefs[indexPath.row] integerValue];
-        NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
-        cell.textLabel.text = currentSprint[kScrumSprintTitle];
-        NSString *detailText = [NSString stringWithFormat:@"Deadline: %@",currentSprint[kScrumSprintDeadline]];
-        cell.detailTextLabel.text = detailText;
-        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        if (indexPath.row <= self.currentArtifact.sprintGoals.count) {
+            cell.textLabel.numberOfLines = 3;
+            cell.userInteractionEnabled = TRUE;
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+            NSInteger myInt = [goalRefs[indexPath.row] integerValue];
+            NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
+            cell.textLabel.text = currentSprint[kScrumSprintTitle];
+            NSString *detailText = [NSString stringWithFormat:@"Deadline: %@",currentSprint[kScrumSprintDeadline]];
+            cell.detailTextLabel.text = detailText;
+            cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        }
     }
+    
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
-    NSArray *goals = (NSArray*)dictionary[kSprintGoalReference];
-    return [goals count];
+     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
+        NSArray *goals = (NSArray*)dictionary[kSprintGoalReference];
+        return [goals count];
+
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+   
+   
+    
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSArray *goalRefs = dictionary[kSprintGoalReference];
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
@@ -130,6 +152,7 @@
         popover.throwingGestureEnabled = YES;
         [popover showInViewController:self];
     }
+    
 }
 /*
 #pragma mark - Navigation
@@ -140,16 +163,7 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (IBAction)removeButtonPressed:(id)sender {
-    NSLog(@"Remove Sprint Pressed");
-    [FirebaseManager removeActiveSprintFor:self.currentScrum withArtifact:self.currentArtifact forIndex:self.selectedIndex withCompletion:^(BOOL compelted) {
-        [self dismiss];
-    }];
-}
 
--(void)notifySubscribers:(Artifacts *)artifact{
-    NSLog(@"DID GET NOTIFIED");
-    self.currentArtifact = artifact;
-    [self.sprintGoalsTableView reloadData];
-}
+
+
 @end

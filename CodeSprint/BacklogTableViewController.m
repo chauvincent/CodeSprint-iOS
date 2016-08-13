@@ -20,7 +20,7 @@
 @interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 
 @property (nonatomic, strong) AddItemViewController *vc;
-@property (nonatomic, weak) ViewSprintViewController *viewSprintController;
+@property (nonatomic, strong) ViewSprintViewController *viewSprintController;
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
 @property (nonatomic, strong) NSString *currentScrumKey;
@@ -61,26 +61,20 @@
 #pragma mark - ViewController Lifecycle
 - (void)loadView{
     [super loadView];
+
     NSLog(@"Selected team: %@", self.selectedTeam);
     self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
    
     // Set up observer for backlog changes
-    [FirebaseManager observeScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
+    [FirebaseManager observePassiveScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
         self.artifacts = artifact;
-        NSLog(@"==============  OBSERVER IS FIRING  ==============");
-        NSLog(@"%@", self.artifacts.productSpecs);
-        NSLog(@"%@", self.artifacts.sprintGoals);
-        NSLog(@"%@", self.artifacts.sprintCollection);
-        NSLog(@"===================================================");
         // Chaining Observer
         self.vc.currentArtifact = artifact;
         self.viewSprintController.currentArtifact = artifact;
         self.viewSprintController.vc.currentArtifact = artifact;
         self.viewSprintController.currentScrum = self.currentScrumKey;
-        [self.delegate notifySubscribers:self.artifacts];
-        [self.tableView reloadData];
-        
-        [self updateControlCounts];
+      // [self.tableView reloadData];
+       [self updateControlCounts];
     }];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
@@ -95,6 +89,18 @@
 
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
+    [FirebaseManager observePassiveScrumNode:self.currentScrumKey withCompletion:^(Artifacts *artifact) {
+        NSLog(@"DID OBSERVE PASSIVE");
+        self.artifacts = artifact;
+        [self.tableView reloadData];
+    }];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self
+               action:@selector(removePressed:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Show View" forState:UIControlStateNormal];
+    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    [self.tableView addSubview:button];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -224,7 +230,8 @@
                 cell.userInteractionEnabled = FALSE;
                  cell.detailTextLabel.text = @"";
                 cell.accessoryType = UITableViewCellAccessoryNone;
-            }else{
+            }else {
+                    
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];
@@ -317,9 +324,23 @@
     }else{
         self.currentIndex = control.selectedSegmentIndex;
         [self.tableView reloadData];
+
     }
 
 }
+-(void)removePressed:(id)sender{
+    
+}
+-(void)didUpdateForIndex:(NSInteger)index{
+    NSLog(@"DELEGATE CALLED");
+    NSLog(@"%ld",(long)index);
+    [FirebaseManager removeActiveSprintFor:self.currentScrumKey withArtifact:self.artifacts forIndex:index withCompletion:^(BOOL compelted) {
+        NSLog(@"FINISHIED");
+
+    }];
+}
+
+
 #pragma mark - DZNSegmentedControlDelegate Methods
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)view{
     return UIBarPositionAny;

@@ -184,7 +184,8 @@
 #pragma mark - Scrum Management - Insertions
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
     FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
-    [scrumQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+
+    [scrumQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSMutableArray *productSpecs = [[NSMutableArray alloc] init];
         NSMutableArray *allGoals = [[NSMutableArray alloc] init];
         NSMutableArray *sprintCollection = [[NSMutableArray alloc] init];
@@ -196,20 +197,16 @@
         }
         
         if ([[response allKeys] containsObject:kScrumSprintGoals]) {
-//            allGoals = response[kScrumSprintGoals];
-            NSArray *test = (NSArray*)response[kScrumSprintGoals];
+           NSArray *test = (NSArray*)response[kScrumSprintGoals];
             for (NSDictionary *dict in test) {
                 [allGoals addObject:dict];
             }
-            NSLog(@"%@", allGoals);
         }
         if ([[response allKeys] containsObject:kSprintHead]) {
-            NSLog(@"has scrum");
             NSArray *sprintIntervals = (NSArray*)response[kSprintHead];
             for (NSDictionary *dict in sprintIntervals) {
                 [sprintCollection addObject:dict];
             }
-            
         }
         Artifacts *artifact = [[Artifacts alloc] initWithProductSpecs:productSpecs andGoals:allGoals withSprints:sprintCollection];
         block(artifact);
@@ -259,6 +256,35 @@
         block(newArtifact);
     }];
 }
++ (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
+    FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
+
+    [scrumQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSMutableArray *productSpecs = [[NSMutableArray alloc] init];
+        NSMutableArray *allGoals = [[NSMutableArray alloc] init];
+        NSMutableArray *sprintCollection = [[NSMutableArray alloc] init];
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+
+        if ([[response allKeys] containsObject:kScrumProductSpecs]) {
+            productSpecs = response[kScrumProductSpecs];
+        }
+        
+        if ([[response allKeys] containsObject:kScrumSprintGoals]) {
+            NSArray *test = (NSArray*)response[kScrumSprintGoals];
+            for (NSDictionary *dict in test) {
+                [allGoals addObject:dict];
+            }
+        }
+        if ([[response allKeys] containsObject:kSprintHead]) {
+            NSArray *sprintIntervals = (NSArray*)response[kSprintHead];
+            for (NSDictionary *dict in sprintIntervals) {
+                [sprintCollection addObject:dict];
+            }
+        }
+        Artifacts *artifact = [[Artifacts alloc] initWithProductSpecs:productSpecs andGoals:allGoals withSprints:sprintCollection];
+        block(artifact);
+    }];
+}
 #pragma mark - Scrum Management - Deletions
 + (void)removeActiveSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact forIndex:(NSInteger)selectedIndex withCompletion:(void (^)(BOOL compelted))block{
     FIRDatabaseReference *currentSprint = [[[self scrumRef] child:scrumKey] child:kSprintHead];
@@ -266,7 +292,6 @@
         NSMutableArray *sprintArray = [(NSArray*)snapshot.value mutableCopy];
         [sprintArray removeObjectAtIndex:selectedIndex];
         [currentSprint setValue:sprintArray];
-        NSLog(@"INSIDE REMOVE: %@", sprintArray);
         block(true);
     }];
 }
@@ -296,15 +321,20 @@
 
         FIRDatabaseReference *updateRef = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)selectedSprint]];
         [updateRef updateChildValues:@{kSprintGoalReference:array}];
-        
-
-        NSMutableDictionary *dict = [[artifact.sprintCollection objectAtIndex:selectedIndex] mutableCopy];
-        dict[kSprintGoalReference] = array;
-        artifact.sprintCollection[selectedIndex] = dict;
-        Artifacts *newArtifact = [[Artifacts alloc] initWithProductSpecs:artifact.productSpecs andGoals:artifact.sprintGoals withSprints:artifact.sprintCollection];
-        block(newArtifact);
-
+        block(artifact);
     }];
 }
 
++(void)observeIncaseDelete:(NSString*)scrumKey withCurrentIndex:(NSInteger)index withCompletion:(void (^)(BOOL completed))block{
+    NSString *currentIndex = [NSString stringWithFormat:@"%ld", (long)index];
+    FIRDatabaseReference *change = [[[self scrumRef] child:scrumKey] child:kSprintHead];
+    [change observeEventType:FIRDataEventTypeChildRemoved withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        if ([snapshot.key isEqualToString:currentIndex]) {
+            block(true);
+            NSLog(@"current is being deleted");
+        }else{
+            block(false);
+        }
+    }];
+}
 @end

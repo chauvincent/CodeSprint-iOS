@@ -43,7 +43,7 @@
                                 <rect key="frame" x="10" y="72" width="581" height="519"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8C9-ka-EQh">
-                                        <rect key="frame" x="90" y="0.0" width="402" height="20"/>
+                                        <rect key="frame" x="89" y="0.0" width="402" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="402" id="Kcw-Ef-E8i"/>
                                             <constraint firstAttribute="height" constant="20" id="M8I-LM-hro"/>
@@ -53,7 +53,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IpX-hJ-ndv">
-                                        <rect key="frame" x="0.0" y="30" width="581" height="442"/>
+                                        <rect key="frame" x="0.0" y="30" width="581" height="489"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="ViewSprintCell" textLabel="bXw-t9-Uft" detailTextLabel="SaM-gR-j8D" style="IBUITableViewCellStyleSubtitle" id="XRP-YS-qhu" customClass="ArtifactsTableViewCell">
@@ -82,20 +82,6 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gz-2v-geE" customClass="AnimatedButton">
-                                        <rect key="frame" x="221" y="482" width="140" height="37"/>
-                                        <color key="backgroundColor" red="0.96862745098039216" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="140" id="GgK-bC-Qn6"/>
-                                            <constraint firstAttribute="height" constant="37" id="k3q-1X-mfE"/>
-                                        </constraints>
-                                        <state key="normal" title="Remove Sprint">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="removeButtonPressed:" destination="IEA-bd-SUh" eventType="touchUpInside" id="GPo-bx-DQI"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="8C9-ka-EQh" firstAttribute="top" secondItem="r3R-hZ-bYG" secondAttribute="top" id="4eT-tH-XAc"/>
@@ -115,7 +101,6 @@
                     </view>
                     <connections>
                         <outlet property="deadlineLabel" destination="8C9-ka-EQh" id="p9B-cZ-nSL"/>
-                        <outlet property="removeSprintButton" destination="7gz-2v-geE" id="anp-sr-V0A"/>
                         <outlet property="sprintGoalsTableView" destination="IpX-hJ-ndv" id="KXl-JU-ryH"/>
                     </connections>
                 </viewController>

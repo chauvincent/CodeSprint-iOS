@@ -25,6 +25,7 @@
     self.selected = [[NSMutableArray alloc] init];
     self.sprintGoalsTableView.delegate = self;
     self.sprintGoalsTableView.dataSource = self;
+    
   
     self.sprintGoalsTableView.allowsMultipleSelectionDuringEditing = YES;
     [self.sprintGoalsTableView setEditing:YES animated:YES];

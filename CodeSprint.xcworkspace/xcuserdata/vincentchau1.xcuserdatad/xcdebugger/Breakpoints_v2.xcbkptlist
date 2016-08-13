@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CodeSprint/PopupSettingsViewController.m"
-            timestampString = "492693737.040505"
+            timestampString = "492742049.488355"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "-removeGoalInsideSprint"
             landmarkType = "5">
          </BreakpointContent>

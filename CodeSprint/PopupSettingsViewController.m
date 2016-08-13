@@ -32,7 +32,10 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupView];
+    
+    [FirebaseManager observePassiveScrumNode:self.scrumKey withCompletion:^(Artifacts *artifact) {
+        self.currentArtifact = artifact;
+    }];
     // Do any additional setup after loading the view.
 }
 
@@ -135,9 +138,9 @@
     
 }
 -(void)removeGoalInsideSprint{
-    NSLog(@"indexpath: %ld", (long)self.indexPath);
-    NSLog(@"selectedIndex: %ld", self.selectedIndex);
-    [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath andSprintIndex:self.selectedIndex withCompletion:^(Artifacts *artifact) {
+    NSLog(@"indexpath: %ld", (long)self.indexPath); // working
+    NSLog(@"selectedIndex: %ld", _selectedIndex); // not working
+    [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath andSprintIndex:_selectedIndex withCompletion:^(Artifacts *artifact) {
         [self dismiss];
     }];
 
