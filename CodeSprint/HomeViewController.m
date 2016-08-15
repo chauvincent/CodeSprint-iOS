@@ -58,6 +58,9 @@
     self.navigationItem.title = @"CodeSprint";
     self.navigationItem.hidesBackButton = YES;
 
+    self.view.backgroundColor = GREY_COLOR;
+    self.menuTableView.backgroundColor = GREY_COLOR;
+    
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
     NSURL *urlAddress = [FirebaseManager sharedInstance].currentUser.photoURL;

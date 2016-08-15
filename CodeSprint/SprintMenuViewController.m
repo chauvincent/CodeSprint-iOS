@@ -34,6 +34,7 @@
     [FirebaseManager observeNewTeams];
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
+    
     self.view.backgroundColor = GREY_COLOR;
     self.teamsTableView.backgroundColor = GREY_COLOR;
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];

@@ -280,7 +280,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scatter3" translatesAutoresizingMaskIntoConstraints="NO" id="5E8-Mg-AK2">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scatterlight" translatesAutoresizingMaskIntoConstraints="NO" id="5E8-Mg-AK2" customClass="ShadowImageView">
                                 <rect key="frame" x="0.0" y="64" width="600" height="123"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q2x-Ga-6Mn">
@@ -397,7 +397,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U8s-Z6-bCX">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U8s-Z6-bCX">
                                         <rect key="frame" x="0.0" y="28" width="560" height="338"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -1114,6 +1114,6 @@
         <image name="githubSignIn" width="336" height="44"/>
         <image name="logo2" width="466" height="435"/>
         <image name="remove-button" width="300" height="300"/>
-        <image name="scatter3" width="800" height="239"/>
+        <image name="scatterlight" width="800" height="239"/>
     </resources>
 </document>

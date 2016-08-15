@@ -16,8 +16,8 @@
     self.layer.cornerRadius = self.frame.size.width / 2.0f;
     self.clipsToBounds = YES;
     self.layer.borderWidth = 0.5f;
-    self.layer.borderWidth = 8.0f;
-    self.layer.borderColor = [UIColor colorWithRed:SHADOW_COLOR green:SHADOW_COLOR blue:SHADOW_COLOR alpha:0.1].CGColor;
+    //self.layer.borderWidth = 8.0f;
+    self.layer.borderColor = LIGHT_GREY_COLOR.CGColor;
     self.contentMode = UIViewContentModeScaleToFill;
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
     self.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
