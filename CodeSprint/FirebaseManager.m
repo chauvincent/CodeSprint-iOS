@@ -330,5 +330,48 @@
         block(artifact);
     }];
 }
++ (void)removeSprintFromAllFor:(NSString*)scrumKey withArtifact:(Artifacts*)currentArtifact andIndex:(NSInteger)indexPath withCompletion:(void (^)(BOOL completed))block{
+    FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey]queryOrderedByChild:kSprintHead
+                                      ];
+    [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        NSMutableArray *sprintGoals = [(NSArray*)response[kScrumSprintGoals] mutableCopy];
+        [sprintGoals removeObjectAtIndex:indexPath];
+        NSArray *newGoals = [NSArray arrayWithArray:sprintGoals];
+        NSLog(@"NEW GOALS: %@", newGoals);
+        FIRDatabaseReference *update = [[self scrumRef] child:scrumKey];
+        
+        NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
+//        NSDictionary *currentSprint = sprintArray[indexPath];
+//        NSMutableArray *goalRef = [currentSprint[kSprintGoalReference] mutableCopy];
+//        
+       // NSMutableArray *newSprintArray = [[NSMutableArray alloc] init];
+        for (NSDictionary* sprintDict in sprintArray) {
+            if ([[sprintDict allKeys] containsObject:kSprintGoalReference]) {
+                NSMutableArray* goalRefs = [sprintDict[kSprintGoalReference] mutableCopy];
+                if ([goalRefs containsObject:@(indexPath)]) {
+                    [goalRefs removeObject:@(indexPath)];
+                    if ([goalRefs count] == 0) {
+                        [goalRefs addObject:@(-1)];
+                    }
+                }
+            }else{
+         //       [newSprintArray addObject:sprintDict];
+            }
+        }
+        
+        
+        
+        
+        
 
+        [update updateChildValues:@{kScrumSprintGoals:newGoals}];
+                                    NSLog(@"DONE");
+        block(TRUE);
+    }];
+    
+    
+    
+}
 @end

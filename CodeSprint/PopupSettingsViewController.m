@@ -133,8 +133,11 @@
     }];
 }
 -(void)removeSprintGoal{
-    
-}
+    NSLog(@"SELECTED INDEX: %ld", (long)_selectedIndex);
+    [FirebaseManager removeSprintFromAllFor:self.scrumKey withArtifact:self.currentArtifact andIndex:self.indexPath withCompletion:^(BOOL completed) {
+        NSLog(@"DONE");
+        [self dismiss];
+    }];}
 -(void)removeGoalInsideSprint{
     [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath andSprintIndex:_selectedIndex withCompletion:^(Artifacts *artifact) {
         [self dismiss];
