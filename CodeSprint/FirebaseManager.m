@@ -199,6 +199,7 @@
     block(true);
 }
 + (void)updateSprintFor:(NSString*)scrumKey withGoalRefs:(NSMutableArray*)refs andCollectionIndex:(NSInteger)index withArtifact:(Artifacts*)artifact withCompletion:(void (^)(Artifacts* artifact))block{
+/*
     FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kSprintHead];
     [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *response = (NSDictionary*)snapshot.value;
@@ -225,6 +226,40 @@
         Artifacts *newArtifact = [[Artifacts alloc] initWithProductSpecs:artifact.productSpecs andGoals:artifact.sprintGoals withSprints:artifact.sprintCollection];
         block(newArtifact);
     }];
+*/
+
+    FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kSprintHead];
+    [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
+        NSDictionary *currentSprint = sprintArray[index];
+        NSMutableArray *goalRef = [currentSprint[kSprintGoalReference] mutableCopy];
+        NSMutableArray *sprintGoals = [(NSArray*)response[kScrumSprintGoals] mutableCopy];
+
+        if ([goalRef containsObject:@(-1)]) {
+            [goalRef removeObject:@(-1)];
+        }
+        for (int i = 0; i < refs.count; i++) {
+            NSIndexPath *path = (NSIndexPath*)refs[i];
+            NSInteger index = path.row;
+            NSDictionary *goalDict = sprintGoals[index];
+            if ([goalRef containsObject:goalDict]) {
+                
+            }else{
+                 [goalRef addObject:goalDict];
+            }
+        }
+        
+        NSArray *arrayWithoutDuplicates = [NSArray arrayWithArray:goalRef];
+        NSMutableDictionary *dict = [[artifact.sprintCollection objectAtIndex:index] mutableCopy];
+        FIRDatabaseReference *updateRef = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)index]];
+        [updateRef updateChildValues:@{kSprintGoalReference:arrayWithoutDuplicates}];
+        dict[kSprintGoalReference] = arrayWithoutDuplicates;
+        artifact.sprintCollection[index] = dict;
+        Artifacts *newArtifact = [[Artifacts alloc] initWithProductSpecs:artifact.productSpecs andGoals:artifact.sprintGoals withSprints:artifact.sprintCollection];
+        block(newArtifact);
+    }];
+
 }
 #pragma mark - Scrum Management - Observers
 + (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
@@ -340,28 +375,9 @@
         NSMutableArray *sprintGoals = [(NSArray*)response[kScrumSprintGoals] mutableCopy];
         [sprintGoals removeObjectAtIndex:indexPath];
         NSArray *newGoals = [NSArray arrayWithArray:sprintGoals];
-        NSLog(@"NEW GOALS: %@", newGoals);
         FIRDatabaseReference *update = [[self scrumRef] child:scrumKey];
-        if ([[response allKeys] containsObject:kSprintHead]) {
-            NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
-            NSMutableArray *newSprintArray = [[NSMutableArray alloc] init];
-            for (NSMutableDictionary* sprintDict in sprintArray) {
-                if ([[sprintDict allKeys] containsObject:kSprintGoalReference]) {
-                    NSMutableArray* goalRefs = [sprintDict[kSprintGoalReference] mutableCopy];
-                    if ([goalRefs containsObject:@(indexPath)]) {
-                        [goalRefs removeObject:@(indexPath)];
-                        if ([goalRefs count] == 0) {
-                            [goalRefs addObject:@(-1)];
-                        }
-                    }
-                    sprintDict[kSprintGoalReference] = goalRefs;
-                }
-                [newSprintArray addObject:sprintDict];
-            }
-            [update updateChildValues:@{kScrumSprintGoals:newGoals}];
-            [update updateChildValues:@{kSprintHead:[NSArray arrayWithArray:newSprintArray]}];
-        }
-        //[update updateChildValues:@{kScrumSprintGoals:newGoals}];
+        [update updateChildValues:@{kScrumSprintGoals:newGoals}];
+
         block(TRUE);
     }];
 }
@@ -381,6 +397,19 @@
         [exactSprint updateChildValues:@{kScrumSprintCompleted:@(1),
                                          kScrumSprintFinishDate:stringFromDate}];
     }
+    block(TRUE);
+}
++ (void)markGoalInsideSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)currentArtifact andSelected:(NSInteger)selectedIndex withPath:(NSInteger)indexPath withCompletion:(void (^)(BOOL completed))block{
+
+    NSDictionary *currentSprint = currentArtifact.sprintCollection[selectedIndex];
+    NSMutableArray *goalRefs = [currentSprint[kSprintGoalReference] mutableCopy];
+    NSMutableDictionary *currentGoal = [goalRefs[indexPath] mutableCopy]; // current goal from ref
+    currentGoal[kScrumSprintCompleted] = @(1);
+    goalRefs[indexPath] = currentGoal;
+    
+    FIRDatabaseReference *reference = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)selectedIndex]];
+    [reference updateChildValues:@{kSprintGoalReference:goalRefs}];
+    
     block(TRUE);
 }
 @end

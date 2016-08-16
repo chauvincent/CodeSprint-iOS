@@ -285,7 +285,7 @@
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
-        case 2: // BUG: WHEN CHECK IOF STATE FOR COMPLETE TO MAKE USRE IT DOESNT RUN WHEN OFF BOUNDS
+        case 2: 
             self.title = @"Active Sprints";
             if (self.artifacts.productSpecs.count == 0 || self.artifacts.sprintGoals.count == 0 ) {
                 cell.hidden = TRUE;

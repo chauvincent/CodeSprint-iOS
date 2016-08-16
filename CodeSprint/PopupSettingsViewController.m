@@ -98,11 +98,15 @@
 }
 -(void)setForSprint{
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
-    NSArray *goalRefs = currentSprint[kSprintGoalReference];
-    NSUInteger current = [goalRefs[_indexPath] integerValue];
-    NSDictionary *currentGoal = self.currentArtifact.sprintGoals[current];
-    self.titleTextView.text = currentGoal[kScrumSprintTitle];
-    self.descriptionTextView.text = currentGoal[kScrumSprintDescription];
+//    NSArray *goalRefs = currentSprint[kSprintGoalReference];
+//    NSUInteger current = [goalRefs[_indexPath] integerValue];
+//    NSDictionary *currentGoal = self.currentArtifact.sprintGoals[current];
+//    self.titleTextView.text = currentGoal[kScrumSprintTitle];
+//    self.descriptionTextView.text = currentGoal[kScrumSprintDescription];
+    NSArray *currentGoals = currentSprint[kSprintGoalReference];
+    NSDictionary *selectedGoal = currentGoals[_indexPath];
+    self.titleTextView.text = selectedGoal[kScrumSprintTitle];
+    self.descriptionTextView.text = selectedGoal[kScrumSprintDescription];
 }
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -164,11 +168,29 @@
     // Get Goalrefs
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
     NSArray *goalRefs = currentSprint[kSprintGoalReference];
-    NSUInteger current = [goalRefs[_indexPath] integerValue];
-    [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:current withCompletion:^(BOOL completed) {
-        [self dismiss];
-    }];
+    NSDictionary *currentGoal = goalRefs[_indexPath]; // current goal from ref
+    NSUInteger index = 0;
+    NSMutableArray *allGoals = self.currentArtifact.sprintGoals;
+    BOOL found = false;
     
+    for (NSDictionary *goalDict in allGoals) {
+        if ([goalDict isEqualToDictionary:currentGoal]) {
+            found = true;
+            break;
+        }
+        index++;
+    }
+    if (found) {
+        [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:index withCompletion:^(BOOL completed) {
+           // [self dismiss];
+        }];
+        [FirebaseManager markGoalInsideSprintFor:self.scrumKey withArtifact:self.currentArtifact andSelected:_selectedIndex withPath:_indexPath withCompletion:^(BOOL completed) {
+            [self dismiss];
+        }];
+    }else{
+        NSLog(@"NOT FOUND");
+    }
+
 }
 /*
 #pragma mark - Navigation
