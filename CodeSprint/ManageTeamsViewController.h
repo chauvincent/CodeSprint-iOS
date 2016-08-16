@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ManageTeamViewControllerDelegate <NSObject>
+
+-(void)didLeave:(NSMutableArray*)selected;
+
+@end
+
+
 @interface ManageTeamsViewController : UIViewController
+
+@property (weak, nonatomic) id<ManageTeamViewControllerDelegate> delegate;
 
 @end

@@ -68,7 +68,7 @@
 - (IBAction)editButtonPressed:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ManageTeamsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ManageTeamsViewController"];
-    //vc.delegate = self;
+    vc.delegate = self;
     [self popoverController:vc];
 }
 
@@ -98,7 +98,7 @@
     }
 }
 
-#pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate
+#pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate && ManageTeamViewControllerDelegate
 -(void)createdNewTeam:(NSString*)inputText{
     Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].currentUser.uid andTeam:inputText];
     [[FirebaseManager sharedInstance].currentUser.groupsIDs addObject:inputText];
@@ -116,6 +116,9 @@
 }
 -(void)didJoinTeam{
     [self.teamsTableView reloadData];
+}
+-(void)didLeave:(NSMutableArray*)selected{
+    
 }
 #pragma mark - UITableViewDelegate 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

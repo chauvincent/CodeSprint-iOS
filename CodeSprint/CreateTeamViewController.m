@@ -56,7 +56,7 @@
     
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
-    self.navigationItem.title = @"Create";
+    self.navigationItem.title = @"Create Team";
 }
 
 #pragma mark - IBActions

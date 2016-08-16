@@ -10,10 +10,11 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "FirebaseManager.h"
 #import "Constants.h"
-@interface ManageTeamsViewController ()
+@interface ManageTeamsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (strong, nonatomic) IBOutlet UITableView *teamsTableView;
 @property (strong, nonatomic) UITapGestureRecognizer *contentTapGesture;
+@property (strong, nonatomic) NSMutableArray *selected;
 @end
 
 @implementation ManageTeamsViewController
@@ -21,6 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
+    self.selected = [[NSMutableArray alloc] init];
+    self.teamsTableView.delegate = self;
+    self.teamsTableView.dataSource = self;
+    self.teamsTableView.allowsMultipleSelectionDuringEditing = YES;
+    [self.teamsTableView setEditing:YES animated:YES];
     // Do any additional setup after loading the view.
 }
 
@@ -28,9 +34,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)submitButtonPressed:(id)sender {
-}
-
 /*
 #pragma mark - Navigation
 
@@ -67,4 +70,45 @@
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)submitButtonPressed:(id)sender {
+    if (self.selected.count!=0) {
+        [self.delegate didLeave:self.selected];
+    }
+    [self dismiss];
+}
+
+#pragma mark - UITableViewDelegate && UITableViewDatasource
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"ImportCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if ([self.currentArtifact.sprintGoals count] == 0) {
+////        cell.textLabel.text = @"None To Select";
+////        self.submitButton.enabled = NO;
+//    }else{
+//        self.submitButton.enabled = YES;
+//        NSDictionary *currentGoal = self.currentArtifact.sprintGoals[indexPath.row];
+//        if ([currentGoal[kScrumSprintCompleted] isEqual:@(1)]) {
+//            cell.textLabel.text = [NSString stringWithFormat:@"(Completed) %@", currentGoal[kSprintTitle]];
+//        }else{
+//            cell.textLabel.text = currentGoal[kSprintTitle];
+//        }
+   // }
+    return cell;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+    //    if ([self.currentArtifact.sprintGoals count] == 0) {
+//        return 1;
+//    }else{
+//        return [self.currentArtifact.sprintGoals count];
+//    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([self.selected containsObject:indexPath]){
+        [self.selected removeObject:indexPath];
+    }else{
+        [self.selected addObject:indexPath];
+    }
+}
+
 @end

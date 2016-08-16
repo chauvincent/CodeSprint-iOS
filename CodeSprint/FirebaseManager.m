@@ -358,9 +358,10 @@
                 }
                 [newSprintArray addObject:sprintDict];
             }
+            [update updateChildValues:@{kScrumSprintGoals:newGoals}];
             [update updateChildValues:@{kSprintHead:[NSArray arrayWithArray:newSprintArray]}];
         }
-        [update updateChildValues:@{kScrumSprintGoals:newGoals}];
+        //[update updateChildValues:@{kScrumSprintGoals:newGoals}];
         block(TRUE);
     }];
 }
@@ -371,6 +372,7 @@
     if ([localSprint[kScrumSprintCompleted] isEqual:@(0)]) {
         FIRDatabaseReference *sprintGoalRef = [[[self scrumRef] child:scrumKey] child:kScrumSprintGoals];
         NSString *indexChild = [NSString stringWithFormat:@"%ld",(long)selectedIndex];
+        NSLog(@"INDEX CHILD: %@", indexChild);
         FIRDatabaseReference *exactSprint = [sprintGoalRef child:indexChild];
         NSDate *today = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
