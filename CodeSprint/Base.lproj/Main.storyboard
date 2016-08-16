@@ -89,7 +89,7 @@
                                             <constraint firstAttribute="width" constant="223" id="jdk-Mt-vZt"/>
                                             <constraint firstAttribute="height" constant="30" id="nha-7S-aKO"/>
                                         </constraints>
-                                        <state key="normal" title="Remove This Item">
+                                        <state key="normal" title="Remove This Sprint">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -774,7 +774,7 @@
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="266" id="pR1-kr-ozQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -916,6 +916,81 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ca8-Y7-nKH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3077" y="-2011"/>
+        </scene>
+        <!--Manage Teams View Controller-->
+        <scene sceneID="LvK-gw-55X">
+            <objects>
+                <viewController storyboardIdentifier="ManageTeamsViewController" id="Duc-Pm-0fC" customClass="ManageTeamsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6tq-dI-yLJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="EJY-wy-gJa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7dm-3v-b6Q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ON1-qK-NIO">
+                                <rect key="frame" x="167" y="28" width="266" height="268"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0e2-iZ-XSR">
+                                        <rect key="frame" x="0.0" y="0.0" width="266" height="200"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="266" id="67k-x1-gNz"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="cBs-UG-Idv"/>
+                                            <constraint firstAttribute="height" constant="200" id="kW0-ni-g0b"/>
+                                        </constraints>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImportCell" id="5hT-NY-t6O">
+                                                <rect key="frame" x="0.0" y="28" width="266" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hT-NY-t6O" id="QTB-S8-ZbD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="266" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the teams you want to leave. Please note that all your team's data would be deleted if there is no one in the group." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIx-6z-Lyx">
+                                        <rect key="frame" x="0.0" y="200" width="266" height="68"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="Q5g-jI-JdA"/>
+                                            <constraint firstAttribute="height" constant="68" id="V8l-US-lcI"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="68" id="YvU-CI-zky"/>
+                                            <constraint firstAttribute="width" constant="311" id="jph-Wh-f0P"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="266" id="pOe-uF-2GY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="jph-Wh-f0P"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ON1-qK-NIO" firstAttribute="top" secondItem="6tq-dI-yLJ" secondAttribute="bottom" constant="8" symbolic="YES" id="HoC-OL-zWC"/>
+                            <constraint firstItem="ON1-qK-NIO" firstAttribute="centerX" secondItem="7dm-3v-b6Q" secondAttribute="centerX" id="tMW-80-GGc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="submitButton" destination="fk6-KM-DCW" id="nak-2C-55K"/>
+                        <outlet property="teamsTableView" destination="0e2-iZ-XSR" id="sGy-DL-1kh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j9d-1c-9Hr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Leave Team" id="fk6-KM-DCW">
+                    <connections>
+                        <action selector="submitButtonPressed:" destination="Duc-Pm-0fC" id="p5C-Bi-Vx1"/>
+                    </connections>
+                </barButtonItem>
+            </objects>
+            <point key="canvasLocation" x="3765" y="-2016"/>
         </scene>
         <!--Create Display Name View Controller-->
         <scene sceneID="PK5-Kx-WrX">

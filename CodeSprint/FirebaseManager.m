@@ -322,13 +322,11 @@
         NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
         NSDictionary *currentSprint = sprintArray[selectedSprint];
         NSMutableArray *goalRef = [currentSprint[kSprintGoalReference] mutableCopy];
-        
         [goalRef removeObjectAtIndex:selectedIndex];
         if (goalRef.count == 0) {
             [goalRef addObject:@(-1)];
         }
         NSArray *array = [NSArray arrayWithArray:goalRef];
-
         FIRDatabaseReference *updateRef = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)selectedSprint]];
         [updateRef updateChildValues:@{kSprintGoalReference:array}];
         block(artifact);
@@ -338,14 +336,12 @@
     FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey]queryOrderedByChild:kSprintHead
                                       ];
     [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
         NSDictionary *response = (NSDictionary*)snapshot.value;
         NSMutableArray *sprintGoals = [(NSArray*)response[kScrumSprintGoals] mutableCopy];
         [sprintGoals removeObjectAtIndex:indexPath];
         NSArray *newGoals = [NSArray arrayWithArray:sprintGoals];
         NSLog(@"NEW GOALS: %@", newGoals);
         FIRDatabaseReference *update = [[self scrumRef] child:scrumKey];
-        
         if ([[response allKeys] containsObject:kSprintHead]) {
             NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
             NSMutableArray *newSprintArray = [[NSMutableArray alloc] init];
@@ -367,8 +363,22 @@
         [update updateChildValues:@{kScrumSprintGoals:newGoals}];
         block(TRUE);
     }];
-    
-    
-    
+}
+
+#pragma mark - Scrum Object Completion Functions
++ (void)markSprintGoalAsCompleteFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact andSelected:(NSInteger)selectedIndex withCompletion:(void (^)(BOOL completed))block{
+    NSDictionary *localSprint = artifact.sprintGoals[selectedIndex];
+    if ([localSprint[kScrumSprintCompleted] isEqual:@(0)]) {
+        FIRDatabaseReference *sprintGoalRef = [[[self scrumRef] child:scrumKey] child:kScrumSprintGoals];
+        NSString *indexChild = [NSString stringWithFormat:@"%ld",(long)selectedIndex];
+        FIRDatabaseReference *exactSprint = [sprintGoalRef child:indexChild];
+        NSDate *today = [NSDate date];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d YYYY"];
+        NSString *stringFromDate = [formatter stringFromDate:today];
+        [exactSprint updateChildValues:@{kScrumSprintCompleted:@(1),
+                                         kScrumSprintFinishDate:stringFromDate}];
+    }
+    block(TRUE);
 }
 @end

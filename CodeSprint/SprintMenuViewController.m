@@ -9,6 +9,7 @@
 #import "SprintMenuViewController.h"
 #import "CreateTeamViewController.h"
 #import "SearchTeamViewController.h"
+#import "ManageTeamsViewController.h"
 #import "BacklogTableViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 #import "Team.h"
@@ -60,12 +61,15 @@
 }
 - (IBAction)searchButtonPressed:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    CreateTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchTeamViewController"];
+    SearchTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchTeamViewController"];
     vc.delegate = self;
     [self popoverController:vc];
 }
 - (IBAction)editButtonPressed:(id)sender {
-   // Add Later: Leave Team Button
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ManageTeamsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ManageTeamsViewController"];
+    //vc.delegate = self;
+    [self popoverController:vc];
 }
 
 #pragma mark - View Setup
@@ -85,7 +89,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)popoverController:(id)controller{
-    if ([controller isKindOfClass:[CreateTeamViewController class]] || [controller isKindOfClass:[SearchTeamViewController class]]) {
+    if ([controller isKindOfClass:[CreateTeamViewController class]] || [controller isKindOfClass:[SearchTeamViewController class]] || [controller isKindOfClass:[ManageTeamsViewController class]]) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
         RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
         popover.throwingGestureEnabled = YES;

@@ -34,6 +34,7 @@ extern NSString *const kScrumProductComplete;
 extern NSString *const kScrumSprintTitle;
 extern NSString *const kScrumSprintDeadline;
 extern NSString *const kScrumSprintCompleted;
+extern NSString *const kScrumSprintFinishDate;
 extern NSString *const kScrumSprintDescription;
 
 #pragma mark - Sprint Keys

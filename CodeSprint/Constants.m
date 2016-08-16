@@ -36,6 +36,7 @@ NSString *const kScrumProductComplete   = @"completed";
 NSString *const kScrumSprintTitle       = @"title";
 NSString *const kScrumSprintDeadline    = @"deadline";
 NSString *const kScrumSprintCompleted   = @"completed";
+NSString *const kScrumSprintFinishDate  = @"completedDate";
 NSString *const kScrumSprintDescription = @"description";
 
 #pragma mark Sprint Keys

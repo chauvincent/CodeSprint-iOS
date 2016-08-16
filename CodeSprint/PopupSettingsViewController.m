@@ -109,6 +109,18 @@
 }
 #pragma mark - IBActions
 - (IBAction)completedButton:(id)sender {
+    switch (self.currentIndex) {
+        case 0:
+            break;
+        case 1:
+            [self markSprintGoalAsComplete];
+            break;
+        case 2:
+            [self markSprintAsCompleteFromInside];
+            break;
+        default:
+            break;
+    }
 }
 - (IBAction)removeButton:(id)sender {
     switch (self.currentIndex) {
@@ -141,6 +153,22 @@
     [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath andSprintIndex:_selectedIndex withCompletion:^(Artifacts *artifact) {
         [self dismiss];
     }];
+}
+-(void)markSprintGoalAsComplete{
+    [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:self.indexPath withCompletion:^(BOOL completed) {
+        NSLog(@"DID MARK AS COMPLETE");
+        [self dismiss];
+    }];
+}
+-(void)markSprintAsCompleteFromInside{
+    // Get Goalrefs
+    NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
+    NSArray *goalRefs = currentSprint[kSprintGoalReference];
+    NSUInteger current = [goalRefs[_indexPath] integerValue];
+    [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:current withCompletion:^(BOOL completed) {
+        [self dismiss];
+    }];
+    
 }
 /*
 #pragma mark - Navigation

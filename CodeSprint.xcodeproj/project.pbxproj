@@ -31,6 +31,7 @@
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
 		759CA8361D3E2FE200A26EB9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 759CA8351D3E2FE200A26EB9 /* User.m */; };
 		75AE51C21D5D2406001B4939 /* AnimatedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AE51C11D5D2406001B4939 /* AnimatedButton.m */; };
+		75AF0F011D62879D00B60FC4 /* ManageTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AF0F001D62879D00B60FC4 /* ManageTeamsViewController.m */; };
 		75B375AB1D4AEBD7008F73F6 /* CustomUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B375AA1D4AEBD7008F73F6 /* CustomUILabel.m */; };
 		75BEA1B01D4B373700F4F4D9 /* SprintTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BEA1AF1D4B373700F4F4D9 /* SprintTableViewCell.m */; };
 		75BEA1B31D4B3DCC00F4F4D9 /* BacklogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BEA1B21D4B3DCC00F4F4D9 /* BacklogTableViewController.m */; };
@@ -99,6 +100,8 @@
 		759CA8351D3E2FE200A26EB9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		75AE51C01D5D2406001B4939 /* AnimatedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedButton.h; sourceTree = "<group>"; };
 		75AE51C11D5D2406001B4939 /* AnimatedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedButton.m; sourceTree = "<group>"; };
+		75AF0EFF1D62879D00B60FC4 /* ManageTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageTeamsViewController.h; sourceTree = "<group>"; };
+		75AF0F001D62879D00B60FC4 /* ManageTeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageTeamsViewController.m; sourceTree = "<group>"; };
 		75B375A91D4AEBD7008F73F6 /* CustomUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUILabel.h; sourceTree = "<group>"; };
 		75B375AA1D4AEBD7008F73F6 /* CustomUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUILabel.m; sourceTree = "<group>"; };
 		75BEA1AE1D4B373700F4F4D9 /* SprintTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintTableViewCell.h; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 				75843BF71D547F9C00D6777F /* ImportItemsViewController.m */,
 				75F97B161D5A877B00A8633F /* PopupSettingsViewController.h */,
 				75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */,
+				75AF0EFF1D62879D00B60FC4 /* ManageTeamsViewController.h */,
+				75AF0F001D62879D00B60FC4 /* ManageTeamsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -455,6 +460,7 @@
 				754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */,
 				755B762B1D2415CE00B211CF /* Team.m in Sources */,
 				75BEA1B31D4B3DCC00F4F4D9 /* BacklogTableViewController.m in Sources */,
+				75AF0F011D62879D00B60FC4 /* ManageTeamsViewController.m in Sources */,
 				759918981D1D981F00E38268 /* ShadowImageView.m in Sources */,
 				752C07671D30F52B00E8712D /* CircleBorderedButton.m in Sources */,
 				75BEA1B01D4B373700F4F4D9 /* SprintTableViewCell.m in Sources */,

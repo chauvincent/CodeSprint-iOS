@@ -74,7 +74,11 @@
     }else{
         self.submitButton.enabled = YES;
         NSDictionary *currentGoal = self.currentArtifact.sprintGoals[indexPath.row];
-        cell.textLabel.text = currentGoal[kSprintTitle];
+        if ([currentGoal[kScrumSprintCompleted] isEqual:@(1)]) {
+            cell.textLabel.text = [NSString stringWithFormat:@"(Completed) %@", currentGoal[kSprintTitle]];
+        }else{
+            cell.textLabel.text = currentGoal[kSprintTitle];
+        }
     }
     return cell;
 }

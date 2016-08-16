@@ -273,10 +273,15 @@
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
                 NSLog(@"current dictionary: %@", currentDictionary);
                 NSString *taskTitle = currentDictionary[kScrumSprintTitle];
-                NSString *deadline = currentDictionary[kScrumSprintDeadline];
-                NSString *subtitleText = [NSString stringWithFormat:@"Deadline: %@", deadline];
+                if ([currentDictionary[kScrumSprintCompleted] isEqual:@(1)]) {
+                    NSString *detailText = [NSString stringWithFormat:@"Deadline: %@, Completed on %@", currentDictionary[kScrumSprintDeadline], currentDictionary[kScrumSprintFinishDate]];
+                    cell.detailTextLabel.text = detailText;
+                }else{
+                    NSString *deadline = currentDictionary[kScrumSprintDeadline];
+                    NSString *subtitleText = [NSString stringWithFormat:@"Deadline: %@", deadline];
+                    cell.detailTextLabel.text = subtitleText;
+                }
                 cell.textLabel.text = taskTitle;
-                cell.detailTextLabel.text = subtitleText;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
             }
             break;
