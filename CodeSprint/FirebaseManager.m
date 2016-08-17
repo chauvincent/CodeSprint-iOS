@@ -185,11 +185,14 @@
     FIRDatabaseReference *userRef = [[self userRef] child:uid];
     [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *userDictionary = (NSDictionary*)snapshot.value;
+        NSString *teamName;
         for (NSNumber *selected in index) {
             NSInteger myInt = [selected integerValue];
+            teamName = [userDictionary[kTeamsHead] objectAtIndex:myInt];
             [userDictionary[kTeamsHead] removeObjectAtIndex:myInt];
         }
         [FirebaseManager sharedInstance].currentUser.groupsIDs = userDictionary[kTeamsHead];
+        [[FirebaseManager sharedInstance].currentUser.scrumIDs removeObjectForKey:teamName];
         [userRef updateChildValues:@{kTeamsHead:userDictionary[kTeamsHead]}];
 
         block(true);

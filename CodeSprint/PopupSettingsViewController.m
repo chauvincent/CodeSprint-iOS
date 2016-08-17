@@ -98,11 +98,6 @@
 }
 -(void)setForSprint{
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
-//    NSArray *goalRefs = currentSprint[kSprintGoalReference];
-//    NSUInteger current = [goalRefs[_indexPath] integerValue];
-//    NSDictionary *currentGoal = self.currentArtifact.sprintGoals[current];
-//    self.titleTextView.text = currentGoal[kScrumSprintTitle];
-//    self.descriptionTextView.text = currentGoal[kScrumSprintDescription];
     NSArray *currentGoals = currentSprint[kSprintGoalReference];
     NSDictionary *selectedGoal = currentGoals[_indexPath];
     self.titleTextView.text = selectedGoal[kScrumSprintTitle];
@@ -182,7 +177,6 @@
     }
     if (found) {
         [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:index withCompletion:^(BOOL completed) {
-           // [self dismiss];
         }];
         [FirebaseManager markGoalInsideSprintFor:self.scrumKey withArtifact:self.currentArtifact andSelected:_selectedIndex withPath:_indexPath withCompletion:^(BOOL completed) {
             [self dismiss];

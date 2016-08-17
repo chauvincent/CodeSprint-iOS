@@ -112,16 +112,7 @@
             cell.textLabel.numberOfLines = 3;
             cell.userInteractionEnabled = TRUE;
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
-//            NSInteger myInt = [goalRefs[indexPath.row] integerValue];
-//            NSDictionary *currentSprint = [self.currentArtifact.sprintGoals objectAtIndex:myInt];
-//            if ([currentSprint[kScrumSprintCompleted] isEqual:@(1)]) {
-//                NSString *detailText = [NSString stringWithFormat:@"Deadline: %@, Completed on %@", currentSprint[kScrumSprintDeadline], currentSprint[kScrumSprintFinishDate]];
-//                cell.detailTextLabel.text = detailText;
-//            }else{
-//                NSString *detailText = [NSString stringWithFormat:@"Deadline: %@",currentSprint[kScrumSprintDeadline]];
-//                cell.detailTextLabel.text = detailText;
-//            }
-//            cell.textLabel.text = currentSprint[kScrumSprintTitle];
+
             NSDictionary *currentGoal = goalRefs[indexPath.row];
             NSString *detailText;
             if ([currentGoal[kScrumSprintCompleted] isEqual:@(1)]) {

@@ -72,7 +72,7 @@
 
     NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
     if (count == 0) {
-        cell.textLabel.text = @"No teams to Delete.";
+        cell.textLabel.text = @"No teams to leave.";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.userInteractionEnabled = NO;
     }else{

@@ -33,9 +33,7 @@
     [super viewDidLoad];
     [self setupView];
     [FirebaseManager observeNewTeams];
-//    [FirebaseManager observeNewTeams:^(BOOL completed) {
-//        [self.teamsTableView reloadData];
-//    }];
+
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
     
@@ -143,9 +141,11 @@
     if ([[FirebaseManager sharedInstance].currentUser.groupsIDs count] == 0) {
         cell.teamNameLabel.text = @"No teams to display.";
         CGSize imageViewSize = cell.identiconImageView.frame.size;
+        cell.userInteractionEnabled = NO;
         cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
         return cell;
     }
+    cell.userInteractionEnabled = YES;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
     CGSize imageViewSize = cell.identiconImageView.frame.size;
