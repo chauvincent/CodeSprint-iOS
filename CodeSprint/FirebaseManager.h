@@ -42,7 +42,8 @@
 
 #pragma mark - Insertion/Deletetion Teams Functions
 + (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block;
-+ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block; 
++ (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block;
++ (void)removeUserFromTeam:(NSString*)uid withIndexs:(NSArray*)index withCompletion:(void (^)(BOOL result))block;
 
 #pragma mark - Scrum/Sprint Insertion Functions
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;

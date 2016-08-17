@@ -180,7 +180,16 @@
 }
 
 #pragma mark - Team Management - Deletions
-
++ (void)removeUserFromTeam:(NSString*)uid withIndexs:(NSArray*)index withCompletion:(void (^)(BOOL result))block{
+    FIRDatabaseReference *userRef = [[self userRef] child:uid];
+    [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *userDictionary = (NSDictionary*)snapshot.value;
+        //[userDictionary[kTeamsHead] removeObject:teamName];
+        [userRef updateChildValues:@{kTeamsHead:userDictionary[kTeamsHead]}];
+        [FirebaseManager sharedInstance].currentUser.groupsIDs = userDictionary[kTeamsHead];
+        block(true);
+    }];
+}
 #pragma mark - Scrum Management - Insertions
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
     
@@ -199,34 +208,6 @@
     block(true);
 }
 + (void)updateSprintFor:(NSString*)scrumKey withGoalRefs:(NSMutableArray*)refs andCollectionIndex:(NSInteger)index withArtifact:(Artifacts*)artifact withCompletion:(void (^)(Artifacts* artifact))block{
-/*
-    FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kSprintHead];
-    [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSDictionary *response = (NSDictionary*)snapshot.value;
-        NSMutableArray *sprintArray = [(NSArray*)response[kSprintHead] mutableCopy];
-        NSDictionary *currentSprint = sprintArray[index];
-        NSMutableArray *goalRef = [currentSprint[kSprintGoalReference] mutableCopy];
-        for (int i = 0; i < refs.count; i++) {
-            NSIndexPath *path = (NSIndexPath*)refs[i];
-            NSInteger myInteger = path.row;
-            int newInt = (int)myInteger;
-            NSNumber *sprintRef = [NSNumber numberWithInt:newInt];
-            [goalRef addObject:sprintRef];
-        }
-        if ([goalRef containsObject:@(-1)]) {
-            [goalRef removeObject:@(-1)];
-        }
-        NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:goalRef];
-        NSArray *arrayWithoutDuplicates = [orderedSet array];
-        NSMutableDictionary *dict = [[artifact.sprintCollection objectAtIndex:index] mutableCopy];
-        FIRDatabaseReference *updateRef = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)index]];
-        [updateRef updateChildValues:@{kSprintGoalReference:arrayWithoutDuplicates}];
-        dict[kSprintGoalReference] = arrayWithoutDuplicates;
-        artifact.sprintCollection[index] = dict;
-        Artifacts *newArtifact = [[Artifacts alloc] initWithProductSpecs:artifact.productSpecs andGoals:artifact.sprintGoals withSprints:artifact.sprintCollection];
-        block(newArtifact);
-    }];
-*/
 
     FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kSprintHead];
     [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -235,7 +216,6 @@
         NSDictionary *currentSprint = sprintArray[index];
         NSMutableArray *goalRef = [currentSprint[kSprintGoalReference] mutableCopy];
         NSMutableArray *sprintGoals = [(NSArray*)response[kScrumSprintGoals] mutableCopy];
-
         if ([goalRef containsObject:@(-1)]) {
             [goalRef removeObject:@(-1)];
         }
@@ -249,7 +229,6 @@
                  [goalRef addObject:goalDict];
             }
         }
-        
         NSArray *arrayWithoutDuplicates = [NSArray arrayWithArray:goalRef];
         NSMutableDictionary *dict = [[artifact.sprintCollection objectAtIndex:index] mutableCopy];
         FIRDatabaseReference *updateRef = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)index]];

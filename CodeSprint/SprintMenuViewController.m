@@ -118,9 +118,19 @@
     [self.teamsTableView reloadData];
 }
 -(void)didLeave:(NSMutableArray*)selected{
-    
+    User *currentUser = [FirebaseManager sharedInstance].currentUser;
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [selected count]; i++) {
+        NSIndexPath *path = (NSIndexPath*)selected[i];
+        NSInteger index = path.row;
+        [array addObject:@(index)];
+    }
+//    
+//    [FirebaseManager removeUserFromTeam:groupName andUser:currentUser.uid withIndexs:@[] withCompletion:^(BOOL result) {
+//        [self.teamsTableView reloadData];
+//    }];
 }
-#pragma mark - UITableViewDelegate 
+#pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];

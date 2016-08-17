@@ -81,27 +81,19 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"ImportCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if ([self.currentArtifact.sprintGoals count] == 0) {
-////        cell.textLabel.text = @"None To Select";
-////        self.submitButton.enabled = NO;
-//    }else{
-//        self.submitButton.enabled = YES;
-//        NSDictionary *currentGoal = self.currentArtifact.sprintGoals[indexPath.row];
-//        if ([currentGoal[kScrumSprintCompleted] isEqual:@(1)]) {
-//            cell.textLabel.text = [NSString stringWithFormat:@"(Completed) %@", currentGoal[kSprintTitle]];
-//        }else{
-//            cell.textLabel.text = currentGoal[kSprintTitle];
-//        }
-   // }
+
+    NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+    if (count == 0) {
+        self.submitButton.enabled = NO;
+    }else{
+        self.submitButton.enabled = YES;
+        cell.textLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.row];
+    }
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
-    //    if ([self.currentArtifact.sprintGoals count] == 0) {
-//        return 1;
-//    }else{
-//        return [self.currentArtifact.sprintGoals count];
-//    }
+    NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+    return (count == 0) ?  1 : count;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([self.selected containsObject:indexPath]){
