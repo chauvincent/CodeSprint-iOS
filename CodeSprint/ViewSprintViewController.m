@@ -123,7 +123,12 @@
 //            }
 //            cell.textLabel.text = currentSprint[kScrumSprintTitle];
             NSDictionary *currentGoal = goalRefs[indexPath.row];
-            NSString *detailText = [NSString stringWithFormat:@"Deadline: %@", currentGoal[kScrumSprintDeadline]];
+            NSString *detailText;
+            if ([currentGoal[kScrumSprintCompleted] isEqual:@(1)]) {
+                detailText = [NSString stringWithFormat:@"Deadline: %@, Completed On: %@", currentGoal[kScrumSprintDeadline], currentGoal[kScrumSprintFinishDate]];
+            }else{
+                detailText = [NSString stringWithFormat:@"Deadline: %@", currentGoal[kScrumSprintDeadline]];
+            }
             cell.detailTextLabel.text = detailText;
             cell.textLabel.text = currentGoal[kScrumSprintTitle];
             cell.accessoryType = UITableViewCellAccessoryDetailButton;

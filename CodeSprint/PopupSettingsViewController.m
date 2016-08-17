@@ -188,7 +188,7 @@
             [self dismiss];
         }];
     }else{
-        NSLog(@"NOT FOUND");
+        [self dismiss];
     }
 
 }

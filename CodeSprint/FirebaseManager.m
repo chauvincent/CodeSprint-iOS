@@ -405,6 +405,11 @@
     NSMutableArray *goalRefs = [currentSprint[kSprintGoalReference] mutableCopy];
     NSMutableDictionary *currentGoal = [goalRefs[indexPath] mutableCopy]; // current goal from ref
     currentGoal[kScrumSprintCompleted] = @(1);
+    NSDate *today = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d YYYY"];
+    NSString *stringFromDate = [formatter stringFromDate:today];
+    currentGoal[kScrumSprintFinishDate] = stringFromDate;
     goalRefs[indexPath] = currentGoal;
     
     FIRDatabaseReference *reference = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)selectedIndex]];
