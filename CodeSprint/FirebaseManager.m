@@ -123,7 +123,17 @@
         }
     }];
 }
++ (void)observeUserChanges:(NSString*)userID withCompletion:(void (^)(User *updatedUser))block{
+//    @property (strong, nonatomic) NSString *uid;
+//    @property (strong, nonatomic) NSMutableArray *groupsIDs;
+//    @property (strong, nonatomic) NSMutableDictionary *scrumIDs;
+//    @property (strong, nonatomic) NSMutableDictionary *chatroomIDs;
+//    @property (strong, nonatomic) NSString *displayName;
+//    @property (strong, nonatomic) NSURL *photoURL;
+//    @property (assign) BOOL didSetName;
 
+
+}
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];
@@ -182,18 +192,18 @@
 
 #pragma mark - Team Management - Deletions
 + (void)removeUserFromTeam:(NSString*)uid withIndexs:(NSArray*)index withCompletion:(void (^)(BOOL result))block{
-//    FIRDatabaseReference *userRef = [[self userRef] child:uid];
-//    [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        NSDictionary *userDictionary = (NSDictionary*)snapshot.value;
-//        for (NSNumber *selected in index) {
-//            NSInteger myInt = [selected integerValue];
-//            [userDictionary[kTeamsHead] removeObjectAtIndex:myInt];
-//        }
-//        [FirebaseManager sharedInstance].currentUser.groupsIDs = userDictionary[kTeamsHead];
-//        [userRef updateChildValues:@{kTeamsHead:userDictionary[kTeamsHead]}];
+    FIRDatabaseReference *userRef = [[self userRef] child:uid];
+    [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *userDictionary = (NSDictionary*)snapshot.value;
+        for (NSNumber *selected in index) {
+            NSInteger myInt = [selected integerValue];
+            [userDictionary[kTeamsHead] removeObjectAtIndex:myInt];
+        }
+        [FirebaseManager sharedInstance].currentUser.groupsIDs = userDictionary[kTeamsHead];
+        [userRef updateChildValues:@{kTeamsHead:userDictionary[kTeamsHead]}];
 
         block(true);
-//    }];
+    }];
 }
 #pragma mark - Scrum Management - Insertions
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{

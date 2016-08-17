@@ -25,7 +25,8 @@
     self.selected = [[NSMutableArray alloc] init];
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
-    self.teamsTableView.allowsMultipleSelectionDuringEditing = YES;
+    
+    self.teamsTableView.allowsMultipleSelectionDuringEditing = NO;
     [self.teamsTableView setEditing:YES animated:YES];
     // Do any additional setup after loading the view.
 }
@@ -96,11 +97,23 @@
     return (count == 0) ?  1 : count;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([self.selected containsObject:indexPath]){
-        [self.selected removeObject:indexPath];
-    }else{
+//    if([self.selected containsObject:indexPath]){
+//        [self.selected removeObject:indexPath];
+//    }else{
+//        [self.selected addObject:indexPath];
+//    }
+}
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete){
         [self.selected addObject:indexPath];
+        NSLog(@"DID GET CALLED");
+        NSLog(@"%@",self.selected);
+        [self.delegate didLeave:self.selected];
+        
+        [self dismiss];
     }
 }
-
 @end

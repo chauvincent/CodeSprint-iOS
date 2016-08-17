@@ -18,7 +18,7 @@
 #import "IGIdenticon.h"
 #import "Constants.h"
 
-@interface SprintMenuViewController () <CreateTeamViewControllerDelegate, SearchTeamViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SprintMenuViewController () <CreateTeamViewControllerDelegate,ManageTeamViewControllerDelegate, SearchTeamViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSString *selectedTeam;
 @property (weak, nonatomic) IBOutlet UITableView *teamsTableView;
@@ -73,6 +73,7 @@
     ManageTeamsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ManageTeamsViewController"];
     vc.delegate = self;
     [self popoverController:vc];
+   
 }
 
 #pragma mark - View Setup
@@ -100,6 +101,7 @@
         self.createTeamPopover = popover;
     }
 }
+#pragma mark - Helpers
 
 #pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate && ManageTeamViewControllerDelegate
 -(void)createdNewTeam:(NSString*)inputText{
@@ -121,6 +123,7 @@
     [self.teamsTableView reloadData];
 }
 -(void)didLeave:(NSMutableArray*)selected{
+    NSLog(@"DID GET CALLED");
     User *currentUser = [FirebaseManager sharedInstance].currentUser;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i < [selected count]; i++) {
