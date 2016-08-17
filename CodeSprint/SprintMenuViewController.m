@@ -33,6 +33,9 @@
     [super viewDidLoad];
     [self setupView];
     [FirebaseManager observeNewTeams];
+//    [FirebaseManager observeNewTeams:^(BOOL completed) {
+//        [self.teamsTableView reloadData];
+//    }];
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
     
@@ -125,10 +128,9 @@
         NSInteger index = path.row;
         [array addObject:@(index)];
     }
-//    
-//    [FirebaseManager removeUserFromTeam:groupName andUser:currentUser.uid withIndexs:@[] withCompletion:^(BOOL result) {
-//        [self.teamsTableView reloadData];
-//    }];
+    [FirebaseManager removeUserFromTeam:currentUser.uid withIndexs:array withCompletion:^(BOOL result) {
+        [self.teamsTableView reloadData];
+    }];
 }
 #pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

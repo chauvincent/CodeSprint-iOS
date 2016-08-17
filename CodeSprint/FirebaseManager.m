@@ -169,6 +169,7 @@
                     NSMutableArray *oldTeams = [[response objectForKey:kCSUserTeamKey] mutableCopy];
                     [oldTeams addObject:teamName];
                     newTeams = [oldTeams mutableCopy];
+                    
                 }else{
                     newTeams = [NSArray arrayWithArray:[NSMutableArray arrayWithObject:teamName]];
                 }
@@ -181,14 +182,18 @@
 
 #pragma mark - Team Management - Deletions
 + (void)removeUserFromTeam:(NSString*)uid withIndexs:(NSArray*)index withCompletion:(void (^)(BOOL result))block{
-    FIRDatabaseReference *userRef = [[self userRef] child:uid];
-    [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSDictionary *userDictionary = (NSDictionary*)snapshot.value;
-        //[userDictionary[kTeamsHead] removeObject:teamName];
-        [userRef updateChildValues:@{kTeamsHead:userDictionary[kTeamsHead]}];
-        [FirebaseManager sharedInstance].currentUser.groupsIDs = userDictionary[kTeamsHead];
+//    FIRDatabaseReference *userRef = [[self userRef] child:uid];
+//    [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//        NSDictionary *userDictionary = (NSDictionary*)snapshot.value;
+//        for (NSNumber *selected in index) {
+//            NSInteger myInt = [selected integerValue];
+//            [userDictionary[kTeamsHead] removeObjectAtIndex:myInt];
+//        }
+//        [FirebaseManager sharedInstance].currentUser.groupsIDs = userDictionary[kTeamsHead];
+//        [userRef updateChildValues:@{kTeamsHead:userDictionary[kTeamsHead]}];
+
         block(true);
-    }];
+//    }];
 }
 #pragma mark - Scrum Management - Insertions
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
