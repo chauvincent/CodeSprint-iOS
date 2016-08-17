@@ -123,17 +123,7 @@
         }
     }];
 }
-+ (void)observeUserChanges:(NSString*)userID withCompletion:(void (^)(User *updatedUser))block{
-//    @property (strong, nonatomic) NSString *uid;
-//    @property (strong, nonatomic) NSMutableArray *groupsIDs;
-//    @property (strong, nonatomic) NSMutableDictionary *scrumIDs;
-//    @property (strong, nonatomic) NSMutableDictionary *chatroomIDs;
-//    @property (strong, nonatomic) NSString *displayName;
-//    @property (strong, nonatomic) NSURL *photoURL;
-//    @property (assign) BOOL didSetName;
 
-
-}
 #pragma mark - Queries
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block{
     __block NSDictionary *response = [[NSDictionary alloc] init];

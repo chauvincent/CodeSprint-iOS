@@ -25,25 +25,19 @@
     self.selected = [[NSMutableArray alloc] init];
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
-    
     self.teamsTableView.allowsMultipleSelectionDuringEditing = NO;
-    [self.teamsTableView setEditing:YES animated:YES];
-    // Do any additional setup after loading the view.
+    
+    NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+    if (count == 0) {
+        [self.teamsTableView setEditing:NO animated:NO];
+    }else{
+        [self.teamsTableView setEditing:YES animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - View Setup
 -(CGSize)preferredContentSize{
     return CGSizeMake(280.0f, 320.0f);
@@ -64,18 +58,11 @@
     [button setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
-    self.navigationItem.leftBarButtonItem = self.submitButton;
     self.navigationItem.leftBarButtonItem.title = @"OK";
 }
 #pragma mark - IBActions
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-- (IBAction)submitButtonPressed:(id)sender {
-    if (self.selected.count!=0) {
-        [self.delegate didLeave:self.selected];
-    }
-    [self dismiss];
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDatasource
@@ -85,9 +72,12 @@
 
     NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
     if (count == 0) {
-        self.submitButton.enabled = NO;
+        cell.textLabel.text = @"No teams to Delete.";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.userInteractionEnabled = NO;
     }else{
-        self.submitButton.enabled = YES;
+        cell.userInteractionEnabled = YES;
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
         cell.textLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.row];
     }
     return cell;
@@ -96,23 +86,13 @@
     NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
     return (count == 0) ?  1 : count;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if([self.selected containsObject:indexPath]){
-//        [self.selected removeObject:indexPath];
-//    }else{
-//        [self.selected addObject:indexPath];
-//    }
-}
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete){
         [self.selected addObject:indexPath];
-        NSLog(@"DID GET CALLED");
-        NSLog(@"%@",self.selected);
         [self.delegate didLeave:self.selected];
-        
         [self dismiss];
     }
 }

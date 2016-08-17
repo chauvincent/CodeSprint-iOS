@@ -33,7 +33,6 @@
 
 #pragma mark - Single and Passive Observers
 + (void)observeNewTeams;
-
 + (void)observeUserChanges:(NSString*)userID withCompletion:(void (^)(User *updatedUser))block;
 + (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
 + (void)observeIncaseDelete:(NSString*)scrumKey withCurrentIndex:(NSInteger)index withCompletion:(void (^)(BOOL completed))block;
