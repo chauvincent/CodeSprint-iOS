@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'D42673B23057B8D011D59A3A'
+               BlueprintIdentifier = 'C6F4E204F4BE4678D2EF01BC'
                BlueprintName = 'IGIdenticon'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libIGIdenticon.a'>

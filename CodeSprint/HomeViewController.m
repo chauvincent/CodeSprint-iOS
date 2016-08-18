@@ -63,10 +63,10 @@
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
-    NSURL *urlAddress = [FirebaseManager sharedInstance].currentUser.photoURL;
-    if ([urlAddress.absoluteString containsString:@"github"]) {
-        self.profilePictureImageView.image = [UIImage imageNamed:@"UserImage"];
-    }else{
+//    NSURL *urlAddress = [FirebaseManager sharedInstance].currentUser.photoURL;
+//    if ([urlAddress.absoluteString containsString:@"github"]) {
+//        self.profilePictureImageView.image = [UIImage imageNamed:@"UserImage"];
+//    }else{
         NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
         [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
             self.profilePictureImageView.image = image;
@@ -74,7 +74,7 @@
         } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
             NSLog(@"error in downloading image");
         }];
-    }
+//    }
 }
 
 -(void)displaySetNameMenu{

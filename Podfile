@@ -15,6 +15,7 @@ pod 'DZNSegmentedControl'
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
+pod 'JSQMessagesViewController'
 
 end
 
