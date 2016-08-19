@@ -366,11 +366,12 @@
                         <outlet property="menuTableView" destination="Q2x-Ga-6Mn" id="8eU-Up-loE"/>
                         <outlet property="profilePictureImageView" destination="x90-Nh-kmN" id="ac3-CI-ctY"/>
                         <segue destination="7nh-g9-1wz" kind="show" identifier="HomeToSprintSegue" id="Bk9-K7-NOA"/>
+                        <segue destination="x27-tJ-sUv" kind="show" identifier="HomeToChatSegue" id="qNK-mw-9Cc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGR-31-AUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2113" y="-394"/>
+            <point key="canvasLocation" x="2163" y="-394"/>
         </scene>
         <!--Sprint Menu View Controller-->
         <scene sceneID="9Rl-0R-XMK">
@@ -497,7 +498,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPw-BD-im6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3053" y="-394"/>
+            <point key="canvasLocation" x="3043" y="-404"/>
+        </scene>
+        <!--Chatrooms Table View Controller-->
+        <scene sceneID="5oL-wf-g7A">
+            <objects>
+                <tableViewController id="x27-tJ-sUv" customClass="ChatroomsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="PbZ-l9-In8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="5p1-yc-RuP">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5p1-yc-RuP" id="Vch-NQ-6kq">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="x27-tJ-sUv" id="tq2-T6-8ca"/>
+                            <outlet property="delegate" destination="x27-tJ-sUv" id="EZU-VO-eeK"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4bo-K2-GZN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2163" y="377"/>
         </scene>
         <!--Backlog Table View Controller-->
         <scene sceneID="fad-e7-4zm">

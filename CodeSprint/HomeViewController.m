@@ -14,6 +14,7 @@
 #import "Constants.h"
 #import "CreateDisplayNameViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
+#import <JSQMessagesViewController/JSQMessagesViewController.h>
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate>
 
@@ -63,10 +64,6 @@
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
-//    NSURL *urlAddress = [FirebaseManager sharedInstance].currentUser.photoURL;
-//    if ([urlAddress.absoluteString containsString:@"github"]) {
-//        self.profilePictureImageView.image = [UIImage imageNamed:@"UserImage"];
-//    }else{
         NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
         [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
             self.profilePictureImageView.image = image;
@@ -128,6 +125,9 @@
         case 0:
             [self performSegueWithIdentifier:@"HomeToSprintSegue" sender:nil];
             break;
+        case 1:
+            [self performSegueWithIdentifier:@"HomeToChatSegue" sender:nil];
+            break;
             
         default:
             break;
@@ -150,5 +150,6 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
+#pragma mark - Helpers
 
 @end

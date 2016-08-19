@@ -45,6 +45,8 @@
 		75C14F151D18213600CAE375 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C14F141D18213600CAE375 /* LoginViewController.m */; };
 		75C896F21D43635C00B9062F /* CreateDisplayNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */; };
 		75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F41D45A41500B9062F /* ErrorCheckUtil.m */; };
+		75E3AA561D6680A8009A7866 /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA551D6680A8009A7866 /* GroupChatViewController.m */; };
+		75E3AA591D668786009A7866 /* ChatroomsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA581D668786009A7866 /* ChatroomsTableViewController.m */; };
 		75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */; };
 		75F97B181D5A877B00A8633F /* PopupSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */; };
 		A1137C1E6815F8B9B4AFFA5D /* libPods-CodeSprint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */; };
@@ -124,6 +126,10 @@
 		75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateDisplayNameViewController.m; sourceTree = "<group>"; };
 		75C896F31D45A41500B9062F /* ErrorCheckUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorCheckUtil.h; sourceTree = "<group>"; };
 		75C896F41D45A41500B9062F /* ErrorCheckUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorCheckUtil.m; sourceTree = "<group>"; };
+		75E3AA541D6680A8009A7866 /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
+		75E3AA551D6680A8009A7866 /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
+		75E3AA571D668786009A7866 /* ChatroomsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatroomsTableViewController.h; sourceTree = "<group>"; };
+		75E3AA581D668786009A7866 /* ChatroomsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatroomsTableViewController.m; sourceTree = "<group>"; };
 		75E94BE71D51844600F859FD /* ArtifactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtifactsTableViewCell.h; sourceTree = "<group>"; };
 		75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtifactsTableViewCell.m; sourceTree = "<group>"; };
 		75F97B161D5A877B00A8633F /* PopupSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupSettingsViewController.h; sourceTree = "<group>"; };
@@ -296,6 +302,10 @@
 				75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */,
 				75AF0EFF1D62879D00B60FC4 /* ManageTeamsViewController.h */,
 				75AF0F001D62879D00B60FC4 /* ManageTeamsViewController.m */,
+				75E3AA571D668786009A7866 /* ChatroomsTableViewController.h */,
+				75E3AA581D668786009A7866 /* ChatroomsTableViewController.m */,
+				75E3AA541D6680A8009A7866 /* GroupChatViewController.h */,
+				75E3AA551D6680A8009A7866 /* GroupChatViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -460,11 +470,13 @@
 				754FF88B1D1BA183004ABD43 /* IntroductionViewController.m in Sources */,
 				755B762B1D2415CE00B211CF /* Team.m in Sources */,
 				75BEA1B31D4B3DCC00F4F4D9 /* BacklogTableViewController.m in Sources */,
+				75E3AA591D668786009A7866 /* ChatroomsTableViewController.m in Sources */,
 				75AF0F011D62879D00B60FC4 /* ManageTeamsViewController.m in Sources */,
 				759918981D1D981F00E38268 /* ShadowImageView.m in Sources */,
 				752C07671D30F52B00E8712D /* CircleBorderedButton.m in Sources */,
 				75BEA1B01D4B373700F4F4D9 /* SprintTableViewCell.m in Sources */,
 				7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */,
+				75E3AA561D6680A8009A7866 /* GroupChatViewController.m in Sources */,
 				758454EF1D255506001C36EF /* PageContentViewController.m in Sources */,
 				75B375AB1D4AEBD7008F73F6 /* CustomUILabel.m in Sources */,
 				7588AF081D3845CB00F6E1E9 /* SearchTeamViewController.m in Sources */,
