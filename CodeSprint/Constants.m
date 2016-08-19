@@ -44,4 +44,8 @@ NSString *const kSprintHead             = @"sprint";
 NSString *const kSprintTitle            = @"title";
 NSString *const kSprintGoalReference    = @"goalref";
 NSString *const kSprintDeadline         = @"deadline";
+
+#pragma mark Chatroom Keys
+NSString *const kChatroomHead           = @"chatroom";
+
 @end

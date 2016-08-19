@@ -7,10 +7,10 @@
 //
 
 #import "ChatroomsTableViewController.h"
-#import <JSQMessagesViewController/JSQMessagesViewController.h>
+#import <JSQMessages.h>
 #include "FirebaseManager.h"
 #include "Constants.h"
-
+#import "GroupChatViewController.h"
 @interface ChatroomsTableViewController ()
 
 @end
@@ -68,7 +68,11 @@
     }
     return cell;
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    GroupChatViewController *vc = [GroupChatViewController messagesViewController];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,14 +107,21 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+   // if ([segue.identifier isEqualToString:@"GroupsToMessagesSegue"]) {
+//        UINavigationController *nav = segue.destinationViewController;
+//        GroupChatViewController *groupChatVC = (GroupChatViewController*)nav.viewControllers.firstObject;
+//        groupChatVC.senderId =  [FirebaseManager sharedInstance].currentUser.uid;
+//        groupChatVC.senderDisplayName = [FirebaseManager sharedInstance].currentUser.displayName;
+//        
+   // }
 }
-*/
+
 
 @end

@@ -43,7 +43,8 @@ extern NSString *const kSprintGoalReference;
 extern NSString *const kSprintTitle;
 extern NSString *const kSprintDeadline;
 
-
+#pragma mark - Chat Keys
+extern NSString *const kChatroomHead;
 #pragma mark - Color Constants
 
 #define SHADOW_COLOR 157.0/255.0

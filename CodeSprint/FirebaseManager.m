@@ -51,6 +51,12 @@
     }
     return scrumRefs;
 }
+- (FIRDatabaseReference*)chatroomRefs{
+    if (!chatroomRefs) {
+        chatroomRefs = [[self refs] child:kChatroomHead];
+    }
+    return chatroomRefs;
+}
 #pragma mark - Reference Getters
 + (FIRDatabaseReference *)mainRef {
     return [self sharedInstance].refs;
@@ -63,6 +69,9 @@
 }
 + (FIRDatabaseReference *)scrumRef{
     return [self sharedInstance].scrumRefs;
+}
++ (FIRDatabaseReference *)chatRef{
+    return [self sharedInstance].chatroomRefs;
 }
 
 #pragma mark - User Management - Lifecycle
