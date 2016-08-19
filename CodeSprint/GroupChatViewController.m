@@ -26,19 +26,25 @@
     [self setupViews];
     [self setupUser];
     
-    JSQMessage *firstMsg = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
-    [self.messages addObject:firstMsg];
+
     
 //
 //    self.title = @"Messaging";
 //    self.senderId = @"-1";
 //    self.senderDisplayName = @"Self";
-//    self.messages = [[NSMutableArray alloc] init];
+    self.messages = [[NSMutableArray alloc] init];
 //    self.messages = [@[@"!@#!@#!",@"2131231231"] mutableCopy];
     
     // Do any additional setup after loading the view.
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    JSQMessage *firstMsg = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
+    JSQMessage *firstMsg2 = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
+    [self.messages addObject:firstMsg];
+    [self.messages addObject:firstMsg2];
+    [self finishReceivingMessage];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -53,8 +59,12 @@
     self.navigationItem.hidesBackButton = YES;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
+    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
+    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
+    
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
+    
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
@@ -67,7 +77,12 @@
     return [self.messages objectAtIndex:indexPath.item];
 }
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+    JSQMessage *currentMsg = self.messages[indexPath.item];
+    if ([currentMsg.senderId isEqualToString:self.senderId]) {
+        return _outgoingBubbleImageData;
+    }else{
+        return _incomingBubbleImageData;
+    }
 }
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
@@ -78,6 +93,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [self.messages count];
 }
+
 /*
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
