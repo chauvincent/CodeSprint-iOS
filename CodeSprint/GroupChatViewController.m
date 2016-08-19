@@ -8,6 +8,8 @@
 
 #import "GroupChatViewController.h"
 #import "JSQMessages.h"
+#import "FirebaseManager.h"
+#import "Constants.h"
 
 @interface GroupChatViewController () <JSQMessagesCollectionViewDataSource>
 
@@ -21,10 +23,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
-    self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
-    self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
+    [self setupViews];
     [self setupUser];
+    
+    JSQMessage *firstMsg = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
+    [self.messages addObject:firstMsg];
+    
 //
 //    self.title = @"Messaging";
 //    self.senderId = @"-1";
@@ -39,19 +43,41 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - Setup
 -(void)setupUser{
-    self.senderId = @"adsfds";
-    self.senderDisplayName = @"dasf";
+    self.senderId = [FirebaseManager sharedInstance].currentUser.uid;
+    self.senderDisplayName = [FirebaseManager sharedInstance].currentUser.displayName;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)setupViews{
+    self.navigationItem.title = @"Goals for this Sprint";
+    self.navigationItem.hidesBackButton = YES;
+    self.inputToolbar.contentView.leftBarButtonItem = nil;
+    
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    self.navigationItem.leftBarButtonItem = newBackButton;
+    JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
+    self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
+    self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
 }
-*/
+-(void)dismiss{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark - JSQMessagesViewController Delegate
+- (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return [self.messages objectAtIndex:indexPath.item];
+}
+- (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return nil;
+}
+- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return nil;
+}
+-(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date{
+    
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [self.messages count];
+}
 /*
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {

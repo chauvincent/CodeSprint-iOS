@@ -109,19 +109,12 @@
 
 
 #pragma mark - Navigation
-
+/*
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-   // if ([segue.identifier isEqualToString:@"GroupsToMessagesSegue"]) {
-//        UINavigationController *nav = segue.destinationViewController;
-//        GroupChatViewController *groupChatVC = (GroupChatViewController*)nav.viewControllers.firstObject;
-//        groupChatVC.senderId =  [FirebaseManager sharedInstance].currentUser.uid;
-//        groupChatVC.senderDisplayName = [FirebaseManager sharedInstance].currentUser.displayName;
-//        
-   // }
 }
-
+*/
 
 @end
