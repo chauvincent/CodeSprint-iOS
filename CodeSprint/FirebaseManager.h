@@ -61,6 +61,9 @@
 
 #pragma mark - Scrum Object Completion Functions
 + (void)markSprintGoalAsCompleteFor:(NSString*)scrumKey withArtifact:(Artifacts*)artifact andSelected:(NSInteger)selectedIndex withCompletion:(void (^)(BOOL completed))block;
- + (void)markGoalInsideSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)currentArtifact andSelected:(NSInteger)selectedIndex withPath:(NSInteger)indexPath withCompletion:(void (^)(BOOL completed))block;
++ (void)markGoalInsideSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)currentArtifact andSelected:(NSInteger)selectedIndex withPath:(NSInteger)indexPath withCompletion:(void (^)(BOOL completed))block;
+
+#pragma mark - Chatroom Functions
+
 
 @end

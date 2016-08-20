@@ -153,6 +153,14 @@
     [teamRef updateChildValues:@{kMembersHead : teamInformation.membersUID,
                                  kTeamsScrumKey : scrumNode.key}];
     [scrumNode setValue:@{kScrumCreator:currentUID}];
+    FIRDatabaseReference *chatRef = [[self chatRef] child:teamInformation.nickname];
+    [chatRef updateChildValues:@{@"-1":@{kChatroomSenderID:@" ",
+                                         kChatroomSenderText:@" ",
+                                         kChatroomDisplayName:@" ",
+                                         }}];
+    extern NSString *const kChatroomSenderID;
+    extern NSString *const kChatroomSenderText;
+    extern NSString *const kChatroomDisplayName;
     block(true);
 }
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block{
@@ -221,6 +229,8 @@
             NSString *scrumNode = response[kScrumHead];
             [[[self scrumRef] child:scrumNode] removeValue];
             [teamReference removeValue];
+            FIRDatabaseReference *chatroom = [[self chatRef] child:teamName];
+            [chatroom removeValue];
         }else{
             [members removeObject:uid];
             [teamReference updateChildValues:@{kMembersHead:[NSArray arrayWithArray:members]}];

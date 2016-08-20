@@ -47,5 +47,8 @@ NSString *const kSprintDeadline         = @"deadline";
 
 #pragma mark Chatroom Keys
 NSString *const kChatroomHead           = @"chatroom";
+NSString *const kChatroomSenderID       = @"senderID";
+NSString *const kChatroomSenderText     = @"senderText";
+NSString *const kChatroomDisplayName    = @"displayName";
 
 @end
