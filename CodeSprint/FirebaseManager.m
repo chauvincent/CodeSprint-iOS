@@ -184,6 +184,7 @@
                 }
                 [[[[self userRef] child:uid] child:kCSUserTeamKey] setValue:newTeams];
                 block(true);
+                
             }];
         }
     }];
@@ -203,7 +204,27 @@
         [FirebaseManager sharedInstance].currentUser.groupsIDs = userDictionary[kTeamsHead];
         [[FirebaseManager sharedInstance].currentUser.scrumIDs removeObjectForKey:teamName];
         [userRef updateChildValues:@{kTeamsHead:userDictionary[kTeamsHead]}];
-
+        [self removeFromTeam:uid team:teamName withCompletion:^(BOOL result) {
+            block(true);
+        }];
+    }];
+}
++ (void)removeFromTeam:(NSString*)uid team:(NSString*)teamName withCompletion:(void (^)(BOOL result))block{
+    FIRDatabaseReference *teamReference = [[self teamRef] child:teamName];
+    [teamReference observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSMutableArray *members = [(NSArray*)snapshot.value[kMembersHead] mutableCopy];
+        if ([members count] == 1) {
+            // remove whole team
+            NSDictionary *response = (NSDictionary*)snapshot.value;
+            // delete scrum
+            NSLog(@"RESPOSE: %@", response);
+            NSString *scrumNode = response[kScrumHead];
+            [[[self scrumRef] child:scrumNode] removeValue];
+            [teamReference removeValue];
+        }else{
+            [members removeObject:uid];
+            [teamReference updateChildValues:@{kMembersHead:[NSArray arrayWithArray:members]}];
+        }
         block(true);
     }];
 }
