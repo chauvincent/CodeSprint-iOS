@@ -70,7 +70,8 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     GroupChatViewController *vc = [GroupChatViewController messagesViewController];
-    
+    NSMutableArray *teams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
+    vc.currentTeam = teams[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 /*

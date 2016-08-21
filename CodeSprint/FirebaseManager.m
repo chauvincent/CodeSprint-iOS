@@ -12,6 +12,7 @@
 #include "Constants.h"
 #include "User.h"
 #include "Artifacts.h"
+#include "Chatroom.h"
 
 @implementation FirebaseManager
 
@@ -152,15 +153,10 @@
     FIRDatabaseReference *teamRef =[[self teamRef] child:teamInformation.nickname];
     [teamRef updateChildValues:@{kMembersHead : teamInformation.membersUID,
                                  kTeamsScrumKey : scrumNode.key}];
-    [scrumNode setValue:@{kScrumCreator:currentUID}];
-    FIRDatabaseReference *chatRef = [[self chatRef] child:teamInformation.nickname];
-    [chatRef updateChildValues:@{@"-1":@{kChatroomSenderID:@" ",
-                                         kChatroomSenderText:@" ",
-                                         kChatroomDisplayName:@" ",
-                                         }}];
-    extern NSString *const kChatroomSenderID;
-    extern NSString *const kChatroomSenderText;
-    extern NSString *const kChatroomDisplayName;
+    [scrumNode setValue:@{kScrumCreator:currentUID}];    
+    FIRDatabaseReference *chatRef = [self chatRef];
+    [chatRef updateChildValues:@{teamInformation.nickname:@(-1)}];
+
     block(true);
 }
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block{
@@ -240,7 +236,6 @@
 }
 #pragma mark - Scrum Management - Insertions
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block{
-    
     FIRDatabaseReference *scrumRef = [[self scrumRef] child:scrumKey];
     [scrumRef updateChildValues:@{kScrumProductSpecs:artifact.productSpecs}];
     block(true);
@@ -256,7 +251,6 @@
     block(true);
 }
 + (void)updateSprintFor:(NSString*)scrumKey withGoalRefs:(NSMutableArray*)refs andCollectionIndex:(NSInteger)index withArtifact:(Artifacts*)artifact withCompletion:(void (^)(Artifacts* artifact))block{
-
     FIRDatabaseQuery *goalRefQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kSprintHead];
     [goalRefQuery observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *response = (NSDictionary*)snapshot.value;
@@ -286,12 +280,10 @@
         Artifacts *newArtifact = [[Artifacts alloc] initWithProductSpecs:artifact.productSpecs andGoals:artifact.sprintGoals withSprints:artifact.sprintCollection];
         block(newArtifact);
     }];
-
 }
 #pragma mark - Scrum Management - Observers
 + (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
     FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
-
     [scrumQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSMutableArray *productSpecs = [[NSMutableArray alloc] init];
         NSMutableArray *allGoals = [[NSMutableArray alloc] init];
@@ -328,8 +320,6 @@
         }
     }];
     NSLog(@"FIRED OBSERVE DELETE INCASE");
-    
-    
 }
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
     FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
@@ -404,7 +394,6 @@
         NSArray *newGoals = [NSArray arrayWithArray:sprintGoals];
         FIRDatabaseReference *update = [[self scrumRef] child:scrumKey];
         [update updateChildValues:@{kScrumSprintGoals:newGoals}];
-
         block(TRUE);
     }];
 }
@@ -438,10 +427,57 @@
     NSString *stringFromDate = [formatter stringFromDate:today];
     currentGoal[kScrumSprintFinishDate] = stringFromDate;
     goalRefs[indexPath] = currentGoal;
-    
     FIRDatabaseReference *reference = [[[[self scrumRef] child:scrumKey] child:kSprintHead] child:[NSString stringWithFormat:@"%ld",(long)selectedIndex]];
     [reference updateChildValues:@{kSprintGoalReference:goalRefs}];
-    
     block(TRUE);
 }
+
+
+#pragma mark - Chatroom Functions
+/*
+ {
+    "-1" =     {
+        displayName = " ";
+        senderID = " ";
+        senderText = " ";
+    };
+ }
+*/
++ (void)observeChatroomFor:(NSString*)teamName withCompletion:(void (^)(Chatroom *updatedChat))block{
+    FIRDatabaseReference *chat = [[self chatRef] child:teamName];
+    [chat observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        if ([snapshot.value isKindOfClass:[NSArray class]]) {
+            NSLog(@"ITS A NSARRAY");
+        }
+        if ([snapshot.value isKindOfClass:[NSDictionary class]]) {
+            NSLog(@"ITS A DICTIONARY");
+        }
+        
+//        NSMutableDictionary *messagesDict = [(NSDictionary*)snapshot.value mutableCopy];
+//        if ([[messagesDict allKeys] containsObject:@"-1"] && [messagesDict count] == 1) {
+//            NSLog(@"NO CHATS MESSAGES");
+//            NSMutableArray *emptyUsers = [[NSMutableArray alloc] init];
+//            NSMutableArray *emptyMessages = [[NSMutableArray alloc] init];
+//            Chatroom *newChatroom = [[Chatroom alloc] initChatWithTeamName:teamName withUser:emptyUsers withMessages:emptyMessages];
+//            block(newChatroom);
+//        }else{
+//            if ([[messagesDict allKeys] containsObject:@"-1"]) {
+//                [messagesDict removeObjectForKey:@"-1"];
+//                [[chat child:@"-1"] removeValue];
+//            }
+//            for (NSArray *msgObj in messagesDict) {
+//                NSLog(@"MSG OBJ: %@", msgObj);
+//            }
+//            
+//        }
+//        
+//        NSMutableArray *emptyUsers = [[NSMutableArray alloc] init];
+//        NSMutableArray *emptyMessages = [[NSMutableArray alloc] init];
+//        Chatroom *newChatroom = [[Chatroom alloc] initChatWithTeamName:teamName withUser:emptyUsers withMessages:emptyMessages];
+//        block(newChatroom);
+        
+
+    }];
+}
+
 @end

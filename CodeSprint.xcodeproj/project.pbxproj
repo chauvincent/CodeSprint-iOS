@@ -47,6 +47,8 @@
 		75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F41D45A41500B9062F /* ErrorCheckUtil.m */; };
 		75E3AA561D6680A8009A7866 /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA551D6680A8009A7866 /* GroupChatViewController.m */; };
 		75E3AA591D668786009A7866 /* ChatroomsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA581D668786009A7866 /* ChatroomsTableViewController.m */; };
+		75E3AA5C1D6843C1009A7866 /* Chatroom.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA5B1D6843C1009A7866 /* Chatroom.m */; };
+		75E3AA5F1D68483B009A7866 /* ChatroomMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA5E1D68483B009A7866 /* ChatroomMessage.m */; };
 		75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */; };
 		75F97B181D5A877B00A8633F /* PopupSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */; };
 		A1137C1E6815F8B9B4AFFA5D /* libPods-CodeSprint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */; };
@@ -130,6 +132,10 @@
 		75E3AA551D6680A8009A7866 /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
 		75E3AA571D668786009A7866 /* ChatroomsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatroomsTableViewController.h; sourceTree = "<group>"; };
 		75E3AA581D668786009A7866 /* ChatroomsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatroomsTableViewController.m; sourceTree = "<group>"; };
+		75E3AA5A1D6843C1009A7866 /* Chatroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatroom.h; sourceTree = "<group>"; };
+		75E3AA5B1D6843C1009A7866 /* Chatroom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatroom.m; sourceTree = "<group>"; };
+		75E3AA5D1D68483B009A7866 /* ChatroomMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatroomMessage.h; sourceTree = "<group>"; };
+		75E3AA5E1D68483B009A7866 /* ChatroomMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatroomMessage.m; sourceTree = "<group>"; };
 		75E94BE71D51844600F859FD /* ArtifactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtifactsTableViewCell.h; sourceTree = "<group>"; };
 		75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtifactsTableViewCell.m; sourceTree = "<group>"; };
 		75F97B161D5A877B00A8633F /* PopupSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupSettingsViewController.h; sourceTree = "<group>"; };
@@ -168,6 +174,10 @@
 				755B762A1D2415CE00B211CF /* Team.m */,
 				759CA8341D3E2FE200A26EB9 /* User.h */,
 				759CA8351D3E2FE200A26EB9 /* User.m */,
+				75E3AA5A1D6843C1009A7866 /* Chatroom.h */,
+				75E3AA5B1D6843C1009A7866 /* Chatroom.m */,
+				75E3AA5D1D68483B009A7866 /* ChatroomMessage.h */,
+				75E3AA5E1D68483B009A7866 /* ChatroomMessage.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -456,6 +466,8 @@
 				75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */,
 				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
 				75C896F21D43635C00B9062F /* CreateDisplayNameViewController.m in Sources */,
+				75E3AA5F1D68483B009A7866 /* ChatroomMessage.m in Sources */,
+				75E3AA5C1D6843C1009A7866 /* Chatroom.m in Sources */,
 				751A755E1D183E9300923F61 /* FirebaseManager.m in Sources */,
 				7556378E1D4F60EC00A136FF /* Artifacts.m in Sources */,
 				752C076A1D35B60100E8712D /* CreateTeamViewController.m in Sources */,

@@ -10,6 +10,9 @@
 #import "Team.h"
 #import "Artifacts.h"
 #import "User.h"
+#import "ChatroomMessage.h"
+#import "Chatroom.h"
+
 @import Firebase;
 
 #pragma mark - Database References
@@ -64,6 +67,6 @@
 + (void)markGoalInsideSprintFor:(NSString*)scrumKey withArtifact:(Artifacts*)currentArtifact andSelected:(NSInteger)selectedIndex withPath:(NSInteger)indexPath withCompletion:(void (^)(BOOL completed))block;
 
 #pragma mark - Chatroom Functions
-
++ (void)observeChatroomFor:(NSString*)teamName withCompletion:(void (^)(Chatroom *updatedChat))block;
 
 @end

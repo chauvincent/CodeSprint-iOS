@@ -10,6 +10,8 @@
 #import "JSQMessages.h"
 #import "FirebaseManager.h"
 #import "Constants.h"
+#include "Chatroom.h"
+#include "ChatroomMessage.h"
 
 @interface GroupChatViewController () <JSQMessagesCollectionViewDataSource>
 
@@ -25,9 +27,11 @@
     
     [self setupViews];
     [self setupUser];
-    
+    [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
+        NSLog(@"did return");
+    }];
     self.title = @"Messages";
-    self.messages = [[NSMutableArray alloc] init];
+    self.messages = [[NSMutableArray alloc] init]; 
     // Do any additional setup after loading the view.
 }
 -(void)viewDidAppear:(BOOL)animated{
