@@ -446,7 +446,7 @@
 + (void)observeChatroomFor:(NSString*)teamName withCompletion:(void (^)(Chatroom *updatedChat))block{
     FIRDatabaseReference *chat = [[self chatRef] child:teamName];
     [chat observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
+
         if ([snapshot.value isEqual:@(-1)]) {
             NSLog(@"NO CHATS MESSAGES");
             NSMutableArray *emptyUsers = [[NSMutableArray alloc] init];
@@ -454,23 +454,20 @@
             Chatroom *newChatroom = [[Chatroom alloc] initChatWithTeamName:teamName withUser:emptyUsers withMessages:emptyMessages];
             block(newChatroom);
         }else{
-//            if ([[messagesDict allKeys] containsObject:@"-1"]) {
-//                [messagesDict removeObjectForKey:@"-1"];
-//                [[chat child:@"-1"] removeValue];
-//            }
-//            for (NSArray *msgObj in messagesDict) {
-//                NSLog(@"MSG OBJ: %@", msgObj);
-//            }
+            NSLog(@"%@",snapshot.value);
             NSLog(@"OBSER FIRED");
             
+            __block NSMutableArray *arrayOfMsg = [(NSArray*)snapshot.value mutableCopy];
+            FIRDatabaseReference *currentUsers = [[[self teamRef] child:teamName] child:kMembersHead];
+            [currentUsers observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                NSMutableArray *arrayOfMembers = [[NSMutableArray alloc] init];
+                for (NSString* uid in (NSArray*)snapshot.value) {
+                    [arrayOfMembers addObject:uid];
+                }
+                Chatroom *newChatroom = [[Chatroom alloc] initChatWithTeamName:teamName withUser:arrayOfMembers withMessages:arrayOfMsg];
+                block(newChatroom);
+            }];
         }
-        
-        NSMutableArray *emptyUsers = [[NSMutableArray alloc] init];
-        NSMutableArray *emptyMessages = [[NSMutableArray alloc] init];
-        Chatroom *newChatroom = [[Chatroom alloc] initChatWithTeamName:teamName withUser:emptyUsers withMessages:emptyMessages];
-        block(newChatroom);
-        
-
     }];
 }
 + (void)sendMessageForChatroom:(NSString*)teamName withMessage:(ChatroomMessage*)message withCompletion:(void (^)(BOOL completed))block{
@@ -484,9 +481,7 @@
                                          kChatroomDisplayName:message.displayName
                                          };
             [msgArray addObject:currentMsg];
-            NSLog(@"MSGARRAY: %@", msgArray);
             [[self chatRef] updateChildValues:@{teamName:msgArray}];
-            NSLog(@"HERE !");
             block(true);
         }else{
             NSMutableArray *msgArray = [(NSArray*)snapshot.value mutableCopy];
@@ -497,7 +492,7 @@
                                                                              kChatroomSenderText:message.senderText,
                                                                              kChatroomDisplayName:message.displayName
                                                                              };
-                                                [messageRef updateChildValues:@{[NSString stringWithFormat:@"%ld", (long)count]:currentMsg}];
+            [messageRef updateChildValues:@{[NSString stringWithFormat:@"%ld", (long)count]:currentMsg}];
         }
     }];
 }
