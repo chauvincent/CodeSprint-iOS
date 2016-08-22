@@ -68,5 +68,6 @@
 
 #pragma mark - Chatroom Functions
 + (void)observeChatroomFor:(NSString*)teamName withCompletion:(void (^)(Chatroom *updatedChat))block;
++ (void)sendMessageForChatroom:(NSString*)teamName withMessage:(ChatroomMessage*)message withCompletion:(void (^)(BOOL completed))block;
 
 @end

@@ -14,4 +14,9 @@
 @property (strong, nonatomic) NSString *senderID;
 @property (strong, nonatomic) NSString *senderText;
 
+
+
+
+-(instancetype)initWithMessage:(NSString*)displayName withSenderID:(NSString*)senderID andText:(NSString*)text;
+
 @end
