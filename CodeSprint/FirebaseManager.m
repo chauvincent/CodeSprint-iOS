@@ -461,6 +461,7 @@
 //            for (NSArray *msgObj in messagesDict) {
 //                NSLog(@"MSG OBJ: %@", msgObj);
 //            }
+            NSLog(@"OBSER FIRED");
             
         }
         
@@ -488,8 +489,15 @@
             NSLog(@"HERE !");
             block(true);
         }else{
-            NSMutableArray *messages = [(NSArray*)snapshot.value mutableCopy];
-            NSLog(@"VALUE IS : %@", messages);
+            NSMutableArray *msgArray = [(NSArray*)snapshot.value mutableCopy];
+            NSInteger count = [msgArray count];
+     
+            FIRDatabaseReference *messageRef = [[self chatRef] child:teamName];
+                                                NSDictionary *currentMsg = @{kChatroomSenderID:message.senderID,
+                                                                             kChatroomSenderText:message.senderText,
+                                                                             kChatroomDisplayName:message.displayName
+                                                                             };
+                                                [messageRef updateChildValues:@{[NSString stringWithFormat:@"%ld", (long)count]:currentMsg}];
         }
     }];
 }
