@@ -40,6 +40,7 @@
         UIAlertController *alert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Please enter a display name" andDismissNamed:@"Ok"];
         [self presentViewController:alert animated:YES completion:nil];
     }else{
+        //[FirebaseManager sharedInstance].currentUser.displayName = usernameInput;
         [self.delegate setDisplayName:usernameInput];
         [self dismissViewControllerAnimated:YES completion:nil];
     }

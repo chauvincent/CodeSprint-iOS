@@ -81,6 +81,7 @@
 }
 + (void)setUpNewUser:(NSString*)displayName{
     NSString *uid = [FirebaseManager sharedInstance].currentUser.uid;
+    [FirebaseManager sharedInstance].currentUser.displayName = displayName;
     [[[self userRef] child:uid] updateChildValues:@{kCSUserDidSetDisplay : @1,
                                                     kCSUserDisplayKey : displayName}];
 }
@@ -96,6 +97,9 @@
                 if (snapshot.value) {
                     NSDictionary *response = (NSDictionary*)snapshot.value;
                     theResult = ([response objectForKey:kCSUserDisplayKey] ? true : false);
+                    if (theResult) {
+                        [FirebaseManager sharedInstance].currentUser.displayName = response[kCSUserDisplayKey];
+                    }
                 }
                 block(theResult);
             }];

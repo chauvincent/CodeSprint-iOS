@@ -28,19 +28,26 @@
     [self setupViews];
     [self setupUser];
     [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
-        NSLog(@"did return");
+        NSMutableArray *newMessages = [[NSMutableArray alloc] init];
+        for (NSDictionary *messageInfo in updatedChat.messages) {
+           
+            JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:messageInfo[kChatroomSenderID] senderDisplayName:messageInfo[kChatroomDisplayName] date:[NSDate date] text:messageInfo[kChatroomSenderText]];
+            [newMessages addObject:msg];
+        }
+        self.messages = newMessages;
+        [self finishReceivingMessage];
     }];
     self.title = @"Messages";
-    self.messages = [[NSMutableArray alloc] init]; 
+  
     // Do any additional setup after loading the view.
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-    JSQMessage *firstMsg = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
-    JSQMessage *firstMsg2 = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
-    [self.messages addObject:firstMsg];
-    [self.messages addObject:firstMsg2];
-    [self finishReceivingMessage];
+//    JSQMessage *firstMsg = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
+//    JSQMessage *firstMsg2 = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
+//    [self.messages addObject:firstMsg];
+//    [self.messages addObject:firstMsg2];
+//    [self finishReceivingMessage];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -50,6 +57,8 @@
 -(void)setupUser{
     self.senderId = [FirebaseManager sharedInstance].currentUser.uid;
     self.senderDisplayName = [FirebaseManager sharedInstance].currentUser.displayName;
+    NSLog(@"UID : %@", self.senderId);
+    NSLog(@"senderdisplay: %@", self.senderDisplayName);
 }
 -(void)setupViews{
     self.navigationItem.title = @"Goals for this Sprint";
@@ -89,6 +98,7 @@
     ChatroomMessage *msg = [[ChatroomMessage alloc] initWithMessage:senderDisplayName withSenderID:senderId andText:text];
     [FirebaseManager sendMessageForChatroom:self.currentTeam withMessage:msg withCompletion:^(BOOL completed) {
         NSLog(@"DID FINISH SENDING MSG");
+        [self finishSendingMessage];
     }];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
