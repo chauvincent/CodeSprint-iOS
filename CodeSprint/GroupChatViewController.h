@@ -11,6 +11,6 @@
 @interface GroupChatViewController : JSQMessagesViewController
 
 @property (strong, nonatomic) NSString *currentTeam;
-
+@property (strong, nonatomic) NSMutableDictionary *imageDictionary;
 
 @end

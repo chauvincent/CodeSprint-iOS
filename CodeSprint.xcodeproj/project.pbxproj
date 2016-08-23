@@ -49,6 +49,7 @@
 		75E3AA591D668786009A7866 /* ChatroomsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA581D668786009A7866 /* ChatroomsTableViewController.m */; };
 		75E3AA5C1D6843C1009A7866 /* Chatroom.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA5B1D6843C1009A7866 /* Chatroom.m */; };
 		75E3AA5F1D68483B009A7866 /* ChatroomMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA5E1D68483B009A7866 /* ChatroomMessage.m */; };
+		75E3AA621D6C5EAB009A7866 /* AvatarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA611D6C5EAB009A7866 /* AvatarModel.m */; };
 		75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */; };
 		75F97B181D5A877B00A8633F /* PopupSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */; };
 		A1137C1E6815F8B9B4AFFA5D /* libPods-CodeSprint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */; };
@@ -136,6 +137,8 @@
 		75E3AA5B1D6843C1009A7866 /* Chatroom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatroom.m; sourceTree = "<group>"; };
 		75E3AA5D1D68483B009A7866 /* ChatroomMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatroomMessage.h; sourceTree = "<group>"; };
 		75E3AA5E1D68483B009A7866 /* ChatroomMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatroomMessage.m; sourceTree = "<group>"; };
+		75E3AA601D6C5EAB009A7866 /* AvatarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarModel.h; sourceTree = "<group>"; };
+		75E3AA611D6C5EAB009A7866 /* AvatarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarModel.m; sourceTree = "<group>"; };
 		75E94BE71D51844600F859FD /* ArtifactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtifactsTableViewCell.h; sourceTree = "<group>"; };
 		75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtifactsTableViewCell.m; sourceTree = "<group>"; };
 		75F97B161D5A877B00A8633F /* PopupSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupSettingsViewController.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				75E3AA5B1D6843C1009A7866 /* Chatroom.m */,
 				75E3AA5D1D68483B009A7866 /* ChatroomMessage.h */,
 				75E3AA5E1D68483B009A7866 /* ChatroomMessage.m */,
+				75E3AA601D6C5EAB009A7866 /* AvatarModel.h */,
+				75E3AA611D6C5EAB009A7866 /* AvatarModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				75AE51C21D5D2406001B4939 /* AnimatedButton.m in Sources */,
 				75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */,
 				7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */,
+				75E3AA621D6C5EAB009A7866 /* AvatarModel.m in Sources */,
 				75843BF81D547F9C00D6777F /* ImportItemsViewController.m in Sources */,
 				75F97B181D5A877B00A8633F /* PopupSettingsViewController.m in Sources */,
 				754FF8911D1D04F2004ABD43 /* CircleImageView.m in Sources */,

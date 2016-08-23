@@ -12,7 +12,8 @@
 #import "Constants.h"
 #include "Chatroom.h"
 #include "ChatroomMessage.h"
-
+#include "AFNetworking.h"
+#include "AvatarModel.h"
 @interface GroupChatViewController () <JSQMessagesCollectionViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *messages;
@@ -22,14 +23,28 @@
 
 @implementation GroupChatViewController
 
+
+-(NSMutableDictionary*)imageDictionary{
+    if (!_imageDictionary) {
+        _imageDictionary = [[NSMutableDictionary alloc] init];
+    }
+    return _imageDictionary;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupViews];
     [self setupUser];
+
     
     [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
         NSLog(@"RETURNED FROM URL");
         NSLog(@"avatar dic: %@", avatarsDict);
+        [self downloadImagesWith:avatarsDict withCompletion:^(NSMutableDictionary *imageDict) {
+            self.imageDictionary = imageDict;
+            [self setupAvatars];
+            [self finishReceivingMessage];
+        }];
     }];
     
     [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
@@ -62,8 +77,8 @@
     self.navigationItem.hidesBackButton = YES;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
-    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
+//    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
+//    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
@@ -71,6 +86,19 @@
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
+}
+-(void)setupAvatars{
+//    for (NSString *key in self.imageDictionary) {
+//        JSQMessagesAvatarImage *image = [JSQMessagesAvatarImage avatarWithImage:self.imageDictionary[key]];
+//        self.imageDictionary[key] = image;
+//    }
+    NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
+    for (NSString *key in self.imageDictionary) {
+        UIImage *image = self.imageDictionary[key];
+        AvatarModel *model = [[AvatarModel alloc] initWithAvatarImage:image highlightedImage:nil placeholderImage:image];
+        newDict[key] = model;
+    }
+    self.imageDictionary = newDict;
 }
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
@@ -88,7 +116,11 @@
     }
 }
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+    if ([_imageDictionary count] == 0) {
+        return nil;
+    }
+    JSQMessage *currentMsg = self.messages[indexPath.item];
+    return _imageDictionary[currentMsg.senderId];
 }
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date{
     NSLog(@"DID PRESS SEND");
@@ -101,5 +133,30 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [self.messages count];
 }
+#pragma mark - Helper Methods
+- (void)downloadImagesWith:(NSMutableDictionary*)avatars withCompletion:(void (^)(NSMutableDictionary *imageDict))block{
+    __block NSMutableDictionary *imageTable = [[NSMutableDictionary alloc] init];
+    __block int count = 0;
+    for (NSString *userID in avatars) {
+        NSURL *url = [NSURL URLWithString:[avatars objectForKey:userID]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"did finish download inside request block");
+            UIImage *downloadedImg = (UIImage*)responseObject;
+            imageTable[userID] = downloadedImg;
+            count++;
+            if (count == avatars.count) {
+                NSLog(@"finished download");
+                block(imageTable);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Image error: %@", error);
+            count++;
+        }];
+        [requestOperation start];
+    }
 
+}
 @end
