@@ -39,6 +39,7 @@
         [FirebaseManager retreiveUsersTeams];
     }
     [self setupViews];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,6 +62,8 @@
 
     self.view.backgroundColor = GREY_COLOR;
     self.menuTableView.backgroundColor = GREY_COLOR;
+    
+    [FirebaseManager updatePictureURLForUser];
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;

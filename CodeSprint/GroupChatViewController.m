@@ -24,9 +24,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setupViews];
     [self setupUser];
+    
+    [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
+        NSLog(@"RETURNED FROM URL");
+    }];
+    
     [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
         for (NSDictionary *messageInfo in updatedChat.messages) {
@@ -43,11 +47,6 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-//    JSQMessage *firstMsg = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
-//    JSQMessage *firstMsg2 = [[JSQMessage alloc] initWithSenderId:@"asdfadsf" senderDisplayName:@"vincent" date:[NSDate date] text:@"testing 1234"];
-//    [self.messages addObject:firstMsg];
-//    [self.messages addObject:firstMsg2];
-//    [self finishReceivingMessage];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -57,8 +56,6 @@
 -(void)setupUser{
     self.senderId = [FirebaseManager sharedInstance].currentUser.uid;
     self.senderDisplayName = [FirebaseManager sharedInstance].currentUser.displayName;
-    NSLog(@"UID : %@", self.senderId);
-    NSLog(@"senderdisplay: %@", self.senderDisplayName);
 }
 -(void)setupViews{
     self.navigationItem.title = @"Goals for this Sprint";

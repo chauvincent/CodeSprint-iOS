@@ -34,6 +34,7 @@
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block;
 + (void)setUpNewUser:(NSString*)displayName;
 + (void)retreiveUsersTeams;
++ (void)updatePictureURLForUser;
 
 #pragma mark - Single and Passive Observers
 + (void)observeNewTeams;
@@ -69,5 +70,7 @@
 #pragma mark - Chatroom Functions
 + (void)observeChatroomFor:(NSString*)teamName withCompletion:(void (^)(Chatroom *updatedChat))block;
 + (void)sendMessageForChatroom:(NSString*)teamName withMessage:(ChatroomMessage*)message withCompletion:(void (^)(BOOL completed))block;
++ (void)retreiveImageURLForTeam:(NSString*)teamName withCompletion:(void (^)(NSMutableDictionary *avatarsDict))block;
+
 
 @end

@@ -147,6 +147,18 @@
         block(isNew);
     }];
 }
++ (void)updatePictureURLForUser{
+    NSString *currentUID = [FirebaseManager sharedInstance].currentUser.uid;
+    NSString *url = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
+    FIRDatabaseReference *usersNode = [[self userRef] child:currentUID];
+    [usersNode observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        if ([[response allKeys] containsObject:kCSUserPhotoURL]) {
+        }else{
+            [usersNode updateChildValues:@{kCSUserPhotoURL:url}];
+        }
+    }];
+}
 #pragma mark - Team Management - Creations
 + (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block{
     NSArray *newTeams = [self sharedInstance].currentUser.groupsIDs;
@@ -438,15 +450,6 @@
 
 
 #pragma mark - Chatroom Functions
-/*
- {
-    "-1" =     {
-        displayName = " ";
-        senderID = " ";
-        senderText = " ";
-    };
- }
-*/
 + (void)observeChatroomFor:(NSString*)teamName withCompletion:(void (^)(Chatroom *updatedChat))block{
     FIRDatabaseReference *chat = [[self chatRef] child:teamName];
     [chat observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -498,6 +501,24 @@
                                                                              };
             [messageRef updateChildValues:@{[NSString stringWithFormat:@"%ld", (long)count]:currentMsg}];
         }
+    }];
+}
+
++ (void)retreiveImageURLForTeam:(NSString*)teamName withCompletion:(void (^)(NSMutableDictionary *avatarsDict))block{
+    NSString *currentUID = [FirebaseManager sharedInstance].currentUser.uid;
+    FIRDatabaseReference *team = [[self teamRef] child:teamName];
+    [team observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSMutableDictionary *avatars = [[NSMutableDictionary alloc] init];
+        NSDictionary *teamNode = (NSDictionary*)snapshot.value;
+        NSArray *members = (NSArray*)teamNode[kMembersHead];
+        for (NSString *uid in members) {
+            FIRDatabaseReference *userImage = [[[self userRef] child:uid] child:kCSUserPhotoURL];
+            [userImage observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                NSLog(@"URL RETREIVED:  %@", snapshot.value);
+                
+            }];
+        }
+        block(avatars);
     }];
 }
 
