@@ -505,21 +505,33 @@
 }
 
 + (void)retreiveImageURLForTeam:(NSString*)teamName withCompletion:(void (^)(NSMutableDictionary *avatarsDict))block{
-    NSString *currentUID = [FirebaseManager sharedInstance].currentUser.uid;
-    FIRDatabaseReference *team = [[self teamRef] child:teamName];
+   FIRDatabaseReference *team = [[self teamRef] child:teamName];
     [team observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSMutableDictionary *avatars = [[NSMutableDictionary alloc] init];
         NSDictionary *teamNode = (NSDictionary*)snapshot.value;
         NSArray *members = (NSArray*)teamNode[kMembersHead];
-        for (NSString *uid in members) {
-            FIRDatabaseReference *userImage = [[[self userRef] child:uid] child:kCSUserPhotoURL];
-            [userImage observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                NSLog(@"URL RETREIVED:  %@", snapshot.value);
-                
-            }];
-        }
-        block(avatars);
+        [self getImagesForUsersArray:members withCompletion:^(NSMutableArray *urlArray) {
+            int i = 0;
+            for (NSString *user in members) {
+                avatars[user] = urlArray[i];
+                i++;
+            }
+            block(avatars);
+        }];
     }];
 }
-
++ (void)getImagesForUsersArray:(NSArray*)array withCompletion:(void (^)(NSMutableArray *urlArray))block{
+    __block NSMutableArray *urls = [[NSMutableArray alloc] init];
+    __block int i = 0;
+    for (NSString *uid in array) {
+        FIRDatabaseReference *userImage = [[[self userRef] child:uid] child:kCSUserPhotoURL];
+        [userImage observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            [urls addObject:(NSString*)snapshot.value];
+            i++;
+            if (i == array.count) {
+                block(urls);
+            }
+        }];
+    }
+}
 @end

@@ -29,12 +29,12 @@
     
     [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
         NSLog(@"RETURNED FROM URL");
+        NSLog(@"avatar dic: %@", avatarsDict);
     }];
     
     [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
         for (NSDictionary *messageInfo in updatedChat.messages) {
-           
             JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:messageInfo[kChatroomSenderID] senderDisplayName:messageInfo[kChatroomDisplayName] date:[NSDate date] text:messageInfo[kChatroomSenderText]];
             [newMessages addObject:msg];
         }
