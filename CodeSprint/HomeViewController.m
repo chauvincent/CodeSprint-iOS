@@ -41,6 +41,10 @@
     [self setupViews];
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [FirebaseManager removeAllObservers];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -99,6 +103,9 @@
                                                              NSLog(@"Error signing out: %@", signOutError);
                                                              return;
                                                          }
+                                                         
+                                                         [FirebaseManager removeAllObservers];
+                                                         
                                                          [FirebaseManager logoutUser];
                                                          [self.navigationController popToRootViewControllerAnimated:YES];
                                                      }];

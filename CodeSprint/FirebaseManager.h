@@ -25,6 +25,12 @@
 }
 + (FirebaseManager *) sharedInstance;
 
+#pragma mark - Active Observer Handles
+@property (assign, nonatomic) FIRDatabaseHandle newTeamsHandle;
+@property (assign, nonatomic) FIRDatabaseHandle passiveScrumHandle;
+@property (assign, nonatomic) FIRDatabaseHandle scrumDeleteHandle;
+@property (assign, nonatomic) FIRDatabaseHandle chatroomHandle;
+
 #pragma mark - App State Properties
 @property (strong, nonatomic) User *currentUser;
 @property (assign) BOOL isNewUser;
@@ -42,6 +48,13 @@
 + (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
 + (void)observeIncaseDelete:(NSString*)scrumKey withCurrentIndex:(NSInteger)index withCompletion:(void (^)(BOOL completed))block;
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
+
+#pragma mark - Detach Passive Observers
++ (void)removeAllObservers;
++ (void)detachChatroom;
++ (void)detachScrum;
++ (void)detachScrumDelete;
++ (void)detachNewTeams;
 
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;

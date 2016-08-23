@@ -88,6 +88,7 @@
     [self.removeButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];
 }
 -(void)dismiss{
+    [FirebaseManager detachNewTeams];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)popoverController:(id)controller{

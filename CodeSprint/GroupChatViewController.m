@@ -77,9 +77,6 @@
     self.navigationItem.hidesBackButton = YES;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
-//    self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-//    self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
-    
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
     
@@ -88,10 +85,6 @@
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
 }
 -(void)setupAvatars{
-//    for (NSString *key in self.imageDictionary) {
-//        JSQMessagesAvatarImage *image = [JSQMessagesAvatarImage avatarWithImage:self.imageDictionary[key]];
-//        self.imageDictionary[key] = image;
-//    }
     NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
     for (NSString *key in self.imageDictionary) {
         UIImage *image = self.imageDictionary[key];
@@ -101,6 +94,7 @@
     self.imageDictionary = newDict;
 }
 -(void)dismiss{
+    [FirebaseManager detachChatroom];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - JSQMessagesViewController Delegate

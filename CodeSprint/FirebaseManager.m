@@ -14,6 +14,10 @@
 #include "Artifacts.h"
 #include "Chatroom.h"
 
+
+
+
+
 @implementation FirebaseManager
 
 #pragma mark - Singleton
@@ -78,6 +82,7 @@
 #pragma mark - User Management - Lifecycle
 + (void)logoutUser{
     [FirebaseManager sharedInstance].currentUser = nil;
+
 }
 + (void)setUpNewUser:(NSString*)displayName{
     NSString *uid = [FirebaseManager sharedInstance].currentUser.uid;
@@ -117,9 +122,11 @@
         }
     }];
 }
+// HANDLE: newTeamsHandle
 + (void)observeNewTeams{
     FIRDatabaseQuery *usersQuery = [[[self userRef] child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
-    [usersQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [FirebaseManager sharedInstance].newTeamsHandle = [usersQuery observeEventType:FIRDataEventTypeValue
+                                                                         withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSLog(@"Observer Firing %@", snapshot.value);
         NSDictionary *response = (NSDictionary*)snapshot.value;
         if ([[response allKeys] containsObject:kCSUserTeamKey]) {
@@ -297,10 +304,12 @@
         block(newArtifact);
     }];
 }
+// HANDLE: passiveScrumHandle
 #pragma mark - Scrum Management - Observers
 + (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
     FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
-    [scrumQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [FirebaseManager sharedInstance].passiveScrumHandle = [scrumQuery observeEventType:FIRDataEventTypeValue
+                                                                             withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSMutableArray *productSpecs = [[NSMutableArray alloc] init];
         NSMutableArray *allGoals = [[NSMutableArray alloc] init];
         NSMutableArray *sprintCollection = [[NSMutableArray alloc] init];
@@ -324,10 +333,12 @@
         block(artifact);
     }];
 }
+// HANDLE: scrumDeleteHandle
 + (void)observeIncaseDelete:(NSString*)scrumKey withCurrentIndex:(NSInteger)index withCompletion:(void (^)(BOOL completed))block{
     NSString *currentIndex = [NSString stringWithFormat:@"%ld", (long)index];
     FIRDatabaseReference *change = [[[self scrumRef] child:scrumKey] child:kSprintHead];
-    [change observeEventType:FIRDataEventTypeChildRemoved withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [FirebaseManager sharedInstance].scrumDeleteHandle = [change observeEventType:FIRDataEventTypeChildRemoved
+                                                                        withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         if ([snapshot.key isEqualToString:currentIndex]) {
             block(true);
             NSLog(@"current is being deleted");
@@ -448,11 +459,12 @@
     block(TRUE);
 }
 
-
+// HANDLE: chatroomHandle
 #pragma mark - Chatroom Functions
 + (void)observeChatroomFor:(NSString*)teamName withCompletion:(void (^)(Chatroom *updatedChat))block{
     FIRDatabaseReference *chat = [[self chatRef] child:teamName];
-    [chat observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [FirebaseManager sharedInstance].chatroomHandle = [chat observeEventType:FIRDataEventTypeValue
+                                                                   withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
 
         if ([snapshot.value isEqual:@(-1)]) {
             NSLog(@"NO CHATS MESSAGES");
@@ -534,4 +546,26 @@
         }];
     }
 }
+
+#pragma mark - Detach Observer
++ (void)removeAllObservers{
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].newTeamsHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+}
++ (void)detachChatroom{
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+}
++ (void)detachScrum{
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
+}
++ (void)detachScrumDelete{
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
+}
++ (void)detachNewTeams{
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].newTeamsHandle];
+}
+
+
 @end

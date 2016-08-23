@@ -93,6 +93,8 @@
     }
 }
 -(void)dismiss{
+    [FirebaseManager detachScrum];
+    [FirebaseManager detachScrumDelete];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - Helper Methods
