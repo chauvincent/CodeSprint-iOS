@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
-    [FirebaseManager observeNewTeams];
+    //[FirebaseManager observeNewTeams];
 
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
@@ -45,6 +45,17 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)viewWillAppear:(BOOL)animated{
+    NSLog(@"APPEARING YO");
+    
+    
+    [FirebaseManager removeAllObservers];
+    [FirebaseManager observeNewTeams];
+//    [FirebaseManager detachScrum];
+//    [FirebaseManager detachChatroom];
+//    [FirebaseManager detachScrumDelete];
+   // [FirebaseManager detachNewTeams];
 }
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

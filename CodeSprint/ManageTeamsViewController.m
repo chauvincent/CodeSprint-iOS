@@ -62,6 +62,8 @@
 }
 #pragma mark - IBActions
 - (void)dismiss {
+   // [FirebaseManager detachScrum];
+   // [FirebaseManager detachScrumDelete];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

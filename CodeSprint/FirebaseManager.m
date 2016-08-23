@@ -558,7 +558,8 @@
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
 }
 + (void)detachScrum{
-    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
+    
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
 }
 + (void)detachScrumDelete{
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
