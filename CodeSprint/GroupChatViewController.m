@@ -60,6 +60,10 @@
   
     // Do any additional setup after loading the view.
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:NO];
+    [[[[[FIRDatabase database] reference] child:kChatroomHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+}
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
 }
@@ -98,6 +102,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - JSQMessagesViewController Delegate
+
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
     return [self.messages objectAtIndex:indexPath.item];
 }
@@ -123,6 +128,7 @@
         NSLog(@"DID FINISH SENDING MSG");
         [self finishSendingMessage];
     }];
+     [self finishSendingMessage];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [self.messages count];

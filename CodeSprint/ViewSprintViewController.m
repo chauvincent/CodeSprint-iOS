@@ -53,7 +53,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:NO];
+        [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
+}
 #pragma mark - Helper Methods
 -(void)setupView{
     self.navigationItem.title = @"Goals for this Sprint";
@@ -90,8 +93,6 @@
     }];
 }
 -(void)dismiss{
-    [FirebaseManager detachScrum];
-    [FirebaseManager detachScrumDelete];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - UITableViewDelegate && UITableViewDataSource

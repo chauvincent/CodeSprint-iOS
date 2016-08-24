@@ -103,7 +103,7 @@
 -(void)dismiss{
     [FirebaseManager detachScrum];
     [FirebaseManager detachScrumDelete];
-    [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey ] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
+    [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
    
     [self.navigationController popViewControllerAnimated:YES];
 }
