@@ -64,30 +64,33 @@
     [self setupView];
 }
 
-//
-//[FirebaseManager removeAllObservers];
-//[FirebaseManager detachScrum];
-//[FirebaseManager detachChatroom];
-//[FirebaseManager detachScrumDelete];
-//[FirebaseManager detachNewTeams];
-
 - (void)viewDidLoad{
     [super viewDidLoad];
     _menuItems = @[@"Specifications",@"Sprint Goals",@"Active Sprints"];
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
-//    [FirebaseManager observePassiveScrumNode:self.currentScrumKey withCompletion:^(Artifacts *artifact) {
-//        NSLog(@"OBSERVER PASSIVE 1");
-//
-//    }];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    
+    [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey] removeAllObservers];
+    [FirebaseManager observePassiveScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
+        self.artifacts = artifact;
+        self.vc.currentArtifact = artifact;
+        self.viewSprintController.currentArtifact = artifact;
+        self.viewSprintController.vc.currentArtifact = artifact;
+        self.viewSprintController.currentScrum = self.currentScrumKey;
+        NSLog(@"OBSERVE PASSIVE 2");
+        [self.tableView reloadData];
+        [self updateControlCounts];
+    }];
+    
     [self updateControlCounts];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+   // [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey] removeAllObservers];
     [super viewDidAppear:animated];
 }
 
@@ -110,16 +113,16 @@
 #pragma mark - Helper Methods
 -(void)setupView{
     self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
-    [FirebaseManager observePassiveScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
-        self.artifacts = artifact;
-        self.vc.currentArtifact = artifact;
-        self.viewSprintController.currentArtifact = artifact;
-        self.viewSprintController.vc.currentArtifact = artifact;
-        self.viewSprintController.currentScrum = self.currentScrumKey;
-        NSLog(@"OBSERVE PASSIVE 2");
-        [self.tableView reloadData];
-        [self updateControlCounts];
-    }];
+//    [FirebaseManager observePassiveScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
+//        self.artifacts = artifact;
+//        self.vc.currentArtifact = artifact;
+//        self.viewSprintController.currentArtifact = artifact;
+//        self.viewSprintController.vc.currentArtifact = artifact;
+//        self.viewSprintController.currentScrum = self.currentScrumKey;
+//        NSLog(@"OBSERVE PASSIVE 2");
+//        [self.tableView reloadData];
+//        [self updateControlCounts];
+//    }];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
     self.navigationItem.hidesBackButton = YES;

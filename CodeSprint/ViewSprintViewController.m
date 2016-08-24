@@ -55,7 +55,8 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:NO];
-        [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
+//        [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
+   // [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeAllObservers];
 }
 #pragma mark - Helper Methods
 -(void)setupView{

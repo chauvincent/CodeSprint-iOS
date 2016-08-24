@@ -128,10 +128,8 @@
     return _imageDictionary[currentMsg.senderId];
 }
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date{
-    NSLog(@"DID PRESS SEND");
     ChatroomMessage *msg = [[ChatroomMessage alloc] initWithMessage:senderDisplayName withSenderID:senderId andText:text];
     [FirebaseManager sendMessageForChatroom:self.currentTeam withMessage:msg withCompletion:^(BOOL completed) {
-        NSLog(@"DID FINISH SENDING MSG");
         [self finishSendingMessage];
     }];
      [self finishSendingMessage];
@@ -149,12 +147,10 @@
         AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"did finish download inside request block");
             UIImage *downloadedImg = (UIImage*)responseObject;
             imageTable[userID] = downloadedImg;
             count++;
             if (count == avatars.count) {
-                NSLog(@"finished download");
                 block(imageTable);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
