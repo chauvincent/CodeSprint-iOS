@@ -112,16 +112,6 @@
 #pragma mark - Helper Methods
 -(void)setupView{
     self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
-//    [FirebaseManager observePassiveScrumNode:_currentScrumKey withCompletion:^(Artifacts *artifact) {
-//        self.artifacts = artifact;
-//        self.vc.currentArtifact = artifact;
-//        self.viewSprintController.currentArtifact = artifact;
-//        self.viewSprintController.vc.currentArtifact = artifact;
-//        self.viewSprintController.currentScrum = self.currentScrumKey;
-//        NSLog(@"OBSERVE PASSIVE 2");
-//        [self.tableView reloadData];
-//        [self updateControlCounts];
-//    }];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
     self.navigationItem.hidesBackButton = YES;

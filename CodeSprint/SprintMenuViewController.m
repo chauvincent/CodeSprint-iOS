@@ -47,15 +47,8 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)viewWillAppear:(BOOL)animated{
-    NSLog(@"APPEARING YO");
-    
-    
     [FirebaseManager removeAllObservers];
     [FirebaseManager observeNewTeams];
-//    [FirebaseManager detachScrum];
-//    [FirebaseManager detachChatroom];
-//    [FirebaseManager detachScrumDelete];
-   // [FirebaseManager detachNewTeams];
 }
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -163,12 +156,22 @@
         cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
         return cell;
     }
+    NSString *teamName = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
     cell.userInteractionEnabled = YES;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.teamNameLabel.text = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
+    cell.teamNameLabel.text = teamName;
     CGSize imageViewSize = cell.identiconImageView.frame.size;
-    u_int32_t random = arc4random();
-    cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:random size:imageViewSize];
+    u_int32_t avatarIcon;
+    NSUInteger hashForUser = [[NSUserDefaults standardUserDefaults] integerForKey:teamName];
+    if (hashForUser != 0){
+        avatarIcon = (u_int32_t)hashForUser;
+    }else{
+        avatarIcon = arc4random();
+        NSUInteger iconHash = (NSUInteger)avatarIcon;
+        [[NSUserDefaults standardUserDefaults] setInteger:iconHash forKey:teamName];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:avatarIcon size:imageViewSize];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

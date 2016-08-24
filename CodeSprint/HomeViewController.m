@@ -138,7 +138,11 @@
         case 1:
             [self performSegueWithIdentifier:@"HomeToChatSegue" sender:nil];
             break;
-            
+        case 2:
+            [self performSegueWithIdentifier:@"HomeToEditSegue" sender:nil];
+            break;
+        case 3:
+            [self performSegueWithIdentifier:@"HomeToSettingSegue" sender:nil];
         default:
             break;
     }

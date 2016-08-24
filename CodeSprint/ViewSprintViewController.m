@@ -55,8 +55,8 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:NO];
-//        [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
-   // [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeAllObservers];
+      //  [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
+    [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeAllObservers];
 }
 #pragma mark - Helper Methods
 -(void)setupView{
@@ -105,7 +105,7 @@
     NSArray *goalRefs = dictionary[kSprintGoalReference];
 
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
-        cell.textLabel.text = @"Nothing To Display. Please import tasks from \"Sprint Goals\" by tapping the add button above.";
+        cell.textLabel.text = @"Please import tasks from \"Sprint Goals\" by tapping the add button above.";
         cell.detailTextLabel.text = @"";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.numberOfLines = 3;

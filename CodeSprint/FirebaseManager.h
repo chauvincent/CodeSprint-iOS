@@ -30,7 +30,7 @@
 @property (assign, nonatomic) FIRDatabaseHandle passiveScrumHandle;
 @property (assign, nonatomic) FIRDatabaseHandle scrumDeleteHandle;
 @property (assign, nonatomic) FIRDatabaseHandle chatroomHandle;
-
+@property (assign, nonatomic) FIRDatabaseHandle downloadImgHandle;
 #pragma mark - App State Properties
 @property (strong, nonatomic) User *currentUser;
 @property (assign) BOOL isNewUser;
@@ -55,7 +55,7 @@
 + (void)detachScrum;
 + (void)detachScrumDelete;
 + (void)detachNewTeams;
-
++ (void)detachImageDownload;
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
 

@@ -51,6 +51,8 @@
 		75E3AA5F1D68483B009A7866 /* ChatroomMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA5E1D68483B009A7866 /* ChatroomMessage.m */; };
 		75E3AA621D6C5EAB009A7866 /* AvatarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E3AA611D6C5EAB009A7866 /* AvatarModel.m */; };
 		75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */; };
+		75F0F30C1D6E3A72000547DC /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F0F30B1D6E3A72000547DC /* EditProfileViewController.m */; };
+		75F0F30F1D6E3A83000547DC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F0F30E1D6E3A83000547DC /* SettingsViewController.m */; };
 		75F97B181D5A877B00A8633F /* PopupSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */; };
 		A1137C1E6815F8B9B4AFFA5D /* libPods-CodeSprint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C6AA8BF9125DCD6394F11B /* libPods-CodeSprint.a */; };
 /* End PBXBuildFile section */
@@ -141,6 +143,10 @@
 		75E3AA611D6C5EAB009A7866 /* AvatarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarModel.m; sourceTree = "<group>"; };
 		75E94BE71D51844600F859FD /* ArtifactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtifactsTableViewCell.h; sourceTree = "<group>"; };
 		75E94BE81D51844600F859FD /* ArtifactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtifactsTableViewCell.m; sourceTree = "<group>"; };
+		75F0F30A1D6E3A72000547DC /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		75F0F30B1D6E3A72000547DC /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		75F0F30D1D6E3A83000547DC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		75F0F30E1D6E3A83000547DC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		75F97B161D5A877B00A8633F /* PopupSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupSettingsViewController.h; sourceTree = "<group>"; };
 		75F97B171D5A877B00A8633F /* PopupSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupSettingsViewController.m; sourceTree = "<group>"; };
 		A24BF0BC3A0D7F39014C4C32 /* Pods-CodeSprint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeSprint.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeSprint/Pods-CodeSprint.release.xcconfig"; sourceTree = "<group>"; };
@@ -321,6 +327,10 @@
 				75E3AA581D668786009A7866 /* ChatroomsTableViewController.m */,
 				75E3AA541D6680A8009A7866 /* GroupChatViewController.h */,
 				75E3AA551D6680A8009A7866 /* GroupChatViewController.m */,
+				75F0F30A1D6E3A72000547DC /* EditProfileViewController.h */,
+				75F0F30B1D6E3A72000547DC /* EditProfileViewController.m */,
+				75F0F30D1D6E3A83000547DC /* SettingsViewController.h */,
+				75F0F30E1D6E3A83000547DC /* SettingsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -467,6 +477,7 @@
 			files = (
 				759286861D46D3CB00D3B9B8 /* TeamsTableViewCell.m in Sources */,
 				755637971D5098CD00A136FF /* AddItemViewController.m in Sources */,
+				75F0F30C1D6E3A72000547DC /* EditProfileViewController.m in Sources */,
 				754FF8971D1D2CD2004ABD43 /* Constants.m in Sources */,
 				75BFABBC1D181A6B0001CD57 /* AppDelegate.m in Sources */,
 				75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */,
@@ -500,6 +511,7 @@
 				752C07641D30797C00E8712D /* SprintMenuViewController.m in Sources */,
 				7556379A1D509E1C00A136FF /* CustomTextView.m in Sources */,
 				75AE51C21D5D2406001B4939 /* AnimatedButton.m in Sources */,
+				75F0F30F1D6E3A83000547DC /* SettingsViewController.m in Sources */,
 				75E94BE91D51844600F859FD /* ArtifactsTableViewCell.m in Sources */,
 				7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */,
 				75E3AA621D6C5EAB009A7866 /* AvatarModel.m in Sources */,

@@ -518,7 +518,7 @@
 
 + (void)retreiveImageURLForTeam:(NSString*)teamName withCompletion:(void (^)(NSMutableDictionary *avatarsDict))block{
    FIRDatabaseReference *team = [[self teamRef] child:teamName];
-    [team observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [FirebaseManager sharedInstance].downloadImgHandle = [team observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSMutableDictionary *avatars = [[NSMutableDictionary alloc] init];
         NSDictionary *teamNode = (NSDictionary*)snapshot.value;
         NSArray *members = (NSArray*)teamNode[kMembersHead];
@@ -553,6 +553,7 @@
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
 }
 + (void)detachChatroom{
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
@@ -567,6 +568,8 @@
 + (void)detachNewTeams{
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].newTeamsHandle];
 }
-
++ (void)detachImageDownload{
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+}
 
 @end

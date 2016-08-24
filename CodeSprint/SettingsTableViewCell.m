@@ -45,6 +45,7 @@
             description = @"Adjust your account settings";
             break;
     }
+    self.optionIconImageView.userInteractionEnabled = NO;
     self.optionIconImageView.image = optionImage;
     self.optionNameLabel.text = optionName;
     self.descriptionLabel.text = description;
