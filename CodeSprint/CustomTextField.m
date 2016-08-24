@@ -11,6 +11,7 @@
 @implementation CustomTextField
 
 -(void)awakeFromNib{
+    [super awakeFromNib];
     self.layer.cornerRadius = 5.0;
     self.backgroundColor = LIGHT_GREY_COLOR;
 }

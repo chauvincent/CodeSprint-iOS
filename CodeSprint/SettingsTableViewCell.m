@@ -14,6 +14,7 @@
 @implementation SettingsTableViewCell
 
 -(void)awakeFromNib {
+    [super awakeFromNib];
     self.userInteractionEnabled = YES;
 }
 

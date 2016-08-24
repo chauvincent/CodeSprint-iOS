@@ -35,7 +35,6 @@
     [super viewDidLoad];
     [self setupViews];
     [self setupUser];
-
     
     [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
         NSLog(@"RETURNED FROM URL");
@@ -50,7 +49,13 @@
     [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
         for (NSDictionary *messageInfo in updatedChat.messages) {
-            JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:messageInfo[kChatroomSenderID] senderDisplayName:messageInfo[kChatroomDisplayName] date:[NSDate date] text:messageInfo[kChatroomSenderText]];
+            JSQMessage *msg;
+            if ([messageInfo[kChatroomSenderID] isEqualToString:self.senderId]) {
+                msg = [[JSQMessage alloc] initWithSenderId:messageInfo[kChatroomSenderID] senderDisplayName:messageInfo[kChatroomDisplayName] date:[NSDate date] text:messageInfo[kChatroomSenderText]];
+            }else{
+                NSString *text = [NSString stringWithFormat:@"%@: %@", messageInfo[kChatroomDisplayName], messageInfo[kChatroomSenderText]];
+                msg = [[JSQMessage alloc] initWithSenderId:messageInfo[kChatroomSenderID] senderDisplayName:messageInfo[kChatroomDisplayName] date:[NSDate date] text:text];
+            }
             [newMessages addObject:msg];
         }
         self.messages = newMessages;
@@ -90,6 +95,7 @@
 }
 -(void)setupAvatars{
     NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
+    
     for (NSString *key in self.imageDictionary) {
         UIImage *image = self.imageDictionary[key];
         AvatarModel *model = [[AvatarModel alloc] initWithAvatarImage:image highlightedImage:nil placeholderImage:image];

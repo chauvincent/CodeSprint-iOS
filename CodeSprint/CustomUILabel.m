@@ -11,6 +11,7 @@
 @implementation CustomUILabel
 
 -(void)awakeFromNib{
+    [super awakeFromNib];
     [self.layer setCornerRadius:8.0f];
     [self.layer setMasksToBounds:YES];
     [self.layer setBorderWidth:0.3f];

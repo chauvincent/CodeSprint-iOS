@@ -11,6 +11,7 @@
 @implementation AnimatedButton
 
 -(void)awakeFromNib{
+    [super awakeFromNib];
     self.layer.cornerRadius = 8.0;
     [self setupView];
 }

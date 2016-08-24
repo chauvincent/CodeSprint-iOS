@@ -12,6 +12,7 @@
 @implementation CustomTextView
 
 -(void)awakeFromNib{
+    [super awakeFromNib];
     self.layer.cornerRadius = 5.0;
     self.backgroundColor = LIGHT_GREY_COLOR;
     self.layer.borderWidth = 1.0f;
