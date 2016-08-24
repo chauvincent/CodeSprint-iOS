@@ -18,7 +18,7 @@
 #import "IGIdenticon.h"
 #import "Constants.h"
 
-@interface SprintMenuViewController () <CreateTeamViewControllerDelegate,ManageTeamViewControllerDelegate, SearchTeamViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SprintMenuViewController () <CreateTeamViewControllerDelegate,ManageTeamViewControllerDelegate, SearchTeamViewControllerDelegate, BacklogTableViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSString *selectedTeam;
 @property (weak, nonatomic) IBOutlet UITableView *teamsTableView;
@@ -62,6 +62,7 @@
     if ([segue.identifier isEqualToString:@"SprintMenuToTeamSegue"]) {
         BacklogTableViewController *vc = [segue destinationViewController];
         vc.selectedTeam = self.selectedTeam;
+        vc.delegate = self;
     }
 }
 #pragma mark - IBActions
@@ -111,7 +112,12 @@
         self.createTeamPopover = popover;
     }
 }
-#pragma mark - Helpers
+#pragma mark - BacklogViewControllerDelegate
+-(void)tearDownObserverForKey:(NSString *)key{
+     [[[[[FIRDatabase database] reference] child:kScrumHead] child:key] removeAllObservers];
+}
+
+
 
 #pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate && ManageTeamViewControllerDelegate
 -(void)createdNewTeam:(NSString*)inputText{
@@ -169,6 +175,7 @@
     
     NSLog(@"tapped on team : %@" , [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section]);
     self.selectedTeam = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
+    
     [self performSegueWithIdentifier:@"SprintMenuToTeamSegue" sender:self];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

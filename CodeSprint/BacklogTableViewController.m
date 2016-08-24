@@ -88,7 +88,6 @@
     
     [self updateControlCounts];
 }
-
 - (void)viewDidAppear:(BOOL)animated{
    // [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey] removeAllObservers];
     [super viewDidAppear:animated];
@@ -107,7 +106,7 @@
     [FirebaseManager detachScrum];
     [FirebaseManager detachScrumDelete];
     [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
-   
+    [self.delegate tearDownObserverForKey:self.currentScrumKey];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - Helper Methods
