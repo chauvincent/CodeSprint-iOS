@@ -388,21 +388,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uf2-Cf-D9G" customClass="AnimatedButton">
-                                <rect key="frame" x="189" y="454" width="223" height="30"/>
+                                <rect key="frame" x="189" y="214" width="223" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="223" id="hlm-Hu-JZD"/>
+                                    <constraint firstAttribute="width" constant="223" id="Xpi-CR-ZY4"/>
                                 </constraints>
-                                <state key="normal" title="Save Changes">
+                                <state key="normal" title="Update Name">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveChangesButtonPressed:" destination="KYM-P2-nhK" eventType="touchUpInside" id="gGo-Ud-UY5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuF-tK-uxE" customClass="AnimatedButton">
-                                <rect key="frame" x="189" y="492" width="223" height="30"/>
+                                <rect key="frame" x="189" y="252" width="223" height="30"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.30588235289999999" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="KYM-P2-nhK" eventType="touchUpInside" id="DAc-0k-hFq"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a New Display Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nhr-TX-CIT" customClass="CustomTextField">
                                 <rect key="frame" x="190" y="170" width="220" height="30"/>
@@ -412,17 +418,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVQ-d1-a5O">
-                                <rect key="frame" x="198" y="132" width="204" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="204" id="yy7-Zp-Dth"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="k36-SV-eTI">
-                                <rect key="frame" x="164" y="227" width="272" height="31"/>
+                                <rect key="frame" x="164" y="356" width="272" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show My Picture In Chat:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ie-KH-gny">
                                         <rect key="frame" x="0.0" y="0.0" width="213" height="31"/>
@@ -440,25 +437,43 @@
                                             <constraint firstAttribute="width" constant="49" id="Zmw-gF-fP4"/>
                                             <constraint firstAttribute="height" constant="31" id="t6e-eC-Zgb"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="toggled:" destination="KYM-P2-nhK" eventType="valueChanged" id="0nk-h4-l1A"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVQ-d1-a5O">
+                                <rect key="frame" x="198" y="132" width="204" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="204" id="yy7-Zp-Dth"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="k36-SV-eTI" firstAttribute="top" secondItem="nhr-TX-CIT" secondAttribute="bottom" constant="27" id="D0i-dP-buZ"/>
-                            <constraint firstItem="ucT-z7-BPV" firstAttribute="top" secondItem="LuF-tK-uxE" secondAttribute="bottom" constant="78" id="Heu-50-AXi"/>
-                            <constraint firstItem="LuF-tK-uxE" firstAttribute="top" secondItem="uf2-Cf-D9G" secondAttribute="bottom" constant="8" symbolic="YES" id="PMl-mU-8dG"/>
+                            <constraint firstItem="k36-SV-eTI" firstAttribute="top" secondItem="LuF-tK-uxE" secondAttribute="bottom" constant="74" id="5PS-Ui-Am1"/>
+                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="top" secondItem="nhr-TX-CIT" secondAttribute="bottom" constant="14" id="Oun-Vi-67O"/>
+                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="leading" secondItem="LuF-tK-uxE" secondAttribute="leading" id="QcS-lg-mDr"/>
                             <constraint firstItem="nhr-TX-CIT" firstAttribute="top" secondItem="zVQ-d1-a5O" secondAttribute="bottom" constant="17" id="Tue-tG-wvl"/>
+                            <constraint firstItem="LuF-tK-uxE" firstAttribute="top" secondItem="uf2-Cf-D9G" secondAttribute="bottom" constant="8" symbolic="YES" id="Tue-wo-SP1"/>
                             <constraint firstItem="zVQ-d1-a5O" firstAttribute="top" secondItem="bHc-fp-fAG" secondAttribute="bottom" constant="68" id="UzT-Ui-SdZ"/>
-                            <constraint firstItem="k36-SV-eTI" firstAttribute="centerX" secondItem="nhr-TX-CIT" secondAttribute="centerX" id="XJy-Rx-AAC"/>
+                            <constraint firstItem="k36-SV-eTI" firstAttribute="centerX" secondItem="LuF-tK-uxE" secondAttribute="centerX" id="anB-6K-nrN"/>
+                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="trailing" secondItem="LuF-tK-uxE" secondAttribute="trailing" id="lYw-9T-CkR"/>
                             <constraint firstItem="zVQ-d1-a5O" firstAttribute="centerX" secondItem="tcc-d8-TH7" secondAttribute="centerX" id="ouK-bO-yuR"/>
-                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="trailing" secondItem="LuF-tK-uxE" secondAttribute="trailing" id="sDm-DK-pgb"/>
-                            <constraint firstItem="nhr-TX-CIT" firstAttribute="centerX" secondItem="uf2-Cf-D9G" secondAttribute="centerX" id="vNq-iN-QMA"/>
+                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="centerX" secondItem="nhr-TX-CIT" secondAttribute="centerX" id="rss-4c-bw2"/>
                             <constraint firstItem="zVQ-d1-a5O" firstAttribute="centerX" secondItem="nhr-TX-CIT" secondAttribute="centerX" id="vzk-FA-W1U"/>
-                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="leading" secondItem="LuF-tK-uxE" secondAttribute="leading" id="yBg-D1-AfH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="LuF-tK-uxE" id="ecj-lT-KlJ"/>
+                        <outlet property="displayNameTextField" destination="nhr-TX-CIT" id="BaZ-gZ-179"/>
+                        <outlet property="saveChangesButton" destination="uf2-Cf-D9G" id="L4V-l2-RzP"/>
+                        <outlet property="showDisplaySwitch" destination="pe9-Ur-EIB" id="4GG-vx-OK8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XY1-m2-Dty" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -489,6 +504,9 @@
                                         <state key="normal" title="Logout Account">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="logoutButtonPressed:" destination="OCj-qy-yHA" eventType="touchUpInside" id="6dj-GQ-Tlg"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wsf-Ny-eJa" customClass="AnimatedButton">
                                         <rect key="frame" x="31" y="35" width="223" height="30"/>
@@ -500,6 +518,9 @@
                                         <state key="normal" title="Delete Account">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="deleteAccountPressed:" destination="OCj-qy-yHA" eventType="touchUpInside" id="dxJ-Sc-5Xp"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vf-gk-9l2">
                                         <rect key="frame" x="0.0" y="70" width="285" height="113"/>
@@ -521,6 +542,10 @@
                             <constraint firstItem="Sd6-Qm-spH" firstAttribute="top" secondItem="5XM-Ba-iNE" secondAttribute="bottom" constant="42" id="vDH-qL-N98"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="deleteAccountButton" destination="Wsf-Ny-eJa" id="crM-97-xpP"/>
+                        <outlet property="logoutButton" destination="QFO-Va-MmT" id="c5s-SC-zXc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kds-ks-OvC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -10,8 +10,14 @@
 #import "CustomTextField.h"
 #import "AnimatedButton.h"
 #include "Constants.h"
+#include "ErrorCheckUtil.h"
+#include "FirebaseManager.h"
 
 @interface EditProfileViewController ()
+@property (strong, nonatomic) IBOutlet CustomTextField *displayNameTextField;
+@property (strong, nonatomic) IBOutlet UISwitch *showDisplaySwitch;
+@property (strong, nonatomic) IBOutlet AnimatedButton *saveChangesButton;
+@property (strong, nonatomic) IBOutlet AnimatedButton *cancelButton;
 
 @end
 
@@ -20,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
+
     // Do any additional setup after loading the view.
 }
 
@@ -30,14 +37,55 @@
 
 #pragma mark - View Setup
 -(void)setupView{
-  //  self.view.backgroundColor = GREY_COLOR;
      self.navigationItem.title = @"Edit Profile";
+    self.displayNameTextField.placeholder = [FirebaseManager sharedInstance].currentUser.displayName;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
+
+    NSString *old = [[NSUserDefaults standardUserDefaults] objectForKey:@"PrivatePhoto"];
+    NSLog(@" SETUPVIEW : OLD IS : %@", old);
+    if (old == nil) {
+        [self.showDisplaySwitch setOn:YES];
+    }else if([old isEqualToString:@"PRIVATE"]){
+        [self.showDisplaySwitch setOn:NO];
+    }else if([old isEqualToString:@"PUBLIC"]){
+        [self.showDisplaySwitch setOn:YES];
+    }
 }
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - IBActions
+- (IBAction)saveChangesButtonPressed:(id)sender {
+    
+    NSString *usernameInput = self.displayNameTextField.text;
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    if ([usernameInput isEqualToString:@""]) {
+        UIAlertController *alert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Please enter a display name" andDismissNamed:@"Ok"];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else{
+        [FirebaseManager setUpNewUser:usernameInput];
+    }
+    [self dismiss];
+}
+- (IBAction)cancelButtonPressed:(id)sender {
+}
+- (IBAction)toggled:(id)sender {
+    NSLog(@"TOGGLED");
+    
+    BOOL showMyPhoto = self.showDisplaySwitch.isOn;
+    if (!showMyPhoto) {
+        [FirebaseManager setPlaceHolderImageAsPhoto];
+    }else{
+        [FirebaseManager togglePlaceholderWithOld];
+    }
+    NSString *newSetting = showMyPhoto ? @"PUBLIC"  : @"PRIVATE";
+    [[NSUserDefaults standardUserDefaults] setObject:newSetting forKey:@"PrivatePhoto"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"NEWSETTINGS: %@", newSetting);
+}
+
 /*
 #pragma mark - Navigation
 

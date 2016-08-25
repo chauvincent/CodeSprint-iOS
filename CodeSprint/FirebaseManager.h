@@ -41,7 +41,8 @@
 + (void)setUpNewUser:(NSString*)displayName;
 + (void)retreiveUsersTeams;
 + (void)updatePictureURLForUser;
-
++ (void)setPlaceHolderImageAsPhoto;
++ (void)togglePlaceholderWithOld;
 #pragma mark - Single and Passive Observers
 + (void)observeNewTeams;
 //+ (void)observeUserChanges:(NSString*)userID withCompletion:(void (^)(User *updatedUser))block;

@@ -546,6 +546,31 @@
         }];
     }
 }
++ (void)setPlaceHolderImageAsPhoto{
+    NSString *uid = [self sharedInstance].currentUser.uid;
+    NSString *oldPhoto = [[self sharedInstance].currentUser.photoURL absoluteString];
+    FIRDatabaseReference *userRef = [[self userRef] child:uid];
+    [userRef updateChildValues:@{
+                                  kCSUserPhotoURL:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c",
+                                  kCSUserOldPhotoURL:oldPhoto
+                                  }];
+}
++ (void)togglePlaceholderWithOld{
+    NSString *uid = [self sharedInstance].currentUser.uid;
+    FIRDatabaseReference *userRef = [[self userRef] child:uid];
+    [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *response = (NSDictionary*)snapshot.value;
+        NSString *currentPhoto = response[kCSUserPhotoURL];
+        if (response[kCSUserOldPhotoURL] != [NSNull null]) {
+            NSLog(@"IS NOT NULL");
+            NSString *oldPhoto = response[kCSUserOldPhotoURL];
+            [userRef updateChildValues:@{
+                                         kCSUserPhotoURL:oldPhoto,
+                                         kCSUserOldPhotoURL:currentPhoto
+                                         }];
+        }
+    }];
+}
 
 #pragma mark - Detach Observer
 + (void)removeAllObservers{

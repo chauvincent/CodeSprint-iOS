@@ -10,6 +10,8 @@
 #import "AnimatedButton.h"
 
 @interface SettingsViewController ()
+@property (strong, nonatomic) IBOutlet AnimatedButton *logoutButton;
+@property (strong, nonatomic) IBOutlet AnimatedButton *deleteAccountButton;
 
 @end
 
@@ -33,6 +35,13 @@
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - IBActions
+- (IBAction)logoutButtonPressed:(id)sender {
+}
+- (IBAction)deleteAccountPressed:(id)sender {
+}
+
 /*
 #pragma mark - Navigation
 
