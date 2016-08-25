@@ -43,6 +43,7 @@
 + (void)updatePictureURLForUser;
 + (void)setPlaceHolderImageAsPhoto;
 + (void)togglePlaceholderWithOld;
++ (void)deleteUser;
 #pragma mark - Single and Passive Observers
 + (void)observeNewTeams;
 //+ (void)observeUserChanges:(NSString*)userID withCompletion:(void (^)(User *updatedUser))block;

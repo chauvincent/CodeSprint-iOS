@@ -8,6 +8,8 @@
 
 #import "SettingsViewController.h"
 #import "AnimatedButton.h"
+#import "FirebaseManager.h"
+#import "Constants.h"
 
 @interface SettingsViewController ()
 @property (strong, nonatomic) IBOutlet AnimatedButton *logoutButton;
@@ -38,8 +40,43 @@
 
 #pragma mark - IBActions
 - (IBAction)logoutButtonPressed:(id)sender {
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         
+                                                         NSError *signOutError;
+                                                         BOOL status = [[FIRAuth auth] signOut:&signOutError];
+                                                         if (!status) {
+                                                             NSLog(@"Error signing out: %@", signOutError);
+                                                             return;
+                                                         }
+                                                         
+                                                         [FirebaseManager removeAllObservers];
+                                                         
+                                                         [FirebaseManager logoutUser];
+                                                         [self.navigationController popToRootViewControllerAnimated:YES];
+                                                     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout"
+                                                                   message:@"Are you sure you want to logout?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (IBAction)deleteAccountPressed:(id)sender {
+    NSError *signOutError;
+    BOOL status = [[FIRAuth auth] signOut:&signOutError];
+    if (!status) {
+        NSLog(@"Error signing out: %@", signOutError);
+        return;
+    }
+    //[FirebaseManager removeAllObservers];
+    [FirebaseManager deleteUser];
+    //[FirebaseManager logoutUser];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /*

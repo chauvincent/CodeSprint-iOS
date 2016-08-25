@@ -522,13 +522,12 @@
                                             <action selector="deleteAccountPressed:" destination="OCj-qy-yHA" eventType="touchUpInside" id="dxJ-Sc-5Xp"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vf-gk-9l2">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please be aware that deleting your account will automatically remove you out of from current teams and sprints as well." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vf-gk-9l2">
                                         <rect key="frame" x="0.0" y="70" width="285" height="113"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="113" id="1RO-es-brx"/>
                                             <constraint firstAttribute="width" constant="285" id="Yww-F2-dF2"/>
                                         </constraints>
-                                        <string key="text">Please be aware that deleting your account will automatically remove you out of from current teams and sprints as well as your user information.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>

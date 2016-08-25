@@ -84,6 +84,26 @@
     [FirebaseManager sharedInstance].currentUser = nil;
 
 }
++ (void)deleteUser{
+    FIRUser *user = [FIRAuth auth].currentUser;
+    [user deleteWithCompletion:^(NSError *_Nullable error) {
+        if (error) {
+        } else {
+            NSLog(@"did delete");
+        }
+    }];
+//    User *currentUser = [FirebaseManager sharedInstance].currentUser;
+//    if ([currentUser.groupsIDs count] != 0) {
+//        FIRDatabaseReference *userRef = [[[self userRef] child:currentUser.uid] child:kCSUserTeamKey];
+//        [userRef removeValue];
+//        for (NSString *teamName in currentUser.groupsIDs) {
+//            [self removeFromTeam:currentUser.uid team:teamName withCompletion:^(BOOL result) {
+//            }];
+//        }
+//    }
+
+ 
+}
 + (void)setUpNewUser:(NSString*)displayName{
     NSString *uid = [FirebaseManager sharedInstance].currentUser.uid;
     [FirebaseManager sharedInstance].currentUser.displayName = displayName;
@@ -562,7 +582,6 @@
         NSDictionary *response = (NSDictionary*)snapshot.value;
         NSString *currentPhoto = response[kCSUserPhotoURL];
         if (response[kCSUserOldPhotoURL] != [NSNull null]) {
-            NSLog(@"IS NOT NULL");
             NSString *oldPhoto = response[kCSUserOldPhotoURL];
             [userRef updateChildValues:@{
                                          kCSUserPhotoURL:oldPhoto,
