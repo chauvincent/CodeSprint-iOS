@@ -113,10 +113,11 @@
 
 
 #pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate && ManageTeamViewControllerDelegate
--(void)createdNewTeam:(NSString*)inputText{
+-(void)createdNewTeam:(NSString*)inputText withPassword:(NSString*)password{
     Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].currentUser.uid andTeam:inputText];
     [[FirebaseManager sharedInstance].currentUser.groupsIDs addObject:inputText];
     [FirebaseManager createTeamWith:newTeam
+                        andPassword:password
                      withCompletion:^(BOOL result) {
                          [self.teamsTableView reloadData];
                      }];

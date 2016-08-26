@@ -19,6 +19,7 @@
 @interface CreateTeamViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet CustomTextField *teamTextField;
+@property (strong, nonatomic) IBOutlet CustomTextField *passwordTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 
 @end
@@ -61,7 +62,9 @@
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
     NSString *inputText = self.teamTextField.text;
+    NSString *password = self.passwordTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+
     NSString *successTitle = @"Success";
     UIAlertController *alert = [errorCheck checkBadInput:inputText
                                              withMessage:@"Please enter a unique team name"
@@ -78,7 +81,7 @@
                 return;
             }else if (result ){
                 [self dismiss];
-                [self.delegate createdNewTeam:inputText];
+                [self.delegate createdNewTeam:inputText withPassword:password];
             }
         }];
     }else{
@@ -87,6 +90,7 @@
 }
 - (IBAction)cancelButtonPressed:(id)sender {
     self.teamTextField.text = @"";
+    self.passwordTextField.text = @"";
 }
 
 #pragma mark - UITextFieldDelegate

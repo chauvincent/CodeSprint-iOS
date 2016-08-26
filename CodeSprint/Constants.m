@@ -25,6 +25,7 @@ NSString *const kCSUserOldPhotoURL      = @"oldPhotoURL";
 NSString *const kTeamsHead              = @"teams";
 NSString *const kMembersHead            = @"members";
 NSString *const kTeamsScrumKey          = @"scrum";
+NSString *const kTeamsPassword          = @"password";
 
 #pragma mark Scrum Keys
 NSString *const kScrumHead              = @"scrum";

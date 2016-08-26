@@ -11,7 +11,7 @@
 
 @protocol CreateTeamViewControllerDelegate <NSObject>
 
--(void)createdNewTeam:(NSString*)inputText;
+-(void)createdNewTeam:(NSString*)inputText withPassword:(NSString*)password;
 
 @end
 

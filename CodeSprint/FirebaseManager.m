@@ -192,7 +192,7 @@
     }];
 }
 #pragma mark - Team Management - Creations
-+ (void)createTeamWith:(Team *)teamInformation withCompletion:(void (^)(BOOL result))block{
++ (void)createTeamWith:(Team *)teamInformation andPassword:(NSString*)password withCompletion:(void (^)(BOOL result))block{
     NSArray *newTeams = [self sharedInstance].currentUser.groupsIDs;
     NSString *currentUID = [self sharedInstance].currentUser.uid;
     [[[self userRef] child:currentUID] updateChildValues:@{kCSUserTeamKey : newTeams}];
@@ -200,7 +200,8 @@
     FIRDatabaseReference *scrumNode = [[self scrumRef] childByAutoId];
     FIRDatabaseReference *teamRef =[[self teamRef] child:teamInformation.nickname];
     [teamRef updateChildValues:@{kMembersHead : teamInformation.membersUID,
-                                 kTeamsScrumKey : scrumNode.key}];
+                                 kTeamsScrumKey : scrumNode.key,
+                                 kTeamsPassword : password}];
     [scrumNode setValue:@{kScrumCreator:currentUID}];
     FIRDatabaseReference *chatRef = [self chatRef];
     [chatRef updateChildValues:@{teamInformation.nickname:@(-1)}];
@@ -241,7 +242,19 @@
         }
     }];
 }
-
++ (void)checkTeamAndPasswordWithName:(NSString*)teamName andPassword:(NSString*)password withCompletion:(void (^)(BOOL result))block{
+    FIRDatabaseReference *teamRef = [[self teamRef] child:teamName];
+    [teamRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSDictionary *snap = (NSDictionary*)snapshot.value;
+        NSString *teamPass = snap[kTeamsPassword];
+        if ([teamPass isEqualToString:password]) {
+            block(true);
+        }else{
+            block(false);
+        }
+    }];
+    //block(true);
+}
 #pragma mark - Team Management - Deletions
 + (void)removeUserFromTeam:(NSString*)uid withIndexs:(NSArray*)index withCompletion:(void (^)(BOOL result))block{
     FIRDatabaseReference *userRef = [[self userRef] child:uid];

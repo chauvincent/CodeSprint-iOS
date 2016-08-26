@@ -23,6 +23,7 @@ extern NSString *const kCSUserOldPhotoURL;
 extern NSString *const kTeamsHead;
 extern NSString *const kTeamsScrumKey;
 extern NSString *const kMembersHead;
+extern NSString *const kTeamsPassword;
 
 #pragma mark - Scrum Keys
 extern NSString *const kScrumHead;

@@ -15,8 +15,9 @@
 
 #define MAX_INPUT_LENGTH 20
 @interface SearchTeamViewController () <UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet CustomTextField *passwordTextField;
+@property (strong, nonatomic) IBOutlet CustomTextField *inputNameTextField;
 
-@property (weak, nonatomic) IBOutlet CustomTextField *inputNameTextField;
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 @property (weak, nonatomic) IBOutlet ImageStyleButton *searchTeamButton;
 
@@ -62,6 +63,7 @@
 #pragma mark - IBActions
 - (IBAction)searchButtonPressed:(id)sender {
     NSString *inputText = self.inputNameTextField.text;
+    NSString *passwordText = self.passwordTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
     NSString *successTitle = @"Success";
     UIAlertController *alert = [errorCheck checkBadInput:inputText withMessage:@"Please enter a unique team name" andDismiss:@"Dismiss" withSuccessMessage:@"You have joined a new team" title:successTitle];
@@ -74,9 +76,16 @@
                      [self presentViewController:doesNotExistAlert animated:YES completion:nil];
                 return;
             }else if (!result ){
-                NSLog(@"join team");
-                [self.delegate joinNewTeam:inputText];
-                [self dismiss];
+                [FirebaseManager checkTeamAndPasswordWithName:inputText andPassword:passwordText withCompletion:^(BOOL result) {
+                    if (result) {
+                        [self.delegate joinNewTeam:inputText];
+                        [self dismiss];
+                    }else{
+                        UIViewController *badPassAlert = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Invalid Password, please try again."
+                                                                             andDismissNamed:@"Ok"];
+                        [self presentViewController:badPassAlert animated:YES completion:nil];
+                    }
+                }];
             }
         }];
     }else{
