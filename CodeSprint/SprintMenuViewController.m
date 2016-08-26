@@ -32,7 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
-    //[FirebaseManager observeNewTeams];
 
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;

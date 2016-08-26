@@ -21,7 +21,6 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    NSLog(@"FIREBASE: %@", [FirebaseManager sharedInstance].currentUser.groupsIDs);
     [self setupView];
 }
 

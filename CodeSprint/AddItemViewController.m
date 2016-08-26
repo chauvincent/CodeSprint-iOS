@@ -56,8 +56,6 @@
             self.titleTextField.hidden = FALSE;
             self.titleTextField.placeholder = @"Title";
             break;
-      //  case 2: // Burnout Charts
-        //    break;
         case 2: // Add A Sprint
             self.navigationItem.title = @"Add Sprint";
             self.descriptionTextView.hidden = TRUE;

@@ -62,7 +62,6 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
-    //[self presentViewController:alert animated:YES completion:nil];
     return alert;
 }
 @end

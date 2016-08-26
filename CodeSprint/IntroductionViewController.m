@@ -37,17 +37,14 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 -(void)setupView{
-
     self.navigationItem.title = @"Introduction";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
-    self.view.backgroundColor = GREY_COLOR;// DARK_BLUE;
+    self.view.backgroundColor = GREY_COLOR;
     NSArray *viewControllers = @[startingViewController];
     [self.PageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     self.PageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 35);
-    
     [self addChildViewController:self.PageViewController];
     [self.view addSubview:self.PageViewController.view];
     [self.PageViewController didMoveToParentViewController:self];

@@ -86,7 +86,6 @@
         [user deleteWithCompletion:^(NSError *_Nullable error) {
             if (error) {
             } else {
-                NSLog(@"did delete");
             }
         }];
     }];
@@ -142,7 +141,6 @@
         if ([[response allKeys] containsObject:kCSUserTeamKey]) {
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
         }else{
-            NSLog(@"No teams");
         }
     }];
 }
@@ -151,7 +149,6 @@
     FIRDatabaseQuery *usersQuery = [[[self userRef] child:[FirebaseManager sharedInstance].currentUser.uid] queryOrderedByChild:kCSUserTeamKey];
     [FirebaseManager sharedInstance].newTeamsHandle = [usersQuery observeEventType:FIRDataEventTypeValue
                                                                          withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"Observer Firing %@", snapshot.value);
         NSDictionary *response = (NSDictionary*)snapshot.value;
         if ([[response allKeys] containsObject:kCSUserTeamKey]) {
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[response objectForKey:kCSUserTeamKey] mutableCopy];
@@ -282,7 +279,6 @@
             // remove whole team
             NSDictionary *response = (NSDictionary*)snapshot.value;
             // delete scrum
-            NSLog(@"RESPOSE: %@", response);
             NSString *scrumNode = response[kScrumHead];
             [[[self scrumRef] child:scrumNode] removeValue];
             [teamReference removeValue];
@@ -379,12 +375,10 @@
                                                                         withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         if ([snapshot.key isEqualToString:currentIndex]) {
             block(true);
-            NSLog(@"current is being deleted");
         }else{
             block(false);
         }
     }];
-    NSLog(@"FIRED OBSERVE DELETE INCASE");
 }
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block{
     FIRDatabaseQuery *scrumQuery = [[[self scrumRef] child:scrumKey] queryOrderedByChild:kScrumCreator];
@@ -469,7 +463,6 @@
     if ([localSprint[kScrumSprintCompleted] isEqual:@(0)]) {
         FIRDatabaseReference *sprintGoalRef = [[[self scrumRef] child:scrumKey] child:kScrumSprintGoals];
         NSString *indexChild = [NSString stringWithFormat:@"%ld",(long)selectedIndex];
-        NSLog(@"INDEX CHILD: %@", indexChild);
         FIRDatabaseReference *exactSprint = [sprintGoalRef child:indexChild];
         NSDate *today = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -505,15 +498,11 @@
                                                                    withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
 
         if ([snapshot.value isEqual:@(-1)]) {
-            NSLog(@"NO CHATS MESSAGES");
             NSMutableArray *emptyUsers = [[NSMutableArray alloc] init];
             NSMutableArray *emptyMessages = [[NSMutableArray alloc] init];
             Chatroom *newChatroom = [[Chatroom alloc] initChatWithTeamName:teamName withUser:emptyUsers withMessages:emptyMessages];
             block(newChatroom);
         }else{
-            NSLog(@"%@",snapshot.value);
-            NSLog(@"OBSER FIRED");
-            
             __block NSMutableArray *arrayOfMsg = [(NSArray*)snapshot.value mutableCopy];
             FIRDatabaseReference *currentUsers = [[[self teamRef] child:teamName] child:kMembersHead];
             [currentUsers observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {

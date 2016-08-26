@@ -19,5 +19,4 @@
 @property (strong, nonatomic) Artifacts *currentArtifact;
 @property (weak, nonatomic) id<ImportItemsViewDelegate> delegate;
 
-
 @end

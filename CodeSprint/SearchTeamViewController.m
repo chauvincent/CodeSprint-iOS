@@ -14,10 +14,10 @@
 #import "ErrorCheckUtil.h"
 
 #define MAX_INPUT_LENGTH 20
+
 @interface SearchTeamViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet CustomTextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet CustomTextField *inputNameTextField;
-
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 @property (weak, nonatomic) IBOutlet ImageStyleButton *searchTeamButton;
 

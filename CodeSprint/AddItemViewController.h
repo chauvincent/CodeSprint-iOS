@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Artifacts.h"
 
-
 @interface AddItemViewController : UIViewController
 
 @property (nonatomic) NSUInteger index;

@@ -45,9 +45,9 @@
 + (void)setPlaceHolderImageAsPhoto;
 + (void)togglePlaceholderWithOld;
 + (void)deleteUser;
+
 #pragma mark - Single and Passive Observers
 + (void)observeNewTeams;
-//+ (void)observeUserChanges:(NSString*)userID withCompletion:(void (^)(User *updatedUser))block;
 + (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
 + (void)observeIncaseDelete:(NSString*)scrumKey withCurrentIndex:(NSInteger)index withCompletion:(void (^)(BOOL completed))block;
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;

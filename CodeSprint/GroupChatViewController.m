@@ -36,8 +36,6 @@
     [self setupViews];
     [self setupUser];
     [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
-        NSLog(@"RETURNED FROM URL");
-        NSLog(@"avatar dic: %@", avatarsDict);
         [self downloadImagesWith:avatarsDict withCompletion:^(NSMutableDictionary *imageDict) {
             self.imageDictionary = imageDict;
             [self setupAvatars];
