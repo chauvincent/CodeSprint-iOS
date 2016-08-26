@@ -56,4 +56,3 @@ What did you do yesterday?
 What will you do today?
 Did you run into any issues?
 
-COPYRIGHT:
