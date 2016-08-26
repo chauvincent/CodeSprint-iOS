@@ -1,5 +1,4 @@
 
-ckquote
 
 Welcome to CodeSprint!
 ===================
@@ -48,7 +47,7 @@ CodeSprint supports group messaging. Be sure to check in with your team everyday
 
 ![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/CSMenu4_zpsw6u8nzfm.jpg)
 
-Final Words/Remarks:
+Remarks:
 --------------------
 There are three golden rules of CodeSprint:
 ALWAYS!!, ALWAYS!! CHECK IN WITH YOUR TEAM:
@@ -57,3 +56,4 @@ What did you do yesterday?
 What will you do today?
 Did you run into any issues?
 
+COPYRIGHT:
