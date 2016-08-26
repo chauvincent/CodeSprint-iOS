@@ -7,7 +7,7 @@
 //
 
 #import "PageContentViewController.h"
-
+#import "Constants.h"
 @interface PageContentViewController ()
 
 @end
@@ -16,7 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = GREY_COLOR;
     self.contentImageView.image = [UIImage imageNamed:self.imageFile];
+     self.contentImageView.layer.cornerRadius = 50.0;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -12,6 +12,6 @@
 
 @property NSUInteger index;
 @property NSString *imageFile;
-@property (weak, nonatomic) IBOutlet UIImageView *contentImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *contentImageView;
 
 @end

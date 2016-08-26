@@ -126,7 +126,10 @@
         <!--Page View Controller-->
         <scene sceneID="zDm-2H-PMA">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="POI-r8-iCh" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="POI-r8-iCh" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sop-2B-E9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-491" y="-1268"/>
@@ -143,12 +146,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-jm-uz2">
-                                <rect key="frame" x="277" y="562" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-jm-uz2" customClass="AnimatedButton">
+                                <rect key="frame" x="222" y="562" width="156" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.53333333333333333" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="Qjc-yF-zP2"/>
+                                    <constraint firstAttribute="width" constant="156" id="Crb-ku-00M"/>
                                 </constraints>
-                                <state key="normal" title="Skip"/>
+                                <state key="normal" title="Skip">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="5VI-Eb-9S0" kind="show" id="oFC-hd-b3v"/>
                                 </connections>
@@ -156,8 +162,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="acR-kf-JD9" firstAttribute="top" secondItem="QR8-jm-uz2" secondAttribute="bottom" constant="8" symbolic="YES" id="G4q-G6-tO6"/>
-                            <constraint firstItem="QR8-jm-uz2" firstAttribute="centerX" secondItem="fq7-pm-rq7" secondAttribute="centerX" id="cTZ-CB-Z7i"/>
+                            <constraint firstItem="acR-kf-JD9" firstAttribute="top" secondItem="QR8-jm-uz2" secondAttribute="bottom" constant="8" symbolic="YES" id="2hU-Nh-oR3"/>
+                            <constraint firstItem="QR8-jm-uz2" firstAttribute="centerX" secondItem="fq7-pm-rq7" secondAttribute="centerX" id="KQu-jG-4XA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wZH-oS-khd"/>
@@ -1393,25 +1399,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RBs-OO-2vd">
-                                <rect key="frame" x="47" y="62" width="506" height="475"/>
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="las-I8-Olk">
+                                <rect key="frame" x="20" y="40" width="560" height="540"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RBs-OO-2vd" firstAttribute="centerX" secondItem="3j1-bb-7sG" secondAttribute="centerX" id="Epm-0c-KMS"/>
-                            <constraint firstItem="RBs-OO-2vd" firstAttribute="leading" secondItem="3j1-bb-7sG" secondAttribute="leadingMargin" constant="27" id="HGi-7N-b0B"/>
-                            <constraint firstItem="RBs-OO-2vd" firstAttribute="top" secondItem="1Sq-Oa-mmc" secondAttribute="bottom" constant="42" id="bSj-El-mNp"/>
-                            <constraint firstItem="RBs-OO-2vd" firstAttribute="centerY" secondItem="3j1-bb-7sG" secondAttribute="centerY" id="kDf-Rr-4Zh"/>
+                            <constraint firstItem="las-I8-Olk" firstAttribute="leading" secondItem="3j1-bb-7sG" secondAttribute="leadingMargin" id="W4l-VM-w2s"/>
+                            <constraint firstAttribute="bottom" secondItem="las-I8-Olk" secondAttribute="bottom" constant="20" symbolic="YES" id="Zya-R0-fRa"/>
+                            <constraint firstItem="las-I8-Olk" firstAttribute="trailing" secondItem="3j1-bb-7sG" secondAttribute="trailingMargin" id="joR-yN-hal"/>
+                            <constraint firstItem="las-I8-Olk" firstAttribute="top" secondItem="1Sq-Oa-mmc" secondAttribute="bottom" constant="20" id="rhO-uS-hdt"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="contentImageView" destination="RBs-OO-2vd" id="jZr-sm-jGf"/>
+                        <outlet property="contentImageView" destination="las-I8-Olk" id="P2l-qR-f0f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Gw-q6-UT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="225" y="-1268"/>
+            <point key="canvasLocation" x="283" y="-1262"/>
         </scene>
     </scenes>
     <resources>

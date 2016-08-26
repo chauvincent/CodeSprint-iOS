@@ -20,7 +20,7 @@
 #pragma mark - Lazy Initializers
 -(NSArray *)pageImages{
     if (!_pageImages) {
-        _pageImages = @[@"card1",@"card2"];
+        _pageImages = @[@"card1"];
     }
     return _pageImages;
 }
@@ -43,10 +43,10 @@
 
     self.navigationItem.title = @"Introduction";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
-    
+    self.view.backgroundColor = GREY_COLOR;// DARK_BLUE;
     NSArray *viewControllers = @[startingViewController];
     [self.PageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    self.PageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
+    self.PageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 35);
     
     [self addChildViewController:self.PageViewController];
     [self.view addSubview:self.PageViewController.view];
