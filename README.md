@@ -2,9 +2,9 @@
 
 Welcome to CodeSprint!
 ===================
-![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/icon_zps35js2quc.jpg)
+![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/icon%20copy_zpszyuiw3h7.jpg)
 
-This iOS application coming to the AppStore soon. More features would be developed after CodeSprint's release. I was inspired to make this app due to the fact that during my undergrad I had unproductive partners during my CS curriculum. I felt as though many college students are doing something similar to the "SCRUM" model, but inefficiently. I came to realize that every two weeks in school when you were assigned a new program, it is similar to the concept of a "Sprint". Due to lack of management, and breakdown of tasks and SCRUM meetings, partners tend to feel the easiness to slack off without the "truth-seeking" pressure from SCRUM meetings and efficient tasks management. Hence, I created CodeSprint and will continue to improve this project.
+An iOS application coming to the AppStore soon(awaiting approval). More features would be developed after CodeSprint's release. I was inspired to make this app due to the fact that during my undergrad I had unproductive partners during my CS curriculum. I felt as though many college students are doing something similar to the "SCRUM" model, but it is done inefficiently. I came to realize that every two weeks in school when you were assigned a new program, it is similar to the concept of a "Sprint". Due to lack of management, and breakdown of tasks and SCRUM meetings, partners tend to feel the easiness to slack off without the "truth-seeking" pressure from SCRUM meetings and efficient tasks management. Hence, I created CodeSprint and will continue to improve this project.
 
 This app is completely free, with no ads. I just hope my app would help someone out there that has been in my position before. 
 ![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/Login_zpsvig7cezq.png)
