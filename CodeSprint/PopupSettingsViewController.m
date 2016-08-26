@@ -47,7 +47,6 @@
     return CGSizeMake(280.0f, 320.0f);
 }
 -(void)setupView{
-    NSLog(@"CURRENT PRODCT SPEC LOCAL: %@",self.currentArtifact.productSpecs);
     self.descriptionLabel.hidden = NO;
     self.completedButton.hidden = NO;
     switch (self.currentIndex) {
@@ -139,12 +138,10 @@
 #pragma mark - Helpers
 -(void)removeProductSpec{
     [FirebaseManager removeProductSpecFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath withCompletion:^(BOOL compelted) {
-        NSLog(@"DID REMOVE");
         [self dismiss];
     }];
 }
 -(void)removeSprintGoal{
-    NSLog(@"SELECTED INDEX: %ld", (long)_selectedIndex);
     [FirebaseManager removeSprintFromAllFor:self.scrumKey withArtifact:self.currentArtifact andIndex:self.indexPath withCompletion:^(BOOL completed) {
         [self dismiss];
     }];}
@@ -155,12 +152,10 @@
 }
 -(void)markSprintGoalAsComplete{
     [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:self.indexPath withCompletion:^(BOOL completed) {
-        NSLog(@"DID MARK AS COMPLETE");
         [self dismiss];
     }];
 }
 -(void)markSprintAsCompleteFromInside{
-    // Get Goalrefs
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
     NSArray *goalRefs = currentSprint[kSprintGoalReference];
     NSDictionary *currentGoal = goalRefs[_indexPath]; // current goal from ref
@@ -186,14 +181,6 @@
     }
 
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

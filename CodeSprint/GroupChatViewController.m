@@ -35,7 +35,6 @@
     [super viewDidLoad];
     [self setupViews];
     [self setupUser];
-    
     [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
         NSLog(@"RETURNED FROM URL");
         NSLog(@"avatar dic: %@", avatarsDict);
@@ -68,6 +67,11 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:NO];
     [[[[[FIRDatabase database] reference] child:kChatroomHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+    [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+
+    //    [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+    [[[[[FIRDatabase database] reference] child:kChatroomHead] child:_currentTeam] removeAllObservers];
+     [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeAllObservers];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
@@ -159,6 +163,5 @@
         }];
         [requestOperation start];
     }
-
 }
 @end

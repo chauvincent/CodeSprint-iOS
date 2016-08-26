@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
 @property (weak, nonatomic) IBOutlet UIStackView *homeStackView;
 
-
 @end
 
 @implementation HomeViewController
@@ -164,6 +163,5 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
-#pragma mark - Helpers
 
 @end

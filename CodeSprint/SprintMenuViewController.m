@@ -132,7 +132,6 @@
     [self.teamsTableView reloadData];
 }
 -(void)didLeave:(NSMutableArray*)selected{
-    NSLog(@"DID GET CALLED");
     User *currentUser = [FirebaseManager sharedInstance].currentUser;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i < [selected count]; i++) {
@@ -148,7 +147,6 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];
-    // TODO: refactor and set up image persistence
     if ([[FirebaseManager sharedInstance].currentUser.groupsIDs count] == 0) {
         cell.teamNameLabel.text = @"No teams to display.";
         CGSize imageViewSize = cell.identiconImageView.frame.size;
@@ -175,10 +173,7 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"tapped on team : %@" , [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section]);
     self.selectedTeam = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
-    
     [self performSegueWithIdentifier:@"SprintMenuToTeamSegue" sender:self];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -14,10 +14,6 @@
 #include "Artifacts.h"
 #include "Chatroom.h"
 
-
-
-
-
 @implementation FirebaseManager
 
 #pragma mark - Singleton
@@ -32,6 +28,7 @@
 }
 
 #pragma mark - References Lazy Initializers
+
 - (FIRDatabaseReference*)refs{
     if (!refs) {
         refs = [[FIRDatabase database] reference];
@@ -82,27 +79,34 @@
 #pragma mark - User Management - Lifecycle
 + (void)logoutUser{
     [FirebaseManager sharedInstance].currentUser = nil;
-
 }
 + (void)deleteUser{
-    FIRUser *user = [FIRAuth auth].currentUser;
-    [user deleteWithCompletion:^(NSError *_Nullable error) {
-        if (error) {
-        } else {
-            NSLog(@"did delete");
-        }
+    [self deleteHelperWithCompletion:^(BOOL result) {
+        FIRUser *user = [FIRAuth auth].currentUser;
+        [user deleteWithCompletion:^(NSError *_Nullable error) {
+            if (error) {
+            } else {
+                NSLog(@"did delete");
+            }
+        }];
     }];
-//    User *currentUser = [FirebaseManager sharedInstance].currentUser;
-//    if ([currentUser.groupsIDs count] != 0) {
-//        FIRDatabaseReference *userRef = [[[self userRef] child:currentUser.uid] child:kCSUserTeamKey];
-//        [userRef removeValue];
-//        for (NSString *teamName in currentUser.groupsIDs) {
-//            [self removeFromTeam:currentUser.uid team:teamName withCompletion:^(BOOL result) {
-//            }];
-//        }
-//    }
-
- 
+}
++ (void)deleteHelperWithCompletion:(void (^)(BOOL result))block{
+    User *currentUser = [FirebaseManager sharedInstance].currentUser;
+    if ([currentUser.groupsIDs count] != 0) {
+        FIRDatabaseReference *userRef = [[[self userRef] child:currentUser.uid] child:kCSUserTeamKey];
+        [userRef removeValue];
+        __block int i = 0;
+        for (NSString *teamName in currentUser.groupsIDs) {
+            [self removeFromTeam:currentUser.uid team:teamName withCompletion:^(BOOL result) {
+                i++;
+                if (i == currentUser.groupsIDs.count) {
+                     block(true);
+                }
+            }];
+        }
+    }
+    
 }
 + (void)setUpNewUser:(NSString*)displayName{
     NSString *uid = [FirebaseManager sharedInstance].currentUser.uid;
@@ -163,6 +167,7 @@
             [FirebaseManager sharedInstance].currentUser.groupsIDs = [[NSMutableArray alloc] init];
         }
     }];
+
 }
 
 #pragma mark - Queries
@@ -537,20 +542,23 @@
 }
 
 + (void)retreiveImageURLForTeam:(NSString*)teamName withCompletion:(void (^)(NSMutableDictionary *avatarsDict))block{
-   FIRDatabaseReference *team = [[self teamRef] child:teamName];
-    [FirebaseManager sharedInstance].downloadImgHandle = [team observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSMutableDictionary *avatars = [[NSMutableDictionary alloc] init];
-        NSDictionary *teamNode = (NSDictionary*)snapshot.value;
-        NSArray *members = (NSArray*)teamNode[kMembersHead];
-        [self getImagesForUsersArray:members withCompletion:^(NSMutableArray *urlArray) {
-            int i = 0;
-            for (NSString *user in members) {
-                avatars[user] = urlArray[i];
-                i++;
-            }
-            block(avatars);
+    if (teamName != nil) {
+        FIRDatabaseReference *team = [[self teamRef] child:teamName];
+        [FirebaseManager sharedInstance].downloadImgHandle = [team observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            NSMutableDictionary *avatars = [[NSMutableDictionary alloc] init];
+            NSDictionary *teamNode = (NSDictionary*)snapshot.value;
+            NSArray *members = (NSArray*)teamNode[kMembersHead];
+            [self getImagesForUsersArray:members withCompletion:^(NSMutableArray *urlArray) {
+                int i = 0;
+                for (NSString *user in members) {
+                    avatars[user] = urlArray[i];
+                    i++;
+                }
+                block(avatars);
+            }];
         }];
-    }];
+    }
+    block(nil);
 }
 + (void)getImagesForUsersArray:(NSArray*)array withCompletion:(void (^)(NSMutableArray *urlArray))block{
     __block NSMutableArray *urls = [[NSMutableArray alloc] init];
@@ -598,9 +606,11 @@
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+     
 }
 + (void)detachChatroom{
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
 }
 + (void)detachScrum{
     

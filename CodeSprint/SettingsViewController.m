@@ -67,15 +67,19 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 - (IBAction)deleteAccountPressed:(id)sender {
+    NSMutableArray *groupIds = [FirebaseManager sharedInstance].currentUser.groupsIDs;
+    
+    for (NSString *gid in groupIds) {
+        [[[[[FIRDatabase database] reference] child:kTeamsHead] child:gid] removeAllObservers];
+    }
     NSError *signOutError;
+    [FirebaseManager deleteUser];
+
     BOOL status = [[FIRAuth auth] signOut:&signOutError];
     if (!status) {
         NSLog(@"Error signing out: %@", signOutError);
         return;
     }
-    //[FirebaseManager removeAllObservers];
-    [FirebaseManager deleteUser];
-    //[FirebaseManager logoutUser];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

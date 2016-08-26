@@ -89,7 +89,6 @@
     [self updateControlCounts];
 }
 - (void)viewDidAppear:(BOOL)animated{
-   // [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey] removeAllObservers];
     [super viewDidAppear:animated];
 }
 

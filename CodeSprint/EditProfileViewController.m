@@ -27,12 +27,10 @@
     [super viewDidLoad];
     [self setupView];
 
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - View Setup
@@ -43,7 +41,6 @@
     self.navigationItem.leftBarButtonItem = newBackButton;
 
     NSString *old = [[NSUserDefaults standardUserDefaults] objectForKey:@"PrivatePhoto"];
-    NSLog(@" SETUPVIEW : OLD IS : %@", old);
     if (old == nil) {
         [self.showDisplaySwitch setOn:YES];
     }else if([old isEqualToString:@"PRIVATE"]){
@@ -72,8 +69,6 @@
 - (IBAction)cancelButtonPressed:(id)sender {
 }
 - (IBAction)toggled:(id)sender {
-    NSLog(@"TOGGLED");
-    
     BOOL showMyPhoto = self.showDisplaySwitch.isOn;
     if (!showMyPhoto) {
         [FirebaseManager setPlaceHolderImageAsPhoto];
@@ -83,7 +78,6 @@
     NSString *newSetting = showMyPhoto ? @"PUBLIC"  : @"PRIVATE";
     [[NSUserDefaults standardUserDefaults] setObject:newSetting forKey:@"PrivatePhoto"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"NEWSETTINGS: %@", newSetting);
 }
 
 /*

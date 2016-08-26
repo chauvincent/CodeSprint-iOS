@@ -55,7 +55,6 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:NO];
-      //  [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
     [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeAllObservers];
 }
 #pragma mark - Helper Methods
@@ -160,17 +159,6 @@
         [popover showInViewController:self];
     }
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 

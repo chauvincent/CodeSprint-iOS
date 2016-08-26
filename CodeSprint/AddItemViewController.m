@@ -29,9 +29,6 @@
     [super viewDidLoad];
     [self setupView];
     [self setupButtons];
-    
-    NSLog(@"additem : %@", _currentScrum);
-    NSLog(@"current index: %lu", (unsigned long)self.index);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,8 +97,6 @@
             NSLog(@"Add Sprint Goals");
             [self addSprintGoals];
             break;
-        //case 2: // Add
-          //  break;
         case 2: // Add a sprint
             NSLog(@"Add a Sprint");
             [self addSprint];
@@ -109,8 +104,6 @@
         default:
             break;
     }
-  
-  
 }
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -187,8 +180,6 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     
-
-
 }
 -(NSString*)convertDate:(NSDate*)date{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -196,9 +187,5 @@
     NSString *stringFromDate = [formatter stringFromDate:date];
     return stringFromDate;
 }
-
-#pragma mark - Navigation
-
-
 
 @end

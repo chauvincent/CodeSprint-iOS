@@ -8,7 +8,7 @@
 
 #import "IntroductionViewController.h"
 #include "Constants.h"
-
+#include "FirebaseManager.h"
 #include "AnimationGenerator.h"
 
 @interface IntroductionViewController ()
@@ -40,6 +40,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)setupView{
+
     self.navigationItem.title = @"Introduction";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
     
