@@ -20,7 +20,7 @@
 #pragma mark - Lazy Initializers
 -(NSArray *)pageImages{
     if (!_pageImages) {
-        _pageImages = @[@"card1", @"card2", @"card3", @"card4"];
+        _pageImages = @[@"card1", @"card2", @"card3", @"card4", @"card5", @"card6"];
     }
     return _pageImages;
 }
