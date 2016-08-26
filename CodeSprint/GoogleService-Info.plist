@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1065128409557-daa8egcfr1gtf7tsvutch5gvn258kt2p.apps.googleusercontent.com</string>
+	<string>1065128409557-4ctk4icgo0ttf8pv8jmql88rgo3g4muv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1065128409557-daa8egcfr1gtf7tsvutch5gvn258kt2p</string>
+	<string>com.googleusercontent.apps.1065128409557-4ctk4icgo0ttf8pv8jmql88rgo3g4muv</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCqtm7gfDIoEV3j0hgJdD_V_3Vz7j7W0oM</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>Vincent-Chau.CodeSprint</string>
+	<string>com.vincent-chau.codesprint</string>
 	<key>PROJECT_ID</key>
 	<string>code-spring-ios</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1065128409557:ios:abb897b70bde7bc8</string>
+	<string>1:1065128409557:ios:aeb4c1870be005cd</string>
 	<key>DATABASE_URL</key>
 	<string>https://code-spring-ios.firebaseio.com</string>
 </dict>

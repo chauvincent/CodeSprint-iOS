@@ -20,6 +20,7 @@
 		7556379A1D509E1C00A136FF /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 755637991D509E1C00A136FF /* CustomTextView.m */; };
 		755B76251D23E0E600B211CF /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B76241D23E0E600B211CF /* SettingsTableViewCell.m */; };
 		755B762B1D2415CE00B211CF /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 755B762A1D2415CE00B211CF /* Team.m */; };
+		7583BB061D7080B500F1A055 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7583BB051D7080B500F1A055 /* GoogleService-Info.plist */; };
 		75843BF51D546A9400D6777F /* ViewSprintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75843BF41D546A9400D6777F /* ViewSprintViewController.m */; };
 		75843BF81D547F9C00D6777F /* ImportItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75843BF71D547F9C00D6777F /* ImportItemsViewController.m */; };
 		758454EF1D255506001C36EF /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758454EE1D255506001C36EF /* PageContentViewController.m */; };
@@ -41,7 +42,6 @@
 		75BFABC51D181A6B0001CD57 /* CodeSprint.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 75BFABC31D181A6B0001CD57 /* CodeSprint.xcdatamodeld */; };
 		75BFABC71D181A6B0001CD57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC61D181A6B0001CD57 /* Assets.xcassets */; };
 		75BFABCA1D181A6B0001CD57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABC81D181A6B0001CD57 /* LaunchScreen.storyboard */; };
-		75BFABD31D181C500001CD57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75BFABD21D181C500001CD57 /* GoogleService-Info.plist */; };
 		75C14F151D18213600CAE375 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C14F141D18213600CAE375 /* LoginViewController.m */; };
 		75C896F21D43635C00B9062F /* CreateDisplayNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F11D43635C00B9062F /* CreateDisplayNameViewController.m */; };
 		75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C896F41D45A41500B9062F /* ErrorCheckUtil.m */; };
@@ -85,6 +85,7 @@
 		755B76241D23E0E600B211CF /* SettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewCell.m; sourceTree = "<group>"; };
 		755B76291D2415CE00B211CF /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
 		755B762A1D2415CE00B211CF /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
+		7583BB051D7080B500F1A055 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		75843BF31D546A9400D6777F /* ViewSprintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSprintViewController.h; sourceTree = "<group>"; };
 		75843BF41D546A9400D6777F /* ViewSprintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSprintViewController.m; sourceTree = "<group>"; };
 		75843BF61D547F9C00D6777F /* ImportItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportItemsViewController.h; sourceTree = "<group>"; };
@@ -124,7 +125,6 @@
 		75BFABC61D181A6B0001CD57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75BFABC91D181A6B0001CD57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75BFABCB1D181A6B0001CD57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		75BFABD21D181C500001CD57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		75C14F131D18213600CAE375 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		75C14F141D18213600CAE375 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		75C896F01D43635C00B9062F /* CreateDisplayNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateDisplayNameViewController.h; sourceTree = "<group>"; };
@@ -272,8 +272,8 @@
 		75BFABB71D181A6B0001CD57 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7583BB051D7080B500F1A055 /* GoogleService-Info.plist */,
 				75BFABB81D181A6B0001CD57 /* main.m */,
-				75BFABD21D181C500001CD57 /* GoogleService-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -386,7 +386,7 @@
 				TargetAttributes = {
 					75BFABB31D181A6B0001CD57 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = SH2GY4V62E;
+						DevelopmentTeam = 7S87P72MY4;
 					};
 				};
 			};
@@ -414,7 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75BFABCA1D181A6B0001CD57 /* LaunchScreen.storyboard in Resources */,
-				75BFABD31D181C500001CD57 /* GoogleService-Info.plist in Resources */,
+				7583BB061D7080B500F1A055 /* GoogleService-Info.plist in Resources */,
 				75BFABC71D181A6B0001CD57 /* Assets.xcassets in Resources */,
 				75BFABC21D181A6B0001CD57 /* Main.storyboard in Resources */,
 			);
@@ -563,6 +563,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -610,6 +611,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -639,13 +641,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7S87P72MY4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CodeSprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Vincent-Chau.CodeSprint";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vincent-chau.codesprint";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CodeSprint/CodeSprint-Bridging-Header.h";
@@ -662,13 +665,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7S87P72MY4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CodeSprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Vincent-Chau.CodeSprint";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vincent-chau.codesprint";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CodeSprint/CodeSprint-Bridging-Header.h";

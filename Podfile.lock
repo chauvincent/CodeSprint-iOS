@@ -72,7 +72,7 @@ PODS:
   - RWBlurPopover (3.0.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.5)
+  - AFNetworking
   - DZNSegmentedControl
   - FBSDKCoreKit
   - FBSDKLoginKit

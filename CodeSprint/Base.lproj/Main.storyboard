@@ -696,7 +696,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5p1-yc-RuP" id="Vch-NQ-6kq">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -980,7 +980,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="266" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LKZ-Af-TTb" id="CTS-kz-Gfq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="266" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="266" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -1167,7 +1167,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="266" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5hT-NY-t6O" id="QTB-S8-ZbD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="266" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="266" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
