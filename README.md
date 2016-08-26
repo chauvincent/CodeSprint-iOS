@@ -46,9 +46,7 @@ Import the goals from the sprint backlog by pressing the + button, and mark them
 
 CodeSprint supports group messaging. Be sure to check in with your team everyday!! 
 
-![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/Messages_zpsfx54j8zv.png)
-
-
+![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/CSMenu4_zpsw6u8nzfm.jpg)
 
 Final Words/Remarks:
 --------------------
