@@ -52,9 +52,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 #pragma mark - View Controller Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.navigationItem.title = @"Login";
-
+    [self setupView];
+    
     FIRUser *currentUser = [FIRAuth auth].currentUser;
     if (currentUser) {
         [self didSignInWith:currentUser];
@@ -77,7 +76,14 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     }
 }
 #pragma mark - Setup
-
+-(void)setupView{
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    self.navigationItem.leftBarButtonItem = newBackButton;
+    self.navigationItem.title = @"Login";
+}
+-(void)dismiss{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 #pragma mark - IBActions
 - (IBAction)facebookLoginButtonPressed:(id)sender {
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
