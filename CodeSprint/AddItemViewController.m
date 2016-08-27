@@ -13,7 +13,7 @@
 #import "CustomTextView.h"
 #import "BacklogTableViewController.h"
 #import "ErrorCheckUtil.h"
-@interface AddItemViewController () <UITextFieldDelegate>
+@interface AddItemViewController () <UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
 @property (strong, nonatomic) IBOutlet CustomTextView *descriptionTextView;
@@ -39,8 +39,10 @@
 -(CGSize)preferredContentSize{
     return CGSizeMake(280.0f, 320.0f);
 }
+
 -(void)setupView{
-    
+    self.descriptionTextView.delegate = self;
+    self.titleTextField.delegate = self;
     switch (self.index) {
         case 0: // Add Product Spec
             self.navigationItem.title = @"Add Specification";
@@ -185,5 +187,16 @@
     NSString *stringFromDate = [formatter stringFromDate:date];
     return stringFromDate;
 }
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+#pragma mark - UITextViewDelegate
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return false;
+    }
+    return true;
+}
 @end

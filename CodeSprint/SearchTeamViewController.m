@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
+    self.passwordTextField.delegate = self;
+    self.inputNameTextField.delegate = self;
 }
 -(void)viewWillDisappear:(BOOL)animated{
    [self.delegate didJoinTeam];
@@ -100,5 +102,8 @@
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     return newLength <= MAX_INPUT_LENGTH;
 }
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
 @end

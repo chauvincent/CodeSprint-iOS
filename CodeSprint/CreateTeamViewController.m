@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _teamTextField.delegate = self;
+    _passwordTextField.delegate = self;
+    
     [self setupButtons];
 }
 - (void)didReceiveMemoryWarning {
@@ -101,7 +103,10 @@
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     return newLength <= MAX_INPUT_LENGTH;
 }
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
 #pragma mark - Helper methods
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
