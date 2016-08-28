@@ -11,8 +11,11 @@
 #include "FirebaseManager.h"
 #include "Constants.h"
 #import "GroupChatViewController.h"
+#import "GroupMessageTableViewCell.h"
+#import "IGIdenticon.h"
 @interface ChatroomsTableViewController ()
 
+@property (strong, nonatomic) IGImageGenerator *simpleIdenticonsGenerator;
 @end
 
 @implementation ChatroomsTableViewController
@@ -30,11 +33,14 @@
 }
 #pragma mark Setup
 -(void)setupView{
+    self.view.backgroundColor = GREY_COLOR;
+    self.tableView.backgroundColor = GREY_COLOR;
     self.navigationItem.title = @"Team Chat";
     self.navigationItem.hidesBackButton = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
 }
@@ -47,27 +53,42 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50.0f;
-}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
     return (count == 0) ? 1 : count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    GroupMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GroupCell" forIndexPath:indexPath];
+    
     NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
     if (count == 0) {
-        cell.textLabel.text = @"No Team Chats Available";
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        CGSize imageViewSize = CGSizeMake(50.0f, 50.0f);
+        cell.userInteractionEnabled = NO;
+        cell.teamImage.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
+        cell.teamLabel.text = @"No team chats available.";
     }else{
         NSMutableArray *teams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
-        cell.textLabel.text = teams[indexPath.row];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.teamLabel.text = teams[indexPath.row];
+        CGSize imageViewSize = CGSizeMake(50.0f, 50.0f);
+        u_int32_t avatarIcon;
+        NSString *teamName = teams[indexPath.row];
+        NSUInteger hashForUser = [[NSUserDefaults standardUserDefaults] integerForKey:teamName];
+        if (hashForUser != 0){
+            avatarIcon = (u_int32_t)hashForUser;
+        }else{
+            avatarIcon = arc4random();
+            NSUInteger iconHash = (NSUInteger)avatarIcon;
+            [[NSUserDefaults standardUserDefaults] setInteger:iconHash forKey:teamName];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        cell.teamImage.image = [self.simpleIdenticonsGenerator imageFromUInt32:avatarIcon size:imageViewSize];
     }
     return cell;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 78.0f;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     GroupChatViewController *vc = [GroupChatViewController messagesViewController];

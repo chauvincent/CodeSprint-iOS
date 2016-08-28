@@ -35,7 +35,9 @@
 
 #pragma mark - View Setup
 -(void)setupView{
-     self.navigationItem.title = @"Edit Profile";
+    self.view.backgroundColor = GREY_COLOR;
+    self.navigationItem.title = @"Edit Profile";
+    self.displayNameTextField.backgroundColor = [UIColor whiteColor];
     self.displayNameTextField.placeholder = [FirebaseManager sharedInstance].currentUser.displayName;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;

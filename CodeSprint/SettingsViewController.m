@@ -30,6 +30,7 @@
 
 #pragma mark - View Setup
 -(void)setupView{
+    self.view.backgroundColor = GREY_COLOR;
     self.navigationItem.title = @"Settings";
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
