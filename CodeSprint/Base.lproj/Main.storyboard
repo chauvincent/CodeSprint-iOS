@@ -253,6 +253,31 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="XzN-rr-FuZ">
+                                <rect key="frame" x="156" y="494" width="289" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By continuing you are agreeing to our" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srg-GL-5uv">
+                                        <rect key="frame" x="0.0" y="0.0" width="212" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7f-mQ-sbH">
+                                        <rect key="frame" x="214" y="0.0" width="75" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                        <state key="normal" title="Privacy Policy.">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="privacyButtonPressed:" destination="5VI-Eb-9S0" eventType="touchUpInside" id="ols-mX-1wA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="3Fx-Oy-LSP"/>
+                                    <constraint firstAttribute="width" constant="289" id="HHT-60-aaI"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -263,9 +288,11 @@
                             <constraint firstItem="rrL-j4-cl1" firstAttribute="width" secondItem="Sy9-nV-5iP" secondAttribute="height" multiplier="1:3" id="KBt-4E-8aV"/>
                             <constraint firstItem="AgX-8w-mfe" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="LbM-qm-NkR"/>
                             <constraint firstItem="rrL-j4-cl1" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" constant="5" id="NxE-Di-JBC"/>
+                            <constraint firstItem="XzN-rr-FuZ" firstAttribute="top" secondItem="AgX-8w-mfe" secondAttribute="bottom" constant="8" symbolic="YES" id="dA1-KA-R8v"/>
                             <constraint firstItem="JdH-Su-2iu" firstAttribute="top" secondItem="rrL-j4-cl1" secondAttribute="bottom" constant="1" id="dtD-cz-KwK"/>
                             <constraint firstItem="pQb-Md-5U2" firstAttribute="centerX" secondItem="Sy9-nV-5iP" secondAttribute="centerX" id="p6l-hU-iZI"/>
                             <constraint firstItem="rrL-j4-cl1" firstAttribute="top" secondItem="pRa-tx-ibY" secondAttribute="bottom" constant="16" id="qfP-gS-8hb"/>
+                            <constraint firstItem="XzN-rr-FuZ" firstAttribute="centerX" secondItem="AgX-8w-mfe" secondAttribute="centerX" id="sML-wN-edQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9DU-vL-osb"/>
@@ -275,6 +302,7 @@
                         <outlet property="githubCenterConstraint" destination="LbM-qm-NkR" id="Kg1-5g-jv6"/>
                         <outlet property="githubLoginButton" destination="AgX-8w-mfe" id="cLi-07-fSO"/>
                         <outlet property="labelCenterConstraint" destination="H5x-PX-49T" id="Wfs-TI-yzJ"/>
+                        <outlet property="privacyButton" destination="R7f-mQ-sbH" id="jRy-QG-NU9"/>
                         <segue destination="P09-PX-h5N" kind="show" identifier="LoginToHomeSegue" id="c2P-CE-zAa"/>
                     </connections>
                 </viewController>
@@ -702,7 +730,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="78" id="5p1-yc-RuP" customClass="GroupMessageTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="78" id="5p1-yc-RuP" customClass="GroupMessageTableViewCell">
                                 <rect key="frame" x="0.0" y="92" width="600" height="78"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5p1-yc-RuP" id="Vch-NQ-6kq">

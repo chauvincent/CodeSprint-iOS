@@ -21,12 +21,15 @@
     NSString *accessToken;
 }
 
+
 @property (strong, nonatomic) AnimationGenerator *generator;
 
 // Buttons and Views
+@property (weak, nonatomic) IBOutlet UIButton *privacyButton;
 @property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
 @property (strong, nonatomic) UIWebView *gitHubWebView;
+@property (strong, nonatomic) UIWebView *policyWebView;
 
 // Animated Constraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterConstraint;
@@ -49,6 +52,13 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     }
     return _gitHubWebView;
 }
+-(UIWebView *)policyWebView{
+    if (!_policyWebView) {
+        _policyWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+    }
+    return _policyWebView;
+}
+
 #pragma mark - View Controller Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -125,7 +135,11 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 #pragma mark - UIWebViewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-
+    
+    if ([request.URL isEqual:[NSURL URLWithString: @"https://www.iubenda.com/privacy-policy/7902422"]]) {
+        return YES;
+    }
+    
     NSString *currentURL = [request.URL absoluteString];
     if ([currentURL containsString:@"code="]) {
         NSRange indexOfCode = [currentURL rangeOfString:@"code="];
@@ -150,6 +164,10 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
             [view removeFromSuperview];
             [self.gitHubWebView removeFromSuperview];
         }
+        if (view.tag == 1112) {
+            [view removeFromSuperview];
+            [self.policyWebView removeFromSuperview];
+        }
     }
 }
 #pragma mark - User Helper Methods
@@ -172,7 +190,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 
 #pragma mark - GitHub Signin Helpers
-
 -(void)getAccessToken{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -205,5 +222,24 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     }];
 }
 
+#pragma mark - Privacy Policy
+- (IBAction)privacyButtonPressed:(id)sender {
+    NSString *policyURL = @"https://www.iubenda.com/privacy-policy/7902422";
+    [self.policyWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:policyURL]]];
+    [self.view addSubview:self.policyWebView];
+    [self.view bringSubviewToFront:self.policyWebView];
+    self.policyWebView.delegate = self;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.policyWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
+    }];
+    CGFloat height = [[UIScreen mainScreen] bounds].size.height - self.view.frame.size.height;
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeButton.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
+    closeButton.tag = 1112;
+    closeButton.backgroundColor = [UIColor clearColor];
+    [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setTitle:@"" forState:UIControlStateNormal];
+    [self.view addSubview:closeButton];
+}
 
 @end
