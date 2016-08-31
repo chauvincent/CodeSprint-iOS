@@ -15,7 +15,7 @@ This app is completely free, with no ads. I just hope my app would help someone 
 CodeSprint: Task-Management
 -------------
 
-CodeSprint is **"SCRUM"-based**, wheres there is a Product Backlog, a Sprint Backlog, along with Active Sprints. There is also Group Messaging. In the future I will include Burn-Down Charts to help figure out reasons for why the team did not meet deadlines. 
+CodeSprint is **"SCRUM"-based**, where there is a Product Backlog, a Sprint Backlog, along with Active Sprints. There is also Group Messaging. In the future I will include Burn-Down Charts to help figure out reasons for why the team did not meet deadlines. 
 
 > **Note:**
 

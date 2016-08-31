@@ -21,7 +21,6 @@
     NSString *accessToken;
 }
 
-
 @property (strong, nonatomic) AnimationGenerator *generator;
 
 // Buttons and Views
