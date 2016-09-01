@@ -68,20 +68,37 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 - (IBAction)deleteAccountPressed:(id)sender {
-    NSMutableArray *groupIds = [FirebaseManager sharedInstance].currentUser.groupsIDs;
     
-    for (NSString *gid in groupIds) {
-        [[[[[FIRDatabase database] reference] child:kTeamsHead] child:gid] removeAllObservers];
-    }
-    NSError *signOutError;
-    [FirebaseManager deleteUser];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         NSMutableArray *groupIds = [FirebaseManager sharedInstance].currentUser.groupsIDs;
+                                                         
+                                                         for (NSString *gid in groupIds) {
+                                                             [[[[[FIRDatabase database] reference] child:kTeamsHead] child:gid] removeAllObservers];
+                                                         }
+                                                         FIRUser *user = [FIRAuth auth].currentUser;
+                                                         
+                                                         [user deleteWithCompletion:^(NSError *_Nullable error) {
+                                                             if (error) {
+                                                                 NSLog(@"error: %@", error.localizedDescription);
+                                                             } else {
+                                                                 NSLog(@"sucess");
+                                                             }
+                                                         }];
+                                                         [FirebaseManager deleteUser];
+                                                         [self.navigationController popToRootViewControllerAnimated:YES];
+                                                     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout"
+                                                                   message:@"Are you sure you want to delete you account? If so, you will automatically leave all your teams."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 
-    BOOL status = [[FIRAuth auth] signOut:&signOutError];
-    if (!status) {
-        NSLog(@"Error signing out: %@", signOutError);
-        return;
-    }
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /*

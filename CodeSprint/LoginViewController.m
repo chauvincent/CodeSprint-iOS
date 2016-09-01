@@ -194,6 +194,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
                 [self presentViewController:errorAlert animated:YES completion:nil];
             }else{
               // success
+                FIRUser *currentUser = user;
+                [self didSignInWith:currentUser];
             }
         }];
     }
@@ -223,6 +225,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
                 [self presentViewController:otherErrors animated:YES completion:nil];
             } else {
                // Successfuly created
+                FIRUser *currentUser = user;
+                [self didSignInWith:currentUser];
             }
             
         }];

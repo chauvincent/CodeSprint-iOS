@@ -80,12 +80,20 @@
 + (void)logoutUser{
     [FirebaseManager sharedInstance].currentUser = nil;
 }
-+ (void)deleteUser{
++ (void)deleteUser {
     [self deleteHelperWithCompletion:^(BOOL result) {
         FIRUser *user = [FIRAuth auth].currentUser;
+        
         [user deleteWithCompletion:^(NSError *_Nullable error) {
             if (error) {
+                NSLog(@"ERROR: %@", error.localizedDescription);
             } else {
+                NSError *signOutError;
+                BOOL status = [[FIRAuth auth] signOut:&signOutError];
+                if (!status) {
+                    NSLog(@"Error signing out: %@", signOutError);
+                    return;
+                }
             }
         }];
     }];
