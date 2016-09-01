@@ -2,13 +2,13 @@
 
 Welcome to CodeSprint!
 ===================
-![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/a432fb46-96b6-4780-a64c-7c7ba114e917_zpsr0hhhzuk.jpg)
+![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/icon%20copy_zpszyuiw3h7.jpg)
 
 CodeSprint is an iOS application coming to the Appstore soon (awaiting approval). More features will be developed and released such as Burndown Charts. I was inspired to make this app because of my undergraduate experience as a CS student. There was no way to hold students accountable when they did not complete their assigned tasks in group projects. Many college students are practicing something similar to the "SCRUM" model but it is done inefficiently. I came to realize that every two weeks in school when you were assigned a new program, it is similar to the concept of a "Sprint". Due to the lack of project management, poor breakdown of tasks and lack of SCRUM meetings, students do not feel the "truth-seeking" pressure from SCRUM meetings and efficent task management. Hence, I created CodeSprint to help developers/student developers to bring SCRUM into their workflow, either in the classroom or for personal projects.
 
 This app is completely free, with no ads. I just hope my app would help someone out there that has been in my position before. 
 
-![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/Login_zpsvig7cezq.png)
+![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/a432fb46-96b6-4780-a64c-7c7ba114e917_zpsr0hhhzuk.jpg)
 ----------
 
 
