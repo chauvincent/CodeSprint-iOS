@@ -7,6 +7,7 @@ target 'CodeSprint' do
 pod 'Firebase'
 pod 'Firebase/Auth' 
 pod 'Firebase/Database'
+pod 'Firebase/Storage'
 pod 'AFNetworking'
 pod 'pop', '~> 1.0'
 pod 'RWBlurPopover', '~> 3.0.0'

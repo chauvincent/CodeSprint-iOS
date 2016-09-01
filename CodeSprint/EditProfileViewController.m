@@ -13,6 +13,8 @@
 #include "ErrorCheckUtil.h"
 #include "FirebaseManager.h"
 #import "CircleImageView.h"
+#import <AFNetworking.h>
+#import "StorageService.h"
 
 @interface EditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -24,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet CircleImageView *profileImageView;
 
 @end
+
 
 @implementation EditProfileViewController
 
@@ -115,13 +118,18 @@
         img = info[UIImagePickerControllerOriginalImage];
     }
     
+    NSData *imgData = UIImageJPEGRepresentation(img, 0.9);
+    StorageService *service = [[StorageService alloc] init];
+    [service uploadToImageData:imgData];
+    
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    // canceled
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+#pragma mark - Helpers
 
 
 /*

@@ -28,6 +28,7 @@
 		7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF011D37063A00F6E1E9 /* CustomTextField.m */; };
 		7588AF051D37066B00F6E1E9 /* ImageStyleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */; };
 		7588AF081D3845CB00F6E1E9 /* SearchTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7588AF071D3845CB00F6E1E9 /* SearchTeamViewController.m */; };
+		758F557D1D78EFD800F3AAAA /* StorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F557C1D78EFD800F3AAAA /* StorageService.m */; };
 		759286861D46D3CB00D3B9B8 /* TeamsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759286851D46D3CB00D3B9B8 /* TeamsTableViewCell.m */; };
 		759918981D1D981F00E38268 /* ShadowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759918971D1D981F00E38268 /* ShadowImageView.m */; };
 		7599189C1D1E2AF600E38268 /* AnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7599189B1D1E2AF600E38268 /* AnimationGenerator.m */; };
@@ -101,6 +102,8 @@
 		7588AF041D37066B00F6E1E9 /* ImageStyleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStyleButton.m; sourceTree = "<group>"; };
 		7588AF061D3845CB00F6E1E9 /* SearchTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTeamViewController.h; sourceTree = "<group>"; };
 		7588AF071D3845CB00F6E1E9 /* SearchTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTeamViewController.m; sourceTree = "<group>"; };
+		758F557B1D78EFD800F3AAAA /* StorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		758F557C1D78EFD800F3AAAA /* StorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageService.m; sourceTree = "<group>"; };
 		759286841D46D3CB00D3B9B8 /* TeamsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsTableViewCell.h; sourceTree = "<group>"; };
 		759286851D46D3CB00D3B9B8 /* TeamsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsTableViewCell.m; sourceTree = "<group>"; };
 		759918961D1D981F00E38268 /* ShadowImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowImageView.h; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 			children = (
 				751A755C1D183E9300923F61 /* FirebaseManager.h */,
 				751A755D1D183E9300923F61 /* FirebaseManager.m */,
+				758F557B1D78EFD800F3AAAA /* StorageService.h */,
+				758F557C1D78EFD800F3AAAA /* StorageService.m */,
 			);
 			name = DataService;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				75C14F151D18213600CAE375 /* LoginViewController.m in Sources */,
 				759CA8361D3E2FE200A26EB9 /* User.m in Sources */,
 				7588AF021D37063A00F6E1E9 /* CustomTextField.m in Sources */,
+				758F557D1D78EFD800F3AAAA /* StorageService.m in Sources */,
 				75C896F51D45A41500B9062F /* ErrorCheckUtil.m in Sources */,
 				75843BF51D546A9400D6777F /* ViewSprintViewController.m in Sources */,
 				754FF8881D1BA143004ABD43 /* HomeViewController.m in Sources */,
