@@ -496,7 +496,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uf2-Cf-D9G" customClass="AnimatedButton">
-                                <rect key="frame" x="189" y="214" width="223" height="30"/>
+                                <rect key="frame" x="189" y="327" width="223" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="223" id="Xpi-CR-ZY4"/>
@@ -509,7 +509,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuF-tK-uxE" customClass="AnimatedButton">
-                                <rect key="frame" x="189" y="252" width="223" height="30"/>
+                                <rect key="frame" x="189" y="365" width="223" height="30"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.30588235289999999" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -519,7 +519,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a New Display Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nhr-TX-CIT" customClass="CustomTextField">
-                                <rect key="frame" x="190" y="170" width="220" height="30"/>
+                                <rect key="frame" x="190" y="283" width="220" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="clx-3i-fmD"/>
@@ -528,7 +528,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="k36-SV-eTI">
-                                <rect key="frame" x="164" y="356" width="272" height="31"/>
+                                <rect key="frame" x="164" y="403" width="272" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show My Picture In Chat:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ie-KH-gny">
                                         <rect key="frame" x="0.0" y="0.0" width="213" height="31"/>
@@ -553,9 +553,24 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVQ-d1-a5O">
-                                <rect key="frame" x="198" y="132" width="204" height="21"/>
+                                <rect key="frame" x="198" y="245" width="204" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="204" id="yy7-Zp-Dth"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserImage" translatesAutoresizingMaskIntoConstraints="NO" id="Aze-gO-zbj" customClass="CircleImageView">
+                                <rect key="frame" x="238" y="109" width="125" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="125" id="M1y-7m-a1v"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubt-y7-vXf">
+                                <rect key="frame" x="246" y="80" width="109" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="dEW-34-IZF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -564,22 +579,28 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="k36-SV-eTI" firstAttribute="top" secondItem="LuF-tK-uxE" secondAttribute="bottom" constant="74" id="5PS-Ui-Am1"/>
+                            <constraint firstItem="k36-SV-eTI" firstAttribute="top" secondItem="LuF-tK-uxE" secondAttribute="bottom" constant="8" symbolic="YES" id="1Lj-Qi-HlY"/>
+                            <constraint firstItem="k36-SV-eTI" firstAttribute="centerX" secondItem="LuF-tK-uxE" secondAttribute="centerX" id="4qs-AP-fjL"/>
+                            <constraint firstItem="ubt-y7-vXf" firstAttribute="centerX" secondItem="Aze-gO-zbj" secondAttribute="centerX" id="Mq0-Iv-cwJ"/>
                             <constraint firstItem="uf2-Cf-D9G" firstAttribute="top" secondItem="nhr-TX-CIT" secondAttribute="bottom" constant="14" id="Oun-Vi-67O"/>
                             <constraint firstItem="uf2-Cf-D9G" firstAttribute="leading" secondItem="LuF-tK-uxE" secondAttribute="leading" id="QcS-lg-mDr"/>
                             <constraint firstItem="nhr-TX-CIT" firstAttribute="top" secondItem="zVQ-d1-a5O" secondAttribute="bottom" constant="17" id="Tue-tG-wvl"/>
                             <constraint firstItem="LuF-tK-uxE" firstAttribute="top" secondItem="uf2-Cf-D9G" secondAttribute="bottom" constant="8" symbolic="YES" id="Tue-wo-SP1"/>
-                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="top" secondItem="bHc-fp-fAG" secondAttribute="bottom" constant="68" id="UzT-Ui-SdZ"/>
-                            <constraint firstItem="k36-SV-eTI" firstAttribute="centerX" secondItem="LuF-tK-uxE" secondAttribute="centerX" id="anB-6K-nrN"/>
+                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="top" secondItem="bHc-fp-fAG" secondAttribute="bottom" constant="181" id="UzT-Ui-SdZ"/>
+                            <constraint firstItem="ubt-y7-vXf" firstAttribute="top" secondItem="bHc-fp-fAG" secondAttribute="bottom" constant="16" id="ZP1-zh-zRq"/>
+                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="top" secondItem="Aze-gO-zbj" secondAttribute="bottom" constant="11" id="afZ-bg-F70"/>
+                            <constraint firstItem="Aze-gO-zbj" firstAttribute="centerX" secondItem="zVQ-d1-a5O" secondAttribute="centerX" id="kPd-Q0-1sq"/>
                             <constraint firstItem="uf2-Cf-D9G" firstAttribute="trailing" secondItem="LuF-tK-uxE" secondAttribute="trailing" id="lYw-9T-CkR"/>
                             <constraint firstItem="zVQ-d1-a5O" firstAttribute="centerX" secondItem="tcc-d8-TH7" secondAttribute="centerX" id="ouK-bO-yuR"/>
                             <constraint firstItem="uf2-Cf-D9G" firstAttribute="centerX" secondItem="nhr-TX-CIT" secondAttribute="centerX" id="rss-4c-bw2"/>
                             <constraint firstItem="zVQ-d1-a5O" firstAttribute="centerX" secondItem="nhr-TX-CIT" secondAttribute="centerX" id="vzk-FA-W1U"/>
+                            <constraint firstItem="Aze-gO-zbj" firstAttribute="top" secondItem="ubt-y7-vXf" secondAttribute="bottom" constant="8" symbolic="YES" id="whs-fE-OR8"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="LuF-tK-uxE" id="ecj-lT-KlJ"/>
                         <outlet property="displayNameTextField" destination="nhr-TX-CIT" id="BaZ-gZ-179"/>
+                        <outlet property="profileImageView" destination="Aze-gO-zbj" id="YPu-Ow-NlG"/>
                         <outlet property="saveChangesButton" destination="uf2-Cf-D9G" id="L4V-l2-RzP"/>
                         <outlet property="showDisplaySwitch" destination="pe9-Ur-EIB" id="4GG-vx-OK8"/>
                     </connections>
@@ -587,6 +608,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XY1-m2-Dty" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2163" y="395"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Y9p-E8-3Fy">
+            <objects>
+                <viewController id="QR0-rw-dYD" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UhO-nx-vR2"/>
+                        <viewControllerLayoutGuide type="bottom" id="aIx-9x-CnL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PuP-O2-lTB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Su3-Td-58d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2163" y="1130"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Qw5-hU-7VF">

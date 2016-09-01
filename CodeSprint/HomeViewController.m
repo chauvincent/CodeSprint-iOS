@@ -15,7 +15,7 @@
 #import "CreateDisplayNameViewController.h"
 #import <RWBlurPopover/RWBlurPopover.h>
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
-
+#import <pop/POP.h>
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
@@ -77,9 +77,14 @@
         } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
             NSLog(@"error in downloading image");
         }];
-//    }
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedPicture:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [self.profilePictureImageView addGestureRecognizer:singleTap];
+    
 }
-
+-(void)tappedPicture:(id)sender{
+    [self performSegueWithIdentifier:@"HomeToEditSegue" sender:nil];
+}
 -(void)displaySetNameMenu{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CreateDisplayNameViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CreateDisplayNameViewController"];

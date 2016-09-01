@@ -12,12 +12,14 @@
 #include "Constants.h"
 #include "ErrorCheckUtil.h"
 #include "FirebaseManager.h"
+#import "CircleImageView.h"
 
 @interface EditProfileViewController ()
 @property (strong, nonatomic) IBOutlet CustomTextField *displayNameTextField;
 @property (strong, nonatomic) IBOutlet UISwitch *showDisplaySwitch;
 @property (strong, nonatomic) IBOutlet AnimatedButton *saveChangesButton;
 @property (strong, nonatomic) IBOutlet AnimatedButton *cancelButton;
+@property (weak, nonatomic) IBOutlet CircleImageView *profileImageView;
 
 @end
 
@@ -50,7 +52,14 @@
     }else if([old isEqualToString:@"PUBLIC"]){
         [self.showDisplaySwitch setOn:YES];
     }
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedPicture:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [self.profileImageView addGestureRecognizer:singleTap];
 }
+-(void)tappedPicture:(id)sender{
+
+}
+
 -(void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }

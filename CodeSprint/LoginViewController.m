@@ -70,11 +70,11 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [super viewDidLoad];
     [self setupView];
     
-//    FIRUser *currentUser = [FIRAuth auth].currentUser;
-//    if (currentUser) {
-//        [self didSignInWith:currentUser];
-//        NSLog(@"already signed in");
-//    }
+    FIRUser *currentUser = [FIRAuth auth].currentUser;
+    if (currentUser) {
+        [self didSignInWith:currentUser];
+        NSLog(@"already signed in");
+    }
 //    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
