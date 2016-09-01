@@ -8,7 +8,7 @@ CodeSprint is an iOS application coming to the Appstore soon (awaiting approval)
 
 This app is completely free, with no ads. I just hope my app would help someone out there that has been in my position before. 
 
-![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/a432fb46-96b6-4780-a64c-7c7ba114e917_zpsr0hhhzuk.jpg)
+![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/newhome_zpsm2ni75dm.jpg)
 ----------
 
 
