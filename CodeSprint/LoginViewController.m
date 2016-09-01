@@ -19,7 +19,7 @@
 
 @import Firebase;
 
-@interface LoginViewController () <UIWebViewDelegate>{
+@interface LoginViewController () <UIWebViewDelegate, UITextFieldDelegate>{
     NSString *responseCode;
     NSString *accessToken;
 }
@@ -32,8 +32,6 @@
 
 // Buttons and Views
 @property (weak, nonatomic) IBOutlet UIButton *privacyButton;
-//@property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
-//@property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
 @property (strong, nonatomic) UIWebView *gitHubWebView;
 @property (strong, nonatomic) UIWebView *policyWebView;
 
@@ -50,14 +48,7 @@ NSString *secretKey = @"88c8d081b80ab97bbaa5c2ccfc7937d383f86564";
 NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
 #pragma mark - Lazy Initializers
-/*
--(UIWebView *)gitHubWebView{
-    if (!_gitHubWebView) {
-        _gitHubWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height) ];
-    }
-    return _gitHubWebView;
-}
-*/
+
 -(UIWebView *)policyWebView{
     if (!_policyWebView) {
         _policyWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
@@ -96,77 +87,12 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
     self.navigationItem.title = @"Login";
+    self.usernameTextField.delegate = self;
+    self.passwordTextField.delegate = self;
 }
 -(void)dismiss{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-#pragma mark - IBActions
-/*
-- (IBAction)facebookLoginButtonPressed:(id)sender {
-    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login  logInWithReadPermissions:@[@"public_profile"]
-                  fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-                      if (error){
-                          NSLog(@"error in login");
-                      }else if(result.isCancelled){
-                          NSLog(@"canceld");
-                      }else{
-                          NSLog(@"logged in");
-                          FIRAuthCredential *credential = [FIRFacebookAuthProvider
-                                                           credentialWithAccessToken:[FBSDKAccessToken currentAccessToken].tokenString];
-                          [[FIRAuth auth] signInWithCredential:credential
-                                                    completion:^(FIRUser *user, NSError *error) {
-                                                        [self didSignInWith:user];
-                                                    }];
-                      }
-                  }];
-}
-
-- (IBAction)githubLoginButtonPressed:(id)sender {
-    NSString *gitHubSignIn = [NSString stringWithFormat:@"https://github.com/login/oauth/authorize/?client_id=%@&scope=user", clientID];
-    [self.gitHubWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:gitHubSignIn]]];
-    [self.view addSubview:self.gitHubWebView];
-    [self.view bringSubviewToFront:self.gitHubWebView];
-    self.gitHubWebView.delegate = self;
-    [UIView animateWithDuration:0.5 animations:^{
-        self.gitHubWebView.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
-    }];
-    CGFloat height = [[UIScreen mainScreen] bounds].size.height - self.view.frame.size.height;
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeButton.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
-    closeButton.tag = 1111;
-    closeButton.backgroundColor = [UIColor clearColor];
-    [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setTitle:@"" forState:UIControlStateNormal];
-    [self.view addSubview:closeButton];
-    
-}
-#pragma mark - UIWebViewDelegate
-
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    if ([request.URL isEqual:[NSURL URLWithString: @"https://www.iubenda.com/privacy-policy/7902422"]]) {
-        return YES;
-    }
-    
-    NSString *currentURL = [request.URL absoluteString];
-    if ([currentURL containsString:@"code="]) {
-        NSRange indexOfCode = [currentURL rangeOfString:@"code="];
-        NSLog(@"CURRENT URL %@", currentURL);
-        responseCode = [currentURL substringFromIndex:indexOfCode.location + 5];
-        [UIView animateWithDuration:0.5 animations:^{
-            self.gitHubWebView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-            
-        } completion:^(BOOL finished) {
-            [self.gitHubWebView removeFromSuperview];
-        }];
-        [self getAccessToken];
-
-    }
-    return YES;
-}
-*/
-
 #pragma mark - IBActions
 - (IBAction)loginButtonPressed:(id)sender {
     NSString *inputText = self.usernameTextField.text;
@@ -261,40 +187,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     
 }
 
-#pragma mark - GitHub Signin Helpers
-/*
--(void)getAccessToken{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    NSString *userKey = @"user:email";
-    NSDictionary *requiredParameters = @{
-                                         @"client_id":clientID,
-                                         @"client_secret":secretKey,
-                                         @"code":responseCode,
-                                         @"scope":userKey
-                                         };
-  
-    [manager POST:@"https://github.com/login/oauth/access_token" parameters:requiredParameters success:^(AFHTTPRequestOperation * operation, id responseObject) {
-        NSLog(@"RESPONSE OBJ: %@", responseObject);
-        accessToken = [responseObject valueForKey:@"access_token"];
-        FIRAuthCredential *credentials = [FIRGitHubAuthProvider credentialWithToken:accessToken];
-        
-        [[FIRAuth auth] signInWithCredential:credentials
-                                  completion:^(FIRUser *user, NSError *error) {
-                                     
-                                
-                                          NSLog(@"ACCESS TOKEN %@", accessToken);
-                                          NSLog(@"GIT SIGN IN USER ID: %@", user.uid );
-                                          NSLog(@"ERROR: %@", error.description);
-                                      [self didSignInWith:user];
-                                  }];
-        
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        NSLog(@"Something went wrong: %@", error);
-    }];
-}
-*/
 #pragma mark - Privacy Policy
 - (IBAction)privacyButtonPressed:(id)sender {
     NSString *policyURL = @"https://www.iubenda.com/privacy-policy/7902422";
