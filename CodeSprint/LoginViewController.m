@@ -15,6 +15,7 @@
 #import "HomeViewController.h"
 #import "CustomTextField.h"
 #import "AnimatedButton.h"
+#import "ErrorCheckUtil.h"
 
 @import Firebase;
 
@@ -26,11 +27,13 @@
 @property (strong, nonatomic) AnimationGenerator *generator;
 @property (weak, nonatomic) IBOutlet CustomTextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet CustomTextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet AnimatedButton *createButton;
+@property (weak, nonatomic) IBOutlet AnimatedButton *loginButton;
 
 // Buttons and Views
 @property (weak, nonatomic) IBOutlet UIButton *privacyButton;
-@property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
-@property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
+//@property (weak, nonatomic) IBOutlet UIButton *facebookLoginButton;
+//@property (weak, nonatomic) IBOutlet UIButton *githubLoginButton;
 @property (strong, nonatomic) UIWebView *gitHubWebView;
 @property (strong, nonatomic) UIWebView *policyWebView;
 
@@ -67,11 +70,11 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [super viewDidLoad];
     [self setupView];
     
-    FIRUser *currentUser = [FIRAuth auth].currentUser;
-    if (currentUser) {
-        [self didSignInWith:currentUser];
-        NSLog(@"already signed in");
-    }
+//    FIRUser *currentUser = [FIRAuth auth].currentUser;
+//    if (currentUser) {
+//        [self didSignInWith:currentUser];
+//        NSLog(@"already signed in");
+//    }
 //    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -163,13 +166,65 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     return YES;
 }
 */
+
+#pragma mark - IBActions
+- (IBAction)loginButtonPressed:(id)sender {
+    NSString *inputText = self.usernameTextField.text;
+    NSString *password = self.passwordTextField.text;
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    if ([inputText isEqualToString:@""] || ![inputText containsString:@"@"]) {
+        UIAlertController *badEmail = [errorCheck showAlertWithTitle:@"Invalid Email" andMessage:@"Please enter a valid email address." andDismissNamed:@"OK"];
+        [self presentViewController:badEmail animated:YES completion:nil];
+    } else if ([password isEqualToString:@""]) {
+        UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Missing Password" andMessage:@"Please enter a password." andDismissNamed:@"OK"];
+        [self presentViewController:badPass animated:YES completion:nil];
+    } else {
+        [[FIRAuth auth] signInWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+            NSLog(@"user: %@", user.uid);
+            if (error) {
+                NSLog(@"ERROR: %@", error.description);
+                if (([@(error.code) isEqual:@(17009)])) {
+                    UIAlertController *invalidPassword = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Invalid password. Please try again." andDismissNamed:@"OK"];
+                    [self presentViewController:invalidPassword animated:YES completion:nil];
+                }
+            }
+        }];
+    }
+}
+- (IBAction)createButtonPressed:(id)sender {
+    NSString *inputText = self.usernameTextField.text;
+    NSString *password = self.passwordTextField.text;
+    ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+
+    if ([inputText isEqualToString:@""] || ![inputText containsString:@"@"]) {
+        UIAlertController *badEmail = [errorCheck showAlertWithTitle:@"Invalid Email" andMessage:@"Please enter a valid email address." andDismissNamed:@"OK"];
+        [self presentViewController:badEmail animated:YES completion:nil];
+    } else if ([password isEqualToString:@""]) {
+        UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Missing Password" andMessage:@"Please enter a password." andDismissNamed:@"OK"];
+        [self presentViewController:badPass animated:YES completion:nil];
+    } else {
+        [[FIRAuth auth] createUserWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+            NSLog(@"USER IS : %@", user.uid);
+            if (error) {
+                NSLog(@"error is : %@", error.description);
+                if ([@(error.code) isEqual:@(17007)]) {
+                    UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Error" andMessage:@"This email is already in-use. Please use another email or sign-in with an existing one." andDismissNamed:@"OK"];
+                    [self presentViewController:badPass animated:YES completion:nil];
+                }else {
+                    UIAlertController *otherErrors = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Unexpected Error, Please try again later." andDismissNamed:@"OK"];
+                    [self presentViewController:otherErrors animated:YES completion:nil];
+                }
+            } else {
+               // Successfuly created
+            }
+            
+        }];
+    }
+}
+
 - (IBAction)closeButtonPressed:(id)sender {
     for (UIView *view in [self.view subviews]) {
         // Remove close button
-        if (view.tag == 1111) {
-            [view removeFromSuperview];
-            [self.gitHubWebView removeFromSuperview];
-        }
         if (view.tag == 1112) {
             [view removeFromSuperview];
             [self.policyWebView removeFromSuperview];
@@ -180,7 +235,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 -(void)didSignInWith:(FIRUser *)user{
     NSString *displayName = user.displayName.length > 0 ? user.displayName : @"DEFAULT";
     User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
-    currentUser.photoURL = user.photoURL;
+    currentUser.photoURL = [NSURL URLWithString:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c"];
     currentUser.didSetName = false;
     
     [FirebaseManager sharedInstance].currentUser = currentUser;
@@ -248,10 +303,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [closeButton setTitle:@"" forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
 }
-#pragma mark - IBActions
-- (IBAction)loginButtonPressed:(id)sender {
-}
-- (IBAction)createButtonPressed:(id)sender {
-}
+
 
 @end

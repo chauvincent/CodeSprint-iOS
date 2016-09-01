@@ -213,7 +213,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DEM-JB-uhK">
                                 <rect key="frame" x="104" y="358" width="393" height="153"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="  Enter Username" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="aFw-9a-7Do" customClass="CustomTextField">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="  Enter Email" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="aFw-9a-7Do" customClass="CustomTextField">
                                         <rect key="frame" x="107" y="0.0" width="180" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="180" id="wCv-b7-IK8"/>
@@ -364,6 +364,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="9DU-vL-osb"/>
                     <connections>
+                        <outlet property="createButton" destination="IpE-X7-OfA" id="1nV-tf-pKQ"/>
+                        <outlet property="loginButton" destination="RQT-ud-UYB" id="RLi-gz-x8E"/>
                         <outlet property="passwordTextField" destination="zht-Hg-cQr" id="Bn2-q9-yL7"/>
                         <outlet property="privacyButton" destination="R7f-mQ-sbH" id="jRy-QG-NU9"/>
                         <outlet property="usernameTextField" destination="aFw-9a-7Do" id="hH3-Qo-nx2"/>
