@@ -180,13 +180,20 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         [self presentViewController:badPass animated:YES completion:nil];
     } else {
         [[FIRAuth auth] signInWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
-            NSLog(@"user: %@", user.uid);
             if (error) {
-                NSLog(@"ERROR: %@", error.description);
+                NSString *errorName = @"Error";
+                NSString *errorMsg = @"Error";
                 if (([@(error.code) isEqual:@(17009)])) {
-                    UIAlertController *invalidPassword = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Invalid password. Please try again." andDismissNamed:@"OK"];
-                    [self presentViewController:invalidPassword animated:YES completion:nil];
+                    errorMsg = @"Invalid password. Please try again.";
+                } else if(([@(error.code) isEqual:@(17011)])){
+                    errorMsg = @"The email you entered does not exist. Please enter a valid email or create an account.";
+                } else {
+                    errorMsg = @"Please try again later.";
                 }
+                UIAlertController *errorAlert = [errorCheck showAlertWithTitle:errorName andMessage:errorMsg andDismissNamed:@"OK"];
+                [self presentViewController:errorAlert animated:YES completion:nil];
+            }else{
+              // success
             }
         }];
     }
@@ -204,16 +211,16 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         [self presentViewController:badPass animated:YES completion:nil];
     } else {
         [[FIRAuth auth] createUserWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
-            NSLog(@"USER IS : %@", user.uid);
             if (error) {
-                NSLog(@"error is : %@", error.description);
+                NSString *errorName = @"Error";
+                NSString *errorMsg = @"Error";
                 if ([@(error.code) isEqual:@(17007)]) {
-                    UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Error" andMessage:@"This email is already in-use. Please use another email or sign-in with an existing one." andDismissNamed:@"OK"];
-                    [self presentViewController:badPass animated:YES completion:nil];
+                    errorMsg = @"This email is already in-use. Please use another email or sign-in with an existing one.";
                 }else {
-                    UIAlertController *otherErrors = [errorCheck showAlertWithTitle:@"Error" andMessage:@"Unexpected Error, Please try again later." andDismissNamed:@"OK"];
-                    [self presentViewController:otherErrors animated:YES completion:nil];
+                    errorMsg = @"Unexpected Error, Please try again later.";
                 }
+                UIAlertController *otherErrors = [errorCheck showAlertWithTitle:errorName andMessage:errorMsg andDismissNamed:@"OK"];
+                [self presentViewController:otherErrors animated:YES completion:nil];
             } else {
                // Successfuly created
             }
