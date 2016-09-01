@@ -290,16 +290,16 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="XzN-rr-FuZ">
-                                <rect key="frame" x="156" y="519" width="289" height="24"/>
+                                <rect key="frame" x="163" y="519" width="275" height="24"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By continuing you are agreeing to our" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srg-GL-5uv">
-                                        <rect key="frame" x="0.0" y="0.0" width="212" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By continuing, you are agree to our" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srg-GL-5uv">
+                                        <rect key="frame" x="0.0" y="0.0" width="198" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7f-mQ-sbH">
-                                        <rect key="frame" x="214" y="0.0" width="75" height="24"/>
+                                        <rect key="frame" x="200" y="0.0" width="75" height="24"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                         <state key="normal" title="Privacy Policy.">
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -608,24 +608,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XY1-m2-Dty" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2163" y="395"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Y9p-E8-3Fy">
-            <objects>
-                <viewController id="QR0-rw-dYD" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UhO-nx-vR2"/>
-                        <viewControllerLayoutGuide type="bottom" id="aIx-9x-CnL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PuP-O2-lTB">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Su3-Td-58d" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2163" y="1130"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Qw5-hU-7VF">

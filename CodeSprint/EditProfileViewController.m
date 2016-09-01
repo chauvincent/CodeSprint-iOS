@@ -14,16 +14,19 @@
 #include "FirebaseManager.h"
 #import "CircleImageView.h"
 
-@interface EditProfileViewController ()
+@interface EditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
 @property (strong, nonatomic) IBOutlet CustomTextField *displayNameTextField;
 @property (strong, nonatomic) IBOutlet UISwitch *showDisplaySwitch;
 @property (strong, nonatomic) IBOutlet AnimatedButton *saveChangesButton;
 @property (strong, nonatomic) IBOutlet AnimatedButton *cancelButton;
+
 @property (weak, nonatomic) IBOutlet CircleImageView *profileImageView;
 
 @end
 
 @implementation EditProfileViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +39,7 @@
 }
 
 #pragma mark - View Setup
--(void)setupView{
+- (void)setupView{
     self.view.backgroundColor = GREY_COLOR;
     self.navigationItem.title = @"Edit Profile";
     self.displayNameTextField.backgroundColor = [UIColor whiteColor];
@@ -56,11 +59,7 @@
     [singleTap setNumberOfTapsRequired:1];
     [self.profileImageView addGestureRecognizer:singleTap];
 }
--(void)tappedPicture:(id)sender{
-
-}
-
--(void)dismiss{
+- (void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -77,7 +76,12 @@
     }
     [self dismiss];
 }
+- (void)tappedPicture:(id)sender{
+    [self showImgPicker];
+}
+
 - (IBAction)cancelButtonPressed:(id)sender {
+    [self dismiss];
 }
 - (IBAction)toggled:(id)sender {
     BOOL showMyPhoto = self.showDisplaySwitch.isOn;
@@ -90,6 +94,35 @@
     [[NSUserDefaults standardUserDefaults] setObject:newSetting forKey:@"PrivatePhoto"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+#pragma mark - Helpers
+- (void)showImgPicker {
+    UIImagePickerController *imgPicker = [[UIImagePickerController alloc] init];
+    imgPicker.delegate = self;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
+        imgPicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    }
+    [self presentViewController:imgPicker animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *img = info[UIImagePickerControllerEditedImage];
+    if (!img){
+        img = info[UIImagePickerControllerOriginalImage];
+    }
+    
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    // canceled
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 /*
 #pragma mark - Navigation
