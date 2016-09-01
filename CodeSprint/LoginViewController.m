@@ -68,10 +68,10 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         [self didSignInWith:currentUser];
         NSLog(@"already signed in");
     }
-    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
+//    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
-    [self.generator animateScreenWithDelay:0.8];
+//    [self.generator animateScreenWithDelay:0.8];
 }
 
 - (void)didReceiveMemoryWarning {
