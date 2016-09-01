@@ -13,6 +13,8 @@
 #include "Constants.h"
 #include "AnimationGenerator.h"
 #import "HomeViewController.h"
+#import "CustomTextField.h"
+#import "AnimatedButton.h"
 
 @import Firebase;
 
@@ -22,6 +24,8 @@
 }
 
 @property (strong, nonatomic) AnimationGenerator *generator;
+@property (weak, nonatomic) IBOutlet CustomTextField *usernameTextField;
+@property (weak, nonatomic) IBOutlet CustomTextField *passwordTextField;
 
 // Buttons and Views
 @property (weak, nonatomic) IBOutlet UIButton *privacyButton;
@@ -32,8 +36,6 @@
 
 // Animated Constraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *githubCenterConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fbCenterConstraint;
 
 @end
 
@@ -45,12 +47,14 @@ NSString *secretKey = @"88c8d081b80ab97bbaa5c2ccfc7937d383f86564";
 NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
 #pragma mark - Lazy Initializers
+/*
 -(UIWebView *)gitHubWebView{
     if (!_gitHubWebView) {
         _gitHubWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height) ];
     }
     return _gitHubWebView;
 }
+*/
 -(UIWebView *)policyWebView{
     if (!_policyWebView) {
         _policyWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
@@ -94,6 +98,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 #pragma mark - IBActions
+/*
 - (IBAction)facebookLoginButtonPressed:(id)sender {
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
     [login  logInWithReadPermissions:@[@"public_profile"]
@@ -113,6 +118,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
                       }
                   }];
 }
+
 - (IBAction)githubLoginButtonPressed:(id)sender {
     NSString *gitHubSignIn = [NSString stringWithFormat:@"https://github.com/login/oauth/authorize/?client_id=%@&scope=user", clientID];
     [self.gitHubWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:gitHubSignIn]]];
@@ -133,6 +139,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     
 }
 #pragma mark - UIWebViewDelegate
+
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     if ([request.URL isEqual:[NSURL URLWithString: @"https://www.iubenda.com/privacy-policy/7902422"]]) {
@@ -155,7 +162,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     }
     return YES;
 }
-
+*/
 - (IBAction)closeButtonPressed:(id)sender {
     for (UIView *view in [self.view subviews]) {
         // Remove close button
@@ -189,6 +196,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 
 #pragma mark - GitHub Signin Helpers
+/*
 -(void)getAccessToken{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -220,7 +228,7 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         NSLog(@"Something went wrong: %@", error);
     }];
 }
-
+*/
 #pragma mark - Privacy Policy
 - (IBAction)privacyButtonPressed:(id)sender {
     NSString *policyURL = @"https://www.iubenda.com/privacy-policy/7902422";
@@ -239,6 +247,11 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [closeButton setTitle:@"" forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
+}
+#pragma mark - IBActions
+- (IBAction)loginButtonPressed:(id)sender {
+}
+- (IBAction)createButtonPressed:(id)sender {
 }
 
 @end
