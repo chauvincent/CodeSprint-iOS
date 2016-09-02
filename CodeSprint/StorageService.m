@@ -20,7 +20,7 @@ NSString* STORAGE_BASE_URL = @"gs://code-spring-ios.appspot.com";
     return _storageRef;
 }
 
--(NSString*)uploadToImageData:(NSData*)data{
+-(void)uploadToImageData:(NSData*)data withCompletion:(void (^)(NSURL* imageUrl))block{
     NSString *uid = [FirebaseManager sharedInstance].currentUser.uid;
     FIRStorageReference *uploadRef = [[self storageRef] child:uid];
     FIRStorageMetadata *metadata = [[FIRStorageMetadata alloc] init];
@@ -31,9 +31,12 @@ NSString* STORAGE_BASE_URL = @"gs://code-spring-ios.appspot.com";
         }else {
             NSURL *pictureURL = metadata.downloadURL;
             NSLog(@"URL IS : %@", [pictureURL absoluteString]);
+            block(pictureURL);
         }
+        NSURL *badUpload = [NSURL URLWithString:@"ERROR"];
+        block(badUpload);
     }];
-    return @"";
+    
 }
 
 

@@ -41,8 +41,9 @@
 + (void)lookUpUser:(User*)currentUser withCompletion:(void (^)(BOOL result))block;
 + (void)setUpNewUser:(NSString*)displayName;
 + (void)retreiveUsersTeams;
-+ (void)updatePictureURLForUser;
++ (void)updatePictureURLForUserWithCompletion:(void (^)(BOOL result))block;
 + (void)setPlaceHolderImageAsPhoto;
++ (void)uploadedNewPhoto:(NSURL*)newPhoto;
 + (void)togglePlaceholderWithOld;
 + (void)deleteUser;
 

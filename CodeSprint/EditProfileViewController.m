@@ -18,11 +18,9 @@
 
 @interface EditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (strong, nonatomic) IBOutlet CustomTextField *displayNameTextField;
-@property (strong, nonatomic) IBOutlet UISwitch *showDisplaySwitch;
-@property (strong, nonatomic) IBOutlet AnimatedButton *saveChangesButton;
-@property (strong, nonatomic) IBOutlet AnimatedButton *cancelButton;
-
+@property (weak, nonatomic) IBOutlet CustomTextField *displayNameTextField;
+@property (weak, nonatomic) IBOutlet AnimatedButton *saveChangesButton;
+@property (weak, nonatomic) IBOutlet AnimatedButton *cancelButton;
 @property (weak, nonatomic) IBOutlet CircleImageView *profileImageView;
 
 @end
@@ -50,14 +48,6 @@
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
 
-    NSString *old = [[NSUserDefaults standardUserDefaults] objectForKey:@"PrivatePhoto"];
-    if (old == nil) {
-        [self.showDisplaySwitch setOn:YES];
-    }else if([old isEqualToString:@"PRIVATE"]){
-        [self.showDisplaySwitch setOn:NO];
-    }else if([old isEqualToString:@"PUBLIC"]){
-        [self.showDisplaySwitch setOn:YES];
-    }
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedPicture:)];
     [singleTap setNumberOfTapsRequired:1];
     [self.profileImageView addGestureRecognizer:singleTap];
@@ -76,8 +66,12 @@
         [self presentViewController:alert animated:YES completion:nil];
     }else{
         [FirebaseManager setUpNewUser:usernameInput];
+        self.displayNameTextField.text = usernameInput;
+        ;
+        UIAlertController *alert = [errorCheck showAlertWithTitle:@"Success!" andMessage:@"Your display name has been updated. People in your team chat will identify you by this name." andDismissNamed:@"Ok"];
+        [self presentViewController:alert animated:YES completion:nil];
     }
-    [self dismiss];
+    
 }
 - (void)tappedPicture:(id)sender{
     [self showImgPicker];
@@ -86,21 +80,11 @@
 - (IBAction)cancelButtonPressed:(id)sender {
     [self dismiss];
 }
-- (IBAction)toggled:(id)sender {
-    BOOL showMyPhoto = self.showDisplaySwitch.isOn;
-    if (!showMyPhoto) {
-        [FirebaseManager setPlaceHolderImageAsPhoto];
-    }else{
-        [FirebaseManager togglePlaceholderWithOld];
-    }
-    NSString *newSetting = showMyPhoto ? @"PUBLIC"  : @"PRIVATE";
-    [[NSUserDefaults standardUserDefaults] setObject:newSetting forKey:@"PrivatePhoto"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+
 
 #pragma mark - Helpers
 - (void)showImgPicker {
-    UIImagePickerController *imgPicker = [[UIImagePickerController alloc] init];
+   UIImagePickerController* imgPicker = [[UIImagePickerController alloc] init];
     imgPicker.delegate = self;
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -117,21 +101,55 @@
     if (!img){
         img = info[UIImagePickerControllerOriginalImage];
     }
-    
-    NSData *imgData = UIImageJPEGRepresentation(img, 0.9);
+    UIImage *compressedImg = [self resizeImage:img];
+    NSData *imgData = UIImageJPEGRepresentation(compressedImg, 1.0f);
     StorageService *service = [[StorageService alloc] init];
-    [service uploadToImageData:imgData];
-    
-    
+    [service uploadToImageData:imgData withCompletion:^(NSURL *imageUrl) {
+        if (![[imageUrl absoluteString] isEqualToString:@"ERROR"]) {
+            [FirebaseManager uploadedNewPhoto:imageUrl];
+            [FirebaseManager sharedInstance].currentUser.photoURL = imageUrl;
+            NSLog(@"%@",[FirebaseManager sharedInstance].currentUser.photoURL);
+        }
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - Helpers
-
-
+-(UIImage *)resizeImage:(UIImage *)image{
+    float actualHeight = image.size.height;
+    float actualWidth = image.size.width;
+    float maxHeight = 300.0;
+    float maxWidth = 400.0;
+    float imgRatio = actualWidth/actualHeight;
+    float maxRatio = maxWidth/maxHeight;
+    float compressionQuality = 0.5;
+    if (actualHeight > maxHeight || actualWidth > maxWidth){
+        if(imgRatio < maxRatio){
+            imgRatio = maxHeight / actualHeight;
+            actualWidth = imgRatio * actualWidth;
+            actualHeight = maxHeight;
+        }else if(imgRatio > maxRatio){
+            //adjust height according to maxWidth
+            imgRatio = maxWidth / actualWidth;
+            actualHeight = imgRatio * actualHeight;
+            actualWidth = maxWidth;
+        }else{
+            actualHeight = maxHeight;
+            actualWidth = maxWidth;
+        }
+    }
+    CGRect rect = CGRectMake(0.0, 0.0, actualWidth, actualHeight);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    NSData *imageData = UIImageJPEGRepresentation(img, compressionQuality);
+    UIGraphicsEndImageContext();
+    return [UIImage imageWithData:imageData];
+}
 /*
 #pragma mark - Navigation
 

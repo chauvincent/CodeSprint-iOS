@@ -125,7 +125,10 @@
     __block BOOL theResult = false;
     [[[self userRef] child:currentUser.uid] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         if (snapshot.value == [NSNull null]) {
-            [[[self userRef] child:currentUser.uid] updateChildValues:@{kCSUserDidSetDisplay : @0}];
+            NSString *defaultPhoto = @"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c";
+            [[[self userRef] child:currentUser.uid] updateChildValues:@{kCSUserDidSetDisplay : @0,
+                                                                        kCSUserPhotoURL:defaultPhoto,
+                                                                        }];
             block(false);
         }else{
             FIRDatabaseQuery *userQuery = [[[self userRef] child:currentUser.uid] queryOrderedByChild:kCSUserDisplayKey];
@@ -135,6 +138,8 @@
                     theResult = ([response objectForKey:kCSUserDisplayKey] ? true : false);
                     if (theResult) {
                         [FirebaseManager sharedInstance].currentUser.displayName = response[kCSUserDisplayKey];
+                        [FirebaseManager sharedInstance].currentUser.photoURL = [NSURL URLWithString:response[kCSUserPhotoURL]];
+                        NSLog(@"LOOKUP USER: %@", [NSURL URLWithString:response[kCSUserPhotoURL]]);
                     }
                 }
                 block(theResult);
@@ -184,14 +189,18 @@
         block(isNew);
     }];
 }
-+ (void)updatePictureURLForUser{
++ (void)updatePictureURLForUserWithCompletion:(void (^)(BOOL result))block{
     NSString *currentUID = [FirebaseManager sharedInstance].currentUser.uid;
     NSString *url = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
     FIRDatabaseReference *usersNode = [[self userRef] child:currentUID];
     [usersNode observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSDictionary *response = (NSDictionary*)snapshot.value;
         if ([[response allKeys] containsObject:kCSUserPhotoURL]) {
+            // Has photoalready
+            [FirebaseManager sharedInstance].currentUser.photoURL = response[kCSUserPhotoURL];
+            block(true);
         }else{
+            block(true);
             [usersNode updateChildValues:@{kCSUserPhotoURL:url}];
         }
     }];
@@ -607,6 +616,15 @@
                                          }];
         }
     }];
+}
++ (void)uploadedNewPhoto:(NSURL*)newPhoto {
+    NSString *uid = [self sharedInstance].currentUser.uid;
+    FIRDatabaseReference *userRef = [[self userRef] child:uid];
+    NSString *photoURL = [newPhoto absoluteString];
+    [userRef updateChildValues:@{
+                                 kCSUserPhotoURL:photoURL,
+                                 kCSUserOldPhotoURL:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c"
+                                 }];
 }
 
 #pragma mark - Detach Observer

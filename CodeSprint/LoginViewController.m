@@ -61,11 +61,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [super viewDidLoad];
     [self setupView];
     
-    FIRUser *currentUser = [FIRAuth auth].currentUser;
-    if (currentUser) {
-        [self didSignInWith:currentUser];
-        NSLog(@"already signed in");
-    }
 //    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -172,7 +167,6 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 -(void)didSignInWith:(FIRUser *)user{
     NSString *displayName = user.displayName.length > 0 ? user.displayName : @"DEFAULT";
     User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
-    currentUser.photoURL = [NSURL URLWithString:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c"];
     currentUser.didSetName = false;
     
     [FirebaseManager sharedInstance].currentUser = currentUser;

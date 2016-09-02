@@ -41,7 +41,6 @@
     
 }
 -(void)viewWillAppear:(BOOL)animated{
-    
     [FirebaseManager removeAllObservers];
 }
 
@@ -66,17 +65,18 @@
     self.view.backgroundColor = GREY_COLOR;
     self.menuTableView.backgroundColor = GREY_COLOR;
     
-    [FirebaseManager updatePictureURLForUser];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
+    [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+            self.profilePictureImageView.image = image;
+            
+    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+            NSLog(@"error in downloading image");
+    }];
+
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
-        [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-            self.profilePictureImageView.image = image;
-            
-        } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-            NSLog(@"error in downloading image");
-        }];
+
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedPicture:)];
     [singleTap setNumberOfTapsRequired:1];
     [self.profilePictureImageView addGestureRecognizer:singleTap];
@@ -111,6 +111,7 @@
                                                          [FirebaseManager removeAllObservers];
                                                          
                                                          [FirebaseManager logoutUser];
+                                                         //[self dismissViewControllerAnimated:YES completion:nil];
                                                          [self.navigationController popToRootViewControllerAnimated:YES];
                                                      }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"

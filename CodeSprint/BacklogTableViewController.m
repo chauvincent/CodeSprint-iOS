@@ -19,7 +19,7 @@
 
 @interface BacklogTableViewController () <DZNSegmentedControlDelegate>
 
-@property (nonatomic, strong) AddItemViewController *vc;
+@property (nonatomic, weak) AddItemViewController *vc;
 @property (nonatomic, weak) ViewSprintViewController *viewSprintController;
 @property (nonatomic, strong) DZNSegmentedControl *control;
 @property (nonatomic, strong) NSArray *menuItems;
@@ -182,7 +182,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.currentIndex == 2) {
         self.selectedSprintIndex = indexPath.row;
-        NSLog(@"%lu", (unsigned long)self.selectedSprintIndex);
         self.viewSprintController.currentScrum = self.currentScrumKey;
         self.viewSprintController.selectedSprintIndex = indexPath.row;
         [self performSegueWithIdentifier:@"CellToSprintViewSegue" sender:self];
@@ -276,7 +275,6 @@
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
-                NSLog(@"current dictionary: %@", currentDictionary);
                 NSString *taskTitle = currentDictionary[kScrumSprintTitle];
                 if ([currentDictionary[kScrumSprintCompleted] isEqual:@(1)]) {
                     NSString *detailText = [NSString stringWithFormat:@"Deadline: %@, Completed on %@", currentDictionary[kScrumSprintDeadline], currentDictionary[kScrumSprintFinishDate]];

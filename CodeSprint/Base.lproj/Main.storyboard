@@ -527,31 +527,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="k36-SV-eTI">
-                                <rect key="frame" x="164" y="403" width="272" height="31"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show My Picture In Chat:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ie-KH-gny">
-                                        <rect key="frame" x="0.0" y="0.0" width="213" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="VMZ-p5-Ce3"/>
-                                            <constraint firstAttribute="width" constant="213" id="dVF-E8-i60"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pe9-Ur-EIB">
-                                        <rect key="frame" x="223" y="0.0" width="51" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="49" id="Zmw-gF-fP4"/>
-                                            <constraint firstAttribute="height" constant="31" id="t6e-eC-Zgb"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="toggled:" destination="KYM-P2-nhK" eventType="valueChanged" id="0nk-h4-l1A"/>
-                                        </connections>
-                                    </switch>
-                                </subviews>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVQ-d1-a5O">
                                 <rect key="frame" x="198" y="245" width="204" height="21"/>
                                 <constraints>
@@ -579,8 +554,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="k36-SV-eTI" firstAttribute="top" secondItem="LuF-tK-uxE" secondAttribute="bottom" constant="8" symbolic="YES" id="1Lj-Qi-HlY"/>
-                            <constraint firstItem="k36-SV-eTI" firstAttribute="centerX" secondItem="LuF-tK-uxE" secondAttribute="centerX" id="4qs-AP-fjL"/>
                             <constraint firstItem="ubt-y7-vXf" firstAttribute="centerX" secondItem="Aze-gO-zbj" secondAttribute="centerX" id="Mq0-Iv-cwJ"/>
                             <constraint firstItem="uf2-Cf-D9G" firstAttribute="top" secondItem="nhr-TX-CIT" secondAttribute="bottom" constant="14" id="Oun-Vi-67O"/>
                             <constraint firstItem="uf2-Cf-D9G" firstAttribute="leading" secondItem="LuF-tK-uxE" secondAttribute="leading" id="QcS-lg-mDr"/>
@@ -602,7 +575,6 @@
                         <outlet property="displayNameTextField" destination="nhr-TX-CIT" id="BaZ-gZ-179"/>
                         <outlet property="profileImageView" destination="Aze-gO-zbj" id="YPu-Ow-NlG"/>
                         <outlet property="saveChangesButton" destination="uf2-Cf-D9G" id="L4V-l2-RzP"/>
-                        <outlet property="showDisplaySwitch" destination="pe9-Ur-EIB" id="4GG-vx-OK8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XY1-m2-Dty" userLabel="First Responder" sceneMemberID="firstResponder"/>
