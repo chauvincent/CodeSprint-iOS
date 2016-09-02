@@ -602,21 +602,7 @@
                                   kCSUserOldPhotoURL:oldPhoto
                                   }];
 }
-+ (void)togglePlaceholderWithOld{
-    NSString *uid = [self sharedInstance].currentUser.uid;
-    FIRDatabaseReference *userRef = [[self userRef] child:uid];
-    [userRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSDictionary *response = (NSDictionary*)snapshot.value;
-        NSString *currentPhoto = response[kCSUserPhotoURL];
-        if (response[kCSUserOldPhotoURL] != [NSNull null]) {
-            NSString *oldPhoto = response[kCSUserOldPhotoURL];
-            [userRef updateChildValues:@{
-                                         kCSUserPhotoURL:oldPhoto,
-                                         kCSUserOldPhotoURL:currentPhoto
-                                         }];
-        }
-    }];
-}
+
 + (void)uploadedNewPhoto:(NSURL*)newPhoto {
     NSString *uid = [self sharedInstance].currentUser.uid;
     FIRDatabaseReference *userRef = [[self userRef] child:uid];

@@ -44,7 +44,6 @@
 + (void)updatePictureURLForUserWithCompletion:(void (^)(BOOL result))block;
 + (void)setPlaceHolderImageAsPhoto;
 + (void)uploadedNewPhoto:(NSURL*)newPhoto;
-+ (void)togglePlaceholderWithOld;
 + (void)deleteUser;
 
 #pragma mark - Single and Passive Observers

@@ -191,6 +191,7 @@
     [textField resignFirstResponder];
     return NO;
 }
+
 #pragma mark - UITextViewDelegate
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]) {
