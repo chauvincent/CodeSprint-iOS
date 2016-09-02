@@ -15,13 +15,15 @@
 #import "CircleImageView.h"
 #import <AFNetworking.h>
 #import "StorageService.h"
-
-@interface EditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import <AFNetworking.h>
+#import <UIImageView+AFNetworking.h>
+@interface EditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet CustomTextField *displayNameTextField;
 @property (weak, nonatomic) IBOutlet AnimatedButton *saveChangesButton;
 @property (weak, nonatomic) IBOutlet AnimatedButton *cancelButton;
 @property (weak, nonatomic) IBOutlet CircleImageView *profileImageView;
+@property (strong, nonatomic) NSString *placeHolderText;
 
 @end
 
@@ -44,13 +46,24 @@
     self.view.backgroundColor = GREY_COLOR;
     self.navigationItem.title = @"Edit Profile";
     self.displayNameTextField.backgroundColor = [UIColor whiteColor];
-    self.displayNameTextField.placeholder = [FirebaseManager sharedInstance].currentUser.displayName;
+    self.placeHolderText = [FirebaseManager sharedInstance].currentUser.displayName;
+    self.displayNameTextField.placeholder = self.placeHolderText;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
+    self.displayNameTextField.delegate = self;
+    NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
+    [self.profileImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+        self.profileImageView.image = image;
+        
+    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+        NSLog(@"error in downloading image");
+    }];
 
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedPicture:)];
     [singleTap setNumberOfTapsRequired:1];
     [self.profileImageView addGestureRecognizer:singleTap];
+    
+    
 }
 - (void)dismiss{
     [self.navigationController popViewControllerAnimated:YES];
@@ -78,7 +91,7 @@
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
-    [self dismiss];
+    self.displayNameTextField.text = @"";
 }
 
 
@@ -146,9 +159,22 @@
     UIGraphicsBeginImageContext(rect.size);
     [image drawInRect:rect];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    self.profileImageView.image = img;
     NSData *imageData = UIImageJPEGRepresentation(img, compressionQuality);
     UIGraphicsEndImageContext();
     return [UIImage imageWithData:imageData];
+}
+#pragma mark - UITextFieldDelegate
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(range.length + range.location > textField.text.length){
+        return NO;
+    }
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 25;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
 }
 /*
 #pragma mark - Navigation

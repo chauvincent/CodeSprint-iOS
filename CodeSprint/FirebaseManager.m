@@ -139,7 +139,6 @@
                     if (theResult) {
                         [FirebaseManager sharedInstance].currentUser.displayName = response[kCSUserDisplayKey];
                         [FirebaseManager sharedInstance].currentUser.photoURL = [NSURL URLWithString:response[kCSUserPhotoURL]];
-                        NSLog(@"LOOKUP USER: %@", [NSURL URLWithString:response[kCSUserPhotoURL]]);
                     }
                 }
                 block(theResult);

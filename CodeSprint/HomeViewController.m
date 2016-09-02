@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
 @property (weak, nonatomic) IBOutlet UIStackView *homeStackView;
-
+@property (strong, nonatomic) NSString *photoURL;
 @end
 
 @implementation HomeViewController
@@ -42,6 +42,21 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [FirebaseManager removeAllObservers];
+    NSString *currentPhoto = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
+    if (![_photoURL isEqualToString:currentPhoto]) {
+        // Changed photo
+        NSURL *url = [NSURL URLWithString:currentPhoto];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+            self.profilePictureImageView.image = image;
+            
+        } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+            NSLog(@"error in downloading image");
+        }];
+
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,7 +79,7 @@
 
     self.view.backgroundColor = GREY_COLOR;
     self.menuTableView.backgroundColor = GREY_COLOR;
-    
+    self.photoURL = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
     NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
     [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
             self.profilePictureImageView.image = image;
