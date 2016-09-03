@@ -142,24 +142,33 @@
 #pragma mark - Helper Methods
 - (void)downloadImagesWith:(NSMutableDictionary*)avatars withCompletion:(void (^)(NSMutableDictionary *imageDict))block{
     __block NSMutableDictionary *imageTable = [[NSMutableDictionary alloc] init];
-    __block int count = 0;
     for (NSString *userID in avatars) {
-        NSURL *url = [NSURL URLWithString:[avatars objectForKey:userID]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            UIImage *downloadedImg = (UIImage*)responseObject;
-            imageTable[userID] = downloadedImg;
-            count++;
-            if (count == avatars.count) {
+        [self downloadOneImage:userID andAvatars:avatars withCompletion:^(UIImage *img) {
+            [imageTable setObject:img forKey:userID];
+            if ([[imageTable allKeys] count] == [avatars count]) {
                 block(imageTable);
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Image error: %@", error);
-            count++;
         }];
-        [requestOperation start];
     }
+}
+- (void)downloadOneImage:(NSString*)userID andAvatars:(NSMutableDictionary*)avatars withCompletion:(void (^)(UIImage *img))block{
+    NSURL *url = [NSURL URLWithString:[avatars objectForKey:userID]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    // Debug:
+    NSLog(@"\n=======================DOWNLOADING ONE ====================");
+    NSLog(@"%@", [url absoluteString]);
+    NSLog(@"UID: %@", userID);
+    NSLog(@"=======================END ====================\n");
+    
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        UIImage *downloadedImg = (UIImage*)responseObject;
+        block(downloadedImg);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Image error: %@", error);
+
+    }];
+    [requestOperation start];
 }
 @end

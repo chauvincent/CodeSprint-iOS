@@ -96,8 +96,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     if ([inputText isEqualToString:@""] || ![inputText containsString:@"@"]) {
         UIAlertController *badEmail = [errorCheck showAlertWithTitle:@"Invalid Email" andMessage:@"Please enter a valid email address." andDismissNamed:@"OK"];
         [self presentViewController:badEmail animated:YES completion:nil];
-    } else if ([password isEqualToString:@""]) {
-        UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Missing Password" andMessage:@"Please enter a password." andDismissNamed:@"OK"];
+    } else if ([password isEqualToString:@""] || [password length] < 6) {
+        UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Invalid Password" andMessage:@"Please enter a password with more than six characters." andDismissNamed:@"OK"];
         [self presentViewController:badPass animated:YES completion:nil];
     } else {
         [[FIRAuth auth] signInWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
@@ -129,8 +129,8 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     if ([inputText isEqualToString:@""] || ![inputText containsString:@"@"]) {
         UIAlertController *badEmail = [errorCheck showAlertWithTitle:@"Invalid Email" andMessage:@"Please enter a valid email address." andDismissNamed:@"OK"];
         [self presentViewController:badEmail animated:YES completion:nil];
-    } else if ([password isEqualToString:@""]) {
-        UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Missing Password" andMessage:@"Please enter a password." andDismissNamed:@"OK"];
+    } else if ([password isEqualToString:@""] || [password length] < 6) {
+        UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Invalid Password" andMessage:@"Please enter a password with more than six characters." andDismissNamed:@"OK"];
         [self presentViewController:badPass animated:YES completion:nil];
     } else {
         [[FIRAuth auth] createUserWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {

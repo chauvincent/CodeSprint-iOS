@@ -569,6 +569,8 @@
             [self getImagesForUsersArray:members withCompletion:^(NSMutableArray *urlArray) {
                 int i = 0;
                 for (NSString *user in members) {
+//                    NSLog(@"USER IS : %@", user);
+//                    NSLog(@"URL FOR USER IS : %@", urlArray[i]);
                     avatars[user] = urlArray[i];
                     i++;
                 }
@@ -585,6 +587,8 @@
         FIRDatabaseReference *userImage = [[[self userRef] child:uid] child:kCSUserPhotoURL];
         [userImage observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             [urls addObject:(NSString*)snapshot.value];
+            NSLog(@"GETIMAGES FOR USER ARRAY: UID: %@", uid);
+            NSLog(@"SNAPSHOT: %@", (NSString*)snapshot.value);
             i++;
             if (i == array.count) {
                 block(urls);
@@ -594,11 +598,11 @@
 }
 + (void)setPlaceHolderImageAsPhoto{
     NSString *uid = [self sharedInstance].currentUser.uid;
-    NSString *oldPhoto = [[self sharedInstance].currentUser.photoURL absoluteString];
+   // NSString *oldPhoto = [[self sharedInstance].currentUser.photoURL absoluteString];
     FIRDatabaseReference *userRef = [[self userRef] child:uid];
     [userRef updateChildValues:@{
                                   kCSUserPhotoURL:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c",
-                                  kCSUserOldPhotoURL:oldPhoto
+                                  //kCSUserOldPhotoURL:oldPhoto
                                   }];
 }
 
@@ -608,7 +612,7 @@
     NSString *photoURL = [newPhoto absoluteString];
     [userRef updateChildValues:@{
                                  kCSUserPhotoURL:photoURL,
-                                 kCSUserOldPhotoURL:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c"
+//                                 kCSUserOldPhotoURL:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c"
                                  }];
 }
 

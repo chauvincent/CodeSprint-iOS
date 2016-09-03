@@ -43,7 +43,7 @@
     return CGSizeMake(280.0f, 320.0f);
 }
 -(void)setupView{
-    self.navigationItem.title = @"Leave Teams";
+    self.navigationItem.title = @"Leave Team";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;
