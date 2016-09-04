@@ -49,12 +49,18 @@
         }
     }];
 }
+-(void)dealloc{
+    NSLog(@"ViewSprintViewController NO LEAK");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:NO];
+    //added:
+    [[[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] child:kSprintHead] removeAllObservers];
+
     [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeAllObservers];
 }
 #pragma mark - Helper Methods

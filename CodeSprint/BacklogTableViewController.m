@@ -63,7 +63,9 @@
     [super loadView];
     [self setupView];
 }
-
+-(void)dealloc{
+    NSLog(@"BackLogViewController NO LEAK");
+}
 - (void)viewDidLoad{
     [super viewDidLoad];
     _menuItems = @[@"Specifications",@"Sprint Goals",@"Active Sprints"];
@@ -81,7 +83,6 @@
         self.viewSprintController.currentArtifact = artifact;
         self.viewSprintController.vc.currentArtifact = artifact;
         self.viewSprintController.currentScrum = self.currentScrumKey;
-        NSLog(@"OBSERVE PASSIVE 2");
         [self.tableView reloadData];
         [self updateControlCounts];
     }];
@@ -320,8 +321,5 @@
             break;
     }
     return cell;
-}
--(void)dealloc{
-    NSLog(@"BACKLOG DEALLOC CALLED");
 }
 @end

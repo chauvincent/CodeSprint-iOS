@@ -17,8 +17,8 @@
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
 #import <pop/POP.h>
 #import "ChatroomsTableViewController.h"
-
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate, ChatroomTableViewControllerDelegate>
+#import "EditProfileViewController.h"
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate, ChatroomTableViewControllerDelegate, EditProfileViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
@@ -59,7 +59,9 @@
     
     
 }
-
+-(void)dealloc{
+    NSLog(@"HomeViewController NO LEAK");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -198,9 +200,7 @@
                     [[[[[[FIRDatabase database] reference] child:kCSUserHead] child:usersKey] child:kCSUserPhotoURL] removeAllObservers];
             }
         }
-        NSLog(@"HOME CLEAN UP: removed garabage INSIDE HOME");
     }
-    NSLog(@"HOME CLEAN UP: DETACH OBSERVER CALLED");
     if ([teams count] > 0) {
         for (NSString *currentTeam in teams) {
             [[[[[FIRDatabase database] reference] child:kChatroomHead] child:currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
@@ -208,9 +208,11 @@
             [[[[[FIRDatabase database] reference] child:kChatroomHead] child:currentTeam] removeAllObservers];
             [[[[[FIRDatabase database] reference] child:kTeamsHead] child:currentTeam] removeAllObservers];
         }
-        NSLog(@"HOME CLEAN UP: REMOVED TEAM OBSERVERS IN HOME:");
     }
-
+}
+#pragma mark - EditProfileViewControllerDelegate
+-(void)didChangeProfilePic:(UIImage *)img{
+    self.profilePictureImageView.image = img;
 }
 
 @end

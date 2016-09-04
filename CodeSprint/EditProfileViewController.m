@@ -40,7 +40,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
+-(void)dealloc{
+        NSLog(@"EditProfileViewController NO LEAK");
+}
 #pragma mark - View Setup
 - (void)setupView{
     self.view.backgroundColor = GREY_COLOR;
@@ -121,7 +123,6 @@
         if (![[imageUrl absoluteString] isEqualToString:@"ERROR"]) {
             [FirebaseManager uploadedNewPhoto:imageUrl];
             [FirebaseManager sharedInstance].currentUser.photoURL = imageUrl;
-            NSLog(@"%@",[FirebaseManager sharedInstance].currentUser.photoURL);
         }
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -160,6 +161,7 @@
     [image drawInRect:rect];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     self.profileImageView.image = img;
+    [self.delegate didChangeProfilePic:img];
     NSData *imageData = UIImageJPEGRepresentation(img, compressionQuality);
     UIGraphicsEndImageContext();
     return [UIImage imageWithData:imageData];

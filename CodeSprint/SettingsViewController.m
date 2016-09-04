@@ -27,6 +27,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+-(void)dealloc{
+    NSLog(@"SettingsViewController NO LEAK");
+}
 
 #pragma mark - View Setup
 -(void)setupView{

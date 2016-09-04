@@ -94,7 +94,7 @@
 
 -(void)dealloc{
     [self.delegate removeHandlersForTeam:self.imageDictionary andTeam:_currentTeam];
-    NSLog(@"GROUP CHAT VC NO LEAK");
+    NSLog(@"GroupChatViewController NO LEAK");
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -172,7 +172,6 @@
                 UIImage *currentIMG = [UIImage imageWithData:[NSData dataWithContentsOfURL:currentURL]];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [imgCache setObject:currentIMG forKey:self.imageDictionary[key]];
-                    NSLog(@"ADDING %@", self.imageDictionary[key]);
                     AvatarModel* newModel = [[AvatarModel alloc] initWithAvatarImage:currentIMG highlightedImage:nil placeholderImage:currentIMG];
                     self.avaDictionary[key] = newModel;
                     if ([self.avaDictionary count] == [self.imageDictionary count]) {
@@ -187,7 +186,6 @@
             if ([self.avaDictionary count] == [self.imageDictionary count]) {
                 block(true);
             }
-            NSLog(@"NOT NUL");
         }
 
     }

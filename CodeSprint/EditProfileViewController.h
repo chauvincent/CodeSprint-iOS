@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol EditProfileViewControllerDelegate <NSObject>
+
+-(void)didChangeProfilePic:(UIImage*)img;
+
+@end
+
+
 @interface EditProfileViewController : UIViewController
+
+@property (weak, nonatomic) id<EditProfileViewControllerDelegate> delegate;
 
 @end

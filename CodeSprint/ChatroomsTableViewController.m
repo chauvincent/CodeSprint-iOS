@@ -33,6 +33,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)dealloc{
+    NSLog(@"ChatroomTableViewController NO LEAK");
+}
 - (void)viewWillAppear:(BOOL)animated{
     [FirebaseManager detachChatroom];
     [self.delegate detachObservers:self.garbageCollection andTeams:self.teams];
@@ -53,11 +56,8 @@
     self.garbageCollection = [[NSMutableArray alloc] init];
     self.teams = [[NSMutableArray alloc] init];
 }
--(void)dealloc{
-    NSLog(@"CHATROOMSTABLEVIEW NO LEAK");
-}
+
 -(void)dismiss{
-    NSLog(@"DISMISS BEING CALLED IN CHATROOM TABLEVEW");
     [FirebaseManager detachChatroom];
     [self.delegate detachObservers:self.garbageCollection andTeams:self.teams];
     [self.navigationController popViewControllerAnimated:YES];
@@ -112,15 +112,11 @@
     [FirebaseManager retreiveImageURLForTeam:vc.currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
         vc.imageDictionary = avatarsDict;
         [self.navigationController pushViewController:vc animated:YES];
-//        [self setupAvatarWithCompletion:^(BOOL completed) {
-//            [self finishReceivingMessage];
-//        }];
     }];
-//    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 -(void)removeHandlersForTeam:(NSMutableDictionary *)imageDictionary andTeam:(NSString*)currentTeam{
-
     [self.garbageCollection addObject:imageDictionary];
     [self.teams addObject:currentTeam];
     if ([self.garbageCollection count] != 0) {
