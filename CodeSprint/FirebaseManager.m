@@ -576,17 +576,14 @@
             }];
         }];
     }
-    block(nil);
 }
 + (void)getImagesForUsersArray:(NSArray*)array withCompletion:(void (^)(NSMutableArray *urlArray))block{
     __block NSMutableArray *urls = [[NSMutableArray alloc] init];
     __block int i = 0;
     for (NSString *uid in array) {
         FIRDatabaseReference *userImage = [[[self userRef] child:uid] child:kCSUserPhotoURL];
-         [FirebaseManager sharedInstance].downloadTeamImagesHandle = [userImage observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+         [userImage observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             [urls addObject:(NSString*)snapshot.value];
-//            NSLog(@"GETIMAGES FOR USER ARRAY: UID: %@", uid);
-//            NSLog(@"SNAPSHOT: %@", (NSString*)snapshot.value);
             i++;
             if (i == array.count) {
                 block(urls);
@@ -594,9 +591,15 @@
         }];
     }
 }
++ (void)observeOnceForTeamMembers:(NSString*)teamName withCompletion:(void (^)(NSMutableArray *members))block{
+    FIRDatabaseReference *membersRef = [[self teamRef] child:teamName];
+    [membersRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSMutableArray *allMembers = ((NSDictionary*)snapshot.value)[kMembersHead];
+        block(allMembers);
+    }];
+}
 + (void)setPlaceHolderImageAsPhoto{
     NSString *uid = [self sharedInstance].currentUser.uid;
-   // NSString *oldPhoto = [[self sharedInstance].currentUser.photoURL absoluteString];
     FIRDatabaseReference *userRef = [[self userRef] child:uid];
     [userRef updateChildValues:@{
                                   kCSUserPhotoURL:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c",
@@ -609,8 +612,7 @@
     FIRDatabaseReference *userRef = [[self userRef] child:uid];
     NSString *photoURL = [newPhoto absoluteString];
     [userRef updateChildValues:@{
-                                 kCSUserPhotoURL:photoURL,
-//                                 kCSUserOldPhotoURL:@"https://firebasestorage.googleapis.com/v0/b/code-spring-ios.appspot.com/o/UserImage.png?alt=media&token=4d5c5207-9d4a-4e98-8a99-95e7f201f44c"
+                                 kCSUserPhotoURL:photoURL
                                  }];
 }
 
@@ -619,9 +621,9 @@
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].newTeamsHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
-    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
-    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
-    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
+    //[[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+   // [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+   // [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
      
 }
 + (void)detachChatroom{
@@ -630,7 +632,6 @@
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
 }
 + (void)detachScrum{
-    
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
 }
 + (void)detachScrumDelete{
@@ -641,7 +642,6 @@
 }
 + (void)detachImageDownload{
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
-    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
+    //[[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
 }
-
 @end

@@ -35,7 +35,8 @@
 
     self.teamsTableView.delegate = self;
     self.teamsTableView.dataSource = self;
-    
+   // [FirebaseManager removeAllObservers];
+    [FirebaseManager observeNewTeams];
     self.view.backgroundColor = GREY_COLOR;
     self.teamsTableView.backgroundColor = GREY_COLOR;
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
@@ -46,8 +47,13 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)viewWillAppear:(BOOL)animated{
-    [FirebaseManager removeAllObservers];
-    [FirebaseManager observeNewTeams];
+
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    //[FirebaseManager removeAllObservers];
+}
+-(void)dealloc{
+    NSLog(@"SPRINT MENU VC NO LEAK");
 }
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -92,7 +98,7 @@
     [self.removeButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];
 }
 -(void)dismiss{
-    [FirebaseManager detachNewTeams];
+  //  [FirebaseManager detachNewTeams];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)popoverController:(id)controller{

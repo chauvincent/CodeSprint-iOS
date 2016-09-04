@@ -13,9 +13,11 @@
 #import "GroupChatViewController.h"
 #import "GroupMessageTableViewCell.h"
 #import "IGIdenticon.h"
-@interface ChatroomsTableViewController ()
+@interface ChatroomsTableViewController () <GroupChatRoomViewControllerDelegate>
 
 @property (strong, nonatomic) IGImageGenerator *simpleIdenticonsGenerator;
+@property (strong, nonatomic) NSMutableArray *garbageCollection;
+@property (strong, nonatomic) NSMutableArray *teams;
 @end
 
 @implementation ChatroomsTableViewController
@@ -31,6 +33,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [FirebaseManager detachChatroom];
+    [self.delegate detachObservers:self.garbageCollection andTeams:self.teams];
+    
+}
 #pragma mark Setup
 -(void)setupView{
     self.view.backgroundColor = GREY_COLOR;
@@ -43,10 +50,16 @@
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
+    self.garbageCollection = [[NSMutableArray alloc] init];
+    self.teams = [[NSMutableArray alloc] init];
+}
+-(void)dealloc{
+    NSLog(@"CHATROOMSTABLEVIEW NO LEAK");
 }
 -(void)dismiss{
+    NSLog(@"DISMISS BEING CALLED IN CHATROOM TABLEVEW");
     [FirebaseManager detachChatroom];
-    
+    [self.delegate detachObservers:self.garbageCollection andTeams:self.teams];
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - Table view data source
@@ -92,9 +105,40 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     GroupChatViewController *vc = [GroupChatViewController messagesViewController];
+    vc.delegate = self;
     NSMutableArray *teams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
     vc.currentTeam = teams[indexPath.row];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    [FirebaseManager retreiveImageURLForTeam:vc.currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
+        vc.imageDictionary = avatarsDict;
+        [self.navigationController pushViewController:vc animated:YES];
+//        [self setupAvatarWithCompletion:^(BOOL completed) {
+//            [self finishReceivingMessage];
+//        }];
+    }];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)removeHandlersForTeam:(NSMutableDictionary *)imageDictionary andTeam:(NSString*)currentTeam{
+
+    [self.garbageCollection addObject:imageDictionary];
+    [self.teams addObject:currentTeam];
+    if ([self.garbageCollection count] != 0) {
+        for (NSMutableDictionary* imageDictionary in self.garbageCollection) {
+            for (NSString *usersKey in imageDictionary) {
+                [[[[[[FIRDatabase database] reference] child:kCSUserHead] child:usersKey] child:kCSUserPhotoURL] removeAllObservers];
+            }
+        }
+    }
+    if ([self.teams count] > 0) {
+        for (NSString *currentTeam in self.teams) {
+            [[[[[FIRDatabase database] reference] child:kChatroomHead] child:currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+            [[[[[FIRDatabase database] reference] child:kTeamsHead] child:currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+            [[[[[FIRDatabase database] reference] child:kChatroomHead] child:currentTeam] removeAllObservers];
+            [[[[[FIRDatabase database] reference] child:kTeamsHead] child:currentTeam] removeAllObservers];
+        }
+    }
+
 }
 
 @end

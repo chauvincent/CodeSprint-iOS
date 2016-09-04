@@ -18,7 +18,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = GREY_COLOR;
     self.contentImageView.image = [UIImage imageNamed:self.imageFile];
-     self.contentImageView.layer.cornerRadius = 50.0;
+     self.contentImageView.layer.cornerRadius = 50.0f;
 }
 
 - (void)didReceiveMemoryWarning {

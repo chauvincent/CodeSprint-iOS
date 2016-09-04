@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ChatroomTableViewControllerDelegate <NSObject>
+
+-(void)detachObservers:(NSMutableArray*)garbage andTeams:(NSMutableArray*)teams;
+
+@end
+
 @interface ChatroomsTableViewController : UITableViewController
+
+@property (weak, nonatomic) id<ChatroomTableViewControllerDelegate> delegate;
 
 @end

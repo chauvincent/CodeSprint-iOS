@@ -322,6 +322,6 @@
     return cell;
 }
 -(void)dealloc{
-    NSLog(@"DEALLOC CALLED");
+    NSLog(@"BACKLOG DEALLOC CALLED");
 }
 @end

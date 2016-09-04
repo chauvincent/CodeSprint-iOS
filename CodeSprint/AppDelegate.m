@@ -31,6 +31,11 @@
     pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     pageControl.backgroundColor = [UIColor clearColor];
+    
+    if(!self.imgCache) {
+        self.imgCache = [[NSCache alloc] init];
+    }
+    
     [FIRApp configure];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];

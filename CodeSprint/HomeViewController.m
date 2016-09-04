@@ -16,7 +16,9 @@
 #import <RWBlurPopover/RWBlurPopover.h>
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
 #import <pop/POP.h>
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate>
+#import "ChatroomsTableViewController.h"
+
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate, ChatroomTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
@@ -43,8 +45,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [FirebaseManager removeAllObservers];
     NSString *currentPhoto = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
-    if (![_photoURL isEqualToString:currentPhoto]) {
-        // Changed photo
+    if (![_photoURL isEqualToString:currentPhoto]) {   // Changed photo
         NSURL *url = [NSURL URLWithString:currentPhoto];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
@@ -63,15 +64,20 @@
     [super didReceiveMemoryWarning];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+
+    if ([segue.identifier isEqualToString:@"HomeToChatSegue"]) {
+        ChatroomsTableViewController *vc = [segue destinationViewController];
+        vc.delegate = self;
+    }
 }
-*/
+
 #pragma mark - View Setup Methods
 -(void)setupViews{
     self.navigationItem.title = @"CodeSprint";
@@ -183,6 +189,28 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
+}
+#pragma mark ChatroomTableViewControllerDelegate
+-(void)detachObservers:(NSMutableArray *)garbage andTeams:(NSMutableArray *)teams{
+    if ([garbage count] != 0) {
+        for (NSMutableDictionary* imageDictionary in garbage) {
+            for (NSString *usersKey in imageDictionary) {
+                    [[[[[[FIRDatabase database] reference] child:kCSUserHead] child:usersKey] child:kCSUserPhotoURL] removeAllObservers];
+            }
+        }
+        NSLog(@"HOME CLEAN UP: removed garabage INSIDE HOME");
+    }
+    NSLog(@"HOME CLEAN UP: DETACH OBSERVER CALLED");
+    if ([teams count] > 0) {
+        for (NSString *currentTeam in teams) {
+            [[[[[FIRDatabase database] reference] child:kChatroomHead] child:currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
+            [[[[[FIRDatabase database] reference] child:kTeamsHead] child:currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+            [[[[[FIRDatabase database] reference] child:kChatroomHead] child:currentTeam] removeAllObservers];
+            [[[[[FIRDatabase database] reference] child:kTeamsHead] child:currentTeam] removeAllObservers];
+        }
+        NSLog(@"HOME CLEAN UP: REMOVED TEAM OBSERVERS IN HOME:");
+    }
+
 }
 
 @end

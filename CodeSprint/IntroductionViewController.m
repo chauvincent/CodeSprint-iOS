@@ -38,6 +38,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [FirebaseManager sharedInstance].currentUser = nil;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

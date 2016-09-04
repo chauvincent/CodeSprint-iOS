@@ -47,7 +47,7 @@ CGFloat *constantsArray;
         for ( NSLayoutConstraint* con in constraints  ){
             constantsArray[i] = con.constant;
             i++;
-            con.constant = self.offScreenRight.x;
+            con.constant = self.offScreenLeft.x;
         }
         self.allConstraints = constraints;
     }

@@ -25,6 +25,8 @@
 }
 
 @property (strong, nonatomic) AnimationGenerator *generator;
+@property (strong, nonatomic) AnimationGenerator *generator2;
+
 @property (weak, nonatomic) IBOutlet CustomTextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet CustomTextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet AnimatedButton *createButton;
@@ -37,6 +39,8 @@
 
 // Animated Constraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewCenterX;
 
 @end
 
@@ -61,10 +65,10 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [super viewDidLoad];
     [self setupView];
     
-//    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint, self.githubCenterConstraint, self.fbCenterConstraint]];
+    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint]];
 }
 -(void)viewDidAppear:(BOOL)animated {
-//    [self.generator animateScreenWithDelay:0.8];
+    [self.generator animateScreenWithDelay:0.8];
 }
 
 - (void)didReceiveMemoryWarning {

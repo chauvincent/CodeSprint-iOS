@@ -8,9 +8,17 @@
 #import <UIKit/UIKit.h>
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
 
+@protocol GroupChatRoomViewControllerDelegate <NSObject>
+
+-(void)removeHandlersForTeam:(NSMutableDictionary*)imageDictionary andTeam:(NSString*)currentTeam;
+
+@end
+
+
 @interface GroupChatViewController : JSQMessagesViewController
 
 @property (strong, nonatomic) NSString *currentTeam;
 @property (strong, nonatomic) NSMutableDictionary *imageDictionary;
 @property (strong, nonatomic) NSMutableDictionary *avaDictionary;
+@property (weak, nonatomic) id<GroupChatRoomViewControllerDelegate> delegate;
 @end
