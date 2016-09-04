@@ -583,7 +583,7 @@
     __block int i = 0;
     for (NSString *uid in array) {
         FIRDatabaseReference *userImage = [[[self userRef] child:uid] child:kCSUserPhotoURL];
-        [userImage observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+         [FirebaseManager sharedInstance].downloadTeamImagesHandle = [userImage observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             [urls addObject:(NSString*)snapshot.value];
 //            NSLog(@"GETIMAGES FOR USER ARRAY: UID: %@", uid);
 //            NSLog(@"SNAPSHOT: %@", (NSString*)snapshot.value);
@@ -621,11 +621,13 @@
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].scrumDeleteHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
      
 }
 + (void)detachChatroom{
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
 }
 + (void)detachScrum{
     
@@ -639,6 +641,7 @@
 }
 + (void)detachImageDownload{
     [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
+    [[self mainRef] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadTeamImagesHandle];
 }
 
 @end

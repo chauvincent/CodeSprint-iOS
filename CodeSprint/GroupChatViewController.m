@@ -38,11 +38,7 @@
     }
     return _avaDictionary;
 }
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setupViews];
-    [self setupUser];
+- (void)loadView {
     [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
         self.imageDictionary = avatarsDict;
         [self setupAvatarWithCompletion:^(BOOL completed) {
@@ -50,7 +46,14 @@
         }];
     }];
     
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupViews];
+    [self setupUser];
+
     [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
+        
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
         for (NSDictionary *messageInfo in updatedChat.messages) {
             JSQMessage *msg;
@@ -63,9 +66,10 @@
             [newMessages addObject:msg];
         }
         self.messages = newMessages;
-        [self setupAvatarWithCompletion:^(BOOL complete) {
-                    [self finishReceivingMessage];
-        }];
+//        [self setupAvatarWithCompletion:^(BOOL complete) {
+//            [self finishReceivingMessage];
+//        }];
+        [self finishReceivingMessage];
     }];
     self.title = @"Messages";
   
@@ -78,8 +82,14 @@
     [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
     [[[[[FIRDatabase database] reference] child:kChatroomHead] child:_currentTeam] removeAllObservers];
      [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeAllObservers];
+    
+    for (NSString *usersKey in self.imageDictionary) {
+        [[[[[[FIRDatabase database] reference] child:kCSUserHead] child:usersKey] child:kCSUserPhotoURL] removeAllObservers];
+    }
 }
-
+-(void)dealloc{
+    NSLog(@"chat dealloc");
+}
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
 }

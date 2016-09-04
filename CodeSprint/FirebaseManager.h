@@ -31,6 +31,7 @@
 @property (assign, nonatomic) FIRDatabaseHandle scrumDeleteHandle;
 @property (assign, nonatomic) FIRDatabaseHandle chatroomHandle;
 @property (assign, nonatomic) FIRDatabaseHandle downloadImgHandle;
+@property (assign, nonatomic) FIRDatabaseHandle downloadTeamImagesHandle;
 
 #pragma mark - App State Properties
 @property (strong, nonatomic) User *currentUser;
