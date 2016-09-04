@@ -569,8 +569,6 @@
             [self getImagesForUsersArray:members withCompletion:^(NSMutableArray *urlArray) {
                 int i = 0;
                 for (NSString *user in members) {
-//                    NSLog(@"USER IS : %@", user);
-//                    NSLog(@"URL FOR USER IS : %@", urlArray[i]);
                     avatars[user] = urlArray[i];
                     i++;
                 }
@@ -587,8 +585,8 @@
         FIRDatabaseReference *userImage = [[[self userRef] child:uid] child:kCSUserPhotoURL];
         [userImage observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             [urls addObject:(NSString*)snapshot.value];
-            NSLog(@"GETIMAGES FOR USER ARRAY: UID: %@", uid);
-            NSLog(@"SNAPSHOT: %@", (NSString*)snapshot.value);
+//            NSLog(@"GETIMAGES FOR USER ARRAY: UID: %@", uid);
+//            NSLog(@"SNAPSHOT: %@", (NSString*)snapshot.value);
             i++;
             if (i == array.count) {
                 block(urls);

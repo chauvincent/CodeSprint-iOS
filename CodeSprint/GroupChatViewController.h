@@ -12,5 +12,5 @@
 
 @property (strong, nonatomic) NSString *currentTeam;
 @property (strong, nonatomic) NSMutableDictionary *imageDictionary;
-
+@property (strong, nonatomic) NSMutableDictionary *avaDictionary;
 @end

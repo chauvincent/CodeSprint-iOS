@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSMutableArray *messages;
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
+
 @end
 
 @implementation GroupChatViewController
@@ -31,14 +32,20 @@
     return _imageDictionary;
 }
 
+-(NSMutableDictionary*)avaDictionary{
+    if (!_avaDictionary) {
+        _avaDictionary = [[NSMutableDictionary alloc] init];
+    }
+    return _avaDictionary;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupViews];
     [self setupUser];
     [FirebaseManager retreiveImageURLForTeam:_currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
-        [self downloadImagesWith:avatarsDict withCompletion:^(NSMutableDictionary *imageDict) {
-            self.imageDictionary = imageDict;
-            [self setupAvatars];
+        self.imageDictionary = avatarsDict;
+        [self setupAvatarWithCompletion:^(BOOL completed) {
             [self finishReceivingMessage];
         }];
     }];
@@ -56,24 +63,27 @@
             [newMessages addObject:msg];
         }
         self.messages = newMessages;
-        [self finishReceivingMessage];
+        [self setupAvatarWithCompletion:^(BOOL complete) {
+                    [self finishReceivingMessage];
+        }];
     }];
     self.title = @"Messages";
   
     // Do any additional setup after loading the view.
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:NO];
     [[[[[FIRDatabase database] reference] child:kChatroomHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
     [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
-
-    //    [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
     [[[[[FIRDatabase database] reference] child:kChatroomHead] child:_currentTeam] removeAllObservers];
      [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeAllObservers];
 }
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -95,16 +105,7 @@
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
 }
--(void)setupAvatars{
-    NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
-    
-    for (NSString *key in self.imageDictionary) {
-        UIImage *image = self.imageDictionary[key];
-        AvatarModel *model = [[AvatarModel alloc] initWithAvatarImage:image highlightedImage:nil placeholderImage:image];
-        newDict[key] = model;
-    }
-    self.imageDictionary = newDict;
-}
+
 -(void)dismiss{
     [FirebaseManager detachChatroom];
     [self.navigationController popViewControllerAnimated:YES];
@@ -126,8 +127,8 @@
     if ([_imageDictionary count] == 0) {
         return nil;
     }
-    JSQMessage *currentMsg = self.messages[indexPath.item];
-    return _imageDictionary[currentMsg.senderId];
+    JSQMessage* currentMsg = self.messages[indexPath.item];
+    return self.avaDictionary[currentMsg.senderId];
 }
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date{
     ChatroomMessage *msg = [[ChatroomMessage alloc] initWithMessage:senderDisplayName withSenderID:senderId andText:text];
@@ -139,36 +140,22 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [self.messages count];
 }
-#pragma mark - Helper Methods
-- (void)downloadImagesWith:(NSMutableDictionary*)avatars withCompletion:(void (^)(NSMutableDictionary *imageDict))block{
-    __block NSMutableDictionary *imageTable = [[NSMutableDictionary alloc] init];
-    for (NSString *userID in avatars) {
-        [self downloadOneImage:userID andAvatars:avatars withCompletion:^(UIImage *img) {
-            [imageTable setObject:img forKey:userID];
-            if ([[imageTable allKeys] count] == [avatars count]) {
-                block(imageTable);
-            }
-        }];
+-(void)setupAvatarWithCompletion:(void (^)(BOOL complete))block{
+    for (NSString *key in self.imageDictionary) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSURL *currentURL = [NSURL URLWithString:self.imageDictionary[key]];
+            UIImage *currentIMG = [UIImage imageWithData:[NSData dataWithContentsOfURL:currentURL]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                AvatarModel* newModel = [[AvatarModel alloc] initWithAvatarImage:currentIMG highlightedImage:nil placeholderImage:currentIMG];
+                self.avaDictionary[key] = newModel;
+                if ([self.avaDictionary count] == [self.imageDictionary count]) {
+                    block(true);
+                }
+                
+            });
+        });
     }
 }
-- (void)downloadOneImage:(NSString*)userID andAvatars:(NSMutableDictionary*)avatars withCompletion:(void (^)(UIImage *img))block{
-    NSURL *url = [NSURL URLWithString:[avatars objectForKey:userID]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    // Debug:
-    NSLog(@"\n=======================DOWNLOADING ONE ====================");
-    NSLog(@"%@", [url absoluteString]);
-    NSLog(@"UID: %@", userID);
-    NSLog(@"=======================END ====================\n");
-    
-    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        UIImage *downloadedImg = (UIImage*)responseObject;
-        block(downloadedImg);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Image error: %@", error);
 
-    }];
-    [requestOperation start];
-}
+
 @end

@@ -19,4 +19,5 @@
 - (instancetype)initWithAvatarImage:(UIImage *)avatarImage
                    highlightedImage:(UIImage *)highlightedImage
                    placeholderImage:(UIImage *)placeholderImage;
+
 @end
