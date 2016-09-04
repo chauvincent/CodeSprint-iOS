@@ -29,6 +29,7 @@
 
 @implementation SprintMenuViewController
 
+#pragma mark - ViewController Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
@@ -55,6 +56,9 @@
 -(void)dealloc{
     NSLog(@"SprintMenuViewController NO LEAK");
 }
+-(void)dismiss{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"SprintMenuToTeamSegue"]) {
@@ -63,6 +67,7 @@
         vc.delegate = self;
     }
 }
+
 #pragma mark - IBActions
 - (IBAction)createButtonPressed:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -97,10 +102,7 @@
     [self.findGroupButton setBackgroundImage:[UIImage imageNamed:@"find-button"] forState:UIControlStateNormal];
     [self.removeButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];
 }
--(void)dismiss{
-  //  [FirebaseManager detachNewTeams];
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 -(void)popoverController:(id)controller{
     if ([controller isKindOfClass:[CreateTeamViewController class]] || [controller isKindOfClass:[SearchTeamViewController class]] || [controller isKindOfClass:[ManageTeamsViewController class]]) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -114,8 +116,6 @@
 -(void)tearDownObserverForKey:(NSString *)key{
      [[[[[FIRDatabase database] reference] child:kScrumHead] child:key] removeAllObservers];
 }
-
-
 
 #pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate && ManageTeamViewControllerDelegate
 -(void)createdNewTeam:(NSString*)inputText withPassword:(NSString*)password{
@@ -149,7 +149,7 @@
         [self.teamsTableView reloadData];
     }];
 }
-#pragma mark - UITableViewDelegate
+#pragma mark - UITableViewDataSource && UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];

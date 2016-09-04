@@ -25,6 +25,7 @@
 
 @implementation SearchTeamViewController
 
+#pragma mark - ViewController Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupButtons];
@@ -37,6 +38,7 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 #pragma mark - View Setup
 -(CGSize)preferredContentSize{
     return CGSizeMake(280.0f, 320.0f);

@@ -22,6 +22,7 @@
 
 @implementation ChatroomsTableViewController
 
+#pragma mark - View Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.delegate = self;
@@ -61,7 +62,7 @@
     [self.delegate detachObservers:self.garbageCollection andTeams:self.teams];
     [self.navigationController popViewControllerAnimated:YES];
 }
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     //return 1;
     NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
@@ -123,6 +124,7 @@
     [v setBackgroundColor:[UIColor clearColor]];
     return v;
 }
+#pragma mark - Remove Handlers
 -(void)removeHandlersForTeam:(NSMutableDictionary *)imageDictionary andTeam:(NSString*)currentTeam{
     [self.garbageCollection addObject:imageDictionary];
     [self.teams addObject:currentTeam];

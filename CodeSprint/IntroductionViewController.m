@@ -31,6 +31,8 @@
     }
     return _PageViewController;
 }
+
+#pragma mark - View Controller Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
@@ -42,6 +44,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+#pragma mark - Setup View
 -(void)setupView{
     self.navigationItem.title = @"Introduction";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
@@ -55,6 +59,7 @@
     
 }
 
+#pragma mark - UIPageViewDatasource Methods
 -(PageContentViewController*)viewControllerAtIndex:(NSUInteger)index{
     if (([self.pageImages count] == 0) || (index >= [self.pageImages count])) {
         return nil;
@@ -67,7 +72,6 @@
     return pageContentViewController;
 }
 
-#pragma mark - Page View Datasource Methods
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
     
     NSUInteger index = ((PageContentViewController*) viewController).index;

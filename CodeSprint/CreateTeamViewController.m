@@ -26,6 +26,7 @@
 
 @implementation CreateTeamViewController
 
+#pragma mark - ViewController Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     _teamTextField.delegate = self;
@@ -36,7 +37,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
+- (void)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 #pragma mark - View Setup
 -(CGSize)preferredContentSize{
     return CGSizeMake(280.0f, 320.0f);
@@ -107,10 +110,7 @@
     [textField resignFirstResponder];
     return NO;
 }
-#pragma mark - Helper methods
-- (void)dismiss {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+
 
 
 @end

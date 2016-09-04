@@ -22,6 +22,8 @@
 
 @implementation CreateDisplayNameViewController
 
+#pragma mark - ViewController Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];

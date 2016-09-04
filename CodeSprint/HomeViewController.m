@@ -22,21 +22,23 @@
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate, ChatroomTableViewControllerDelegate, EditProfileViewControllerDelegate>
 
+@property (strong, nonatomic) NSString *photoURL;
+@property (strong, nonatomic) AnimationGenerator *generator;
+
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
-@property (weak, nonatomic) IBOutlet UIStackView *homeStackView;
-@property (strong, nonatomic) NSString *photoURL;
 
-@property (strong, nonatomic) AnimationGenerator *generator;
+// Autolayout Constraints For Animations
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profilePicCenterX;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondProfileCenterX;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewCenterX;
+
 
 @end
 
 @implementation HomeViewController
 
-#pragma mark - Life Cycle
+#pragma mark - ViewController Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.profilePicCenterX, self.secondProfileCenterX, self.tableViewCenterX]];
@@ -65,8 +67,6 @@
         }];
 
     }
-    
-    
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
@@ -81,12 +81,7 @@
 
 
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-
     if ([segue.identifier isEqualToString:@"HomeToChatSegue"]) {
         ChatroomsTableViewController *vc = [segue destinationViewController];
         vc.delegate = self;
@@ -118,6 +113,8 @@
     [self.profilePictureImageView addGestureRecognizer:singleTap];
     
 }
+
+#pragma mark - IBActions
 -(void)tappedPicture:(id)sender{
     [self performSegueWithIdentifier:@"HomeToEditSegue" sender:nil];
 }
@@ -164,7 +161,7 @@
 -(void)setDisplayName:(NSString*)userInput{
     [FirebaseManager setUpNewUser:userInput];
 }
-#pragma mark - UITableViewDelegate
+#pragma mark - UITableViewDelegate && UITableViewDatasource
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SettingsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell" forIndexPath:indexPath];
     [cell configureCellForIndexPath:indexPath];
@@ -205,6 +202,7 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
+
 #pragma mark ChatroomTableViewControllerDelegate
 -(void)detachObservers:(NSMutableArray *)garbage andTeams:(NSMutableArray *)teams{
     if ([garbage count] != 0) {
@@ -223,6 +221,7 @@
         }
     }
 }
+
 #pragma mark - EditProfileViewControllerDelegate
 -(void)didChangeProfilePic:(UIImage *)img{
     self.profilePictureImageView.image = img;
