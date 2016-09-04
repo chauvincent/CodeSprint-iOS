@@ -35,7 +35,6 @@
 
 #pragma mark - App State Properties
 @property (strong, nonatomic) User *currentUser;
-
 @property (assign) BOOL isNewUser;
 
 #pragma mark - User Management
@@ -48,12 +47,14 @@
 + (void)uploadedNewPhoto:(NSURL*)newPhoto;
 + (void)deleteUser;
 + (void)getImagesForUsersArray:(NSArray*)array withCompletion:(void (^)(NSMutableArray *urlArray))block;
+
 #pragma mark - Single and Passive Observers
 + (void)observeNewTeams;
 + (void)observePassiveScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
 + (void)observeIncaseDelete:(NSString*)scrumKey withCurrentIndex:(NSInteger)index withCompletion:(void (^)(BOOL completed))block;
 + (void)observeScrumNode:(NSString*)scrumKey withCompletion:(void (^)(Artifacts *artifact))block;
 + (void)observeOnceForTeamMembers:(NSString*)teamName withCompletion:(void (^)(NSMutableArray *members))block;
+
 #pragma mark - Detach Passive Observers
 + (void)removeAllObservers;
 + (void)detachChatroom;
@@ -61,6 +62,7 @@
 + (void)detachScrumDelete;
 + (void)detachNewTeams;
 + (void)detachImageDownload;
+
 #pragma mark - Query Functions
 + (void)isNewTeam:(NSString *)teamName withCompletion:(void (^)(BOOL result))block;
 
@@ -69,6 +71,7 @@
 + (void)addUserToTeam:(NSString*)teamName andUser:(NSString*)uid withCompletion:(void (^)(BOOL result))block;
 + (void)removeUserFromTeam:(NSString*)uid withIndexs:(NSArray*)index withCompletion:(void (^)(BOOL result))block;
 + (void)checkTeamAndPasswordWithName:(NSString*)teamName andPassword:(NSString*)password withCompletion:(void (^)(BOOL result))block;
+
 #pragma mark - Scrum/Sprint Insertion Functions
 + (void)addProductSpecToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;
 + (void)addSprintGoalToScrum:(NSString*)scrumKey withArtifact:(Artifacts*)artifact withCompletion:(void (^)(BOOL completed))block;

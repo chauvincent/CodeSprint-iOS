@@ -20,6 +20,8 @@
 
 // Functions
 - (id)initWithConstraints:(NSArray*)constraints;
+- (id)initWithConstraintsRight:(NSArray*)constraints;
+- (id)initWithConstraintsBottom:(NSArray*)constraints;
 - (void)animateScreenWithDelay:(double)delay;
 
 @end

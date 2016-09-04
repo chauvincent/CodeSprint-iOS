@@ -23,17 +23,8 @@
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate, ChatroomTableViewControllerDelegate, EditProfileViewControllerDelegate>
 
 @property (strong, nonatomic) NSString *photoURL;
-@property (strong, nonatomic) AnimationGenerator *generator;
-
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
-
-// Autolayout Constraints For Animations
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *profilePicCenterX;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondProfileCenterX;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewCenterX;
-
-
 @end
 
 @implementation HomeViewController
@@ -41,7 +32,7 @@
 #pragma mark - ViewController Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.profilePicCenterX, self.secondProfileCenterX, self.tableViewCenterX]];
+
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
     if([FirebaseManager sharedInstance].isNewUser){
@@ -50,7 +41,6 @@
         [FirebaseManager retreiveUsersTeams];
     }
     [self setupViews];
-    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -70,7 +60,7 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-     [self.generator animateScreenWithDelay:0.9];
+
 }
 -(void)dealloc{
     NSLog(@"HomeViewController NO LEAK");

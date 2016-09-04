@@ -56,7 +56,7 @@
                                         <rect key="frame" x="0.0" y="30" width="581" height="449"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="ViewSprintCell" textLabel="bXw-t9-Uft" detailTextLabel="SaM-gR-j8D" style="IBUITableViewCellStyleSubtitle" id="XRP-YS-qhu" customClass="ArtifactsTableViewCell">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="ViewSprintCell" textLabel="bXw-t9-Uft" detailTextLabel="SaM-gR-j8D" style="IBUITableViewCellStyleSubtitle" id="XRP-YS-qhu" customClass="ArtifactsTableViewCell">
                                                 <rect key="frame" x="0.0" y="28" width="581" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XRP-YS-qhu" id="o8T-oP-6Ny">
@@ -476,10 +476,7 @@
                     </view>
                     <connections>
                         <outlet property="menuTableView" destination="Q2x-Ga-6Mn" id="8eU-Up-loE"/>
-                        <outlet property="profilePicCenterX" destination="5gM-Fq-a1V" id="QKQ-bf-825"/>
                         <outlet property="profilePictureImageView" destination="x90-Nh-kmN" id="ac3-CI-ctY"/>
-                        <outlet property="secondProfileCenterX" destination="qjx-T8-a9t" id="Aqn-N3-kAV"/>
-                        <outlet property="tableViewCenterX" destination="ekB-qx-QPf" id="Z8f-e9-azM"/>
                         <segue destination="7nh-g9-1wz" kind="show" identifier="HomeToSprintSegue" id="Bk9-K7-NOA"/>
                         <segue destination="x27-tJ-sUv" kind="show" identifier="HomeToChatSegue" id="qNK-mw-9Cc"/>
                         <segue destination="KYM-P2-nhK" kind="show" identifier="HomeToEditSegue" id="aRD-da-Nsu"/>
@@ -502,91 +499,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uf2-Cf-D9G" customClass="AnimatedButton">
-                                <rect key="frame" x="189" y="363" width="223" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="223" id="Xpi-CR-ZY4"/>
-                                </constraints>
-                                <state key="normal" title="Update Name">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveChangesButtonPressed:" destination="KYM-P2-nhK" eventType="touchUpInside" id="gGo-Ud-UY5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuF-tK-uxE" customClass="AnimatedButton">
-                                <rect key="frame" x="189" y="401" width="223" height="30"/>
-                                <color key="backgroundColor" red="0.96862745100000003" green="0.30588235289999999" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Clear">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelButtonPressed:" destination="KYM-P2-nhK" eventType="touchUpInside" id="DAc-0k-hFq"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a New Display Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nhr-TX-CIT" customClass="CustomTextField">
-                                <rect key="frame" x="190" y="319" width="220" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="220" id="clx-3i-fmD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVQ-d1-a5O">
-                                <rect key="frame" x="198" y="281" width="204" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="204" id="yy7-Zp-Dth"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserImage" translatesAutoresizingMaskIntoConstraints="NO" id="Aze-gO-zbj" customClass="CircleImageView">
-                                <rect key="frame" x="238" y="109" width="125" height="125"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="M1y-7m-a1v"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubt-y7-vXf">
-                                <rect key="frame" x="246" y="80" width="109" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="dEW-34-IZF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the photo and select your new photo. This may take a few minutes depending on the image size." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyc-vs-CQO">
-                                <rect key="frame" x="162" y="242" width="277" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="277" id="9Oq-xc-K92"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="1UU-lh-9zZ">
+                                <rect key="frame" x="162" y="80" width="277" height="312"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubt-y7-vXf">
+                                        <rect key="frame" x="84" y="0.0" width="109" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="lQI-UB-oW5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserImage" translatesAutoresizingMaskIntoConstraints="NO" id="Aze-gO-zbj" customClass="CircleImageView">
+                                        <rect key="frame" x="76" y="25" width="125" height="125"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Aze-gO-zbj" secondAttribute="height" multiplier="1:1" id="6Oq-cX-FFw"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="125" id="Dvb-yq-9rR"/>
+                                            <constraint firstAttribute="width" constant="125" id="Qcj-89-rdB"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the photo and select your new photo. This may take a few minutes depending on the image size." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyc-vs-CQO">
+                                        <rect key="frame" x="0.0" y="154" width="277" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="277" id="POx-jV-UBX"/>
+                                            <constraint firstAttribute="height" constant="31" id="RCS-BB-1f9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Display Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVQ-d1-a5O">
+                                        <rect key="frame" x="37" y="189" width="204" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="204" id="YrQ-K4-jhN"/>
+                                            <constraint firstAttribute="height" constant="21" id="i24-KP-H0M"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a New Display Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nhr-TX-CIT" customClass="CustomTextField">
+                                        <rect key="frame" x="29" y="214" width="220" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="F3k-K6-z4M"/>
+                                            <constraint firstAttribute="width" constant="220" id="oxX-k8-tXU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uf2-Cf-D9G" customClass="AnimatedButton">
+                                        <rect key="frame" x="27" y="248" width="223" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="7D2-u0-JUl"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="223" id="DlT-wa-M86"/>
+                                            <constraint firstAttribute="height" constant="30" id="Fv2-MF-qxV"/>
+                                            <constraint firstAttribute="width" constant="223" id="QZ7-2R-f8j"/>
+                                        </constraints>
+                                        <state key="normal" title="Update Name">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveChangesButtonPressed:" destination="KYM-P2-nhK" eventType="touchUpInside" id="gGo-Ud-UY5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuF-tK-uxE" customClass="AnimatedButton">
+                                        <rect key="frame" x="27" y="282" width="223" height="30"/>
+                                        <color key="backgroundColor" red="0.96862745100000003" green="0.30588235289999999" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="N17-vR-A1h"/>
+                                            <constraint firstAttribute="width" constant="223" id="otb-Lk-JWl"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="xFH-rx-iaf"/>
+                                        </constraints>
+                                        <state key="normal" title="Clear">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="KYM-P2-nhK" eventType="touchUpInside" id="DAc-0k-hFq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="dyc-vs-CQO" firstAttribute="top" secondItem="Aze-gO-zbj" secondAttribute="bottom" constant="8" symbolic="YES" id="6zM-0Y-axv"/>
-                            <constraint firstItem="ubt-y7-vXf" firstAttribute="centerX" secondItem="Aze-gO-zbj" secondAttribute="centerX" id="Mq0-Iv-cwJ"/>
-                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="top" secondItem="nhr-TX-CIT" secondAttribute="bottom" constant="14" id="Oun-Vi-67O"/>
-                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="leading" secondItem="LuF-tK-uxE" secondAttribute="leading" id="QcS-lg-mDr"/>
-                            <constraint firstItem="nhr-TX-CIT" firstAttribute="top" secondItem="zVQ-d1-a5O" secondAttribute="bottom" constant="17" id="Tue-tG-wvl"/>
-                            <constraint firstItem="LuF-tK-uxE" firstAttribute="top" secondItem="uf2-Cf-D9G" secondAttribute="bottom" constant="8" symbolic="YES" id="Tue-wo-SP1"/>
-                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="top" secondItem="bHc-fp-fAG" secondAttribute="bottom" constant="217" id="UzT-Ui-SdZ"/>
-                            <constraint firstItem="ubt-y7-vXf" firstAttribute="top" secondItem="bHc-fp-fAG" secondAttribute="bottom" constant="16" id="ZP1-zh-zRq"/>
-                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="top" secondItem="Aze-gO-zbj" secondAttribute="bottom" constant="47" id="afZ-bg-F70"/>
-                            <constraint firstItem="Aze-gO-zbj" firstAttribute="centerX" secondItem="zVQ-d1-a5O" secondAttribute="centerX" id="kPd-Q0-1sq"/>
-                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="trailing" secondItem="LuF-tK-uxE" secondAttribute="trailing" id="lYw-9T-CkR"/>
-                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="centerX" secondItem="tcc-d8-TH7" secondAttribute="centerX" id="ouK-bO-yuR"/>
-                            <constraint firstItem="uf2-Cf-D9G" firstAttribute="centerX" secondItem="nhr-TX-CIT" secondAttribute="centerX" id="rss-4c-bw2"/>
-                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="top" secondItem="dyc-vs-CQO" secondAttribute="bottom" constant="8" symbolic="YES" id="usb-B8-Vsi"/>
-                            <constraint firstItem="dyc-vs-CQO" firstAttribute="centerX" secondItem="zVQ-d1-a5O" secondAttribute="centerX" id="vAL-Du-XFm"/>
-                            <constraint firstItem="zVQ-d1-a5O" firstAttribute="centerX" secondItem="nhr-TX-CIT" secondAttribute="centerX" id="vzk-FA-W1U"/>
-                            <constraint firstItem="Aze-gO-zbj" firstAttribute="top" secondItem="ubt-y7-vXf" secondAttribute="bottom" constant="8" symbolic="YES" id="whs-fE-OR8"/>
+                            <constraint firstItem="1UU-lh-9zZ" firstAttribute="centerX" secondItem="tcc-d8-TH7" secondAttribute="centerX" id="qUe-1c-PF6"/>
+                            <constraint firstItem="1UU-lh-9zZ" firstAttribute="top" secondItem="bHc-fp-fAG" secondAttribute="bottom" constant="16" id="xIY-iv-BQe"/>
                         </constraints>
                     </view>
                     <connections>
@@ -594,6 +594,7 @@
                         <outlet property="displayNameTextField" destination="nhr-TX-CIT" id="BaZ-gZ-179"/>
                         <outlet property="profileImageView" destination="Aze-gO-zbj" id="YPu-Ow-NlG"/>
                         <outlet property="saveChangesButton" destination="uf2-Cf-D9G" id="L4V-l2-RzP"/>
+                        <outlet property="stackViewY" destination="xIY-iv-BQe" id="TCn-7K-2qg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XY1-m2-Dty" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -655,6 +656,11 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="QFO-Va-MmT" firstAttribute="centerX" secondItem="Sd6-Qm-spH" secondAttribute="centerX" id="bf9-fa-vaf"/>
+                                    <constraint firstItem="Wsf-Ny-eJa" firstAttribute="centerX" secondItem="Sd6-Qm-spH" secondAttribute="centerX" id="lN7-94-uY0"/>
+                                    <constraint firstItem="2Vf-gk-9l2" firstAttribute="centerX" secondItem="Sd6-Qm-spH" secondAttribute="centerX" id="nAy-H1-v5l"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -665,7 +671,12 @@
                     </view>
                     <connections>
                         <outlet property="deleteAccountButton" destination="Wsf-Ny-eJa" id="crM-97-xpP"/>
+                        <outlet property="deleteCenterX" destination="lN7-94-uY0" id="GGa-9y-sew"/>
+                        <outlet property="labelCenterX" destination="nAy-H1-v5l" id="Kvw-HO-Dpo"/>
                         <outlet property="logoutButton" destination="QFO-Va-MmT" id="c5s-SC-zXc"/>
+                        <outlet property="logoutCenterX" destination="bf9-fa-vaf" id="t6c-1z-uvu"/>
+                        <outlet property="stackViewCenterX" destination="5St-ly-nQd" id="JKx-Ug-5eO"/>
+                        <outlet property="stackViewY" destination="vDH-qL-N98" id="fP5-gU-Xk3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kds-ks-OvC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1022,7 +1033,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-MA-tS9">
-                                <rect key="frame" x="167" y="28" width="266" height="300"/>
+                                <rect key="frame" x="167" y="28" width="266" height="390"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zKh-Kc-Moy" customClass="CustomTextField">
                                         <rect key="frame" x="23" y="0.0" width="220" height="30"/>
@@ -1063,8 +1074,18 @@
                                             <!--2016-08-02 08:50:07 +0000-->
                                         </date>
                                     </datePicker>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ewfawefwewefawefawefwaeffasdfsdfsdfdfasdfsdfsdfsdaasdfasdff" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmW-jf-Ta3">
+                                        <rect key="frame" x="22" y="275" width="222" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="Uqo-Zn-hCb"/>
+                                            <constraint firstAttribute="width" constant="222" id="Vxg-Dg-7OD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhU-6l-Y8q" customClass="ImageStyleButton">
-                                        <rect key="frame" x="121" y="275" width="25" height="25"/>
+                                        <rect key="frame" x="121" y="365" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="2hN-r7-dFn"/>
                                             <constraint firstAttribute="width" constant="25" id="oUz-OV-F2G"/>
@@ -1087,6 +1108,7 @@
                         <outlet property="deadlineDatePicker" destination="pkX-Ws-kQd" id="aP0-qk-IgC"/>
                         <outlet property="deadlineLabel" destination="xnc-xj-eOw" id="B9d-Sh-ftK"/>
                         <outlet property="descriptionTextView" destination="98V-Nx-V0r" id="Jgb-DN-lEk"/>
+                        <outlet property="helpLabel" destination="HmW-jf-Ta3" id="hXN-IF-m2L"/>
                         <outlet property="titleTextField" destination="zKh-Kc-Moy" id="TaU-Md-1Cm"/>
                     </connections>
                 </viewController>

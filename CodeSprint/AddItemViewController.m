@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIDatePicker *deadlineDatePicker;
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
 @property (strong, nonatomic) IBOutlet CustomTextField *titleTextField;
+@property (weak, nonatomic) IBOutlet UILabel *helpLabel;
 
 @end
 
@@ -49,6 +50,8 @@
             self.deadlineLabel.hidden = TRUE;
             self.deadlineDatePicker.hidden = TRUE;
             self.titleTextField.hidden = TRUE;
+            self.helpLabel.hidden = FALSE;
+            self.helpLabel.text = @"Add the specifications of how the finished product should function. Doing so may assist your team when creating sprint goals to meet these requirements.";
             break;
         case 1: // Add Sprint Goal
               self.navigationItem.title = @"Add Sprint Goal";
@@ -57,12 +60,14 @@
             self.deadlineDatePicker.hidden = FALSE;
             self.titleTextField.hidden = FALSE;
             self.titleTextField.placeholder = @"Title";
+            self.helpLabel.hidden = TRUE;
             break;
         case 2: // Add A Sprint
             self.navigationItem.title = @"Add Sprint";
             self.descriptionTextView.hidden = TRUE;
             self.titleTextField.placeholder = @"eg. Sprint 0";
             self.deadlineLabel.text = @"Deadline";
+            self.helpLabel.hidden = TRUE;
             break;
         default:
             break;

@@ -10,10 +10,20 @@
 #import "AnimatedButton.h"
 #import "FirebaseManager.h"
 #import "Constants.h"
+#import "AnimationGenerator.h"
 
 @interface SettingsViewController ()
+
+@property (strong, nonatomic) AnimationGenerator *generator;
+
 @property (strong, nonatomic) IBOutlet AnimatedButton *logoutButton;
 @property (strong, nonatomic) IBOutlet AnimatedButton *deleteAccountButton;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoutCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *deleteCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewY;
 
 @end
 
@@ -22,6 +32,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
+    self.generator = [[AnimationGenerator alloc] initWithConstraintsBottom:@[_stackViewY]];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self.generator animateScreenWithDelay:0.5];
 }
 
 - (void)didReceiveMemoryWarning {

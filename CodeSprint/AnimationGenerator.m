@@ -53,7 +53,34 @@ CGFloat *constantsArray;
     }
     return self;
 }
-
+-(id)initWithConstraintsRight:(NSArray*)constraints {
+    self = [super init];
+    if (self) {
+        int i = 0;
+        constantsArray = (CGFloat*)malloc(constraints.count * sizeof(CGFloat));
+        for ( NSLayoutConstraint* con in constraints  ){
+            constantsArray[i] = con.constant;
+            i++;
+            con.constant = self.offScreenRight.x;
+        }
+        self.allConstraints = constraints;
+    }
+    return self;
+}
+-(id)initWithConstraintsBottom:(NSArray*)constraints {
+    self = [super init];
+    if (self) {
+        int i = 0;
+        constantsArray = (CGFloat*)malloc(constraints.count * sizeof(CGFloat));
+        for ( NSLayoutConstraint* con in constraints  ){
+            constantsArray[i] = con.constant;
+            i++;
+            con.constant = self.offScreenBottom.y;
+        }
+        self.allConstraints = constraints;
+    }
+    return self;
+}
 -(void)animateScreenWithDelay:(double)delay{
     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, ((int64_t)(double)delay) * (double)NSEC_PER_SEC);
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{

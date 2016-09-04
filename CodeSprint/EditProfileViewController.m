@@ -17,16 +17,23 @@
 #import "StorageService.h"
 #import <AFNetworking.h>
 #import <UIImageView+AFNetworking.h>
+#import "AnimationGenerator.h"
+
 @interface EditProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
+@property (strong, nonatomic) NSString *placeHolderText;
+@property (strong, nonatomic) AnimationGenerator *generator;
+
+// Autolayout Constraint
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewY;
+
+// IBOutlets
 @property (weak, nonatomic) IBOutlet CustomTextField *displayNameTextField;
 @property (weak, nonatomic) IBOutlet AnimatedButton *saveChangesButton;
 @property (weak, nonatomic) IBOutlet AnimatedButton *cancelButton;
 @property (weak, nonatomic) IBOutlet CircleImageView *profileImageView;
-@property (strong, nonatomic) NSString *placeHolderText;
 
 @end
-
 
 @implementation EditProfileViewController
 
@@ -34,17 +41,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
-
+    self.generator = [[AnimationGenerator alloc] initWithConstraintsBottom:@[_stackViewY]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self.generator animateScreenWithDelay:0.5];
 }
 -(void)dealloc{
         NSLog(@"EditProfileViewController NO LEAK");
 }
 #pragma mark - View Setup
 - (void)setupView{
+
+
     self.view.backgroundColor = GREY_COLOR;
     self.navigationItem.title = @"Edit Profile";
     self.displayNameTextField.backgroundColor = [UIColor whiteColor];
