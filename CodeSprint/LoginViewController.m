@@ -25,7 +25,6 @@
 }
 
 @property (strong, nonatomic) AnimationGenerator *generator;
-@property (strong, nonatomic) AnimationGenerator *generator2;
 
 @property (weak, nonatomic) IBOutlet CustomTextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet CustomTextField *passwordTextField;

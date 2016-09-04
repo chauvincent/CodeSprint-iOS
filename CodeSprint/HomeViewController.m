@@ -18,12 +18,20 @@
 #import <pop/POP.h>
 #import "ChatroomsTableViewController.h"
 #import "EditProfileViewController.h"
+#import "AnimationGenerator.h"
+
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CreateDisplayViewControllerDelegate, ChatroomTableViewControllerDelegate, EditProfileViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
 @property (weak, nonatomic) IBOutlet UIStackView *homeStackView;
 @property (strong, nonatomic) NSString *photoURL;
+
+@property (strong, nonatomic) AnimationGenerator *generator;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *profilePicCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondProfileCenterX;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewCenterX;
+
 @end
 
 @implementation HomeViewController
@@ -31,7 +39,7 @@
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.profilePicCenterX, self.secondProfileCenterX, self.tableViewCenterX]];
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
     if([FirebaseManager sharedInstance].isNewUser){
@@ -43,6 +51,7 @@
     
 }
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
     [FirebaseManager removeAllObservers];
     NSString *currentPhoto = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
     if (![_photoURL isEqualToString:currentPhoto]) {   // Changed photo
@@ -58,6 +67,10 @@
     }
     
     
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+     [self.generator animateScreenWithDelay:0.9];
 }
 -(void)dealloc{
     NSLog(@"HomeViewController NO LEAK");

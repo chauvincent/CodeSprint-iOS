@@ -466,6 +466,7 @@
                             <constraint firstItem="x90-Nh-kmN" firstAttribute="top" secondItem="AFu-HU-vl0" secondAttribute="bottom" constant="13" id="I9N-Xz-sSy"/>
                             <constraint firstAttribute="trailing" secondItem="5E8-Mg-AK2" secondAttribute="trailing" id="XJn-LL-whV"/>
                             <constraint firstItem="5E8-Mg-AK2" firstAttribute="top" secondItem="AFu-HU-vl0" secondAttribute="bottom" id="c4K-Iz-OCF"/>
+                            <constraint firstItem="Q2x-Ga-6Mn" firstAttribute="centerX" secondItem="vU1-sk-kz1" secondAttribute="centerX" id="ekB-qx-QPf"/>
                             <constraint firstItem="Q2x-Ga-6Mn" firstAttribute="top" secondItem="5E8-Mg-AK2" secondAttribute="bottom" constant="23" id="kRb-qf-XSH"/>
                             <constraint firstItem="5E8-Mg-AK2" firstAttribute="leading" secondItem="vU1-sk-kz1" secondAttribute="leading" id="ogg-Ml-KkA"/>
                             <constraint firstItem="x90-Nh-kmN" firstAttribute="centerX" secondItem="Q2x-Ga-6Mn" secondAttribute="centerX" id="qjx-T8-a9t"/>
@@ -475,7 +476,10 @@
                     </view>
                     <connections>
                         <outlet property="menuTableView" destination="Q2x-Ga-6Mn" id="8eU-Up-loE"/>
+                        <outlet property="profilePicCenterX" destination="5gM-Fq-a1V" id="QKQ-bf-825"/>
                         <outlet property="profilePictureImageView" destination="x90-Nh-kmN" id="ac3-CI-ctY"/>
+                        <outlet property="secondProfileCenterX" destination="qjx-T8-a9t" id="Aqn-N3-kAV"/>
+                        <outlet property="tableViewCenterX" destination="ekB-qx-QPf" id="Z8f-e9-azM"/>
                         <segue destination="7nh-g9-1wz" kind="show" identifier="HomeToSprintSegue" id="Bk9-K7-NOA"/>
                         <segue destination="x27-tJ-sUv" kind="show" identifier="HomeToChatSegue" id="qNK-mw-9Cc"/>
                         <segue destination="KYM-P2-nhK" kind="show" identifier="HomeToEditSegue" id="aRD-da-Nsu"/>

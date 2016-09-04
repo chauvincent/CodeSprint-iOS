@@ -39,7 +39,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [FirebaseManager detachChatroom];
     [self.delegate detachObservers:self.garbageCollection andTeams:self.teams];
-    
 }
 #pragma mark Setup
 -(void)setupView{
@@ -64,12 +63,13 @@
 }
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    //return 1;
+    NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+    return (count == 0) ? 1 : count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
-    return (count == 0) ? 1 : count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,10 +83,10 @@
         cell.teamLabel.text = @"No team chats available.";
     }else{
         NSMutableArray *teams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
-        cell.teamLabel.text = teams[indexPath.row];
+        cell.teamLabel.text = teams[indexPath.section];
         CGSize imageViewSize = CGSizeMake(50.0f, 50.0f);
         u_int32_t avatarIcon;
-        NSString *teamName = teams[indexPath.row];
+        NSString *teamName = teams[indexPath.section];
         NSUInteger hashForUser = [[NSUserDefaults standardUserDefaults] integerForKey:teamName];
         if (hashForUser != 0){
             avatarIcon = (u_int32_t)hashForUser;
@@ -107,7 +107,7 @@
     GroupChatViewController *vc = [GroupChatViewController messagesViewController];
     vc.delegate = self;
     NSMutableArray *teams = [FirebaseManager sharedInstance].currentUser.groupsIDs;
-    vc.currentTeam = teams[indexPath.row];
+    vc.currentTeam = teams[indexPath.section];
     
     [FirebaseManager retreiveImageURLForTeam:vc.currentTeam withCompletion:^(NSMutableDictionary *avatarsDict) {
         vc.imageDictionary = avatarsDict;
@@ -115,7 +115,14 @@
     }];
 
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5.0f;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *v = [UIView new];
+    [v setBackgroundColor:[UIColor clearColor]];
+    return v;
+}
 -(void)removeHandlersForTeam:(NSMutableDictionary *)imageDictionary andTeam:(NSString*)currentTeam{
     [self.garbageCollection addObject:imageDictionary];
     [self.teams addObject:currentTeam];
