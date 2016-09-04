@@ -249,13 +249,16 @@
                 cell.textLabel.text = @"This is the Product Backlog. Please add the product specifications here before proceeding to the next tab.";
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.imageView.image = nil;
             }else{
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
                 cell.detailTextLabel.text = @"";
+                  cell.imageView.image = [UIImage imageNamed:@"product"];
             }
+          
             break;
         case 1:
             self.title = @"Sprint Backlog";
@@ -271,6 +274,7 @@
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.detailTextLabel.text = @"";
+                cell.imageView.image = nil;
             }else{
                 cell.hidden = FALSE;
                 cell.userInteractionEnabled = TRUE;
@@ -280,10 +284,12 @@
                 if ([currentDictionary[kScrumSprintCompleted] isEqual:@(1)]) {
                     NSString *detailText = [NSString stringWithFormat:@"Deadline: %@, Completed on %@", currentDictionary[kScrumSprintDeadline], currentDictionary[kScrumSprintFinishDate]];
                     cell.detailTextLabel.text = detailText;
+                    cell.imageView.image = [UIImage imageNamed:@"check"];
                 }else{
                     NSString *deadline = currentDictionary[kScrumSprintDeadline];
                     NSString *subtitleText = [NSString stringWithFormat:@"Deadline: %@", deadline];
                     cell.detailTextLabel.text = subtitleText;
+                    cell.imageView.image = [UIImage imageNamed:@"unchecked"];
                 }
                 cell.textLabel.text = taskTitle;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
@@ -304,6 +310,7 @@
                 cell.userInteractionEnabled = FALSE;
                 cell.detailTextLabel.text = @"";
                 cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.imageView.image = nil;
             }else {
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
@@ -315,6 +322,7 @@
                 cell.detailTextLabel.text = subtitleText;
                 cell.userInteractionEnabled = TRUE;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.imageView.image = nil;
             }
             break;
         default:

@@ -116,6 +116,7 @@
         cell.textLabel.numberOfLines = 3;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.userInteractionEnabled = FALSE;
+        cell.imageView.image = nil;
     }else{
         if (indexPath.row <= self.currentArtifact.sprintGoals.count) {
             cell.textLabel.numberOfLines = 3;
@@ -126,8 +127,10 @@
             NSString *detailText;
             if ([currentGoal[kScrumSprintCompleted] isEqual:@(1)]) {
                 detailText = [NSString stringWithFormat:@"Deadline: %@, Completed On: %@", currentGoal[kScrumSprintDeadline], currentGoal[kScrumSprintFinishDate]];
+                cell.imageView.image = [UIImage imageNamed:@"check"];
             }else{
                 detailText = [NSString stringWithFormat:@"Deadline: %@", currentGoal[kScrumSprintDeadline]];
+                cell.imageView.image = [UIImage imageNamed:@"unchecked"];
             }
             cell.detailTextLabel.text = detailText;
             cell.textLabel.text = currentGoal[kScrumSprintTitle];
