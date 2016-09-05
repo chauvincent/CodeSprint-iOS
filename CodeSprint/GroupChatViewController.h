@@ -10,10 +10,9 @@
 
 @protocol GroupChatRoomViewControllerDelegate <NSObject>
 
--(void)removeHandlersForTeam:(NSMutableDictionary*)imageDictionary andTeam:(NSString*)currentTeam;
+- (void)removeHandlersForTeam:(NSMutableDictionary *)imageDictionary andTeam:(NSString *)currentTeam;
 
 @end
-
 
 @interface GroupChatViewController : JSQMessagesViewController
 
@@ -21,4 +20,5 @@
 @property (strong, nonatomic) NSMutableDictionary *imageDictionary;
 @property (strong, nonatomic) NSMutableDictionary *avaDictionary;
 @property (weak, nonatomic) id<GroupChatRoomViewControllerDelegate> delegate;
+
 @end

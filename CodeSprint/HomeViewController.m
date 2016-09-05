@@ -25,53 +25,65 @@
 @property (strong, nonatomic) NSString *photoURL;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureImageView;
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
+
 @end
 
 @implementation HomeViewController
 
 #pragma mark - ViewController Lifecycle
-- (void)viewDidLoad {
-    [super viewDidLoad];
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     self.menuTableView.dataSource = self;
     self.menuTableView.delegate = self;
-    if([FirebaseManager sharedInstance].isNewUser){
+   
+    if ([FirebaseManager sharedInstance].isNewUser) {
         [self displaySetNameMenu];
-    }else{
+    } else {
         [FirebaseManager retreiveUsersTeams];
     }
     [self setupViews];
 }
--(void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:YES];
     [FirebaseManager removeAllObservers];
     NSString *currentPhoto = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
+    
     if (![_photoURL isEqualToString:currentPhoto]) {   // Changed photo
         NSURL *url = [NSURL URLWithString:currentPhoto];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+        [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull request, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
             self.profilePictureImageView.image = image;
             
-        } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+        } failure:^(NSURLRequest *_Nonnull request, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
             NSLog(@"error in downloading image");
         }];
-
     }
 }
--(void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:YES];
 
 }
--(void)dealloc{
+
+- (void)dealloc
+{
     NSLog(@"HomeViewController NO LEAK");
 }
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
-
 #pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"HomeToChatSegue"]) {
         ChatroomsTableViewController *vc = [segue destinationViewController];
         vc.delegate = self;
@@ -79,18 +91,19 @@
 }
 
 #pragma mark - View Setup Methods
--(void)setupViews{
+
+- (void)setupViews
+{
     self.navigationItem.title = @"CodeSprint";
     self.navigationItem.hidesBackButton = YES;
-
     self.view.backgroundColor = GREY_COLOR;
     self.menuTableView.backgroundColor = GREY_COLOR;
     self.photoURL = [[FirebaseManager sharedInstance].currentUser.photoURL absoluteString];
     NSURLRequest *request = [NSURLRequest requestWithURL:[FirebaseManager sharedInstance].currentUser.photoURL];
-    [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+    [self.profilePictureImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull request, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
             self.profilePictureImageView.image = image;
             
-    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+    } failure:^(NSURLRequest *_Nonnull request, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
             NSLog(@"error in downloading image");
     }];
 
@@ -105,10 +118,14 @@
 }
 
 #pragma mark - IBActions
--(void)tappedPicture:(id)sender{
+
+- (void)tappedPicture:(id)sender
+{
     [self performSegueWithIdentifier:@"HomeToEditSegue" sender:nil];
 }
--(void)displaySetNameMenu{
+
+- (void)displaySetNameMenu
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CreateDisplayNameViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CreateDisplayNameViewController"];
     vc.delegate = self;
@@ -117,24 +134,27 @@
     popover.throwingGestureEnabled = NO;
     popover.tapBlurToDismissEnabled = NO;
     [popover showInViewController:self];
+
 }
+
 #pragma mark - Logout Methods
--(void)dismiss{
+
+- (void)dismiss
+{
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
                                                        style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                          
                                                          NSError *signOutError;
                                                          BOOL status = [[FIRAuth auth] signOut:&signOutError];
+
                                                          if (!status) {
                                                              NSLog(@"Error signing out: %@", signOutError);
                                                              return;
                                                          }
                                                          
                                                          [FirebaseManager removeAllObservers];
-                                                         
                                                          [FirebaseManager logoutUser];
-                                                         //[self dismissViewControllerAnimated:YES completion:nil];
                                                          [self.navigationController popToRootViewControllerAnimated:YES];
                                                      }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
@@ -147,18 +167,27 @@
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
 #pragma mark - CreateDisplayNameViewControllerDelegate
--(void)setDisplayName:(NSString*)userInput{
+
+- (void)setDisplayName:(NSString *)userInput
+{
     [FirebaseManager setUpNewUser:userInput];
 }
+
 #pragma mark - UITableViewDelegate && UITableViewDatasource
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SettingsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell" forIndexPath:indexPath];
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell" forIndexPath:indexPath];
     [cell configureCellForIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     switch (indexPath.section) {
         case 0:
             [self performSegueWithIdentifier:@"HomeToSprintSegue" sender:nil];
@@ -175,34 +204,51 @@
             break;
     }
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 78.0f;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 5.0f;
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     UIView *v = [UIView new];
     [v setBackgroundColor:[UIColor clearColor]];
+
     return v;
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 4;
 }
 
 #pragma mark ChatroomTableViewControllerDelegate
--(void)detachObservers:(NSMutableArray *)garbage andTeams:(NSMutableArray *)teams{
+
+- (void)detachObservers:(NSMutableArray *)garbage andTeams:(NSMutableArray *)teams
+{
     if ([garbage count] != 0) {
-        for (NSMutableDictionary* imageDictionary in garbage) {
+        
+        for (NSMutableDictionary *imageDictionary in garbage) {
+            
             for (NSString *usersKey in imageDictionary) {
                     [[[[[[FIRDatabase database] reference] child:kCSUserHead] child:usersKey] child:kCSUserPhotoURL] removeAllObservers];
             }
         }
     }
+    
     if ([teams count] > 0) {
+        
         for (NSString *currentTeam in teams) {
             [[[[[FIRDatabase database] reference] child:kChatroomHead] child:currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
             [[[[[FIRDatabase database] reference] child:kTeamsHead] child:currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
@@ -213,7 +259,9 @@
 }
 
 #pragma mark - EditProfileViewControllerDelegate
--(void)didChangeProfilePic:(UIImage *)img{
+
+- (void)didChangeProfilePic:(UIImage *)img
+{
     self.profilePictureImageView.image = img;
 }
 

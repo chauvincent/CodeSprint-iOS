@@ -27,31 +27,42 @@
 @implementation CreateTeamViewController
 
 #pragma mark - ViewController Lifecycle
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     _teamTextField.delegate = self;
     _passwordTextField.delegate = self;
     
     [self setupButtons];
 }
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
-- (void)dismiss {
+
+- (void)dismiss
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 #pragma mark - View Setup
--(CGSize)preferredContentSize{
+
+- (CGSize)preferredContentSize
+{
     return CGSizeMake(280.0f, 320.0f);
 }
--(void)setupButtons{
+
+- (void)setupButtons
+{
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;
     [self.view addGestureRecognizer:tap];
 
-    UIImage* closeImage = [UIImage imageNamed:@"Close-Button"];
+    UIImage *closeImage = [UIImage imageNamed:@"Close-Button"];
     CGRect frameimg = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
     UIButton *button = [[UIButton alloc] initWithFrame:frameimg];
     [button setBackgroundImage:closeImage forState:UIControlStateNormal];
@@ -59,13 +70,15 @@
          forControlEvents:UIControlEventTouchUpInside];
     [button setShowsTouchWhenHighlighted:YES];
     
-    UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
     self.navigationItem.title = @"Create Team";
 }
 
 #pragma mark - IBActions
-- (IBAction)createButtonPressed:(id)sender {
+
+- (IBAction)createButtonPressed:(id)sender
+{
     NSString *inputText = self.teamTextField.text;
     NSString *password = self.passwordTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
@@ -84,33 +97,39 @@
                                                                      andDismissNamed:@"Ok"];
                 [self presentViewController:doesNotExistAlert animated:YES completion:nil];
                 return;
-            }else if (result ){
+            } else if (result) {
                 [self dismiss];
                 [self.delegate createdNewTeam:inputText withPassword:password];
             }
         }];
-    }else{
+    } else {
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
-- (IBAction)cancelButtonPressed:(id)sender {
+
+- (IBAction)cancelButtonPressed:(id)sender
+{
     self.teamTextField.text = @"";
     self.passwordTextField.text = @"";
 }
 
 #pragma mark - UITextFieldDelegate
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if(range.length + range.location > textField.text.length){
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (range.length + range.location > textField.text.length) {
         return NO;
     }
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    
     return newLength <= MAX_INPUT_LENGTH;
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [textField resignFirstResponder];
+
     return NO;
 }
-
-
 
 @end

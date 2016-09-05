@@ -21,33 +21,43 @@
 @property (strong, nonatomic) NSMutableArray *messages;
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
+
 @end
 
 @implementation GroupChatViewController
 
-
--(NSMutableDictionary*)imageDictionary{
+- (NSMutableDictionary *)imageDictionary
+{
     if (!_imageDictionary) {
         _imageDictionary = [[NSMutableDictionary alloc] init];
     }
+    
     return _imageDictionary;
 }
 
--(NSMutableDictionary*)avaDictionary{
+- (NSMutableDictionary *)avaDictionary
+{
     if (!_avaDictionary) {
         _avaDictionary = [[NSMutableDictionary alloc] init];
     }
+    
     return _avaDictionary;
 }
-- (void)loadView {
+
+- (void)loadView
+{
 
     
 }
--(void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:YES];
     [self finishReceivingMessage];
 }
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self setupViews];
     [self setupUser];
@@ -60,11 +70,13 @@
     [FirebaseManager observeChatroomFor:_currentTeam withCompletion:^(Chatroom *updatedChat) {
         
         NSMutableArray *newMessages = [[NSMutableArray alloc] init];
+        
         for (NSDictionary *messageInfo in updatedChat.messages) {
             JSQMessage *msg;
+        
             if ([messageInfo[kChatroomSenderID] isEqualToString:self.senderId]) {
                 msg = [[JSQMessage alloc] initWithSenderId:messageInfo[kChatroomSenderID] senderDisplayName:messageInfo[kChatroomDisplayName] date:[NSDate date] text:messageInfo[kChatroomSenderText]];
-            }else{
+            } else {
                 NSString *text = [NSString stringWithFormat:@"%@", messageInfo[kChatroomSenderText]];
                 msg = [[JSQMessage alloc] initWithSenderId:messageInfo[kChatroomSenderID] senderDisplayName:messageInfo[kChatroomDisplayName] date:[NSDate date] text:text];
             }
@@ -76,7 +88,8 @@
     self.title = @"Messages";
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:NO];
     [[[[[FIRDatabase database] reference] child:kChatroomHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].chatroomHandle];
     [[[[[FIRDatabase database] reference] child:kTeamsHead] child:_currentTeam] removeObserverWithHandle:[FirebaseManager sharedInstance].downloadImgHandle];
@@ -87,25 +100,36 @@
         [[[[[[FIRDatabase database] reference] child:kCSUserHead] child:usersKey] child:kCSUserPhotoURL] removeAllObservers];
     }
     [self.delegate removeHandlersForTeam:self.imageDictionary andTeam:self.currentTeam];
+
 }
--(void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:YES];
 }
 
--(void)dealloc{
+- (void)dealloc
+{
     [self.delegate removeHandlersForTeam:self.imageDictionary andTeam:_currentTeam];
     NSLog(@"GroupChatViewController NO LEAK");
 }
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark - Setup
--(void)setupUser{
+
+- (void)setupUser
+{
     self.senderId = [FirebaseManager sharedInstance].currentUser.uid;
     self.senderDisplayName = [FirebaseManager sharedInstance].currentUser.displayName;
 }
--(void)setupViews{
+
+- (void)setupViews
+{
     self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
@@ -118,64 +142,87 @@
     self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
 }
 
--(void)dismiss{
+- (void)dismiss
+{
     [FirebaseManager detachChatroom];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 #pragma mark - JSQMessagesViewController Delegate
 
-- (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     return [self.messages objectAtIndex:indexPath.item];
 }
-- (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
+
+- (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     JSQMessage *currentMsg = self.messages[indexPath.item];
+
     if ([currentMsg.senderId isEqualToString:self.senderId]) {
         return _outgoingBubbleImageData;
-    }else{
+    } else {
         return _incomingBubbleImageData;
     }
 }
-- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath{
+
+- (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
     if ([_imageDictionary count] == 0) {
         return nil;
     }
-    JSQMessage* currentMsg = self.messages[indexPath.item];
+    
+    JSQMessage *currentMsg = self.messages[indexPath.item];
     
     return self.avaDictionary[currentMsg.senderId];
 }
 
--(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date{
+- (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
+{
     ChatroomMessage *msg = [[ChatroomMessage alloc] initWithMessage:senderDisplayName withSenderID:senderId andText:text];
     [FirebaseManager sendMessageForChatroom:self.currentTeam withMessage:msg withCompletion:^(BOOL completed) {
         [self finishSendingMessage];
     }];
-     [self finishSendingMessage];
+    [self finishSendingMessage];
 }
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return [self.messages count];
 }
--(NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath{
+
+- (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
     JSQMessage *currentMsg = self.messages[indexPath.row];
     NSString *sender = currentMsg.senderDisplayName;
     collectionView.collectionViewLayout.messageBubbleLeftRightMargin = 0.0f;
+    
     return [[NSAttributedString alloc] initWithString:sender];
 }
+
 #pragma mark - Helper
--(CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
+{
     return 11.0f;
 }
--(void)setupAvatarWithCompletion:(void (^)(BOOL complete))block{
+
+- (void)setupAvatarWithCompletion:(void (^)(BOOL complete))block
+{
     for (NSString *key in self.imageDictionary) {
         NSCache *imgCache = ((AppDelegate *)[UIApplication sharedApplication].delegate).imgCache;
         UIImage *current = [imgCache objectForKey:self.imageDictionary[key]];
+
         if (!current) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSURL *currentURL = [NSURL URLWithString:self.imageDictionary[key]];
                 UIImage *currentIMG = [UIImage imageWithData:[NSData dataWithContentsOfURL:currentURL]];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [imgCache setObject:currentIMG forKey:self.imageDictionary[key]];
-                    AvatarModel* newModel = [[AvatarModel alloc] initWithAvatarImage:currentIMG highlightedImage:nil placeholderImage:currentIMG];
+                    AvatarModel *newModel = [[AvatarModel alloc] initWithAvatarImage:currentIMG highlightedImage:nil placeholderImage:currentIMG];
                     self.avaDictionary[key] = newModel;
+                    
                     if ([self.avaDictionary count] == [self.imageDictionary count]) {
                         block(true);
                     }
@@ -183,15 +230,14 @@
                 });
             });
         } else {
-            AvatarModel* newModel = [[AvatarModel alloc] initWithAvatarImage:current highlightedImage:nil placeholderImage:current];
+            AvatarModel *newModel = [[AvatarModel alloc] initWithAvatarImage:current highlightedImage:nil placeholderImage:current];
             self.avaDictionary[key] = newModel;
+            
             if ([self.avaDictionary count] == [self.imageDictionary count]) {
                 block(true);
             }
         }
-
     }
 }
-
 
 @end

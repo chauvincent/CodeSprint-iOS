@@ -14,6 +14,6 @@
 @property (strong, nonatomic) UIPageViewController *PageViewController;
 @property (strong, nonatomic) NSArray *pageImages;
 
--(PageContentViewController*)viewControllerAtIndex:(NSUInteger)index;
+- (PageContentViewController *)viewControllerAtIndex:(NSUInteger)index;
 
 @end

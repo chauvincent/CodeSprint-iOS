@@ -9,9 +9,11 @@
 #import "CircleImageView.h"
 #import "Constants.h"
 #import <pop/POP.h>
+
 @implementation CircleImageView
 
--(void)awakeFromNib{
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     self.layer.cornerRadius = self.frame.size.width / 2.0f;
     self.clipsToBounds = YES;
@@ -26,7 +28,9 @@
     [singleTap setNumberOfTapsRequired:1];
     [self addGestureRecognizer:singleTap];
 }
--(void)oneTap:(id)sender{
+
+- (void)oneTap:(id)sender
+{
     POPSpringAnimation *scaleAnime = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     CGSize velocitySize = CGSizeMake(3.0, 3.0);
     CGSize valueSize    = CGSizeMake(1.0, 1.0);

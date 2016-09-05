@@ -10,5 +10,4 @@
 
 @interface ArtifactsTableViewCell : UITableViewCell
 
-
 @end

@@ -14,6 +14,6 @@
 @property (strong, nonatomic) NSMutableArray *usersIDs;
 @property (strong, nonatomic) NSMutableArray *messages;
 
--(instancetype)initChatWithTeamName:(NSString *)teamname withUser:(NSMutableArray*)users withMessages:(NSMutableArray*)messages;
+- (instancetype)initChatWithTeamName:(NSString *)teamname withUser:(NSMutableArray *)users withMessages:(NSMutableArray *)messages;
 
 @end

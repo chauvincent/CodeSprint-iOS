@@ -10,7 +10,7 @@
 
 @protocol ChatroomTableViewControllerDelegate <NSObject>
 
--(void)detachObservers:(NSMutableArray*)garbage andTeams:(NSMutableArray*)teams;
+- (void)detachObservers:(NSMutableArray *)garbage andTeams:(NSMutableArray *)teams;
 
 @end
 

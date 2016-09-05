@@ -15,6 +15,6 @@
 @property (strong, nonatomic) NSMutableArray *sprintGoals;
 @property (strong, nonatomic) NSMutableArray *sprintCollection; // collection of sprint objects
 
--(instancetype)initWithProductSpecs:(NSMutableArray*)specs andGoals:(NSMutableArray*)sprintGoals withSprints:(NSMutableArray*)sprintCollection;
+- (instancetype)initWithProductSpecs:(NSMutableArray *)specs andGoals:(NSMutableArray *)sprintGoals withSprints:(NSMutableArray *)sprintCollection;
     
 @end

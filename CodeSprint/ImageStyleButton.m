@@ -12,27 +12,33 @@
 
 @implementation ImageStyleButton
 
--(void)awakeFromNib{
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     self.contentMode = UIViewContentModeScaleToFill;
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
     self.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
     [self setupView];
 }
--(void)setupView{
-    [self addTarget:self action:@selector(scaleToSmall) forControlEvents: UIControlEventTouchDown];
+
+- (void)setupView
+{
+    [self addTarget:self action:@selector(scaleToSmall) forControlEvents:UIControlEventTouchDown];
     [self addTarget:self action:@selector(scaleToSmall) forControlEvents:UIControlEventTouchDragEnter];
     [self addTarget:self action:@selector(scaleAnimation) forControlEvents:UIControlEventTouchUpInside];
     [self addTarget:self action:@selector(scaleDefault) forControlEvents:UIControlEventTouchDragExit];
 }
-- (void)scaleToSmall{
+
+- (void)scaleToSmall
+{
     POPBasicAnimation *scaleAnime = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     CGSize size = CGSizeMake(0.95, 0.95);
     scaleAnime.toValue = [NSValue valueWithCGSize:size];
     [self.layer pop_addAnimation:scaleAnime forKey:@"layerScaleSmallAnimation"];
 }
 
-- (void)scaleAnimation{
+- (void)scaleAnimation
+{
     POPSpringAnimation *scaleAnime = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     CGSize velocitySize = CGSizeMake(3.0, 3.0);
     CGSize valueSize    = CGSizeMake(1.0, 1.0);
@@ -42,7 +48,8 @@
     [self.layer pop_addAnimation:scaleAnime forKey:@"layerScaleSpring Animation"];
 }
 
-- (void)scaleDefault{
+- (void)scaleDefault
+{
     POPBasicAnimation *scaleAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
     CGSize size = CGSizeMake(1, 1);
     scaleAnim.toValue = [NSValue valueWithCGSize:size];

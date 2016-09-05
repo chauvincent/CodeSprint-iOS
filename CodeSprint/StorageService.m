@@ -28,7 +28,7 @@ NSString *STORAGE_BASE_URL = @"gs://code-spring-ios.appspot.com";
     FIRStorageReference *uploadRef = [[self storageRef] child:uid];
     FIRStorageMetadata *metadata = [[FIRStorageMetadata alloc] init];
     metadata.contentType = @"image/jpeg";
-    FIRStorageUploadTask *uploadTask = [uploadRef putData:data metadata:metadata completion:^(FIRStorageMetadata * _Nullable metadata, NSError * _Nullable error) {
+    FIRStorageUploadTask *uploadTask = [uploadRef putData:data metadata:metadata completion:^(FIRStorageMetadata *_Nullable metadata, NSError *_Nullable error) {
         
         if (error != nil) {
             NSLog(@"%@", error.localizedDescription);

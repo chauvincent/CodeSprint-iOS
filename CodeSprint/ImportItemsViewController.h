@@ -10,7 +10,7 @@
 #import "Artifacts.h"
 @protocol ImportItemsViewDelegate <NSObject>
 
--(void)didImport:(NSMutableArray*)selected;
+- (void)didImport:(NSMutableArray *)selected;
 
 @end
 

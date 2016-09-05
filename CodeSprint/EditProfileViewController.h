@@ -10,10 +10,9 @@
 
 @protocol EditProfileViewControllerDelegate <NSObject>
 
--(void)didChangeProfilePic:(UIImage*)img;
+- (void)didChangeProfilePic:(UIImage *)img;
 
 @end
-
 
 @interface EditProfileViewController : UIViewController
 

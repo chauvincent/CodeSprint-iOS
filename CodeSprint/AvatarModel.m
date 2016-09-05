@@ -12,15 +12,17 @@
 
 - (instancetype)initWithAvatarImage:(UIImage *)avatarImage
                    highlightedImage:(UIImage *)highlightedImage
-                   placeholderImage:(UIImage *)placeholderImage {
+                   placeholderImage:(UIImage *)placeholderImage
+{
     self = [super init];
+
     if (self) {
         _avatarImage = avatarImage;
         _avatarHighlightedImage = highlightedImage;
         _avatarPlaceholderImage = placeholderImage;
     }
+    
     return self;
 }
-
 
 @end

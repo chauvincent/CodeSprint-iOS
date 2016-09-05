@@ -32,22 +32,31 @@
 @implementation BacklogTableViewController
 
 #pragma mark - Lazy Initializations
--(Artifacts*)artifacts{
+
+- (Artifacts *)artifacts
+{
     if (!_artifacts) {
         _artifacts = [[Artifacts alloc] initWithProductSpecs:[[NSMutableArray alloc] init]
                                                     andGoals:[[NSMutableArray alloc] init]
                                                  withSprints:[[NSMutableArray alloc] init]];
     }
+    
     return _artifacts;
 }
--(NSMutableArray*)allSprints{
+
+- (NSMutableArray *)allSprints
+{
     if (!_allSprints) {
         _allSprints = [[NSMutableArray alloc] init];
     }
+    
     return _allSprints;
 }
-- (DZNSegmentedControl *)control{
-    if (!_control){
+
+- (DZNSegmentedControl *)control
+{
+    
+    if (!_control) {
         _control = [[DZNSegmentedControl alloc] initWithItems:self.menuItems];
         _control.delegate = self;
         _control.selectedSegmentIndex = 0;
@@ -56,23 +65,33 @@
         _control.adjustsFontSizeToFitWidth = YES;
         [_control addTarget:self action:@selector(didChangeSegment:) forControlEvents:UIControlEventValueChanged];
     }
+    
     return _control;
 }
+
 #pragma mark - ViewController Lifecycle
-- (void)loadView{
+
+- (void)loadView
+{
     [super loadView];
     [self setupView];
 }
--(void)dealloc{
+
+- (void)dealloc
+{
     NSLog(@"BackLogViewController NO LEAK");
 }
-- (void)viewDidLoad{
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    _menuItems = @[@"Specifications",@"Sprint Goals",@"Active Sprints"];
+    _menuItems = @[@"Specifications", @"Sprint Goals", @"Active Sprints"];
     self.tableView.tableHeaderView = self.control;
     self.tableView.tableFooterView = [UIView new];
 }
-- (void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
@@ -89,11 +108,14 @@
     
     [self updateControlCounts];
 }
-- (void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"CellToSprintViewSegue"]) {
         self.viewSprintController = [segue destinationViewController];
         self.viewSprintController.selectedIndex = self.selectedSprintIndex;
@@ -102,23 +124,29 @@
         
     }
 }
--(void)dismiss{
+
+- (void)dismiss
+{
     [FirebaseManager detachScrum];
     [FirebaseManager detachScrumDelete];
     [[[[[FIRDatabase database] reference] child:kScrumHead] child:self.currentScrumKey] removeObserverWithHandle:[FirebaseManager sharedInstance].passiveScrumHandle];
     [self.delegate tearDownObserverForKey:self.currentScrumKey];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 #pragma mark - Helper Methods
--(void)setupView{
+
+- (void)setupView
+{
     self.currentScrumKey = [FirebaseManager sharedInstance].currentUser.scrumIDs[self.selectedTeam];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addArtifactItem:)];
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
 }
--(void)popoverForCell:(NSInteger)indexPath{
+
+- (void)popoverForCell:(NSInteger)indexPath
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
     viewc.currentIndex = self.currentIndex;
@@ -130,8 +158,11 @@
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
 }
+
 #pragma mark - IBAction
--(void)addArtifactItem:(id)sender{
+
+- (void)addArtifactItem:(id)sender
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.vc = [storyboard instantiateViewControllerWithIdentifier:@"AddItemViewController"];
     self.vc.index = self.currentIndex;
@@ -142,12 +173,18 @@
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
 }
+
 #pragma mark - UITableViewDataSource && UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     NSInteger amountRows;
+    
     switch (self.currentIndex) {
         case 0:
             amountRows = self.artifacts.productSpecs.count;
@@ -161,26 +198,35 @@
         default:
             amountRows = 0;
     }
+
     if (amountRows == 0) {
+    
         return 1;
     }
+    
     return amountRows;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"Cell";
     ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     return [self configureCellForIndex:indexPath withCell:cell];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 60.0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 30.0;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (self.currentIndex == 2) {
         self.selectedSprintIndex = indexPath.row;
         self.viewSprintController.currentScrum = self.currentScrumKey;
@@ -189,7 +235,8 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
     switch (self.currentIndex) {
         case 0:
             [self popoverForCell:indexPath.row];
@@ -203,14 +250,19 @@
 }
 
 #pragma mark - DZNSegmentedControlDelegate Methods
-- (UIBarPosition)positionForBar:(id <UIBarPositioning>)view{
+
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)view
+{
     return UIBarPositionAny;
 }
 
-- (UIBarPosition)positionForSelectionIndicator:(id<UIBarPositioning>)bar{
+- (UIBarPosition)positionForSelectionIndicator:(id<UIBarPositioning>)bar
+{
     return UIBarPositionAny;
 }
-- (void)updateControlCounts{
+
+- (void)updateControlCounts
+{
     NSNumber *productCount = [NSNumber numberWithUnsignedInteger:self.artifacts.productSpecs.count];
     NSNumber *sprintGoals = [NSNumber numberWithUnsignedInteger:self.artifacts.sprintGoals.count];
     NSNumber *sprintCollection = [NSNumber numberWithUnsignedInteger:self.artifacts.sprintCollection.count];
@@ -219,38 +271,44 @@
     [self.control setCount:sprintGoals forSegmentAtIndex:1];
     [self.control setCount:sprintCollection forSegmentAtIndex:2];
 }
-- (void)didChangeSegment:(DZNSegmentedControl *)control{
+
+- (void)didChangeSegment:(DZNSegmentedControl *)control
+{
     if (self.artifacts.productSpecs.count == 0 && control.selectedSegmentIndex == 1) {
         ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
-        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Sprint Goals" andMessage:@"Please add to the Specifications tab, before proceeding to the Sprint Backlog." andDismissNamed:@"OK"];
+        UIAlertController *alert = [errorCheck showAlertWithTitle:@"Sprint Goals" andMessage:@"Please add to the Specifications tab, before proceeding to the Sprint Backlog." andDismissNamed:@"OK"];
         [self presentViewController:alert animated:YES completion:nil];
         self.currentIndex = control.selectedSegmentIndex;
         [self.tableView reloadData];
-    }else if (self.artifacts.sprintGoals.count == 0 && control.selectedSegmentIndex == 2){
+    } else if (self.artifacts.sprintGoals.count == 0 && control.selectedSegmentIndex == 2){
         ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
-        UIAlertController *alert =[errorCheck showAlertWithTitle:@"Active Sprints" andMessage:@"Please add to the Sprint Goals tab before proceeding to create Active Sprints." andDismissNamed:@"OK"];
+        UIAlertController *alert = [errorCheck showAlertWithTitle:@"Active Sprints" andMessage:@"Please add to the Sprint Goals tab before proceeding to create Active Sprints." andDismissNamed:@"OK"];
         [self presentViewController:alert animated:YES completion:nil];
         self.currentIndex = control.selectedSegmentIndex;
         [self.tableView reloadData];
-    }else{
+    } else {
         self.currentIndex = control.selectedSegmentIndex;
         [self.tableView reloadData];
         
     }
 }
+
 #pragma mark - Cell Helpers
--(ArtifactsTableViewCell*)configureCellForIndex:(NSIndexPath*)indexPath withCell:(ArtifactsTableViewCell*)cell{
+
+- (ArtifactsTableViewCell *)configureCellForIndex:(NSIndexPath *)indexPath withCell:(ArtifactsTableViewCell *)cell
+{
     switch (self.currentIndex) {
         case 0:
             self.title = @"Product Backlog";
             cell.detailTextLabel.text = @"";
+
             if (self.artifacts.productSpecs.count == 0) {
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"This is the Product Backlog. Please add the product specifications here before proceeding to the next tab.";
                 cell.userInteractionEnabled = FALSE;
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.imageView.image = nil;
-            }else{
+            } else {
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
@@ -258,16 +316,16 @@
                 cell.detailTextLabel.text = @"";
                   cell.imageView.image = [UIImage imageNamed:@"product"];
             }
-          
             break;
         case 1:
             self.title = @"Sprint Backlog";
-            if(self.artifacts.sprintGoals.count == 0 && self.artifacts.productSpecs.count == 0){
+            
+            if (self.artifacts.sprintGoals.count == 0 && self.artifacts.productSpecs.count == 0) {
                 cell.hidden = TRUE;
                 [self.control setSelectedSegmentIndex:0];
                 self.currentIndex = 0;
                 [self.tableView reloadData];
-            }else if(self.artifacts.sprintGoals.count == 0){
+            } else if (self.artifacts.sprintGoals.count == 0){
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.textLabel.text = @"This is the Sprint Backlog. Please add all the tasks required to finish the project specifications and their deadlines.";
@@ -275,17 +333,18 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.detailTextLabel.text = @"";
                 cell.imageView.image = nil;
-            }else{
+            } else {
                 cell.hidden = FALSE;
                 cell.userInteractionEnabled = TRUE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
-                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintGoals[indexPath.row];
+                NSDictionary *currentDictionary = (NSDictionary *)self.artifacts.sprintGoals[indexPath.row];
                 NSString *taskTitle = currentDictionary[kScrumSprintTitle];
+                
                 if ([currentDictionary[kScrumSprintCompleted] isEqual:@(1)]) {
                     NSString *detailText = [NSString stringWithFormat:@"Deadline: %@, Completed on %@", currentDictionary[kScrumSprintDeadline], currentDictionary[kScrumSprintFinishDate]];
                     cell.detailTextLabel.text = detailText;
                     cell.imageView.image = [UIImage imageNamed:@"check"];
-                }else{
+                } else {
                     NSString *deadline = currentDictionary[kScrumSprintDeadline];
                     NSString *subtitleText = [NSString stringWithFormat:@"Deadline: %@", deadline];
                     cell.detailTextLabel.text = subtitleText;
@@ -297,12 +356,14 @@
             break;
         case 2: 
             self.title = @"Active Sprints";
+            
             if (self.artifacts.productSpecs.count == 0 || self.artifacts.sprintGoals.count == 0 ) {
                 cell.hidden = TRUE;
                 [self.control setSelectedSegmentIndex:1];
                 self.currentIndex = 1;
                 [self.tableView reloadData];
             }
+            
             if (self.artifacts.sprintCollection.count == 0) {
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -311,10 +372,10 @@
                 cell.detailTextLabel.text = @"";
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.imageView.image = [UIImage imageNamed:@"fire"];
-            }else {
+            } else {
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
-                NSDictionary *currentDictionary = (NSDictionary*)self.artifacts.sprintCollection[indexPath.row];
+                NSDictionary *currentDictionary = (NSDictionary *)self.artifacts.sprintCollection[indexPath.row];
                 NSString *taskTitle = currentDictionary[kSprintTitle];
                 NSString *deadline = currentDictionary[kSprintDeadline];
                 NSString *subtitleText = [NSString stringWithFormat:@"Ends on: %@", deadline];
@@ -328,6 +389,8 @@
         default:
             break;
     }
+    
     return cell;
 }
+
 @end

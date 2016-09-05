@@ -11,18 +11,13 @@
 
 @implementation CustomTextView
 
--(void)awakeFromNib{
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     self.layer.cornerRadius = 5.0;
     self.backgroundColor = LIGHT_GREY_COLOR;
     self.layer.borderWidth = 1.0f;
     self.layer.borderColor = [UIColor colorWithRed:SHADOW_COLOR green:SHADOW_COLOR blue:SHADOW_COLOR alpha:0.2].CGColor;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 @end

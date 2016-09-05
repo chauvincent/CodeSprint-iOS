@@ -10,13 +10,15 @@
 
 @implementation Artifacts
 
-
--(instancetype)initWithProductSpecs:(NSMutableArray*)specs andGoals:(NSMutableArray*)sprintGoals withSprints:(NSMutableArray*)sprintCollection{
+- (instancetype)initWithProductSpecs:(NSMutableArray *)specs andGoals:(NSMutableArray *)sprintGoals withSprints:(NSMutableArray *)sprintCollection
+{
+   
     if (self = [super init]) {
         _productSpecs = specs;
         _sprintGoals = sprintGoals;
         _sprintCollection = sprintCollection;
     }
+    
     return self;
 }
 

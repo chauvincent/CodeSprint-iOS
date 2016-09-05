@@ -13,10 +13,9 @@
 
 @protocol BacklogTableViewControllerDelegate <NSObject>
 
--(void)tearDownObserverForKey:(NSString*)key;
+- (void)tearDownObserverForKey:(NSString *)key;
 
 @end
-
 
 @interface BacklogTableViewController : UITableViewController
 

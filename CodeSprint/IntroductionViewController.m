@@ -18,35 +18,48 @@
 @implementation IntroductionViewController
 
 #pragma mark - Lazy Initializers
--(NSArray *)pageImages{
+
+- (NSArray *)pageImages
+{
     if (!_pageImages) {
         _pageImages = @[@"card1", @"card2", @"card3", @"card4", @"card5", @"card6"];
     }
+
     return _pageImages;
 }
--(UIPageViewController*)PageViewController{
+
+- (UIPageViewController *)PageViewController
+{
     if (!_PageViewController) {
         _PageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
         _PageViewController.dataSource = self;
     }
+ 
     return _PageViewController;
 }
 
 #pragma mark - View Controller Lifecycle
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self setupView];
 }
-- (void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [FirebaseManager sharedInstance].currentUser = nil;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Setup View
--(void)setupView{
+
+- (void)setupView
+{
     self.navigationItem.title = @"Introduction";
     PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
     self.view.backgroundColor = GREY_COLOR;
@@ -60,7 +73,9 @@
 }
 
 #pragma mark - UIPageViewDatasource Methods
--(PageContentViewController*)viewControllerAtIndex:(NSUInteger)index{
+
+- (PageContentViewController *)viewControllerAtIndex:(NSUInteger)index
+{
     if (([self.pageImages count] == 0) || (index >= [self.pageImages count])) {
         return nil;
     }
@@ -72,29 +87,39 @@
     return pageContentViewController;
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
     
-    NSUInteger index = ((PageContentViewController*) viewController).index;
-    if ((index == 0) || (index == NSNotFound)){
+    NSUInteger index = ((PageContentViewController *) viewController).index;
+    
+    if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
     index--;
+
     return [self viewControllerAtIndex:index];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
-    NSUInteger index2 = ((PageContentViewController*) viewController).index;
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
     
-    if (index2 == NSNotFound){
+    NSUInteger index2 = ((PageContentViewController *) viewController).index;
+    
+    if (index2 == NSNotFound) {
         return nil;
     }
     index2++;
+    
     return [self viewControllerAtIndex:index2];
 }
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController{
+
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+{
     return [self.pageImages count];
 }
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController{
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
     return 0;
 }
 /*

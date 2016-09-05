@@ -10,12 +10,14 @@
 
 @implementation ChatroomMessage
 
--(instancetype)initWithMessage:(NSString*)displayName withSenderID:(NSString*)senderID andText:(NSString*)text{
+- (instancetype)initWithMessage:(NSString *)displayName withSenderID:(NSString *)senderID andText:(NSString *)text
+{
     if (self = [super init]) {
         _displayName = displayName;
         _senderID = senderID;
         _senderText = text;
     }
+
     return self;
 }
 

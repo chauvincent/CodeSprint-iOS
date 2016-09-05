@@ -8,9 +8,11 @@
 
 #import "CustomUILabel.h"
 #import "Constants.h"
+
 @implementation CustomUILabel
 
--(void)awakeFromNib{
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     [self.layer setCornerRadius:8.0f];
     [self.layer setMasksToBounds:YES];

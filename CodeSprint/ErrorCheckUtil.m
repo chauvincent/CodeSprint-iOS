@@ -10,13 +10,17 @@
 
 @implementation ErrorCheckUtil
 
--(instancetype)initWith{
+- (instancetype)initWith
+{
     if (self = [super init]) {
     
     }
+
     return self;
 }
--(UIAlertController*)checkBadInput:(NSString*)inputText withMessage:(NSString*)message andDismiss:(NSString*)dismissTitle withSuccessMessage:(NSString*)successMessage title:(NSString*)sucessTitle{
+
+- (UIAlertController *)checkBadInput:(NSString *)inputText withMessage:(NSString *)message andDismiss:(NSString *)dismissTitle withSuccessMessage:(NSString *)successMessage title:(NSString *)sucessTitle
+{
     
     if ([inputText isEqualToString:@""]) {
         return [self showAlertWithTitle:@"Error: Blank Input" andMessage:message
@@ -37,7 +41,9 @@
 
     return success; // returns nil if valid input
 }
--(UIAlertController*)checkBadInputForTextViews:(NSString*)inputText withMessage:(NSString*)message andDismiss:(NSString*)dismissTitle withSuccessMessage:(NSString*)successMessage title:(NSString*)sucessTitle{
+
+- (UIAlertController *)checkBadInputForTextViews:(NSString *)inputText withMessage:(NSString *)message andDismiss:(NSString *)dismissTitle withSuccessMessage:(NSString *)successMessage title:(NSString *)sucessTitle
+{
     
     if ([inputText isEqualToString:@""]) {
         return [self showAlertWithTitle:@"Error: Blank Input" andMessage:message
@@ -58,10 +64,14 @@
     
     return success; // returns nil if valid input
 }
--(UIAlertController*)showAlertWithTitle:(NSString*)title andMessage:(NSString*)message andDismissNamed:(NSString*)dismiss{
+
+- (UIAlertController *)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message andDismissNamed:(NSString *)dismiss
+{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:dismiss style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
+  
     return alert;
 }
+
 @end
