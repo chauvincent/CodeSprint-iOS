@@ -140,8 +140,10 @@
         return nil;
     }
     JSQMessage* currentMsg = self.messages[indexPath.item];
+    
     return self.avaDictionary[currentMsg.senderId];
 }
+
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date{
     ChatroomMessage *msg = [[ChatroomMessage alloc] initWithMessage:senderDisplayName withSenderID:senderId andText:text];
     [FirebaseManager sendMessageForChatroom:self.currentTeam withMessage:msg withCompletion:^(BOOL completed) {

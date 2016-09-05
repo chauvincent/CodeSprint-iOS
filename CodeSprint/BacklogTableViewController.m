@@ -310,7 +310,7 @@
                 cell.userInteractionEnabled = FALSE;
                 cell.detailTextLabel.text = @"";
                 cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.imageView.image = nil;
+                cell.imageView.image = [UIImage imageNamed:@"fire"];
             }else {
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
@@ -322,7 +322,7 @@
                 cell.detailTextLabel.text = subtitleText;
                 cell.userInteractionEnabled = TRUE;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.imageView.image = nil;
+                cell.imageView.image = [UIImage imageNamed:@"fire"];
             }
             break;
         default:

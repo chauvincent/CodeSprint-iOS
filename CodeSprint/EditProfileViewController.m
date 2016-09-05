@@ -114,10 +114,8 @@
 - (void)showImgPicker {
    UIImagePickerController* imgPicker = [[UIImagePickerController alloc] init];
     imgPicker.delegate = self;
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
+
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
         imgPicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     }
     [self presentViewController:imgPicker animated:YES completion:nil];
