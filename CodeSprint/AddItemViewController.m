@@ -13,6 +13,7 @@
 #import "CustomTextView.h"
 #import "BacklogTableViewController.h"
 #import "ErrorCheckUtil.h"
+
 @interface AddItemViewController () <UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) UITapGestureRecognizer *contentTapGesture;
@@ -26,24 +27,30 @@
 
 @implementation AddItemViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self setupView];
     [self setupButtons];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
 #pragma mark - View Setup
--(CGSize)preferredContentSize{
+
+- (CGSize)preferredContentSize
+{
     return CGSizeMake(280.0f, 320.0f);
 }
 
--(void)setupView{
+- (void)setupView
+{
     self.descriptionTextView.delegate = self;
     self.titleTextField.delegate = self;
+    
     switch (self.index) {
         case 0: // Add Product Spec
             self.navigationItem.title = @"Add Specification";
@@ -75,13 +82,15 @@
     self.deadlineDatePicker.minimumDate = [NSDate date];
 
 }
--(void)setupButtons{
+
+- (void)setupButtons
+{
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
     self.contentTapGesture = tap;
     self.contentTapGesture.enabled = NO;
     [self.view addGestureRecognizer:tap];
     
-    UIImage* closeImage = [UIImage imageNamed:@"Close-Button"];
+    UIImage *closeImage = [UIImage imageNamed:@"Close-Button"];
     CGRect frameimg = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
     UIButton *button = [[UIButton alloc] initWithFrame:frameimg];
     [button setBackgroundImage:closeImage forState:UIControlStateNormal];
@@ -89,10 +98,12 @@
      forControlEvents:UIControlEventTouchUpInside];
     [button setShowsTouchWhenHighlighted:YES];
     
-    UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
 }
-- (IBAction)createButtonPressed:(id)sender {
+
+- (IBAction)createButtonPressed:(id)sender
+{
     switch (self.index) {
         case 0: // Add Product Spec
             NSLog(@"Add Specification");
@@ -110,19 +121,30 @@
             break;
     }
 }
-- (void)dismiss {
+
+- (void)dismiss
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 #pragma mark - UITextFieldDelegate
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if(range.length + range.location > textField.text.length){
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+    if (range.length + range.location > textField.text.length) {
         return NO;
     }
+    
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
+   
     return newLength <= 20;
 }
+
 #pragma mark - Helper Methods
-- (void)addProductSpecs{
+
+- (void)addProductSpecs
+{
     NSString *inputText = self.descriptionTextView.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
     NSString *successTitle = @"Success";
@@ -130,16 +152,19 @@
                                              withMessage:@"Please enter a product specification."
                                               andDismiss:@"Dismiss"
                                       withSuccessMessage:@"Created" title:successTitle];
+
     if ([alert.title isEqualToString:successTitle]) {
         [self.currentArtifact.productSpecs addObject:inputText];
         [FirebaseManager addProductSpecToScrum:self.currentScrum withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
             [self dismiss];
         }];
-    }else{
+    } else {
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
--(void)addSprintGoals{
+
+- (void)addSprintGoals
+{
     NSString *inputText =  [NSString stringWithFormat:@"%@ %@", self.descriptionTextView.text, self.titleTextField.text];
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
     NSString *successTitle = @"Success";
@@ -147,6 +172,7 @@
                                              withMessage:@"Please enter a sprint goal."
                                               andDismiss:@"Dismiss"
                                       withSuccessMessage:@"Created" title:successTitle];
+
     if ([alert.title isEqualToString:successTitle]) {
         NSString *title = self.titleTextField.text;
         NSString *description = self.descriptionTextView.text;
@@ -160,11 +186,13 @@
         [FirebaseManager addSprintGoalToScrum:_currentScrum withArtifact:(Artifacts *)self.currentArtifact withCompletion:^(BOOL completed) {
             [self dismiss];
         }];
-    }else{
+    } else {
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
--(void)addSprint{
+
+- (void)addSprint
+{
     NSString *sprintName = self.titleTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
     NSString *successTitle = @"Success";
@@ -172,6 +200,7 @@
                                              withMessage:@"Please enter a name sprint name."
                                               andDismiss:@"Dismiss"
                                       withSuccessMessage:@"Created" title:successTitle];
+
     if ([alert.title isEqualToString:successTitle]) {
         NSString *date = [self convertDate:self.deadlineDatePicker.date];
         NSDictionary *newSprint = @{kSprintTitle:sprintName,
@@ -181,28 +210,39 @@
         [FirebaseManager createSprintFor:_currentScrum withArtifact:self.currentArtifact withCompletion:^(BOOL completed) {
             [self dismiss];
         }];
-    }else{
+    } else {
         [self presentViewController:alert animated:YES completion:nil];
     }
     
 }
--(NSString*)convertDate:(NSDate*)date{
+
+- (NSString *)convertDate:(NSDate *)date
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM d YYYY"];
     NSString *stringFromDate = [formatter stringFromDate:date];
+
     return stringFromDate;
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [textField resignFirstResponder];
+    
     return NO;
 }
 
 #pragma mark - UITextViewDelegate
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
+
         return false;
     }
+
     return true;
 }
+
 @end

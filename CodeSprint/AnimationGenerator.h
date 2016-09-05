@@ -13,15 +13,15 @@
 
 // Properties
 @property (strong, nonatomic) NSArray *allConstraints;
-- (CGPoint) offScreenRight;
-- (CGPoint) offScreenLeft;
-- (CGPoint) offScreenCenter;
-- (CGPoint) offScreenBottom;
+- (CGPoint)offScreenRight;
+- (CGPoint)offScreenLeft;
+- (CGPoint)offScreenCenter;
+- (CGPoint)offScreenBottom;
 
 // Functions
-- (id)initWithConstraints:(NSArray*)constraints;
-- (id)initWithConstraintsRight:(NSArray*)constraints;
-- (id)initWithConstraintsBottom:(NSArray*)constraints;
+- (id)initWithConstraints:(NSArray *)constraints;
+- (id)initWithConstraintsRight:(NSArray *)constraints;
+- (id)initWithConstraintsBottom:(NSArray *)constraints;
 - (void)animateScreenWithDelay:(double)delay;
 
 @end
