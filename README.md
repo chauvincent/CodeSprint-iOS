@@ -35,7 +35,7 @@ Swipe it away if you want to dismiss.
 
 #### <i class="icon-folder-open"></i> Sprint Menu
 
-![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/menu_zpsyytqbt0d.jpg)
+![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/b395f0c1-ca39-458f-b204-60ff1bb9c33c_zps6wpczxnx.jpg)
 
 ![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/menu2_zpsnk2g7wqu.jpg)
 
