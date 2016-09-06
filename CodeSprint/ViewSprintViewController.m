@@ -56,11 +56,6 @@
     }];
 }
 
-- (void)dealloc
-{
-    NSLog(@"ViewSprintViewController NO LEAK");
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

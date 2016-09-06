@@ -69,11 +69,11 @@
     [super viewDidAppear:YES];
 
 }
-
-- (void)dealloc
-{
-    NSLog(@"HomeViewController NO LEAK");
-}
+//
+//- (void)dealloc
+//{
+//    NSLog(@"HomeViewController NO LEAK");
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -263,6 +263,7 @@
 - (void)didChangeProfilePic:(UIImage *)img
 {
     self.profilePictureImageView.image = img;
+    [self.profilePictureImageView setNeedsDisplay];
 }
 
 @end

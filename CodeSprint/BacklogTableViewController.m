@@ -77,11 +77,6 @@
     [self setupView];
 }
 
-- (void)dealloc
-{
-    NSLog(@"BackLogViewController NO LEAK");
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -314,7 +309,7 @@
                 cell.textLabel.text = self.artifacts.productSpecs[indexPath.row];
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
                 cell.detailTextLabel.text = @"";
-                  cell.imageView.image = [UIImage imageNamed:@"product"];
+                cell.imageView.image = [UIImage imageNamed:@"product"];
             }
             break;
         case 1:
@@ -371,7 +366,7 @@
                 cell.userInteractionEnabled = FALSE;
                 cell.detailTextLabel.text = @"";
                 cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.imageView.image = [UIImage imageNamed:@"fire"];
+                cell.imageView.image = nil;
             } else {
                 cell.hidden = FALSE;
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;

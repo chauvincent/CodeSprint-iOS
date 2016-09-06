@@ -55,11 +55,6 @@
     [self.generator animateScreenWithDelay:0.5];
 }
 
-- (void)dealloc
-{
-        NSLog(@"EditProfileViewController NO LEAK");
-}
-
 #pragma mark - View Setup
 
 - (void)setupView
