@@ -19,20 +19,26 @@
 #import "BacklogTableViewController.h"
 
 @interface ViewSprintViewController () <ImportItemsViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
 @property (strong, nonatomic) IBOutlet UILabel *deadlineLabel;
 @property (strong, nonatomic) IBOutlet UITableView *sprintGoalsTableView;
 @property (strong, nonatomic) IBOutlet AnimatedButton *removeSprintButton;
 @property (strong, nonatomic) NSMutableArray *goalRefs;
+
 @end
 
 @implementation ViewSprintViewController
 
 #pragma mark - View Controller Lifecycle
-- (void)loadView{
-     [super loadView];
+
+- (void)loadView
+{
+    [super loadView];
     [self setupView];
 }
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // If deleted by another user while current user looking at VC
     __block BOOL currentDelete = false;
@@ -49,22 +55,31 @@
         }
     }];
 }
--(void)dealloc{
+
+- (void)dealloc
+{
     NSLog(@"ViewSprintViewController NO LEAK");
 }
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)viewWillDisappear:(BOOL)animated{
+
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:NO];
     //added:
     [[[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] child:kSprintHead] removeAllObservers];
 
     [[[[[FIRDatabase database] reference] child:kScrumHead] child:_currentScrum] removeAllObservers];
 }
+
 #pragma mark - Helper Methods
--(void)setupView{
+
+- (void)setupView
+{
     self.navigationItem.title = @"Goals for this Sprint";
     self.navigationItem.hidesBackButton = YES;
     self.sprintGoalsTableView.delegate = self;
@@ -74,11 +89,14 @@
     self.navigationItem.leftBarButtonItem = newBackButton;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(importButtonPressed:)];
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[self.selectedIndex];
-    NSString *deadlineText = [NSString stringWithFormat:@"Deadline: %@",currentSprint[kSprintDeadline]];
+    NSString *deadlineText = [NSString stringWithFormat:@"Deadline: %@", currentSprint[kSprintDeadline]];
     self.deadlineLabel.text = deadlineText;
 }
+
 #pragma mark - IBActions
--(void)importButtonPressed:(id)sender{
+
+- (void)importButtonPressed:(id)sender
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.vc = [storyboard instantiateViewControllerWithIdentifier:@"ImportItemsViewController"];
     self.vc.currentArtifact = self.currentArtifact;
@@ -88,21 +106,30 @@
     popover.throwingGestureEnabled = YES;
     [popover showInViewController:self];
 }
--(void)didImport:(NSMutableArray*)selected{
+
+- (void)didImport:(NSMutableArray *)selected
+{
     [FirebaseManager updateSprintFor:self.currentScrum withGoalRefs:selected andCollectionIndex:(NSInteger)self.selectedIndex withArtifact:self.currentArtifact withCompletion:^(Artifacts *artifact) {
         self.currentArtifact = artifact;
         [self.sprintGoalsTableView reloadData];
     }];
 }
-- (IBAction)removeSprintButtonPressed:(id)sender {
+
+- (IBAction)removeSprintButtonPressed:(id)sender
+{
     [FirebaseManager removeActiveSprintFor:self.currentScrum withArtifact:self.currentArtifact forIndex:self.selectedIndex withCompletion:^(BOOL compelted) {
     }];
 }
--(void)dismiss{
+
+- (void)dismiss
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 #pragma mark - UITableViewDelegate && UITableViewDataSource
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     ArtifactsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewSprintCell"];
     
    
@@ -117,7 +144,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.userInteractionEnabled = FALSE;
         cell.imageView.image = nil;
-    }else{
+    } else {
         if (indexPath.row <= self.currentArtifact.sprintGoals.count) {
             cell.textLabel.numberOfLines = 3;
             cell.userInteractionEnabled = TRUE;
@@ -125,10 +152,11 @@
 
             NSDictionary *currentGoal = goalRefs[indexPath.row];
             NSString *detailText;
+
             if ([currentGoal[kScrumSprintCompleted] isEqual:@(1)]) {
                 detailText = [NSString stringWithFormat:@"Deadline: %@, Completed On: %@", currentGoal[kScrumSprintDeadline], currentGoal[kScrumSprintFinishDate]];
                 cell.imageView.image = [UIImage imageNamed:@"check"];
-            }else{
+            } else {
                 detailText = [NSString stringWithFormat:@"Deadline: %@", currentGoal[kScrumSprintDeadline]];
                 cell.imageView.image = [UIImage imageNamed:@"unchecked"];
             }
@@ -137,24 +165,31 @@
             cell.accessoryType = UITableViewCellAccessoryDetailButton;
         }
     }
+    
     return cell;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
-        NSArray *goals = (NSArray*)dictionary[kSprintGoalReference];
-        return [goals count];
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
+    NSArray *goals = (NSArray *)dictionary[kSprintGoalReference];
+    
+    return [goals count];
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
--(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
     NSDictionary *dictionary = self.currentArtifact.sprintCollection[self.selectedIndex];
     NSArray *goalRefs = dictionary[kSprintGoalReference];
+
     if ([goalRefs count] == 1 && [goalRefs containsObject:@(-1)]) {
         
-    }else{
+    } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         PopupSettingsViewController *viewc = [storyboard instantiateViewControllerWithIdentifier:@"PopupSettingsViewController"];
         viewc.currentIndex = 2;
@@ -168,7 +203,5 @@
         [popover showInViewController:self];
     }
 }
-
-
 
 @end

@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic) FIRStorageReference *storageRef;
 
-
--(void)uploadToImageData:(NSData*)data withCompletion:(void (^)(NSURL* imageUrl))block;
+- (void)uploadToImageData:(NSData *)data withCompletion:(void (^)(NSURL *imageUrl))block;
 
 @end

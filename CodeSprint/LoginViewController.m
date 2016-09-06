@@ -46,56 +46,76 @@
 @implementation LoginViewController
 
 #pragma mark - Keys
+
 NSString *clientID = @"6e0aa67e5343ab805db3";
 NSString *secretKey = @"88c8d081b80ab97bbaa5c2ccfc7937d383f86564";
 NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handler";
 
 #pragma mark - Lazy Initializers
 
--(UIWebView *)policyWebView{
+- (UIWebView *)policyWebView
+{
+
     if (!_policyWebView) {
         _policyWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
     }
+    
     return _policyWebView;
 }
 
 #pragma mark - View Controller Lifecycle
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self setupView];
     
     self.generator = [[AnimationGenerator alloc] initWithConstraints:@[self.labelCenterConstraint]];
 }
--(void)viewDidAppear:(BOOL)animated {
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [self.generator animateScreenWithDelay:0.8];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"LoginToHomeSegue"]) {
 
     }
 }
+
 #pragma mark - View Setup
--(void)setupView{
+
+- (void)setupView
+{
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
     self.navigationItem.title = @"Login";
     self.usernameTextField.delegate = self;
     self.passwordTextField.delegate = self;
 }
--(void)dismiss{
+
+- (void)dismiss
+{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 #pragma mark - IBActions
-- (IBAction)loginButtonPressed:(id)sender {
+
+- (IBAction)loginButtonPressed:(id)sender
+{
     NSString *inputText = self.usernameTextField.text;
     NSString *password = self.passwordTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
+    
     if ([inputText isEqualToString:@""] || ![inputText containsString:@"@"]) {
         UIAlertController *badEmail = [errorCheck showAlertWithTitle:@"Invalid Email" andMessage:@"Please enter a valid email address." andDismissNamed:@"OK"];
         [self presentViewController:badEmail animated:YES completion:nil];
@@ -103,20 +123,23 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Invalid Password" andMessage:@"Please enter a password with more than six characters." andDismissNamed:@"OK"];
         [self presentViewController:badPass animated:YES completion:nil];
     } else {
-        [[FIRAuth auth] signInWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+        [[FIRAuth auth] signInWithEmail:inputText password:password completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+            
             if (error) {
                 NSString *errorName = @"Error";
                 NSString *errorMsg = @"Error";
+                
                 if (([@(error.code) isEqual:@(17009)])) {
                     errorMsg = @"Invalid password. Please try again.";
-                } else if(([@(error.code) isEqual:@(17011)])){
+                } else if (([@(error.code) isEqual:@(17011)])) {
                     errorMsg = @"The email you entered does not exist. Please enter a valid email or create an account.";
                 } else {
                     errorMsg = @"Please try again later.";
                 }
+                
                 UIAlertController *errorAlert = [errorCheck showAlertWithTitle:errorName andMessage:errorMsg andDismissNamed:@"OK"];
                 [self presentViewController:errorAlert animated:YES completion:nil];
-            }else{
+            } else {
               // success
                 FIRUser *currentUser = user;
                 [self didSignInWith:currentUser];
@@ -124,7 +147,10 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         }];
     }
 }
-- (IBAction)createButtonPressed:(id)sender {
+
+- (IBAction)createButtonPressed:(id)sender
+{
+
     NSString *inputText = self.usernameTextField.text;
     NSString *password = self.passwordTextField.text;
     ErrorCheckUtil *errorCheck = [[ErrorCheckUtil alloc] init];
@@ -136,13 +162,15 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         UIAlertController *badPass = [errorCheck showAlertWithTitle:@"Invalid Password" andMessage:@"Please enter a password with more than six characters." andDismissNamed:@"OK"];
         [self presentViewController:badPass animated:YES completion:nil];
     } else {
-        [[FIRAuth auth] createUserWithEmail:inputText password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+        [[FIRAuth auth] createUserWithEmail:inputText password:password completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+
             if (error) {
                 NSString *errorName = @"Error";
                 NSString *errorMsg = @"Error";
+                
                 if ([@(error.code) isEqual:@(17007)]) {
                     errorMsg = @"This email is already in-use. Please use another email or sign-in with an existing one.";
-                }else {
+                } else {
                     errorMsg = @"Unexpected Error, Please try again later.";
                 }
                 UIAlertController *otherErrors = [errorCheck showAlertWithTitle:errorName andMessage:errorMsg andDismissNamed:@"OK"];
@@ -157,7 +185,9 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     }
 }
 
-- (IBAction)closeButtonPressed:(id)sender {
+- (IBAction)closeButtonPressed:(id)sender
+{
+    
     for (UIView *view in [self.view subviews]) {
         // Remove close button
         if (view.tag == 1112) {
@@ -166,17 +196,21 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
         }
     }
 }
+
 #pragma mark - User Helper Methods
--(void)didSignInWith:(FIRUser *)user{
+
+- (void)didSignInWith:(FIRUser *)user
+{
     NSString *displayName = user.displayName.length > 0 ? user.displayName : @"DEFAULT";
     User *currentUser = [[User alloc] initUserWithId:user.uid withDisplay:displayName];
     currentUser.didSetName = false;
     
     [FirebaseManager sharedInstance].currentUser = currentUser;
     [FirebaseManager lookUpUser:currentUser withCompletion:^(BOOL result) {
-        if(result){
+
+        if (result) {
             [FirebaseManager sharedInstance].isNewUser = !result;
-        }else{
+        } else {
             [FirebaseManager sharedInstance].isNewUser = !result;
         }
         [self performSegueWithIdentifier:@"LoginToHomeSegue" sender:self];
@@ -185,7 +219,9 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 }
 
 #pragma mark - Privacy Policy
-- (IBAction)privacyButtonPressed:(id)sender {
+
+- (IBAction)privacyButtonPressed:(id)sender
+{
     NSString *policyURL = @"https://www.iubenda.com/privacy-policy/7902422";
     [self.policyWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:policyURL]]];
     [self.view addSubview:self.policyWebView];
@@ -203,16 +239,25 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
     [closeButton setTitle:@"" forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
 }
+
 #pragma mark - UITextFieldDelegate
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if(range.length + range.location > textField.text.length){
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+
+    if (range.length + range.location > textField.text.length) {
         return NO;
     }
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    
     return newLength <= 35;
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [textField resignFirstResponder];
+
     return NO;
 }
+
 @end

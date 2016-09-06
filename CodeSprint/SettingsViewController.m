@@ -29,42 +29,55 @@
 
 @implementation SettingsViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self setupView];
     self.generator = [[AnimationGenerator alloc] initWithConstraintsBottom:@[_stackViewY]];
 }
--(void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:YES];
     [self.generator animateScreenWithDelay:0.5];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
--(void)dealloc{
+
+- (void)dealloc
+{
     NSLog(@"SettingsViewController NO LEAK");
 }
 
 #pragma mark - View Setup
--(void)setupView{
+
+- (void)setupView
+{
     self.view.backgroundColor = GREY_COLOR;
     self.navigationItem.title = @"Settings";
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = newBackButton;
 }
--(void)dismiss{
+
+- (void)dismiss
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - IBActions
-- (IBAction)logoutButtonPressed:(id)sender {
+
+- (IBAction)logoutButtonPressed:(id)sender
+{
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
                                                        style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                          
                                                          NSError *signOutError;
                                                          BOOL status = [[FIRAuth auth] signOut:&signOutError];
+                                                       
                                                          if (!status) {
                                                              NSLog(@"Error signing out: %@", signOutError);
                                                              return;
@@ -85,11 +98,13 @@
     [alert addAction:cancelAction];
     [self presentViewController:alert animated:YES completion:nil];
 }
-- (IBAction)deleteAccountPressed:(id)sender {
+
+- (IBAction)deleteAccountPressed:(id)sender
+{
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Logout"
                                                        style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                     handler:^(UIAlertAction *_Nonnull action) {
                                                          NSMutableArray *groupIds = [FirebaseManager sharedInstance].currentUser.groupsIDs;
                                                          
                                                          for (NSString *gid in groupIds) {
@@ -118,15 +133,5 @@
     [self presentViewController:alert animated:YES completion:nil];
 
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

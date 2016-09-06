@@ -10,15 +10,15 @@
 
 @protocol SearchTeamViewControllerDelegate <NSObject>
 
--(void)joinNewTeam:(NSString*)teamName;
+- (void)joinNewTeam:(NSString *)teamName;
 
 @optional
--(void)didJoinTeam;
+- (void)didJoinTeam;
 
 @end
 
 @interface SearchTeamViewController : UIViewController
 
-@property(weak, nonatomic) id<SearchTeamViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<SearchTeamViewControllerDelegate> delegate;
 
 @end

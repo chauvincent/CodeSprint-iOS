@@ -8,9 +8,11 @@
 
 #import "TeamsTableViewCell.h"
 #import "Constants.h"
+
 @implementation TeamsTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     [self.layer setCornerRadius:10.0f];
     [self.layer setMasksToBounds:YES];

@@ -10,10 +10,9 @@
 
 @protocol ManageTeamViewControllerDelegate <NSObject>
 
--(void)didLeave:(NSMutableArray*)selected;
+- (void)didLeave:(NSMutableArray *)selected;
 
 @end
-
 
 @interface ManageTeamsViewController : UIViewController
 

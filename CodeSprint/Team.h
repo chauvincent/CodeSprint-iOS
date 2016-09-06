@@ -16,10 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *allSprints;
 @property (strong, nonatomic) NSString *scrumID;
 
-
 // Initalize
--(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name;
-
-
+- (instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name;
 
 @end

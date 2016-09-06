@@ -26,11 +26,15 @@
 @implementation PopupSettingsViewController
 
 #pragma mark - View Controller Lifecycle
--(void)loadView{
+
+- (void)loadView
+{
     [super loadView];
     [self setupView];
 }
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     [FirebaseManager observePassiveScrumNode:self.scrumKey withCompletion:^(Artifacts *artifact) {
@@ -38,17 +42,24 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark - View Setup
--(CGSize)preferredContentSize{
+
+- (CGSize)preferredContentSize
+{
     return CGSizeMake(280.0f, 320.0f);
 }
--(void)setupView{
+
+- (void)setupView
+{
     self.descriptionLabel.hidden = NO;
     self.completedButton.hidden = NO;
+
     switch (self.currentIndex) {
         case 0:
             self.navigationItem.title = @"Specification";
@@ -78,35 +89,44 @@
     self.contentTapGesture.enabled = NO;
     [self.view addGestureRecognizer:tap];
     
-    UIImage* closeImage = [UIImage imageNamed:@"Close-Button"];
+    UIImage *closeImage = [UIImage imageNamed:@"Close-Button"];
     CGRect frameimg = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
     UIButton *button = [[UIButton alloc] initWithFrame:frameimg];
     [button setBackgroundImage:closeImage forState:UIControlStateNormal];
     [button addTarget:self action:@selector(dismiss)
      forControlEvents:UIControlEventTouchUpInside];
     [button setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *closeButton =[[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = closeButton;
     self.navigationItem.leftBarButtonItem.title = @"OK";
 }
--(void)setForGoals{
+
+- (void)setForGoals
+{
     NSDictionary *currentGoals;
     currentGoals = self.currentArtifact.sprintGoals[_indexPath];
     self.titleTextView.text = currentGoals[kScrumSprintTitle];
     self.descriptionTextView.text = currentGoals[kScrumSprintDescription];
 }
--(void)setForSprint{
+
+- (void)setForSprint
+{
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
     NSArray *currentGoals = currentSprint[kSprintGoalReference];
     NSDictionary *selectedGoal = currentGoals[_indexPath];
     self.titleTextView.text = selectedGoal[kScrumSprintTitle];
     self.descriptionTextView.text = selectedGoal[kScrumSprintDescription];
 }
-- (void)dismiss {
+
+- (void)dismiss
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 #pragma mark - IBActions
-- (IBAction)completedButton:(id)sender {
+
+- (IBAction)completedButton:(id)sender
+{
     switch (self.currentIndex) {
         case 0:
             break;
@@ -120,7 +140,9 @@
             break;
     }
 }
-- (IBAction)removeButton:(id)sender {
+
+- (IBAction)removeButton:(id)sender
+{
     switch (self.currentIndex) {
         case 0:
             [self removeProductSpec];
@@ -135,27 +157,39 @@
             break;
     }
 }
+
 #pragma mark - Helpers
--(void)removeProductSpec{
+
+- (void)removeProductSpec
+{
     [FirebaseManager removeProductSpecFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath withCompletion:^(BOOL compelted) {
         [self dismiss];
     }];
 }
--(void)removeSprintGoal{
+
+- (void)removeSprintGoal
+{
     [FirebaseManager removeSprintFromAllFor:self.scrumKey withArtifact:self.currentArtifact andIndex:self.indexPath withCompletion:^(BOOL completed) {
         [self dismiss];
-    }];}
--(void)removeGoalInsideSprint{
+    }];
+}
+
+- (void)removeGoalInsideSprint
+{
     [FirebaseManager removeSprintGoalFor:self.scrumKey withArtifact:self.currentArtifact forIndex:self.indexPath andSprintIndex:_selectedIndex withCompletion:^(Artifacts *artifact) {
         [self dismiss];
     }];
 }
--(void)markSprintGoalAsComplete{
+
+- (void)markSprintGoalAsComplete
+{
     [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:self.indexPath withCompletion:^(BOOL completed) {
         [self dismiss];
     }];
 }
--(void)markSprintAsCompleteFromInside{
+
+- (void)markSprintAsCompleteFromInside
+{
     NSDictionary *currentSprint = self.currentArtifact.sprintCollection[_selectedIndex];
     NSArray *goalRefs = currentSprint[kSprintGoalReference];
     NSDictionary *currentGoal = goalRefs[_indexPath]; // current goal from ref
@@ -170,17 +204,16 @@
         }
         index++;
     }
+  
     if (found) {
         [FirebaseManager markSprintGoalAsCompleteFor:self.scrumKey withArtifact:self.currentArtifact andSelected:index withCompletion:^(BOOL completed) {
         }];
         [FirebaseManager markGoalInsideSprintFor:self.scrumKey withArtifact:self.currentArtifact andSelected:_selectedIndex withPath:_indexPath withCompletion:^(BOOL completed) {
             [self dismiss];
         }];
-    }else{
+    } else {
         [self dismiss];
     }
-
 }
-
 
 @end

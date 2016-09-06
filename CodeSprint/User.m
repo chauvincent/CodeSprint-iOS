@@ -10,14 +10,16 @@
 
 @implementation User
 
--(instancetype)initUserWithId:(NSString *)uid withDisplay:(NSString*)name{
-    if(self = [super init]){
+- (instancetype)initUserWithId:(NSString *)uid withDisplay:(NSString *)name
+{
+    if (self = [super init]) {
         _uid = uid;
         _displayName = name;
         _groupsIDs = [[NSMutableArray alloc] init];
         _scrumIDs = [[NSMutableDictionary alloc] init];
         _chatroomIDs = [[NSMutableDictionary alloc] init];
     }
+    
     return self;
 }
 

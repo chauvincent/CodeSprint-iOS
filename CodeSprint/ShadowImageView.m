@@ -9,9 +9,11 @@
 #import "ShadowImageView.h"
 #include "Constants.h"
 #import <pop/POP.h>
+
 @implementation ShadowImageView
 
--(void)awakeFromNib{
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     self.layer.cornerRadius = 2.0;
     self.layer.shadowColor = [UIColor colorWithRed:SHADOW_COLOR green:SHADOW_COLOR blue:SHADOW_COLOR alpha:0.7].CGColor;
@@ -19,6 +21,5 @@
     self.layer.shadowRadius = 10.0;
     self.layer.shadowOffset = CGSizeMake(0.0, 2.0);
 }
-
 
 @end

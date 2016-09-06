@@ -13,12 +13,14 @@
 
 @implementation SettingsTableViewCell
 
--(void)awakeFromNib {
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     self.userInteractionEnabled = YES;
 }
 
--(void)configureCellForIndexPath:(NSIndexPath*)index{
+- (void)configureCellForIndexPath:(NSIndexPath *)index
+{
     
     UIImage *optionImage;
     NSString *optionName, *description;

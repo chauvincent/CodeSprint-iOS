@@ -11,18 +11,23 @@
 @implementation Team
 
 #pragma mark - Lazy Initializers
--(NSMutableArray *)allSprints{
+
+- (NSMutableArray *)allSprints
+{
     if (!_allSprints) {
         _allSprints = [[NSMutableArray alloc] init];
     }
+
     return _allSprints;
 }
 
--(instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name{
-    if (self = [super init]){
+- (instancetype)initWithCreatorUID:(NSString *)userID andTeam:(NSString *)name
+{
+    if (self = [super init]) {
         _membersUID = @[userID].mutableCopy;
         _nickname = name;
     }
+    
     return self;
 }
 

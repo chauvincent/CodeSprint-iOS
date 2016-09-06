@@ -18,7 +18,6 @@
 @property (strong, nonatomic) NSURL *photoURL;
 @property (assign) BOOL didSetName;
 
--(instancetype)initUserWithId:(NSString *)uid withDisplay:(NSString*)name;
-
+- (instancetype)initUserWithId:(NSString *)uid withDisplay:(NSString *)name;
 
 @end

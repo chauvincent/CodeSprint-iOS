@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CircleBorderedButton.h"
+
 @interface SprintMenuViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet CircleBorderedButton *createGroupButton;

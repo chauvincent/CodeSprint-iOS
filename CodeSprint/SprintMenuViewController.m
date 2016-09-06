@@ -18,7 +18,7 @@
 #import "IGIdenticon.h"
 #import "Constants.h"
 
-@interface SprintMenuViewController () <CreateTeamViewControllerDelegate,ManageTeamViewControllerDelegate, SearchTeamViewControllerDelegate, BacklogTableViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SprintMenuViewController () <CreateTeamViewControllerDelegate, ManageTeamViewControllerDelegate, SearchTeamViewControllerDelegate, BacklogTableViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSString *selectedTeam;
 @property (weak, nonatomic) IBOutlet UITableView *teamsTableView;
@@ -30,7 +30,9 @@
 @implementation SprintMenuViewController
 
 #pragma mark - ViewController Lifecycle
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self setupView];
 
@@ -43,24 +45,37 @@
     self.simpleIdenticonsGenerator = [[IGImageGenerator alloc] initWithImageProducer:[IGSimpleIdenticon new] hashFunction:IGJenkinsHashFromData];
     [self.teamsTableView reloadData];
 }
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated
+{
 
 }
--(void)viewWillDisappear:(BOOL)animated{
+
+- (void)viewWillDisappear:(BOOL)animated
+{
     //[FirebaseManager removeAllObservers];
 }
--(void)dealloc{
+
+- (void)dealloc
+{
     NSLog(@"SprintMenuViewController NO LEAK");
 }
--(void)dismiss{
+
+- (void)dismiss
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 #pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"SprintMenuToTeamSegue"]) {
         BacklogTableViewController *vc = [segue destinationViewController];
         vc.selectedTeam = self.selectedTeam;
@@ -69,19 +84,25 @@
 }
 
 #pragma mark - IBActions
-- (IBAction)createButtonPressed:(id)sender {
+
+- (IBAction)createButtonPressed:(id)sender
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     CreateTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CreateTeamViewController"];
     vc.delegate = self;
     [self popoverController:vc];
 }
-- (IBAction)searchButtonPressed:(id)sender {
+
+- (IBAction)searchButtonPressed:(id)sender
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SearchTeamViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchTeamViewController"];
     vc.delegate = self;
     [self popoverController:vc];
 }
-- (IBAction)editButtonPressed:(id)sender {
+
+- (IBAction)editButtonPressed:(id)sender
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ManageTeamsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ManageTeamsViewController"];
     vc.delegate = self;
@@ -90,7 +111,9 @@
 }
 
 #pragma mark - View Setup
--(void)setupView{
+
+- (void)setupView
+{
     self.navigationItem.title = @"Teams";
     self.navigationItem.hidesBackButton = YES;
     self.teamsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -103,7 +126,8 @@
     [self.removeButton setBackgroundImage:[UIImage imageNamed:@"remove-button"] forState:UIControlStateNormal];
 }
 
--(void)popoverController:(id)controller{
+- (void)popoverController:(id)controller
+{
     if ([controller isKindOfClass:[CreateTeamViewController class]] || [controller isKindOfClass:[SearchTeamViewController class]] || [controller isKindOfClass:[ManageTeamsViewController class]]) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
         RWBlurPopover *popover = [[RWBlurPopover alloc] initWithContentViewController:nav];
@@ -112,13 +136,18 @@
         self.createTeamPopover = popover;
     }
 }
+
 #pragma mark - BacklogViewControllerDelegate
--(void)tearDownObserverForKey:(NSString *)key{
+
+- (void)tearDownObserverForKey:(NSString *)key
+{
      [[[[[FIRDatabase database] reference] child:kScrumHead] child:key] removeAllObservers];
 }
 
 #pragma mark - CreateTeamViewControllerDelegate && SearchTeamViewControllerDelegate && ManageTeamViewControllerDelegate
--(void)createdNewTeam:(NSString*)inputText withPassword:(NSString*)password{
+
+- (void)createdNewTeam:(NSString *)inputText withPassword:(NSString *)password
+{
     Team *newTeam = [[Team alloc] initWithCreatorUID:[FirebaseManager sharedInstance].currentUser.uid andTeam:inputText];
     [[FirebaseManager sharedInstance].currentUser.groupsIDs addObject:inputText];
     [FirebaseManager createTeamWith:newTeam
@@ -127,21 +156,27 @@
                          [self.teamsTableView reloadData];
                      }];
 }
--(void)joinNewTeam:(NSString*)teamName {
+
+- (void)joinNewTeam:(NSString *)teamName
+{
     [FirebaseManager addUserToTeam:teamName
                            andUser:[FirebaseManager sharedInstance].currentUser.uid
                     withCompletion:^(BOOL result) {
                         [self.teamsTableView reloadData];
                     }];
 }
--(void)didJoinTeam{
+
+- (void)didJoinTeam
+{
     [self.teamsTableView reloadData];
 }
--(void)didLeave:(NSMutableArray*)selected{
+
+- (void)didLeave:(NSMutableArray *)selected
+{
     User *currentUser = [FirebaseManager sharedInstance].currentUser;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i = 0; i < [selected count]; i++) {
-        NSIndexPath *path = (NSIndexPath*)selected[i];
+        NSIndexPath *path = (NSIndexPath *)selected[i];
         NSInteger index = path.row;
         [array addObject:@(index)];
     }
@@ -149,15 +184,20 @@
         [self.teamsTableView reloadData];
     }];
 }
+
 #pragma mark - UITableViewDataSource && UITableViewDelegate
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
 
     TeamsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamCell" forIndexPath:indexPath];
+
     if ([[FirebaseManager sharedInstance].currentUser.groupsIDs count] == 0) {
         cell.teamNameLabel.text = @"No teams to display.";
         CGSize imageViewSize = cell.identiconImageView.frame.size;
         cell.userInteractionEnabled = NO;
         cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:arc4random() size:imageViewSize];
+    
         return cell;
     }
     NSString *teamName = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
@@ -167,37 +207,53 @@
     CGSize imageViewSize = cell.identiconImageView.frame.size;
     u_int32_t avatarIcon;
     NSUInteger hashForUser = [[NSUserDefaults standardUserDefaults] integerForKey:teamName];
-    if (hashForUser != 0){
+    
+    if (hashForUser != 0) {
         avatarIcon = (u_int32_t)hashForUser;
-    }else{
+    } else {
         avatarIcon = arc4random();
         NSUInteger iconHash = (NSUInteger)avatarIcon;
         [[NSUserDefaults standardUserDefaults] setInteger:iconHash forKey:teamName];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     cell.identiconImageView.image = [self.simpleIdenticonsGenerator imageFromUInt32:avatarIcon size:imageViewSize];
+    
     return cell;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     self.selectedTeam = [FirebaseManager sharedInstance].currentUser.groupsIDs[indexPath.section];
     [self performSegueWithIdentifier:@"SprintMenuToTeamSegue" sender:self];
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 78.0f;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     NSUInteger count = [[FirebaseManager sharedInstance].currentUser.groupsIDs count];
+    
     return (count == 0) ? 1 : count;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 5.0f;
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     UIView *v = [UIView new];
     [v setBackgroundColor:[UIColor clearColor]];
+
     return v;
 }
 

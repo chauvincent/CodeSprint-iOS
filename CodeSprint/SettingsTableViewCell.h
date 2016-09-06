@@ -18,6 +18,6 @@
 
 @property NSInteger cellIndex;
 
--(void)configureCellForIndexPath:(NSIndexPath*)index;
+- (void)configureCellForIndexPath:(NSIndexPath *)index;
 
 @end
