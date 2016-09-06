@@ -62,11 +62,6 @@
     //[FirebaseManager removeAllObservers];
 }
 
-- (void)dealloc
-{
-    NSLog(@"SprintMenuViewController NO LEAK");
-}
-
 - (void)dismiss
 {
     [self.navigationController popViewControllerAnimated:YES];

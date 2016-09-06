@@ -14,6 +14,7 @@
 
 @interface PopupSettingsViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UITextView *titleTextView;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
@@ -63,10 +64,11 @@
     switch (self.currentIndex) {
         case 0:
             self.navigationItem.title = @"Specification";
-            self.descriptionTextView.text = @"";
-            self.titleTextView.hidden = NO;
-            self.titleTextView.text = self.currentArtifact.productSpecs[_indexPath];
-            self.descriptionLabel.hidden = YES;
+            self.descriptionTextView.hidden = NO;
+            self.titleLabel.hidden = YES;
+            self.titleTextView.hidden = YES;
+            self.descriptionTextView.text = self.currentArtifact.productSpecs[_indexPath];
+            self.descriptionLabel.hidden = NO;
             self.completedButton.hidden = YES;
             break;
         case 1:

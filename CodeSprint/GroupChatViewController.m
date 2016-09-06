@@ -111,7 +111,6 @@
 - (void)dealloc
 {
     [self.delegate removeHandlersForTeam:self.imageDictionary andTeam:_currentTeam];
-    NSLog(@"GroupChatViewController NO LEAK");
 }
 
 - (void)didReceiveMemoryWarning
