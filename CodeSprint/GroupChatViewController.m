@@ -201,6 +201,15 @@
     return [[NSAttributedString alloc] initWithString:sender];
 }
 
+- (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    cell.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+    cell.avatarImageView.clipsToBounds = YES;
+    
+    return cell;
+}
+
 #pragma mark - Helper
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
