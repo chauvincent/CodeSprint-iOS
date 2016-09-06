@@ -36,6 +36,8 @@ Swipe it away if you want to dismiss.
 #### <i class="icon-folder-open"></i> Sprint Menu
 ![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/CSMenu2_zpscdnfc4cw.jpg)
 
+![enter image description here](http://i558.photobucket.com/albums/ss26/vincent_chau1/menu_zpsyytqbt0d.jpg)
+
 > **The Sprint Menu for the team is broken into 3 parts:**
 
 > - 1. Product Backlog: add all the project spec/requirements here.
