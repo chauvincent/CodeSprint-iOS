@@ -682,7 +682,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vincent-chau.codesprint";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5f1d0043-3f2e-4072-9d6b-77fcbb3048b0";
+				PROVISIONING_PROFILE = "3feec09c-b700-4524-baf1-9e76583ffaaf";
 				SDKROOT = iphoneos9.3;
 				SWIFT_OBJC_BRIDGING_HEADER = "CodeSprint/CodeSprint-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -707,7 +707,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vincent-chau.codesprint";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5f1d0043-3f2e-4072-9d6b-77fcbb3048b0";
+				PROVISIONING_PROFILE = "3feec09c-b700-4524-baf1-9e76583ffaaf";
 				SDKROOT = iphoneos9.3;
 				SWIFT_OBJC_BRIDGING_HEADER = "CodeSprint/CodeSprint-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
