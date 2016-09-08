@@ -242,6 +242,15 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
 
 #pragma mark - UITextFieldDelegate
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+ 
+    if (![touch.view isMemberOfClass:[UITextField class]]) {
+        [touch.view endEditing:YES];
+    }
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
 

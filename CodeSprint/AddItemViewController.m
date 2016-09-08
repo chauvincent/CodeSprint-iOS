@@ -234,6 +234,14 @@
 
 #pragma mark - UITextViewDelegate
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    if (![touch.view isMemberOfClass:[UITextField class]]) {
+        [touch.view endEditing:YES];
+    }
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"]) {
