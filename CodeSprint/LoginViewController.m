@@ -128,9 +128,12 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
             if (error) {
                 NSString *errorName = @"Error";
                 NSString *errorMsg = @"Error";
+                BOOL wrongPass = false;
                 
                 if (([@(error.code) isEqual:@(17009)])) {
-                    errorMsg = @"Invalid password. Please try again.";
+                    errorMsg = @"Invalid email or password. If you forgot your password, press reset and check your email to set a new password.";
+                    wrongPass = true;
+                    
                 } else if (([@(error.code) isEqual:@(17011)])) {
                     errorMsg = @"The email you entered does not exist. Please enter a valid email or create an account.";
                 } else {
@@ -138,6 +141,20 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
                 }
                 
                 UIAlertController *errorAlert = [errorCheck showAlertWithTitle:errorName andMessage:errorMsg andDismissNamed:@"OK"];
+                
+                if (wrongPass) {
+                    UIAlertAction *resetPassword = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        [[FIRAuth auth] sendPasswordResetWithEmail:inputText completion:^(NSError *_Nullable error) {
+                            
+                            if (error) {
+                                NSLog(@"%@", error.localizedDescription);
+                            }
+                        }];
+                    }];
+                    [errorAlert addAction:resetPassword];
+                    
+                }
+                
                 [self presentViewController:errorAlert animated:YES completion:nil];
             } else {
               // success
@@ -146,6 +163,11 @@ NSString *callbackUrl = @"https://code-spring-ios.firebaseapp.com/__/auth/handle
             }
         }];
     }
+}
+
+- (void)resetPass
+{
+    
 }
 
 - (IBAction)createButtonPressed:(id)sender
